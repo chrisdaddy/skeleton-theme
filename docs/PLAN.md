@@ -19,6 +19,7 @@
 |---|---|---|
 | 0. Setup | Done | Original foundation, new `AGENTS.md`, CI (Theme Check, unit tests, contrast) |
 | 1. Foundation | Done, pending store verification | See "Phase 1 delivered" below |
+| 2. Product page | Done offline, pending store verification | See "Phase 2 delivered" below. Quick-add sheet moved to Phase 4 (it belongs with product cards) |
 
 #### Phase 1 delivered
 
@@ -53,6 +54,32 @@
   - that `dm_sans_n4`, `dm_sans_n6`, `dm_sans_n7` and `instrument_serif_n4` are valid font handles;
   - that the editor's `visible_if` settings behave as expected;
   - that the Standard Actions handlers fire.
+
+#### Phase 2 delivered
+
+- **Section:** `main-product`, with a gallery whose first image is the LCP (`fetchpriority="high"`, `preload: true`, real `sizes`), sticky info column, product structured data, and `@theme` + `@app` blocks.
+- **Blocks:** 38 theme blocks (30 buy-box `product-*`, 6 content, 2 private). `templates/product.json` lays out the reference buy box; blocks with no real data (viewers, stock, award) ship disabled and render nothing without data.
+- **Offers (§7):**
+  - Tiers from `blueprint.tiers` or the pack option: variant, variant-size and mix modes.
+  - Every figure comes from the variant or its selling-plan allocation, in integer cents. Savings round down. `tools/lib/offer-math.mjs` mirrors the Liquid and is unit-tested against the §7.4 Verde table.
+  - All figures are pre-rendered per tier and plan; CSS `:has()` shows the checked ones, so prices are right with JS off.
+  - Each tier subscribes to its own plan (`subscription_plan_hint`). Without JS the form can only post the default plan, so when the two differ both are rendered and CSS shows the one that will post.
+  - Changing the delivery frequency re-renders the buy box for that plan (Section Rendering API), so the figures always match the plan in the form.
+  - A gift tier adds its gift as a separate line with `parent_id` (retried without it) and the `_bp_gift` property.
+- **JavaScript:** `bp-product.js` 3.0 KB, plus gallery, sticky bar, countdown and share modules, all lazy. Product page worst case (every block): JS 7.1 KB of 20 KB, CSS 6.2 KB of 30 KB. Both are now enforced by `tools/budget-check.mjs`.
+- **Checklist (§16):** `npm run check:buybox` (`tools/preview/checklist.mjs`) runs 451 checks in Chromium against the offline preview, and all of them pass. It covers every product × tier × plan × JS on/off:
+  - figures against `offer-math`, the selected style, gift badge, saving size and button total;
+  - the posted variant, plan and quantity, the gift line, and the no-JS landing on `/cart`;
+  - the preselected tier, under-button order, sticky bar, keyboard, `?tier=&plan=` deep links, and a flavour swap and a frequency change keeping state.
+  - Checks 10–11 (cart and checkout totals) need a store.
+- **Locales:** `tools/check-locales.mjs` runs in `npm test` and fails on any missing key.
+- **Screenshots:** `docs/screenshots/phase-2/` (every preset at 390 and 1440, buy box on tier 3 + subscribe, sticky bar). No console errors; layout shift ≤ 0.017.
+- **Still to verify on a store:**
+  - that `/cart/add.js` accepts `parent_id` for the gift line;
+  - that the last `id`/`quantity` value wins when the section's default inputs and a tier radio both post;
+  - that blocks set `"disabled": true` in `product.json` stay hidden;
+  - that dynamic checkout buttons read the synced `id` and `selling_plan` inputs;
+  - Lighthouse PDP ≥ 90 and the comparison with Dawn.
 
 **Inputs:**
 - `docs/brief/START_HERE.md`

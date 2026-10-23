@@ -86,8 +86,10 @@ if (!('command' in HTMLButtonElement.prototype)) {
 scan();
 scanReveal();
 
-// Re-scan sections the theme editor re-renders.
-document.addEventListener('shopify:section:load', (event) => {
-  scan(event.target);
-  scanReveal(event.target);
-});
+// Re-scan content the theme editor or the theme re-renders.
+for (const type of ['shopify:section:load', 'bp:content:replaced']) {
+  document.addEventListener(type, (event) => {
+    scan(event.target);
+    scanReveal(event.target);
+  });
+}

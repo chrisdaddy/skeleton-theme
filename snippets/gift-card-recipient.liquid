@@ -1,0 +1,28 @@
+{% doc %}
+  Optional recipient fields for gift card products. Shopify emails the gift card to the
+  recipient on the chosen date when these line item properties are present.
+
+  @param {string} form_id - The product form ID
+{% enddoc %}
+<details class="bp-gift-recipient">
+  <summary>{{ 'products.gift_card.send_as_gift' | t }}</summary>
+  <div class="bp-stack bp-stack--tight">
+    <label class="bp-field">
+      <span class="bp-label">{{ 'products.gift_card.email' | t }}</span>
+      <input class="bp-input" type="email" name="properties[Recipient email]" form="{{ form_id }}" autocomplete="off">
+    </label>
+    <label class="bp-field">
+      <span class="bp-label">{{ 'products.gift_card.name' | t }}</span>
+      <input class="bp-input" type="text" name="properties[Recipient name]" form="{{ form_id }}" autocomplete="off">
+    </label>
+    <label class="bp-field">
+      <span class="bp-label">{{ 'products.gift_card.message' | t }}</span>
+      <textarea class="bp-input" name="properties[Message]" rows="3" maxlength="200" form="{{ form_id }}"></textarea>
+    </label>
+    <label class="bp-field">
+      <span class="bp-label">{{ 'products.gift_card.send_on' | t }}</span>
+      <input class="bp-input" type="date" name="properties[Send on]" form="{{ form_id }}" pattern="\d{4}-\d{2}-\d{2}">
+    </label>
+    <input type="hidden" name="properties[__shopify_send_gift_card_to_recipient]" value="on" form="{{ form_id }}">
+  </div>
+</details>

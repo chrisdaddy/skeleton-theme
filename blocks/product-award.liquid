@@ -1,0 +1,39 @@
+{% doc %}
+  An award the product has won, with an optional logo.
+{% enddoc %}
+{%- if block.settings.text != blank -%}
+  <p class="bp-award" {{ block.shopify_attributes }}>
+    {%- if block.settings.image -%}
+      {{ block.settings.image | image_url: width: 120 | image_tag: height: 24, loading: 'lazy', alt: '' }}
+    {%- else -%}
+      {%- render 'icon', name: 'award' -%}
+    {%- endif -%}
+    <span>{{ block.settings.text | escape }}</span>
+  </p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_award.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "t:blocks.product_award.settings.text.label",
+      "info": "t:blocks.product_award.settings.text.info",
+      "placeholder": "Best in class 2026"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:blocks.product_award.settings.image.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_award.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

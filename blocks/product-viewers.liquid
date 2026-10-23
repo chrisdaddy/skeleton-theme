@@ -1,0 +1,40 @@
+{% doc %}
+  Live viewer count. Renders only when an integration writes blueprint.live_viewers; never invented.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign viewers = product.metafields.blueprint.live_viewers.value | default: 0
+-%}
+{%- if viewers >= block.settings.minimum -%}
+  <p class="bp-inline-note" {{ block.shopify_attributes }}>
+    {%- render 'icon', name: 'eye' -%}
+    {{ 'products.viewers' | t: count: viewers }}
+  </p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_viewers.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_viewers.settings.info"
+    },
+    {
+      "type": "range",
+      "id": "minimum",
+      "label": "t:blocks.product_viewers.settings.minimum.label",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_viewers.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

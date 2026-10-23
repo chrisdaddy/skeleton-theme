@@ -10,8 +10,9 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { Liquid, Tag } from 'liquidjs';
+import { Hash, Liquid, Tag } from 'liquidjs';
 import { contrast, mix } from '../lib/color.mjs';
+import { buildDemoProducts, productForRequest } from './mock-products.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const theme = join(here, '..', '..');
@@ -25,6 +26,10 @@ const locale = readJson(join(theme, 'locales/en.default.json'));
 
 // Preset → the demo store whose content it previews (START_HERE build order, step 7).
 export const PRESET_STORES = { Clinical: 'verde', Editorial: 'ode', Bold: 'rawform' };
+
+export const PRODUCTS = buildDemoProducts(demo);
+export const PRESET_PRODUCTS = { Clinical: PRODUCTS.verde, Editorial: PRODUCTS.ode, Bold: PRODUCTS.rawform };
+export const presetForHandle = (handle) => Object.keys(PRESET_PRODUCTS).find((p) => PRESET_PRODUCTS[p].handle === handle);
 
 // ---------- Fonts ----------
 
@@ -142,10 +147,14 @@ engine.registerTag(
       stream.start();
     }
     *render(ctx, emitter) {
-      const cls = /class:\s*'([^']*)'/.exec(this.args)?.[1] ?? '';
-      const id = /id:\s*'([^']*)'/.exec(this.args)?.[1] ?? '';
+      // Mirrors Shopify's output: the action for the form type, plus form_type and utf8 inputs.
+      const type = /^\s*'([\w-]+)'/.exec(this.args)?.[1] ?? '';
+      const named = yield new Hash(this.args.replace(/^\s*'[\w-]+'\s*(,\s*[\w.]+\s*(?=,|$))?\s*,?/, '')).render(ctx);
+      const actions = { product: '/cart/add', contact: '/contact', customer: '/contact#contact_form', storefront_password: '/password', localization: '/localization' };
+      const attrs = Object.entries(named).map(([k, v]) => ` ${k}="${String(v).replace(/"/g, '&quot;')}"`).join('');
+      const enctype = type === 'product' ? ' enctype="multipart/form-data"' : '';
       ctx.push({ form: { posted_successfully_q: false, errors: null } });
-      emitter.write(`<form method="post" action="#"${cls ? ` class="${cls}"` : ''}${id ? ` id="${id}"` : ''}>`);
+      emitter.write(`<form method="post" action="${actions[type] ?? '#'}" accept-charset="UTF-8"${enctype}${attrs}><input type="hidden" name="form_type" value="${type}"><input type="hidden" name="utf8" value="✓">`);
       yield this.liquid.renderer.renderTemplates(this.templates, ctx, emitter);
       emitter.write('</form>');
       ctx.pop();
@@ -191,6 +200,41 @@ engine.registerTag(
   },
 );
 
+// {% content_for 'blocks' %}: renders the current section's or block's child theme blocks.
+engine.registerTag(
+  'content_for',
+  class extends Tag {
+    constructor(token, remainTokens, liquid) {
+      super(token, remainTokens, liquid);
+      this.kind = /'(\w+)'/.exec(token.args)?.[1];
+    }
+    *render(ctx, emitter) {
+      if (this.kind !== 'blocks') return;
+      const children = ctx.getSync(['__children']) ?? [];
+      const section = ctx.getSync(['section']);
+      const globals = ctx.getSync(['__globals']);
+      for (const child of children) emitter.write(yield renderBlock(child, section, globals));
+    }
+  },
+);
+
+const blockSchema = (type) => {
+  const source = readFileSync(join(theme, 'blocks', `${type}.liquid`), 'utf8');
+  const json = /\{%-?\s*schema\s*-?%\}([\s\S]*?)\{%-?\s*endschema\s*-?%\}/.exec(source)?.[1];
+  return json ? JSON.parse(json) : {};
+};
+
+// Child block data from a JSON template ({ blocks: {...}, block_order: [...] }) as a list.
+const childList = (data) => (data.block_order ?? []).map((id) => ({ id, ...data.blocks[id] })).filter((b) => !b.disabled);
+
+async function renderBlock(child, section, globals) {
+  if (child.type === '@app') return '';
+  const schemaDef = blockSchema(child.type);
+  const block = { id: child.id, type: child.type, shopify_attributes: `data-block="${child.type}"`, settings: resolveSettings(schemaDef.settings, child.settings, globals) };
+  const source = fs.readFileSync(join(theme, 'blocks', `${child.type}.liquid`));
+  return engine.parseAndRender(source, { section, block, __children: childList(child), __globals: globals }, { globals });
+}
+
 // ---------- Filters ----------
 
 function translate(key, args = {}) {
@@ -217,11 +261,60 @@ const filters = {
   payment_type_svg_tag: (type) =>
     `<svg viewBox="0 0 38 24" role="img" aria-label="${type}"><rect x=".5" y=".5" width="37" height="23" rx="3" fill="#fff" stroke="#bbb"/><text x="19" y="15" font-size="7" text-anchor="middle" fill="#333">${type.slice(0, 6)}</text></svg>`,
   default_errors: () => '',
-  image_url: () => '',
-  image_tag: () => '',
+  image_url: (image) => placeholder(image?.alt || image?.title || String(image ?? '')),
+  image_tag: (url, ...args) => {
+    const a = Object.fromEntries(args.filter(Array.isArray));
+    const attrs = ['alt', 'loading', 'fetchpriority', 'sizes', 'class', 'width', 'height', 'style']
+      .filter((k) => a[k] !== undefined && a[k] !== null)
+      .map((k) => `${k}="${String(a[k]).replace(/"/g, '&quot;')}"`)
+      .join(' ');
+    return `<img src="${url}" ${attrs}${a.width ? '' : ' width="800" height="800"'}>`;
+  },
+  placeholder_svg_tag: (name, cls) => `<svg class="${cls ?? ''}" viewBox="0 0 10 10"><rect width="10" height="10" fill="currentColor" opacity=".15"/></svg>`,
+  metafield_tag: (field) => field?.value ?? '',
+  payment_button: () => `<div class="shopify-payment-button"><button type="button" class="shopify-payment-button__button" disabled>Buy with Shop Pay (dynamic checkout, mocked)</button></div>`,
+  video_tag: () => '',
+  external_video_tag: () => '',
+  model_viewer_tag: () => '',
   time_tag: (value) => String(value),
   format_code: (value) => value,
+  // Shopify divides two integers as integers (the result is floored); LiquidJS doesn't by default.
+  divided_by: (a, b) => (Number.isInteger(Number(a)) && Number.isInteger(Number(b)) ? Math.floor(Number(a) / Number(b)) : Number(a) / Number(b)),
+  date: (value, format, ...rest) => {
+    if (Array.isArray(format) && format[0] === 'format') format = { abbreviated_date: '%b %d, %Y', date: '%B %d, %Y' }[format[1]] ?? '%b %d, %Y';
+    return strftime(value, format);
+  },
 };
+
+// Labelled placeholder image (like the reference demo's image slots), from the shot description.
+function placeholder(label) {
+  const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const lines = [];
+  for (const word of String(label).split(' ')) {
+    if (!lines.length || (lines.at(-1) + ' ' + word).length > 30) lines.push(word);
+    else lines[lines.length - 1] += ' ' + word;
+  }
+  const text = lines
+    .slice(0, 6)
+    .map((line, i) => `<text x='400' y='${400 - lines.length * 20 + i * 42}'>${esc(line)}</text>`)
+    .join('');
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'><rect width='800' height='800' fill='#D8D5CE'/><g font-family='sans-serif' font-size='30' fill='#3F3C37' text-anchor='middle'>${text}</g><text x='400' y='760' font-family='sans-serif' font-size='20' fill='#5E5A54' text-anchor='middle'>Placeholder · photography to come</text></svg>`;
+  return 'data:image/svg+xml,' + encodeURIComponent(svg);
+}
+
+// The strftime subset the theme uses, in UTC.
+function strftime(value, format = '%Y-%m-%d') {
+  const date = value === 'now' || value === 'today' ? new Date() : typeof value === 'number' || /^\d+$/.test(String(value)) ? new Date(Number(value) * 1000) : new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  const pad = (n) => String(n).padStart(2, '0');
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const map = {
+    Y: date.getUTCFullYear(), m: pad(date.getUTCMonth() + 1), d: pad(date.getUTCDate()), H: pad(date.getUTCHours()), M: pad(date.getUTCMinutes()),
+    s: Math.floor(date.getTime() / 1000), u: date.getUTCDay() || 7, z: '+0000', b: months[date.getUTCMonth()],
+    B: date.toLocaleString('en', { month: 'long', timeZone: 'UTC' }),
+  };
+  return String(format).replace(/%(\w)/g, (m, k) => (k in map ? map[k] : m));
+}
 for (const [name, fn] of Object.entries(filters)) engine.registerFilter(name, fn);
 
 // ---------- Sections ----------
@@ -238,20 +331,21 @@ function resolveSettings(definitions = [], values = {}, scope) {
   return resolved;
 }
 
-async function renderSections(json, scope, groupClass = '') {
+export async function renderSections(json, scope, groupClass = '', onlyId = null) {
   let html = '';
   for (const id of json.order) {
     const data = json.sections[id];
     if (data.disabled) continue;
+    if (onlyId && id !== onlyId) continue;
     const schemaDef = sectionSchema(data.type);
     const blocks = (data.block_order ?? []).map((blockId) => {
       const block = data.blocks[blockId];
       const def = (schemaDef.blocks ?? []).find((b) => b.type === block.type) ?? {};
-      return { id: blockId, type: block.type, shopify_attributes: '', settings: resolveSettings(def.settings, block.settings, scope) };
+      return { id: blockId, type: block.type, shopify_attributes: '', settings: resolveSettings(def.settings, block.settings ?? {}, scope) };
     });
     const section = { id, settings: resolveSettings(schemaDef.settings, data.settings, scope), blocks };
     const source = fs.readFileSync(join(theme, 'sections', `${data.type}.liquid`));
-    const body = await engine.parseAndRender(source, { section }, { globals: scope });
+    const body = await engine.parseAndRender(source, { section, __children: childList(data), __globals: scope }, { globals: scope });
     html += `<div id="shopify-section-${id}" class="shopify-section ${groupClass} ${schemaDef.class ?? ''}">${body}</div>\n`;
   }
   return html;
@@ -268,18 +362,22 @@ const fontLinks = (settings) => {
     @font-face { font-family: 'DM Sans Fallback Arial'; src: local('Liberation Sans'); ascent-override: 94.9001%; descent-override: 29.6563%; line-gap-override: 0%; size-adjust: 104.531%; }
     @font-face { font-family: 'Instrument Serif Fallback Times'; src: local('Liberation Serif'); ascent-override: 117.9435%; descent-override: 36.9318%; line-gap-override: 0%; size-adjust: 83.9385%; }
   </style>`;
-  return `<link rel="icon" href="data:,">` + local + links.map((href) => `<link rel="stylesheet" href="../fonts/${href}">`).join('');
+  return `<link rel="icon" href="data:,">` + local + links.map((href) => `<link rel="stylesheet" href="/fonts/${href}">`).join('');
 };
 
-async function renderPage(preset, page) {
+export async function renderPage(preset, page, query = new URLSearchParams(), onlySection = null) {
   const store = demo.stores[PRESET_STORES[preset]];
   const mock = mockStore(store);
   const settings = themeSettings(preset, store);
+  const product = page.type === 'product' ? productForRequest(PRESET_PRODUCTS[preset], query) : null;
   const scope = {
+    product,
+    closest: { product },
+    request: { locale: { iso_code: 'en' }, page_type: page.type, origin: 'http://localhost' },
     ...mock,
     settings,
-    request: { locale: { iso_code: 'en' }, page_type: page.type },
     routes: {
+      cart_add_url: '/cart/add',
       root_url: '/',
       cart_url: '/cart',
       search_url: '/search',
@@ -289,13 +387,16 @@ async function renderPage(preset, page) {
     template: { name: page.type },
     page_title: page.title,
     canonical_url: '#',
-    content_for_header: '',
+    content_for_header: `<script>window.Shopify = { routes: { root: '/' } };</script>`,
   };
+  scope.__globals = scope;
   // The announcement bar previews the demo store's own messages.
   const headerGroup = readJson(join(theme, 'sections/header-group.json'));
   headerGroup.sections.announcement.block_order = mock.announcements.map((_, i) => `m${i}`);
   headerGroup.sections.announcement.blocks = Object.fromEntries(mock.announcements.map((text, i) => [`m${i}`, { type: 'message', settings: { text } }]));
   groupOverrides['header-group'] = headerGroup;
+
+  if (onlySection) return renderSections(readJson(join(theme, 'templates', `${page.template}.json`)), scope, '', onlySection);
 
   scope.content_for_layout = page.template
     ? await renderSections(readJson(join(theme, 'templates', `${page.template}.json`)), scope)
@@ -303,12 +404,13 @@ async function renderPage(preset, page) {
 
   const layoutSource = fs.readFileSync(join(theme, 'layout', `${page.layout ?? 'theme'}.liquid`));
   let html = await engine.parseAndRender(layoutSource, {}, { globals: scope });
-  html = html.replace('</head>', `${fontLinks(settings)}</head>`);
+  html = html.replace('</head>', `${fontLinks(settings)}</head>`).replaceAll('"../assets/', '"/assets/').replaceAll("'../assets/", "'/assets/");
   return html;
 }
 
 export const PAGES = [
   { name: 'home', type: 'index', title: 'Home', template: 'index' },
+  { name: 'product', type: 'product', title: 'Product', template: 'product' },
   { name: 'styleguide', type: 'page', title: 'Style guide', file: 'styleguide.liquid-preview' },
 ];
 

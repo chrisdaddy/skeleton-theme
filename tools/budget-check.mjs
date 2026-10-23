@@ -15,6 +15,9 @@ export const BUDGET = {
   everyPageJs: 8 * 1024, // Phase 1 target; the PDP total cap is 20 KB.
   everyPageCss: 15 * 1024,
   lazyChunk: 12 * 1024,
+  // A product page: every-page assets plus everything the product section and blocks can load.
+  productJs: 20 * 1024,
+  productCss: 30 * 1024,
 };
 
 const assetRefs = (text) => [...text.matchAll(/'([\w.-]+\.(?:js|css))'\s*\|\s*asset_url/g)].map((m) => m[1]);
@@ -34,15 +37,23 @@ export function measure() {
       for (const m of text.matchAll(/data-bp-module="\{\{\s*'([\w.-]+\.js)'\s*\|\s*asset_url\s*\}\}"/g)) lazy.add(m[1]);
     }
   }
+  // Product page: main-product, its blocks and their snippets (worst case: every block present).
+  const product = new Set();
+  const productFiles = ['sections/main-product.liquid', ...readdirSync(new URL('blocks/', root)).map((f) => `blocks/${f}`), ...readdirSync(new URL('snippets/', root)).filter((f) => /^(product-|offer-)/.test(f)).map((f) => `snippets/${f}`)];
+  for (const file of productFiles) {
+    const text = read(file);
+    for (const m of text.matchAll(/'([\w.-]+\.(?:js|css))'\s*\|\s*asset_url/g)) product.add(m[1]);
+  }
   const size = (file) => brotli(read(`assets/${file}`));
   return {
     everyPage: everyPage.map((file) => ({ file, bytes: size(file) })),
     lazy: [...lazy].map((file) => ({ file, bytes: size(file) })),
+    product: [...new Set([...everyPage, ...product])].map((file) => ({ file, bytes: size(file) })),
   };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const { everyPage, lazy } = measure();
+  const { everyPage, lazy, product } = measure();
   const kb = (n) => `${(n / 1024).toFixed(1)} KB`;
   const sum = (list, ext) => list.filter((a) => a.file.endsWith(ext)).reduce((t, a) => t + a.bytes, 0);
   const problems = [];
@@ -58,6 +69,11 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.log(`  ${a.file.padEnd(28)} ${kb(a.bytes)}`);
     if (a.bytes > BUDGET.lazyChunk) problems.push(`${a.file} ${kb(a.bytes)} exceeds ${kb(BUDGET.lazyChunk)}`);
   }
+  const productJs = sum(product, '.js');
+  const productCss = sum(product, '.css');
+  console.log(`Product page (every block): JS ${kb(productJs)} of ${kb(BUDGET.productJs)}, CSS ${kb(productCss)} of ${kb(BUDGET.productCss)}`);
+  if (productJs > BUDGET.productJs) problems.push(`product page JS ${kb(productJs)} exceeds ${kb(BUDGET.productJs)}`);
+  if (productCss > BUDGET.productCss) problems.push(`product page CSS ${kb(productCss)} exceeds ${kb(BUDGET.productCss)}`);
   if (problems.length) {
     console.error(`\nOver budget:\n  ${problems.join('\n  ')}`);
     process.exit(1);

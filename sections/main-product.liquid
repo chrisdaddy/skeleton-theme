@@ -1,73 +1,93 @@
 {% comment %}
-  Product page: gallery and a buy form that works without JavaScript.
-  Phase 2 replaces this with the full buy box built from theme blocks (docs/PLAN.md §5).
+  Product page. The info column is the buy box: every part of it is a theme block
+  (blocks/product-*.liquid), so merchants add, remove and reorder parts in the editor.
+
+  One product form serves every block. The buy-buttons block owns the <form> (so
+  dynamic checkout buttons sit inside it), and every other block points its inputs
+  at it with the form attribute. The default id and quantity are printed here,
+  before any block, so tier radios, the quantity block and plan radios later in
+  the page take precedence (the last value of a repeated field wins).
 {% endcomment %}
-{%- assign current_variant = product.selected_or_first_available_variant -%}
-<div class="bp-section bp-page-width bp-product">
+{{ 'section-product.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign form_id = 'ProductForm-' | append: section.id
+-%}
+<div
+  class="bp-section bp-page-width bp-product bp-product--media-{{ section.settings.media_size }}"
+  style="--bp-media-fit: {{ section.settings.media_fit }};"
+  data-surface="{{ section.settings.surface_style }}"
+>
   <div class="bp-product__media">
-    {%- if product.featured_media -%}
-      {{
-        product.featured_media
-        | image_url: width: 1400
-        | image_tag:
-          widths: '360, 540, 720, 900, 1080, 1400',
-          sizes: '(min-width: 990px) 55vw, 100vw',
-          loading: 'eager',
-          fetchpriority: 'high',
-          preload: true
-      }}
-    {%- endif -%}
+    {%- render 'product-gallery', product: product, id_prefix: section.id -%}
   </div>
-  <div class="bp-product__info">
-    <h1>{{ product.title | escape }}</h1>
-    <p class="bp-price">{{ current_variant.price | money }}</p>
-    {%- form 'product', product, class: 'bp-stack' -%}
-      {%- if product.has_only_default_variant -%}
-        <input type="hidden" name="id" value="{{ current_variant.id }}">
-      {%- else -%}
-        <label for="Variant-{{ section.id }}">{{ 'products.variant' | t }}</label>
-        <select class="bp-select" id="Variant-{{ section.id }}" name="id">
-          {%- for variant in product.variants -%}
-            <option
-              value="{{ variant.id }}"
-              {% if variant == current_variant %}
-                selected
-              {% endif %}
-              {% unless variant.available %}
-                disabled
-              {% endunless %}
-            >
-              {{ variant.title | escape }} – {{ variant.price | money }}
-            </option>
-          {%- endfor -%}
-        </select>
-      {%- endif -%}
-      <label for="Quantity-{{ section.id }}">{{ 'products.quantity' | t }}</label>
-      <input id="Quantity-{{ section.id }}" class="bp-input" type="number" name="quantity" value="1" min="1">
-      <button type="submit" class="bp-button" {% unless current_variant.available %}disabled{% endunless %}>
-        {%- if current_variant.available -%}
-          {{ 'products.add_to_cart' | t }}
-        {%- else -%}
-          {{ 'products.sold_out' | t }}
-        {%- endif -%}
-      </button>
-      {{ form | payment_button }}
-    {%- endform -%}
-    {%- for block in section.blocks -%}
-      {% render block %}
-    {%- endfor -%}
-    <div class="bp-rte">{{ product.description }}</div>
-  </div>
+
+  <bp-product
+    class="bp-product__info bp-buybox{% if section.settings.sticky_info %} bp-product__info--sticky{% endif %}"
+    data-section-id="{{ section.id }}"
+    data-product-url="{{ product.url }}"
+    data-form-id="{{ form_id }}"
+    data-cart-url="{{ routes.cart_url }}"
+    data-error-message="{{ 'products.errors.generic' | t | escape }}"
+    data-bp-module="{{ 'bp-product.js' | asset_url }}"
+    data-bp-load="idle"
+  >
+    <input type="hidden" name="id" value="{{ current_variant.id }}" form="{{ form_id }}">
+    <input type="hidden" name="quantity" value="1" form="{{ form_id }}">
+    {% content_for 'blocks' %}
+  </bp-product>
 </div>
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
 
 {% schema %}
 {
   "name": "t:sections.main_product.name",
+  "class": "bp-section-product",
   "blocks": [
-    {
-      "type": "@app"
-    }
+    { "type": "@theme" },
+    { "type": "@app" }
   ],
-  "settings": []
+  "settings": [
+    {
+      "type": "select",
+      "id": "media_size",
+      "label": "t:sections.main_product.settings.media_size.label",
+      "default": "large",
+      "options": [
+        { "value": "medium", "label": "t:sections.main_product.settings.media_size.options.medium" },
+        { "value": "large", "label": "t:sections.main_product.settings.media_size.options.large" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "media_fit",
+      "label": "t:sections.main_product.settings.media_fit.label",
+      "default": "cover",
+      "options": [
+        { "value": "cover", "label": "t:sections.main_product.settings.media_fit.options.cover" },
+        { "value": "contain", "label": "t:sections.main_product.settings.media_fit.options.contain" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_info",
+      "label": "t:sections.main_product.settings.sticky_info.label",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "t:sections.common.settings.surface_style.options.default" },
+        { "value": "surface", "label": "t:sections.common.settings.surface_style.options.surface" },
+        { "value": "inverse", "label": "t:sections.common.settings.surface_style.options.inverse" }
+      ]
+    }
+  ]
 }
 {% endschema %}

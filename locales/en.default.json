@@ -38,14 +38,102 @@
     "page_of": "Page {{ current }} of {{ total }}",
     "previous": "Previous",
     "next": "Next",
-    "copyright": "© {{ year }} {{ shop }}"
+    "copyright": "© {{ year }} {{ shop }}",
+    "close": "Close",
+    "thousands_separator": ","
   },
   "products": {
     "variant": "Option",
     "quantity": "Quantity",
     "add_to_cart": "Add to cart",
     "sold_out": "Sold out",
-    "price_from": "From {{ price }}"
+    "price_from": "From {{ price }}",
+    "description": "Description",
+    "quantity_decrease": "Decrease quantity",
+    "quantity_increase": "Increase quantity",
+    "price": {
+      "regular": "Regular price",
+      "taxes_included": "Taxes included.",
+      "taxes_at_checkout": "Taxes and shipping calculated at checkout."
+    },
+    "rating": {
+      "count": {
+        "one": "{{ formatted }} review",
+        "other": "{{ formatted }} reviews"
+      },
+      "label": "Rated {{ rating }} out of {{ max }}"
+    },
+    "sold_today": {
+      "one": "{{ count }} bought today",
+      "other": "{{ count }} bought today"
+    },
+    "viewers": {
+      "one": "{{ count }} person is viewing this right now",
+      "other": "{{ count }} people are viewing this right now"
+    },
+    "stock": {
+      "low": {
+        "one": "Only {{ count }} left",
+        "other": "Only {{ count }} left"
+      },
+      "in_stock": "In stock, ready to ship"
+    },
+    "offer": {
+      "free_gift": "Free gift",
+      "per_month": "{{ price }}/mo",
+      "total": "{{ price }} total",
+      "per_unit": "{{ price }} / {{ unit }}",
+      "save_pct": "Save {{ pct }}%",
+      "mix_price": "{{ quantity }} × {{ price }}",
+      "mix_item": "Item"
+    },
+    "plans": {
+      "legend": "Purchase options",
+      "one_time": "One-time purchase",
+      "subscribe": "Subscribe & save",
+      "frequency": "Delivery frequency"
+    },
+    "shipping_countdown": {
+      "static": "Order before {{ time }} for same-day dispatch",
+      "live": "Order in [time] for delivery by [date]"
+    },
+    "delivery_estimate": "Estimated delivery {{ earliest }} – {{ latest }}",
+    "ingredients": {
+      "name": "Ingredient",
+      "dose": "Dose",
+      "why": "Why it's there",
+      "coa": "See the full label and batch certificate of analysis"
+    },
+    "pickup": {
+      "available": "Pickup available at {{ location }}",
+      "unavailable": "Pickup currently unavailable at {{ location }}",
+      "more": {
+        "one": "{{ count }} location",
+        "other": "{{ count }} locations"
+      }
+    },
+    "upsell": {
+      "add": "Add"
+    },
+    "share": {
+      "label": "Share",
+      "copied": "Link copied"
+    },
+    "gift_card": {
+      "send_as_gift": "Send as a gift",
+      "email": "Recipient email",
+      "name": "Recipient name (optional)",
+      "message": "Message (optional)",
+      "send_on": "Send on (optional)"
+    },
+    "gallery": {
+      "label": "Product media",
+      "show_media": "Show media {{ index }} of {{ count }}"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again."
+    },
+    "added": "Added to your cart"
   },
   "cart": {
     "title": "Cart",

@@ -1,0 +1,40 @@
+{% doc %}
+  A gift-with-purchase line with the green FREE GIFT badge.
+{% enddoc %}
+{%- if block.settings.text != blank -%}
+  <p class="bp-gift-note" {{ block.shopify_attributes }}>
+    <span class="bp-badge bp-badge--gift">{%- render 'icon', name: 'gift' -%}{{ 'products.offer.free_gift' | t }}</span>
+    <span>{{ block.settings.text | escape }}</span>
+    {%- if block.settings.value_label != blank -%}<span class="bp-muted">· {{ block.settings.value_label | escape }}</span>{%- endif -%}
+  </p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_gift.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_gift.settings.info"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "t:blocks.product_gift.settings.text.label",
+      "placeholder": "Steel shaker with your first subscription order"
+    },
+    {
+      "type": "text",
+      "id": "value_label",
+      "label": "t:blocks.product_gift.settings.value_label.label",
+      "placeholder": "$18 value"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_gift.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

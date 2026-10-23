@@ -1,0 +1,43 @@
+{% doc %}
+  Local pickup availability for the selected variant.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign variant = product.selected_or_first_available_variant
+  assign pickup = variant.store_availabilities | where: 'pick_up_enabled', true
+-%}
+{%- if pickup.size > 0 -%}
+  <div class="bp-inline-note bp-pickup" {{ block.shopify_attributes }}>
+    {%- render 'icon', name: 'pin' -%}
+    <span>
+      {%- assign first = pickup.first -%}
+      {%- if first.available -%}
+        {{ 'products.pickup.available' | t: location: first.location.name }}
+        <span class="bp-muted">{{ first.pick_up_time | escape }}</span>
+      {%- else -%}
+        {{ 'products.pickup.unavailable' | t: location: first.location.name }}
+      {%- endif -%}
+      {%- if pickup.size > 1 -%}
+        <span class="bp-muted"> · {{ 'products.pickup.more' | t: count: pickup.size }}</span>
+      {%- endif -%}
+    </span>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_pickup.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_pickup.settings.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_pickup.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

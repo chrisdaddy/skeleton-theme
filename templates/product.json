@@ -2,8 +2,114 @@
   "sections": {
     "main": {
       "type": "main-product",
+      "blocks": {
+        "rating": {
+          "type": "product-rating",
+          "settings": {}
+        },
+        "viewers": {
+          "type": "product-viewers",
+          "settings": {},
+          "disabled": true
+        },
+        "award": {
+          "type": "product-award",
+          "settings": {},
+          "disabled": true
+        },
+        "title": {
+          "type": "product-title",
+          "settings": {}
+        },
+        "price": {
+          "type": "product-price",
+          "settings": {}
+        },
+        "benefits": {
+          "type": "product-benefits",
+          "settings": {}
+        },
+        "stock": {
+          "type": "product-stock",
+          "settings": {},
+          "disabled": true
+        },
+        "variants": {
+          "type": "product-variant-picker",
+          "settings": {}
+        },
+        "bundle": {
+          "type": "product-offer-tiers",
+          "settings": {}
+        },
+        "plans": {
+          "type": "product-purchase-options",
+          "settings": {}
+        },
+        "shipping": {
+          "type": "product-shipping-countdown",
+          "settings": {},
+          "disabled": true
+        },
+        "buttons": {
+          "type": "product-buy-buttons",
+          "settings": {}
+        },
+        "proof": {
+          "type": "product-proof-line",
+          "settings": {}
+        },
+        "trust": {
+          "type": "product-trust-tiles",
+          "settings": {}
+        },
+        "payment": {
+          "type": "product-payment-icons",
+          "settings": {}
+        },
+        "guarantee": {
+          "type": "product-guarantee",
+          "settings": {}
+        },
+        "moneyback": {
+          "type": "product-moneyback",
+          "settings": {},
+          "disabled": true
+        },
+        "faq": {
+          "type": "product-faq",
+          "settings": {}
+        },
+        "sticky": {
+          "type": "product-sticky-atc",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rating",
+        "viewers",
+        "award",
+        "title",
+        "price",
+        "benefits",
+        "stock",
+        "variants",
+        "bundle",
+        "plans",
+        "shipping",
+        "buttons",
+        "proof",
+        "trust",
+        "payment",
+        "guarantee",
+        "moneyback",
+        "faq",
+        "sticky"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

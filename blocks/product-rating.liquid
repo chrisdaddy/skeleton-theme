@@ -1,0 +1,39 @@
+{% doc %}
+  Star rating and review count from Shopify's standard review metafields. Renders nothing without reviews.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign rating = product.metafields.reviews.rating.value
+  assign count = product.metafields.reviews.rating_count.value | default: 0
+-%}
+{%- if rating != blank and count > 0 -%}
+  <a class="bp-rating" href="{{ block.settings.link | default: '#reviews' }}" {{ block.shopify_attributes }}>
+    {%- render 'rating-stars', rating: rating.rating, scale_max: rating.scale_max -%}
+    <span class="bp-rating__value">{{ rating.rating | round: 1 }}</span>
+    <span class="bp-muted">{%- capture count_label %}{% render 'format-number', number: count %}{% endcapture -%}
+    {{ 'products.rating.count' | t: count: count, formatted: count_label }}</span>
+  </a>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_rating.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_rating.settings.info"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:blocks.product_rating.settings.link.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_rating.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,185 @@
+{% doc %}
+  A collapsible row (details/summary), from rich text or a page.
+{% enddoc %}
+{%- liquid
+  assign content = block.settings.content
+  if block.settings.page != blank
+    assign content = block.settings.page.content
+  endif
+-%}
+{%- if block.settings.heading != blank and content != blank -%}
+  <details class="bp-accordion" {% if block.settings.open %}open{% endif %} {{ block.shopify_attributes }}>
+    <summary class="bp-accordion__summary">
+      {%- render 'icon', name: block.settings.icon -%}
+      <span>{{ block.settings.heading | escape }}</span>
+      {%- render 'icon', name: 'plus', class: 'bp-accordion__toggle' -%}
+    </summary>
+    <div class="bp-accordion__content bp-rte">{{ content }}</div>
+  </details>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.accordion.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:blocks.accordion.settings.heading.label",
+      "default": "How to use"
+    },
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "t:blocks.common.settings.icon.label",
+      "default": "leaf",
+      "options": [
+        {
+          "value": "leaf",
+          "label": "t:blocks.common.icons.leaf"
+        },
+        {
+          "value": "flask",
+          "label": "t:blocks.common.icons.flask"
+        },
+        {
+          "value": "drop",
+          "label": "t:blocks.common.icons.drop"
+        },
+        {
+          "value": "shield",
+          "label": "t:blocks.common.icons.shield"
+        },
+        {
+          "value": "bolt",
+          "label": "t:blocks.common.icons.bolt"
+        },
+        {
+          "value": "sparkle",
+          "label": "t:blocks.common.icons.sparkle"
+        },
+        {
+          "value": "truck",
+          "label": "t:blocks.common.icons.truck"
+        },
+        {
+          "value": "refresh",
+          "label": "t:blocks.common.icons.refresh"
+        },
+        {
+          "value": "layers",
+          "label": "t:blocks.common.icons.layers"
+        },
+        {
+          "value": "users",
+          "label": "t:blocks.common.icons.users"
+        },
+        {
+          "value": "coin",
+          "label": "t:blocks.common.icons.coin"
+        },
+        {
+          "value": "clock",
+          "label": "t:blocks.common.icons.clock"
+        },
+        {
+          "value": "heart",
+          "label": "t:blocks.common.icons.heart"
+        },
+        {
+          "value": "moon",
+          "label": "t:blocks.common.icons.moon"
+        },
+        {
+          "value": "star",
+          "label": "t:blocks.common.icons.star"
+        },
+        {
+          "value": "paw",
+          "label": "t:blocks.common.icons.paw"
+        },
+        {
+          "value": "check",
+          "label": "t:blocks.common.icons.check"
+        },
+        {
+          "value": "x",
+          "label": "t:blocks.common.icons.x"
+        },
+        {
+          "value": "chart",
+          "label": "t:blocks.common.icons.chart"
+        },
+        {
+          "value": "flame",
+          "label": "t:blocks.common.icons.flame"
+        },
+        {
+          "value": "gift",
+          "label": "t:blocks.common.icons.gift"
+        },
+        {
+          "value": "award",
+          "label": "t:blocks.common.icons.award"
+        },
+        {
+          "value": "box",
+          "label": "t:blocks.common.icons.box"
+        },
+        {
+          "value": "calendar",
+          "label": "t:blocks.common.icons.calendar"
+        },
+        {
+          "value": "lock",
+          "label": "t:blocks.common.icons.lock"
+        },
+        {
+          "value": "eye",
+          "label": "t:blocks.common.icons.eye"
+        },
+        {
+          "value": "pin",
+          "label": "t:blocks.common.icons.pin"
+        },
+        {
+          "value": "ruler",
+          "label": "t:blocks.common.icons.ruler"
+        },
+        {
+          "value": "chat",
+          "label": "t:blocks.common.icons.chat"
+        },
+        {
+          "value": "speed",
+          "label": "t:blocks.common.icons.speed"
+        }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "t:blocks.accordion.settings.content.label",
+      "default": "<p>Add details shoppers ask about.</p>"
+    },
+    {
+      "type": "page",
+      "id": "page",
+      "label": "t:blocks.accordion.settings.page.label",
+      "info": "t:blocks.accordion.settings.page.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "open",
+      "label": "t:blocks.accordion.settings.open.label",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.accordion.name",
+      "category": "t:blocks.categories.content"
+    }
+  ]
+}
+{% endschema %}

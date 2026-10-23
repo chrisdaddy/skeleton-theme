@@ -1,0 +1,61 @@
+{% doc %}
+  Estimated delivery window in business days from today.
+{% enddoc %}
+{%- liquid
+  assign now = 'now' | date: '%s' | plus: 0
+  assign business_days = 0
+  assign earliest = ''
+  assign latest = ''
+  for i in (1..30)
+    assign stamp = i | times: 86400 | plus: now
+    assign weekday = stamp | date: '%u' | plus: 0
+    if weekday < 6
+      assign business_days = business_days | plus: 1
+      if business_days == block.settings.min_days
+        assign earliest = stamp | date: format: 'abbreviated_date'
+      endif
+      if business_days == block.settings.max_days
+        assign latest = stamp | date: format: 'abbreviated_date'
+        break
+      endif
+    endif
+  endfor
+-%}
+{%- if earliest != blank and latest != blank -%}
+  <p class="bp-inline-note" {{ block.shopify_attributes }}>
+    {%- render 'icon', name: 'calendar' -%}
+    {{ 'products.delivery_estimate' | t: earliest: earliest, latest: latest }}
+  </p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_delivery_estimate.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "min_days",
+      "label": "t:blocks.product_delivery_estimate.settings.min_days.label",
+      "min": 1,
+      "max": 14,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "max_days",
+      "label": "t:blocks.product_delivery_estimate.settings.max_days.label",
+      "min": 1,
+      "max": 21,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_delivery_estimate.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

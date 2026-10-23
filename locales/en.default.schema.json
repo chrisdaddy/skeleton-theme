@@ -173,6 +173,21 @@
           "info": "Square, at least 64 × 64 px."
         }
       }
+    },
+    "buy_box": {
+      "name": "Buy box",
+      "info": "How bundle tiers show savings. Savings are always rounded down so they are never overstated.",
+      "savings_reference": {
+        "label": "Measure savings against",
+        "info": "Only use compare-at prices that are genuine regular prices.",
+        "auto": "Compare-at price when set, otherwise buying singles",
+        "compare_at": "Compare-at price only",
+        "singles": "Buying singles only"
+      },
+      "show_per_month": {
+        "label": "Lead with the monthly price on multi-month tiers",
+        "info": "Uses the product's blueprint.days_per_unit metafield (default 30 days per unit)."
+      }
     }
   },
   "section_groups": {
@@ -319,7 +334,26 @@
       }
     },
     "main_product": {
-      "name": "Product information"
+      "name": "Product information",
+      "settings": {
+        "media_size": {
+          "label": "Media size",
+          "options": {
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "media_fit": {
+          "label": "Image fit",
+          "options": {
+            "cover": "Fill the frame",
+            "contain": "Show the whole image"
+          }
+        },
+        "sticky_info": {
+          "label": "Keep product info in view on desktop"
+        }
+      }
     },
     "main_collection": {
       "name": "Product grid",
@@ -374,6 +408,13 @@
       "settings": {
         "text": {
           "label": "Text"
+        },
+        "style": {
+          "label": "Style",
+          "body": "Body",
+          "muted": "Secondary",
+          "eyebrow": "Eyebrow",
+          "heading": "Heading"
         }
       }
     },
@@ -385,6 +426,442 @@
         },
         "link": {
           "label": "Link"
+        }
+      }
+    },
+    "common": {
+      "settings": {
+        "heading": {
+          "label": "Heading"
+        },
+        "icon": {
+          "label": "Icon"
+        }
+      },
+      "sizes": {
+        "large": "Large",
+        "medium": "Medium",
+        "small": "Small"
+      },
+      "icons": {
+        "leaf": "Leaf",
+        "flask": "Flask",
+        "drop": "Drop",
+        "shield": "Shield",
+        "bolt": "Bolt",
+        "sparkle": "Sparkle",
+        "truck": "Truck",
+        "refresh": "Refresh",
+        "layers": "Layers",
+        "users": "Users",
+        "coin": "Coin",
+        "clock": "Clock",
+        "heart": "Heart",
+        "moon": "Moon",
+        "star": "Star",
+        "paw": "Paw",
+        "check": "Check",
+        "x": "X",
+        "chart": "Chart",
+        "flame": "Flame",
+        "gift": "Gift",
+        "award": "Award",
+        "box": "Box",
+        "calendar": "Calendar",
+        "lock": "Lock",
+        "eye": "Eye",
+        "pin": "Pin",
+        "ruler": "Ruler",
+        "chat": "Chat",
+        "speed": "Speed"
+      }
+    },
+    "categories": {
+      "buy_box": "Buy box",
+      "content": "Content"
+    },
+    "product_rating": {
+      "settings": {
+        "info": "Reads Shopify's standard review fields (reviews.rating and reviews.rating_count), which Judge.me, Loox, Yotpo and most review apps fill in. Shows nothing until a product has reviews.",
+        "link": {
+          "label": "Link"
+        }
+      },
+      "name": "Reviews rating"
+    },
+    "product_viewers": {
+      "settings": {
+        "info": "Honest data only: shows the number an integration writes to the product's blueprint.live_viewers metafield. The theme never estimates or invents viewers.",
+        "minimum": {
+          "label": "Show from"
+        }
+      },
+      "name": "Viewer count"
+    },
+    "product_award": {
+      "settings": {
+        "text": {
+          "label": "Award",
+          "info": "Only list awards the product has actually won."
+        },
+        "image": {
+          "label": "Logo"
+        }
+      },
+      "name": "Award badge"
+    },
+    "product_title": {
+      "settings": {
+        "size": {
+          "label": "Size"
+        },
+        "show_subtitle": {
+          "label": "Show subtitle",
+          "info": "From the product's subtitle field (descriptors.subtitle)."
+        }
+      },
+      "name": "Product title"
+    },
+    "product_price": {
+      "settings": {
+        "show_savings": {
+          "label": "Show savings",
+          "info": "Savings are rounded down and measured as set in Theme settings > Buy box."
+        },
+        "save_prefix": {
+          "label": "Savings label"
+        },
+        "show_tax_note": {
+          "label": "Show tax note"
+        }
+      },
+      "name": "Price"
+    },
+    "product_benefits": {
+      "settings": {
+        "info": "Uses the product's blueprint.benefits metafield when it has one, so each product shows its own benefits. Otherwise shows the benefits added here.",
+        "use_metafield": {
+          "label": "Use product metafield when set"
+        },
+        "columns": {
+          "label": "Columns"
+        }
+      },
+      "name": "Benefits grid"
+    },
+    "benefit": {
+      "settings": {
+        "text": {
+          "label": "Text"
+        }
+      },
+      "name": "Benefit"
+    },
+    "product_stock": {
+      "settings": {
+        "info": "Real inventory only: shows a low-stock count when Shopify tracks the variant and stops selling at zero.",
+        "threshold": {
+          "label": "Low stock from"
+        },
+        "show_in_stock": {
+          "label": "Show \"In stock\" otherwise"
+        }
+      },
+      "name": "Stock indicator"
+    },
+    "product_purchase_options": {
+      "settings": {
+        "info": "Shows when the product has selling plans from a subscription app (for example the free Shopify Subscriptions app). The saving comes from the plan itself. If a subscription app's own widget is on the page, remove this block so plans aren't chosen twice.",
+        "default_plan": {
+          "label": "Selected by default",
+          "once": "One-time purchase",
+          "sub": "Subscribe"
+        },
+        "subscribe_note": {
+          "label": "Subscription note"
+        }
+      },
+      "name": "Subscription toggle"
+    },
+    "product_buy_buttons": {
+      "settings": {
+        "label": {
+          "label": "Button label",
+          "info": "Leave empty for \"Add to cart\" in the store's language."
+        },
+        "show_price": {
+          "label": "Show the price on the button"
+        },
+        "show_dynamic_checkout": {
+          "label": "Show dynamic checkout buttons",
+          "info": "Shop Pay, Apple Pay and others. They load extra scripts, so turning them off speeds up the page."
+        },
+        "show_gift_card_recipient": {
+          "label": "Show gift card recipient form"
+        }
+      },
+      "name": "Add to cart"
+    },
+    "product_guarantee": {
+      "settings": {
+        "text": {
+          "label": "Text",
+          "info": "The product's blueprint.guarantee metafield takes precedence."
+        }
+      },
+      "name": "Guarantee row"
+    },
+    "product_moneyback": {
+      "settings": {
+        "info": "Shows only when both the statistic and its source are filled in.",
+        "statistic": {
+          "label": "Statistic"
+        },
+        "text": {
+          "label": "Text"
+        },
+        "source": {
+          "label": "Source"
+        }
+      },
+      "name": "Money-back statistic"
+    },
+    "product_payment_icons": {
+      "settings": {
+        "info": "Shows the payment methods enabled in Settings > Payments."
+      },
+      "name": "Payment icons"
+    },
+    "product_trust_tiles": {
+      "settings": {
+        "tile_1": "Tile 1",
+        "title": {
+          "label": "Title"
+        },
+        "text": {
+          "label": "Text"
+        },
+        "tile_2": "Tile 2",
+        "tile_3": "Tile 3"
+      },
+      "name": "Trust tiles"
+    },
+    "product_proof_line": {
+      "settings": {
+        "info": "\"Bought today\" is real data only: it reads blueprint.sold_today and shows it only when blueprint.sold_today_date is today. The setup guide includes a Shopify Flow template that keeps both up to date.",
+        "show_sold_today": {
+          "label": "Show \"bought today\""
+        },
+        "sold_minimum": {
+          "label": "Show bought today from"
+        }
+      },
+      "name": "Rating and bought today"
+    },
+    "product_shipping_countdown": {
+      "settings": {
+        "info": "Counts down to your real daily dispatch cutoff in the store's time zone, skipping weekends. No reset tricks.",
+        "cutoff_hour": {
+          "label": "Same-day dispatch cutoff (hour)"
+        },
+        "transit_min": {
+          "label": "Delivery takes at least (business days)"
+        },
+        "transit_max": {
+          "label": "Delivery takes at most (business days)"
+        }
+      },
+      "name": "Shipping countdown"
+    },
+    "product_variant_picker": {
+      "settings": {
+        "hide_pack_option": {
+          "label": "Hide the pack option",
+          "info": "The pack option (blueprint.pack_option, default \"Pack\") is chosen with the bundle tiers instead."
+        },
+        "swatches": {
+          "label": "Show color swatches",
+          "info": "Uses the swatch colors and images set on option values in Shopify."
+        }
+      },
+      "name": "Variant picker"
+    },
+    "product_gift": {
+      "settings": {
+        "info": "Describes a gift that comes with every order. Gifts tied to a bundle tier show on that tier instead. Set up the matching automatic discount in Discounts.",
+        "text": {
+          "label": "Gift"
+        },
+        "value_label": {
+          "label": "Value"
+        }
+      },
+      "name": "Gift with purchase"
+    },
+    "product_ingredients_popover": {
+      "settings": {
+        "label": {
+          "label": "Link label"
+        }
+      },
+      "name": "Ingredients popover"
+    },
+    "product_size_guide": {
+      "settings": {
+        "label": {
+          "label": "Link label"
+        },
+        "page": {
+          "label": "Page"
+        },
+        "content": {
+          "label": "Content",
+          "info": "Used when no page is chosen."
+        }
+      },
+      "name": "Size guide"
+    },
+    "product_delivery_estimate": {
+      "settings": {
+        "min_days": {
+          "label": "Earliest (business days)"
+        },
+        "max_days": {
+          "label": "Latest (business days)"
+        }
+      },
+      "name": "Delivery estimate"
+    },
+    "product_sticky_atc": {
+      "settings": {
+        "info": "Appears once the add-to-cart button scrolls out of view. Fixed at the bottom of the screen, so it never shifts the page.",
+        "desktop": {
+          "label": "Show on desktop"
+        }
+      },
+      "name": "Sticky add to cart"
+    },
+    "custom_liquid": {
+      "settings": {
+        "custom_liquid": {
+          "label": "Custom Liquid",
+          "info": "Add app snippets or other Liquid code."
+        }
+      },
+      "name": "Custom Liquid"
+    },
+    "icon_list": {
+      "name": "Icon list"
+    },
+    "icon_item": {
+      "settings": {
+        "text": {
+          "label": "Text"
+        }
+      },
+      "name": "Icon item"
+    },
+    "accordion": {
+      "settings": {
+        "heading": {
+          "label": "Heading"
+        },
+        "content": {
+          "label": "Content"
+        },
+        "page": {
+          "label": "Content from a page",
+          "info": "Replaces the content above."
+        },
+        "open": {
+          "label": "Open by default"
+        }
+      },
+      "name": "Collapsible row"
+    },
+    "image": {
+      "settings": {
+        "image": {
+          "label": "Image"
+        },
+        "width": {
+          "label": "Width"
+        }
+      },
+      "name": "Image"
+    },
+    "divider": {
+      "settings": {
+        "space": {
+          "label": "Space around"
+        }
+      },
+      "name": "Divider"
+    },
+    "product_quantity": {
+      "settings": {
+        "info": "Hidden when the product has bundle tiers, because the tier sets the quantity."
+      },
+      "name": "Quantity selector"
+    },
+    "product_description": {
+      "settings": {
+        "collapsed": {
+          "label": "Show in a collapsible row"
+        }
+      },
+      "name": "Description"
+    },
+    "product_badges": {
+      "settings": {
+        "tag_prefix": {
+          "label": "Tag prefix",
+          "info": "Tags that start with this prefix show as labels. For example, the tag \"label:Vegan\" shows \"Vegan\"."
+        }
+      },
+      "name": "Product labels"
+    },
+    "product_share": {
+      "name": "Share"
+    },
+    "product_pickup": {
+      "settings": {
+        "info": "Shows when local pickup is set up for a location that stocks this variant."
+      },
+      "name": "Pickup availability"
+    },
+    "product_complementary": {
+      "settings": {
+        "info": "Shows the product in the blueprint.upsell metafield."
+      },
+      "name": "Goes well with"
+    },
+    "product_faq": {
+      "settings": {
+        "limit": {
+          "label": "Questions shown"
+        }
+      },
+      "name": "Product FAQ"
+    },
+    "product_popup": {
+      "settings": {
+        "label": {
+          "label": "Link label"
+        },
+        "page": {
+          "label": "Page"
+        }
+      },
+      "name": "Popup"
+    },
+    "product_offer_tiers": {
+      "name": "Bundle & save",
+      "settings": {
+        "info": "Tiers come from the product's blueprint.tiers metafield, or from the values of its Pack option. Prices always come from the tier's variant, so the box, cart and checkout match.",
+        "serving_label": {
+          "label": "Unit name",
+          "info": "Used in \"$2.63 / serving\". The product's blueprint.serving_label metafield takes precedence."
         }
       }
     }

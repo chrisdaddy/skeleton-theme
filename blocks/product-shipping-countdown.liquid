@@ -1,0 +1,65 @@
+{% doc %}
+  "Order in 2h 14m for delivery by Thursday", counted down to the store's real dispatch cutoff.
+{% enddoc %}
+<bp-countdown
+  class="bp-inline-note bp-countdown"
+  data-cutoff-hour="{{ block.settings.cutoff_hour }}"
+  data-utc-offset="{{ 'now' | date: '%z' }}"
+  data-transit-min="{{ block.settings.transit_min }}"
+  data-transit-max="{{ block.settings.transit_max }}"
+  data-template="{{ 'products.shipping_countdown.live' | t | escape }}"
+  data-bp-module="{{ 'bp-countdown.js' | asset_url }}"
+  data-bp-load="visible"
+  {{ block.shopify_attributes }}
+>
+  {%- render 'icon', name: 'truck' -%}
+  <span data-bp-countdown-text>
+    {%- assign cutoff = block.settings.cutoff_hour | append: ':00' -%}
+    {{- 'products.shipping_countdown.static' | t: time: cutoff -}}
+  </span>
+</bp-countdown>
+
+{% schema %}
+{
+  "name": "t:blocks.product_shipping_countdown.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_shipping_countdown.settings.info"
+    },
+    {
+      "type": "range",
+      "id": "cutoff_hour",
+      "label": "t:blocks.product_shipping_countdown.settings.cutoff_hour.label",
+      "min": 0,
+      "max": 23,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "transit_min",
+      "label": "t:blocks.product_shipping_countdown.settings.transit_min.label",
+      "min": 1,
+      "max": 14,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "transit_max",
+      "label": "t:blocks.product_shipping_countdown.settings.transit_max.label",
+      "min": 1,
+      "max": 21,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_shipping_countdown.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

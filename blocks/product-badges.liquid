@@ -1,0 +1,41 @@
+{% doc %}
+  Labels from product tags with a prefix, e.g. "label:Vegan".
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign prefix = block.settings.tag_prefix
+-%}
+{%- capture labels -%}
+  {%- for tag in product.tags -%}
+    {%- if tag contains prefix -%}
+      {%- assign first_part = tag | slice: 0, prefix.size -%}
+      {%- if first_part == prefix -%}
+        <li class="bp-badge bp-badge--outline">{{ tag | remove_first: prefix | escape }}</li>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if labels != blank -%}
+  <ul class="bp-inline-list bp-badges" role="list" {{ block.shopify_attributes }}>{{ labels }}</ul>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_badges.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_prefix",
+      "label": "t:blocks.product_badges.settings.tag_prefix.label",
+      "default": "label:",
+      "info": "t:blocks.product_badges.settings.tag_prefix.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_badges.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

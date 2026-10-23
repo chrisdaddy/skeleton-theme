@@ -1,0 +1,28 @@
+{% doc %}
+  Icons for the payment methods enabled in the store.
+{% enddoc %}
+{%- if shop.enabled_payment_types.size > 0 -%}
+  <ul class="bp-payment-icons" role="list" aria-label="{{ 'footer.payment_methods' | t }}" {{ block.shopify_attributes }}>
+    {%- for type in shop.enabled_payment_types -%}
+      <li>{{ type | payment_type_svg_tag }}</li>
+    {%- endfor -%}
+  </ul>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_payment_icons.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_payment_icons.settings.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_payment_icons.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

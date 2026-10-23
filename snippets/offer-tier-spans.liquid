@@ -1,0 +1,136 @@
+{% doc %}
+  Prints one span per bundle tier for a figure (and per plan when asked), so the
+  figure for the checked tier and plan shows with pure CSS, with or without JS.
+  section-product.css shows [data-for-tier="n"] when tier n is checked and
+  [data-plan="sub"] when the subscribe option is checked. When a tier's own plan differs
+  from the plan the form posts without JS, both are printed (data-bp-js / data-bp-nojs).
+
+  Prints nothing when the product has no tiers.
+
+  @param {product} product - The product
+  @param {string} field - An offer-figure field (total, per_serving, per_month, compare, save_pct,
+    save_amount, plan_save_pct), or 'label' for the tier label
+  @param {string} [plan] - 'once', 'sub' or 'both' (default 'once')
+  @param {string} [prefix] - Text printed before the figure
+  @param {string} [suffix] - Text printed after the figure
+{% enddoc %}
+{%- liquid
+  assign plan = plan | default: 'once'
+  assign base = product.selected_or_first_available_variant
+  assign tiers = product.metafields.blueprint.tiers.value
+  assign pack_name = product.metafields.blueprint.pack_option.value | default: 'Pack'
+  assign pack_option = product.options_by_name[pack_name]
+  assign pack_position = 0
+  if pack_option
+    assign pack_position = pack_option.position
+  endif
+  if tiers == blank and pack_option
+    assign tiers = pack_option.values | map: 'name'
+  endif
+  assign servings = product.metafields.blueprint.servings_per_unit.value | default: 0
+  assign days = product.metafields.blueprint.days_per_unit.value | default: 30
+  assign selected_plan_id = product.selected_selling_plan.id | append: ''
+  capture nojs_plan_id
+    render 'offer-tier-plan', variant: base, selected_plan_id: selected_plan_id
+  endcapture
+  assign nojs_plan_id = nojs_plan_id | strip
+
+  assign single_price = ''
+  if tiers != blank
+    capture first_id
+      render 'offer-tier-variant', product: product, tier: tiers.first, base: base, pack_position: pack_position
+    endcapture
+    assign first_id = first_id | strip | plus: 0
+    assign first_variant = product.variants | where: 'id', first_id | first
+    if first_variant == blank
+      assign first_variant = tiers.first.variant.value
+    endif
+    if first_variant != blank
+      capture first_quantity
+        render 'offer-pack-quantity', variant: first_variant, tier: tiers.first, pack_position: pack_position
+      endcapture
+      assign first_quantity = first_quantity | strip | plus: 0
+      assign single_price = first_variant.price | divided_by: first_quantity
+    endif
+  endif
+-%}
+{%- for tier in tiers -%}
+  {%- liquid
+    capture variant_id
+      render 'offer-tier-variant', product: product, tier: tier, base: base, pack_position: pack_position
+    endcapture
+    assign variant_id = variant_id | strip | plus: 0
+    assign variant = product.variants | where: 'id', variant_id | first
+    if variant == blank
+      assign variant = tier.variant.value
+    endif
+  -%}
+  {%- if variant != blank -%}
+    {%- liquid
+      capture quantity
+        render 'offer-pack-quantity', variant: variant, tier: tier, pack_position: pack_position
+      endcapture
+      assign quantity = quantity | strip | plus: 0
+      capture plan_id
+        render 'offer-tier-plan', variant: variant, tier: tier, selected_plan_id: selected_plan_id
+      endcapture
+      assign plan_id = plan_id | strip
+      assign label = tier.label.value | default: tier
+      assign tier_index = forloop.index
+    -%}
+    {%- liquid
+      if plan == 'both' and plan_id != blank
+        assign plans = 'once,sub' | split: ','
+      else
+        assign plans = plan | split: ','
+      endif
+      if plans contains 'sub' and nojs_plan_id != blank and nojs_plan_id != plan_id
+        assign plans = plans | join: ',' | append: ',sub-nojs' | split: ','
+      endif
+    -%}
+    {%- for p in plans -%}
+      {%- liquid
+        assign figure_plan = ''
+        if p == 'sub'
+          assign figure_plan = plan_id
+        elsif p == 'sub-nojs'
+          assign figure_plan = nojs_plan_id
+        endif
+        if field == 'label'
+          assign figure = label
+        else
+          capture figure
+            render 'offer-figure', variant: variant, quantity: quantity, plan_id: figure_plan, field: field, single_price: single_price, servings: servings, days: days
+          endcapture
+          assign figure = figure | strip
+        endif
+        # Liquid has no operator precedence, so build the condition in steps.
+        assign show = false
+        if figure != blank
+          assign show = true
+          if p == 'sub' and plan_id == blank
+            assign show = false
+          endif
+          if field == 'label' and p == 'sub-nojs'
+            assign show = false
+          endif
+        endif
+      -%}
+      {%- if show -%}
+        <span
+          data-for-tier="{{ tier_index }}"
+          {% if plan == 'both' %}
+            data-plan="{{ p | remove: '-nojs' }}"
+          {% endif %}
+          {% if p == 'sub-nojs' %}
+            data-bp-nojs
+          {% elsif p == 'sub' and plans contains 'sub-nojs' %}
+            data-bp-js
+          {% endif %}
+        >
+          {{- prefix }}{{ figure }}{{ suffix -}}
+        </span>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}

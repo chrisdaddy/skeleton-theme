@@ -1,0 +1,57 @@
+{% doc %}
+  A bar fixed to the bottom of the screen that appears once the add-to-cart button scrolls away. It submits the same product form.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign form_id = 'ProductForm-' | append: section.id
+  assign variant = product.selected_or_first_available_variant
+-%}
+{%- capture tier_label -%}{%- render 'offer-tier-spans', product: product, field: 'label', prefix: ' · ' -%}{%- endcapture -%}
+{%- capture tier_total -%}{%- render 'offer-tier-spans', product: product, field: 'total', plan: 'both' -%}{%- endcapture -%}
+<bp-sticky-atc
+  class="bp-sticky-atc{% if block.settings.desktop == false %} bp-sticky-atc--mobile-only{% endif %}"
+  data-surface="default"
+  data-bp-module="{{ 'bp-sticky-atc.js' | asset_url }}"
+  data-bp-load="idle"
+  aria-hidden="true"
+  {{ block.shopify_attributes }}
+>
+  <div class="bp-sticky-atc__inner bp-page-width">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 96 | image_tag: width: 44, height: 44, loading: 'lazy', alt: '', class: 'bp-sticky-atc__image' }}
+    {%- endif -%}
+    <span class="bp-sticky-atc__text">
+      <span class="bp-sticky-atc__title">{{ product.title | escape }}{{ tier_label }}</span>
+      <span class="bp-small bp-muted">
+        {%- if tier_total != blank %}{{ tier_total }}{% else %}{{ variant.price | money }}{% endif -%}
+      </span>
+    </span>
+    <button type="submit" form="{{ form_id }}" name="add" class="bp-button" tabindex="-1" {% unless variant.available %}disabled{% endunless %}>
+      {{- 'products.add_to_cart' | t -}}
+    </button>
+  </div>
+</bp-sticky-atc>
+
+{% schema %}
+{
+  "name": "t:blocks.product_sticky_atc.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_sticky_atc.settings.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop",
+      "label": "t:blocks.product_sticky_atc.settings.desktop.label",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_sticky_atc.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

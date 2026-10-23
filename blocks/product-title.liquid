@@ -1,0 +1,54 @@
+{% doc %}
+  The product title as the page's h1, with the optional Shopify subtitle.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign subtitle = product.metafields.descriptors.subtitle.value
+-%}
+<div class="bp-product-title" {{ block.shopify_attributes }}>
+  <h1 class="bp-{{ block.settings.size }}">{{ product.title | escape }}</h1>
+  {%- if block.settings.show_subtitle and subtitle != blank -%}
+    <p class="bp-muted">{{ subtitle | escape }}</p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:blocks.product_title.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "size",
+      "label": "t:blocks.product_title.settings.size.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:blocks.common.sizes.large"
+        },
+        {
+          "value": "h2",
+          "label": "t:blocks.common.sizes.medium"
+        },
+        {
+          "value": "h3",
+          "label": "t:blocks.common.sizes.small"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subtitle",
+      "label": "t:blocks.product_title.settings.show_subtitle.label",
+      "default": true,
+      "info": "t:blocks.product_title.settings.show_subtitle.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_title.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

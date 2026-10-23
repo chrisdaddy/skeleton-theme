@@ -1,0 +1,28 @@
+{% doc %}
+  A horizontal rule with spacing.
+{% enddoc %}
+<hr class="bp-divider" style="--bp-divider-space: {{ block.settings.space }}px;" {{ block.shopify_attributes }}>
+
+{% schema %}
+{
+  "name": "t:blocks.divider.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "space",
+      "label": "t:blocks.divider.settings.space.label",
+      "min": 0,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.divider.name",
+      "category": "t:blocks.categories.content"
+    }
+  ]
+}
+{% endschema %}

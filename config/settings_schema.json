@@ -344,6 +344,43 @@
     ]
   },
   {
+    "name": "t:settings_schema.buy_box.name",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "t:settings_schema.buy_box.info"
+      },
+      {
+        "type": "select",
+        "id": "savings_reference",
+        "label": "t:settings_schema.buy_box.savings_reference.label",
+        "info": "t:settings_schema.buy_box.savings_reference.info",
+        "default": "auto",
+        "options": [
+          {
+            "value": "auto",
+            "label": "t:settings_schema.buy_box.savings_reference.auto"
+          },
+          {
+            "value": "compare_at",
+            "label": "t:settings_schema.buy_box.savings_reference.compare_at"
+          },
+          {
+            "value": "singles",
+            "label": "t:settings_schema.buy_box.savings_reference.singles"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_per_month",
+        "label": "t:settings_schema.buy_box.show_per_month.label",
+        "info": "t:settings_schema.buy_box.show_per_month.info",
+        "default": true
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.animations.name",
     "settings": [
       {

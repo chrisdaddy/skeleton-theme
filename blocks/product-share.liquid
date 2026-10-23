@@ -1,0 +1,33 @@
+{% doc %}
+  Share button: the native share sheet where available, otherwise copies the link.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+-%}
+<bp-share
+  class="bp-share"
+  data-url="{{ request.origin }}{{ product.url }}"
+  data-title="{{ product.title | escape }}"
+  data-copied="{{ 'products.share.copied' | t | escape }}"
+  data-bp-module="{{ 'bp-share.js' | asset_url }}"
+  data-bp-load="interaction"
+  {{ block.shopify_attributes }}
+>
+  <button type="button" class="bp-link-button">
+    {%- render 'icon', name: 'share' -%}
+    {{ 'products.share.label' | t }}
+  </button>
+  <span class="bp-small bp-muted" role="status" data-bp-share-status></span>
+</bp-share>
+
+{% schema %}
+{
+  "name": "t:blocks.product_share.name",
+  "presets": [
+    {
+      "name": "t:blocks.product_share.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

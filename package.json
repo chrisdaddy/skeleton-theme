@@ -8,7 +8,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test tests/unit/*.test.mjs && node tools/contrast-check.mjs && node tools/budget-check.mjs",
+    "test": "node --test tests/unit/*.test.mjs && node tools/contrast-check.mjs && node tools/budget-check.mjs && node tools/check-locales.mjs",
+    "check:buybox": "node tools/preview/checklist.mjs",
     "check:theme": "shopify theme check",
     "report:demo-contrast": "node tools/contrast-check.mjs --demo",
     "check:budget": "node tools/budget-check.mjs"

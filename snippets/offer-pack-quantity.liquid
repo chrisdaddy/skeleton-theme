@@ -1,0 +1,23 @@
+{% doc %}
+  Prints how many units a tier contains: the variant's blueprint.pack_quantity metafield,
+  else the tier's quantity, else the leading number of the pack option value ("3 pouches" → 3),
+  else 1.
+
+  @param {variant} variant - The tier's variant
+  @param {object} [tier] - The tier metaobject
+  @param {number} pack_position - 1-based position of the pack option, 0 when there is none
+{% enddoc %}
+{%- liquid
+  assign quantity = variant.metafields.blueprint.pack_quantity.value
+  if quantity == blank and tier.quantity != blank
+    assign quantity = tier.quantity.value
+  endif
+  if quantity == blank and pack_position > 0
+    assign pack_index = pack_position | minus: 1
+    assign quantity = variant.options[pack_index] | split: ' ' | first | plus: 0
+  endif
+  if quantity == blank or quantity < 1
+    assign quantity = 1
+  endif
+  echo quantity
+-%}

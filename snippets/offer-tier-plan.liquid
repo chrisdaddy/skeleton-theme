@@ -1,0 +1,33 @@
+{% doc %}
+  Prints the selling plan ID a tier subscribes to, or nothing when the variant has no plans.
+  Order: the plan in the URL (?selling_plan=) when this variant offers it, then the first plan
+  whose name contains the tier's subscription_plan_hint (e.g. "3 months" for a 3-pack), then
+  the variant's first plan.
+
+  @param {variant} variant - The tier's variant
+  @param {object} [tier] - The tier metaobject
+  @param {string} [selected_plan_id] - The plan selected through the URL
+{% enddoc %}
+{%- liquid
+  assign hint = tier.subscription_plan_hint.value
+  assign chosen = ''
+  for allocation in variant.selling_plan_allocations
+    assign plan_id = allocation.selling_plan.id | append: ''
+    if selected_plan_id != blank and plan_id == selected_plan_id
+      assign chosen = plan_id
+      break
+    endif
+  endfor
+  if chosen == blank and hint != blank
+    for allocation in variant.selling_plan_allocations
+      if allocation.selling_plan.name contains hint
+        assign chosen = allocation.selling_plan.id
+        break
+      endif
+    endfor
+  endif
+  if chosen == blank and variant.selling_plan_allocations.size > 0
+    assign chosen = variant.selling_plan_allocations.first.selling_plan.id
+  endif
+  echo chosen
+-%}

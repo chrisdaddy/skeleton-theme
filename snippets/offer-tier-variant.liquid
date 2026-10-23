@@ -1,0 +1,39 @@
+{% doc %}
+  Prints the ID of the variant a bundle tier points to, or nothing.
+
+  A tier can point at a fixed variant (any product, e.g. a "Routine set"), or at a
+  value of the pack option (e.g. "2 pouches"), which keeps the base variant's other
+  options (flavour, size).
+
+  @param {product} product - The product the buy box sells
+  @param {object} tier - A blueprint_tier metaobject, or a pack option value (string)
+  @param {variant} base - The variant whose other options the tier keeps
+  @param {number} pack_position - 1-based position of the pack option, 0 when there is none
+{% enddoc %}
+{%- liquid
+  assign fixed = tier.variant.value
+  if fixed != blank
+    echo fixed.id
+  elsif pack_position > 0
+    assign pack_value = tier.pack_value.value | default: tier
+    for candidate in product.variants
+      assign match = true
+      for option_value in candidate.options
+        if forloop.index == pack_position
+          if option_value != pack_value
+            assign match = false
+          endif
+        else
+          assign base_value = base.options[forloop.index0]
+          if option_value != base_value
+            assign match = false
+          endif
+        endif
+      endfor
+      if match
+        echo candidate.id
+        break
+      endif
+    endfor
+  endif
+-%}

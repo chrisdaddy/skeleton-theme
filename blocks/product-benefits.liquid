@@ -1,0 +1,103 @@
+{% doc %}
+  Icon and text benefits, from the product's blueprint.benefits metafield or from child blocks.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign benefits = product.metafields.blueprint.benefits.value
+-%}
+{%- capture children -%}{% content_for 'blocks' %}{%- endcapture -%}
+{%- if benefits != blank or children != blank -%}
+  <ul class="bp-benefits bp-benefits--{{ block.settings.columns }}" role="list" {{ block.shopify_attributes }}>
+    {%- if benefits != blank and block.settings.use_metafield -%}
+      {%- for benefit in benefits -%}
+        <li class="bp-benefit">
+          <span class="bp-benefit__icon">
+            {%- if benefit.image.value -%}
+              {{ benefit.image.value | image_url: width: 48 | image_tag: width: 14, height: 14, alt: '' }}
+            {%- else -%}
+              {%- render 'icon', name: benefit.icon.value -%}
+            {%- endif -%}
+          </span>
+          <span>{{ benefit.title.value | escape }}</span>
+        </li>
+      {%- endfor -%}
+    {%- else -%}
+      {{ children }}
+    {%- endif -%}
+  </ul>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_benefits.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_benefits.settings.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_metafield",
+      "label": "t:blocks.product_benefits.settings.use_metafield.label",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "t:blocks.product_benefits.settings.columns.label",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_benefit"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_benefits.name",
+      "category": "t:blocks.categories.buy_box",
+      "blocks": [
+        {
+          "type": "_benefit",
+          "settings": {
+            "icon": "leaf",
+            "text": "Add a benefit"
+          }
+        },
+        {
+          "type": "_benefit",
+          "settings": {
+            "icon": "flask",
+            "text": "Add a benefit"
+          }
+        },
+        {
+          "type": "_benefit",
+          "settings": {
+            "icon": "drop",
+            "text": "Add a benefit"
+          }
+        },
+        {
+          "type": "_benefit",
+          "settings": {
+            "icon": "shield",
+            "text": "Add a benefit"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

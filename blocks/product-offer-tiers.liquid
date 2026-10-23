@@ -1,0 +1,306 @@
+{% doc %}
+  Bundle & save: quantity-break and bundle tiers (docs/PLAN.md §7).
+
+  Tiers come from the product's blueprint.tiers metafield (blueprint_tier metaobjects), or
+  else from the values of the pack option (blueprint.pack_option, default "Pack").
+  Prices always come from the tier's variant and its selling-plan allocation.
+
+  Each tier is a radio named "id", so the form posts the tier's variant without JS.
+  Every figure is rendered per plan; section-product.css shows the checked plan's figures.
+  A tier's subscription figures use its own plan (subscription_plan_hint), which bp-product.js
+  posts. Without JS the form posts the default plan, so when the two differ the default plan's
+  figures are rendered too (data-bp-nojs) and CSS shows the set that matches what will post.
+
+  Mix tiers (a tier with a quantity and no variant, e.g. "3-pack, mix any scents") post
+  "quantity" instead; bp-product.js adds the per-item pickers.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign form_id = 'ProductForm-' | append: section.id
+  assign base = product.selected_or_first_available_variant
+  assign tiers = product.metafields.blueprint.tiers.value
+  assign pack_name = product.metafields.blueprint.pack_option.value | default: 'Pack'
+  assign pack_option = product.options_by_name[pack_name]
+  assign pack_position = 0
+  if pack_option
+    assign pack_position = pack_option.position
+  endif
+  if tiers == blank and pack_option
+    assign tiers = pack_option.values | map: 'name'
+  endif
+  assign servings = product.metafields.blueprint.servings_per_unit.value | default: 0
+  assign serving_label = product.metafields.blueprint.serving_label.value | default: block.settings.serving_label
+  assign days = product.metafields.blueprint.days_per_unit.value | default: 30
+  assign selected_plan_id = product.selected_selling_plan.id | append: ''
+  assign url_variant_id = product.selected_variant.id
+  capture nojs_plan_id
+    render 'offer-tier-plan', variant: base, selected_plan_id: selected_plan_id
+  endcapture
+  assign nojs_plan_id = nojs_plan_id | strip
+
+  # The single-unit price: the first tier's price ÷ its units.
+  assign single_price = ''
+  if tiers != blank
+    capture first_id
+      render 'offer-tier-variant', product: product, tier: tiers.first, base: base, pack_position: pack_position
+    endcapture
+    assign first_id = first_id | strip | plus: 0
+    assign first_variant = product.variants | where: 'id', first_id | first
+    if first_variant == blank
+      assign first_variant = tiers.first.variant.value
+    endif
+    if first_variant != blank
+      capture first_quantity
+        render 'offer-pack-quantity', variant: first_variant, tier: tiers.first, pack_position: pack_position
+      endcapture
+      assign first_quantity = first_quantity | strip | plus: 0
+      assign single_price = first_variant.price | divided_by: first_quantity
+    endif
+  endif
+
+  # Which tier starts checked: the one the URL's ?variant= selects, else the merchant's
+  # preselected tier, else the first tier.
+  assign checked_index = 0
+  assign preselected_index = 0
+  for tier in tiers
+    capture tier_variant_id
+      render 'offer-tier-variant', product: product, tier: tier, base: base, pack_position: pack_position
+    endcapture
+    assign tier_variant_id = tier_variant_id | strip | plus: 0
+    if url_variant_id != blank and tier_variant_id == url_variant_id
+      assign checked_index = forloop.index
+    endif
+    if tier.preselected.value == true and preselected_index == 0
+      assign preselected_index = forloop.index
+    endif
+  endfor
+  if checked_index == 0
+    assign checked_index = preselected_index | at_least: 1
+  endif
+  assign has_mix = false
+-%}
+{%- if tiers != blank -%}
+  <fieldset class="bp-offer" {{ block.shopify_attributes }}>
+    <legend class="bp-offer__legend bp-eyebrow">{{ block.settings.heading | escape }}</legend>
+    <div class="bp-offer__tiers">
+      {%- for tier in tiers -%}
+        {%- liquid
+          capture variant_id
+            render 'offer-tier-variant', product: product, tier: tier, base: base, pack_position: pack_position
+          endcapture
+          assign variant_id = variant_id | strip | plus: 0
+          assign variant = product.variants | where: 'id', variant_id | first
+          if variant == blank
+            assign variant = tier.variant.value
+          endif
+          assign mix = false
+          if variant == blank and tier.quantity.value > 1
+            assign mix = true
+            assign has_mix = true
+            assign variant = base
+          endif
+          assign label = tier.label.value | default: tier
+          assign sublabel = tier.sublabel.value
+          assign badge = tier.badge.value
+          assign gift = tier.gift_variant.value
+          assign gift_value = tier.gift_value_label.value
+          assign input_id = 'Tier-' | append: block.id | append: '-' | append: forloop.index
+        -%}
+        {%- if variant != blank -%}
+          {%- liquid
+            if mix
+              assign quantity = tier.quantity.value
+            else
+              capture quantity
+                render 'offer-pack-quantity', variant: variant, tier: tier, pack_position: pack_position
+              endcapture
+              assign quantity = quantity | strip | plus: 0
+            endif
+            capture plan_id
+              render 'offer-tier-plan', variant: variant, tier: tier, selected_plan_id: selected_plan_id
+            endcapture
+            assign plan_id = plan_id | strip
+            if plan_id != blank and mix == false
+              assign plans = 'once,sub' | split: ','
+              if nojs_plan_id != blank and nojs_plan_id != plan_id
+                assign plans = 'once,sub,sub-nojs' | split: ','
+              endif
+            else
+              assign plans = 'once' | split: ','
+            endif
+          -%}
+          <label class="bp-tier" for="{{ input_id }}">
+            <input
+              type="radio"
+              class="bp-tier__input"
+              id="{{ input_id }}"
+              form="{{ form_id }}"
+              {% if mix %}
+                name="quantity"
+                value="{{ quantity }}"
+                data-bp-mix="{{ quantity }}"
+              {% else %}
+                name="id"
+                value="{{ variant.id }}"
+              {% endif %}
+              data-bp-tier-input="{{ forloop.index }}"
+              data-plan-id="{{ plan_id }}"
+              data-quantity="{{ quantity }}"
+              data-label="{{ label | escape }}"
+              {% if gift != blank %}
+                data-gift-id="{{ gift.id }}"
+              {% endif %}
+              {% if forloop.index == checked_index %}
+                checked
+              {% endif %}
+              {% unless variant.available %}
+                disabled
+              {% endunless %}
+            >
+            <span class="bp-tier__radio" aria-hidden="true"></span>
+            <span class="bp-tier__body">
+              <span class="bp-tier__label">{{ label | escape }}</span>
+              {%- if sublabel != blank -%}
+                <span class="bp-tier__sub bp-muted">{{ sublabel | escape }}</span>
+              {%- endif -%}
+              {%- if mix and tier.discount_label.value != blank -%}
+                <span class="bp-tier__sub bp-accent-text">{{ tier.discount_label.value | escape }}</span>
+              {%- endif -%}
+              {%- if gift != blank -%}
+                <span class="bp-badge bp-badge--gift bp-tier__gift">
+                  {%- render 'icon', name: 'gift' -%}
+                  {{ 'products.offer.free_gift' | t }}
+                  {%- if gift_value != blank %} · {{ gift_value | escape }}{% endif -%}
+                </span>
+              {%- endif -%}
+              {%- unless variant.available -%}
+                <span class="bp-tier__sub bp-muted">{{ 'products.sold_out' | t }}</span>
+              {%- endunless -%}
+            </span>
+            <span class="bp-tier__prices">
+              {%- for p in plans -%}
+                {%- liquid
+                  assign figure_plan = ''
+                  if p == 'sub'
+                    assign figure_plan = plan_id
+                  elsif p == 'sub-nojs'
+                    assign figure_plan = nojs_plan_id
+                  endif
+                  capture total
+                    render 'offer-figure', variant: variant, quantity: quantity, plan_id: figure_plan, field: 'total'
+                  endcapture
+                  capture per_month
+                    if settings.show_per_month and mix == false
+                      render 'offer-figure', variant: variant, quantity: quantity, plan_id: figure_plan, field: 'per_month', days: days
+                    endif
+                  endcapture
+                  capture per_serving
+                    if mix == false
+                      render 'offer-figure', variant: variant, quantity: quantity, plan_id: figure_plan, field: 'per_serving', servings: servings
+                    endif
+                  endcapture
+                  capture compare
+                    if mix == false
+                      render 'offer-figure', variant: variant, quantity: quantity, plan_id: figure_plan, field: 'compare', single_price: single_price
+                    endif
+                  endcapture
+                  capture save_pct
+                    if mix == false
+                      render 'offer-figure', variant: variant, quantity: quantity, plan_id: figure_plan, field: 'save_pct', single_price: single_price
+                    endif
+                  endcapture
+                  assign total = total | strip
+                  assign per_month = per_month | strip
+                  assign per_serving = per_serving | strip
+                  assign compare = compare | strip
+                  assign save_pct = save_pct | strip
+                -%}
+                <span
+                  class="bp-tier__price-set"
+                  {% if plans.size > 1 %}
+                    data-plan="{{ p | remove: '-nojs' }}"
+                    data-selling-plan="{{ figure_plan }}"
+                  {% endif %}
+                  {% if p == 'sub-nojs' %}
+                    data-bp-nojs
+                  {% elsif p == 'sub' and plans.size > 2 %}
+                    data-bp-js
+                  {% endif %}
+                >
+                  {%- if mix -%}
+                    {%- assign unit_price = variant.price | money -%}
+                    <span class="bp-tier__headline bp-price">{{ 'products.offer.mix_price' | t: quantity: quantity, price: unit_price }}</span>
+                  {%- elsif per_month != blank -%}
+                    <span class="bp-tier__headline bp-price">{{ 'products.offer.per_month' | t: price: per_month }}</span>
+                    <span class="bp-tier__line">{{ 'products.offer.total' | t: price: total }}</span>
+                  {%- else -%}
+                    <span class="bp-tier__headline bp-price">{{ total }}</span>
+                  {%- endif -%}
+                  {%- if per_serving != blank -%}
+                    <span class="bp-tier__line bp-muted">
+                      {{- 'products.offer.per_unit' | t: price: per_serving, unit: serving_label -}}
+                    </span>
+                  {%- endif -%}
+                  {%- if compare != blank -%}
+                    <span class="bp-tier__line">
+                      <s class="bp-compare-at"
+                        ><span class="bp-visually-hidden">{{ 'products.price.regular' | t }}</span>{{ compare }}</s
+                      >
+                      {%- if save_pct != blank and save_pct != '0' -%}
+                        <span class="bp-tier__save">{{ 'products.offer.save_pct' | t: pct: save_pct }}</span>
+                      {%- endif -%}
+                    </span>
+                  {%- endif -%}
+                </span>
+              {%- endfor -%}
+            </span>
+            {%- if badge != blank -%}
+              <span class="bp-badge bp-tier__tag">{{ badge | escape }}</span>
+            {%- endif -%}
+          </label>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    {%- if has_mix -%}
+      <script type="application/json" data-bp-variants data-item-label="{{ 'products.offer.mix_item' | t | escape }}">
+        [
+          {%- for item in product.variants -%}
+            {"id": {{ item.id }}, "title": {{ item.title | json }}, "available": {{ item.available | json }}}
+            {%- unless forloop.last %},{% endunless -%}
+          {%- endfor -%}
+        ]
+      </script>
+    {%- endif -%}
+  </fieldset>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_offer_tiers.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_offer_tiers.settings.info"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:blocks.common.settings.heading.label",
+      "default": "Bundle & save"
+    },
+    {
+      "type": "text",
+      "id": "serving_label",
+      "label": "t:blocks.product_offer_tiers.settings.serving_label.label",
+      "info": "t:blocks.product_offer_tiers.settings.serving_label.info",
+      "default": "serving"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_offer_tiers.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

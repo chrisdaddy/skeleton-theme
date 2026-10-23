@@ -1,0 +1,46 @@
+{% doc %}
+  A list of icon and text rows.
+{% enddoc %}
+<ul class="bp-icon-list" role="list" {{ block.shopify_attributes }}>
+  {% content_for 'blocks' %}
+</ul>
+
+{% schema %}
+{
+  "name": "t:blocks.icon_list.name",
+  "blocks": [
+    {
+      "type": "_icon-item"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.icon_list.name",
+      "category": "t:blocks.categories.content",
+      "blocks": [
+        {
+          "type": "_icon-item",
+          "settings": {
+            "icon": "check",
+            "text": "Add a point"
+          }
+        },
+        {
+          "type": "_icon-item",
+          "settings": {
+            "icon": "check",
+            "text": "Add a point"
+          }
+        },
+        {
+          "type": "_icon-item",
+          "settings": {
+            "icon": "check",
+            "text": "Add a point"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

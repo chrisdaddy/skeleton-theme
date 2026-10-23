@@ -1,0 +1,50 @@
+{% doc %}
+  Questions and answers from the product's blueprint.faqs metafield.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign faqs = product.metafields.blueprint.faqs.value
+-%}
+{%- if faqs != blank -%}
+  <div class="bp-faq-block" {{ block.shopify_attributes }}>
+    {%- if block.settings.heading != blank -%}<p class="bp-eyebrow">{{ block.settings.heading | escape }}</p>{%- endif -%}
+    {%- for faq in faqs limit: block.settings.limit -%}
+      <details class="bp-accordion">
+        <summary class="bp-accordion__summary">
+          <span>{{ faq.question.value | escape }}</span>
+          {%- render 'icon', name: 'plus', class: 'bp-accordion__toggle' -%}
+        </summary>
+        <div class="bp-accordion__content bp-rte">{{ faq.answer | metafield_tag }}</div>
+      </details>
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_faq.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:blocks.common.settings.heading.label",
+      "default": "Questions"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "t:blocks.product_faq.settings.limit.label",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_faq.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

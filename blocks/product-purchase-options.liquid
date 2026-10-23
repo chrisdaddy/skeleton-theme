@@ -1,0 +1,129 @@
+{% doc %}
+  One-time vs subscribe rows wired to the product's selling plans. The plan radios post selling_plan; prices follow the checked tier.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign form_id = 'ProductForm-' | append: section.id
+  assign variant = product.selected_or_first_available_variant
+  assign selected_plan_id = product.selected_selling_plan.id | append: ''
+  capture plan_id
+    render 'offer-tier-plan', variant: variant, selected_plan_id: selected_plan_id
+  endcapture
+  assign plan_id = plan_id | strip
+  assign subscribe_checked = false
+  if product.requires_selling_plan or selected_plan_id != blank or block.settings.default_plan == 'sub'
+    assign subscribe_checked = true
+  endif
+  assign group = product.selling_plan_groups.first
+-%}
+{%- if plan_id != blank -%}
+  {%- capture tier_once -%}{%- render 'offer-tier-spans', product: product, field: 'total', plan: 'once' -%}{%- endcapture -%}
+  {%- capture tier_sub -%}{%- render 'offer-tier-spans', product: product, field: 'total', plan: 'sub' -%}{%- endcapture -%}
+  {%- capture tier_save -%}{%- render 'offer-tier-spans', product: product, field: 'plan_save_pct', plan: 'sub', suffix: '%' -%}{%- endcapture -%}
+  {%- capture save_pct -%}{%- render 'offer-figure', variant: variant, quantity: 1, plan_id: plan_id, field: 'plan_save_pct' -%}{%- endcapture -%}
+  {%- assign save_pct = save_pct | strip -%}
+  <fieldset class="bp-plans" {{ block.shopify_attributes }}>
+    <legend class="bp-visually-hidden">{{ 'products.plans.legend' | t }}</legend>
+    {%- unless product.requires_selling_plan -%}
+      <label class="bp-plan">
+        <input
+          type="radio"
+          class="bp-plan__input"
+          name="selling_plan"
+          value=""
+          form="{{ form_id }}"
+          data-bp-plan="once"
+          {% unless subscribe_checked %}
+            checked
+          {% endunless %}
+        >
+        <span class="bp-tier__radio" aria-hidden="true"></span>
+        <span class="bp-plan__body">
+          <span class="bp-plan__title">{{ 'products.plans.one_time' | t }}</span>
+        </span>
+        <span class="bp-plan__price bp-price">
+          {%- if tier_once != blank %}{{ tier_once }}{% else %}{{ variant.price | money }}{% endif -%}
+        </span>
+      </label>
+    {%- endunless -%}
+    <label class="bp-plan">
+      <input
+        type="radio"
+        class="bp-plan__input"
+        name="selling_plan"
+        value="{{ plan_id }}"
+        form="{{ form_id }}"
+        data-bp-plan="sub"
+        {% if subscribe_checked %}
+          checked
+        {% endif %}
+      >
+      <span class="bp-tier__radio" aria-hidden="true"></span>
+      <span class="bp-plan__body">
+        <span class="bp-plan__title">
+          {{- 'products.plans.subscribe' | t -}}
+          {%- if tier_save != blank %} {{ tier_save }}{% elsif save_pct != blank %} {{ save_pct }}%{% endif -%}
+        </span>
+        <span class="bp-small bp-muted">{{ block.settings.subscribe_note | escape }}</span>
+      </span>
+      <span class="bp-plan__price bp-price">
+        {%- if tier_sub != blank -%}
+          {{ tier_sub }}
+        {%- else -%}
+          {%- render 'offer-figure', variant: variant, quantity: 1, plan_id: plan_id, field: 'total' -%}
+        {%- endif -%}
+      </span>
+    </label>
+    {%- if group.selling_plans.size > 1 -%}
+      <label class="bp-plan__frequency bp-field" data-bp-frequency hidden>
+        <span class="bp-label">{{ 'products.plans.frequency' | t }}</span>
+        <select class="bp-select">
+          {%- for plan in group.selling_plans -%}
+            {%- assign this_id = plan.id | append: '' -%}
+            <option value="{{ plan.id }}" {% if this_id == plan_id %}selected{% endif %}>{{ plan.name | escape }}</option>
+          {%- endfor -%}
+        </select>
+      </label>
+    {%- endif -%}
+  </fieldset>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_purchase_options.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_purchase_options.settings.info"
+    },
+    {
+      "type": "select",
+      "id": "default_plan",
+      "label": "t:blocks.product_purchase_options.settings.default_plan.label",
+      "default": "once",
+      "options": [
+        {
+          "value": "once",
+          "label": "t:blocks.product_purchase_options.settings.default_plan.once"
+        },
+        {
+          "value": "sub",
+          "label": "t:blocks.product_purchase_options.settings.default_plan.sub"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "subscribe_note",
+      "label": "t:blocks.product_purchase_options.settings.subscribe_note.label",
+      "default": "Skip, pause or cancel anytime"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_purchase_options.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

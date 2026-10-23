@@ -1,0 +1,55 @@
+{% doc %}
+  A size guide in a dialog, from a page or the block's own content.
+{% enddoc %}
+{%- liquid
+  assign dialog_id = 'SizeGuide-' | append: block.id
+  assign page_content = block.settings.page.content
+-%}
+{%- if page_content != blank or block.settings.content != blank -%}
+  <div {{ block.shopify_attributes }}>
+    <button type="button" class="bp-link-button" command="show-modal" commandfor="{{ dialog_id }}" aria-haspopup="dialog">
+      {%- render 'icon', name: 'ruler' -%}
+      {{ block.settings.label | escape }}
+    </button>
+    <dialog id="{{ dialog_id }}" class="bp-modal" closedby="any" aria-labelledby="{{ dialog_id }}-title">
+      <div class="bp-modal__header">
+        <h2 id="{{ dialog_id }}-title" class="bp-h4">{{ block.settings.label | escape }}</h2>
+        <button type="button" class="bp-icon-button" command="close" commandfor="{{ dialog_id }}">
+          <span class="bp-visually-hidden">{{ 'general.close' | t }}</span>{%- render 'icon', name: 'close' -%}
+        </button>
+      </div>
+      <div class="bp-rte">{{ page_content | default: block.settings.content }}</div>
+    </dialog>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_size_guide.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "t:blocks.product_size_guide.settings.label.label",
+      "default": "Size guide"
+    },
+    {
+      "type": "page",
+      "id": "page",
+      "label": "t:blocks.product_size_guide.settings.page.label"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "t:blocks.product_size_guide.settings.content.label",
+      "info": "t:blocks.product_size_guide.settings.content.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_size_guide.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

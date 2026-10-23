@@ -46,8 +46,8 @@
       assign radius_button = 999
   endcase
 
-  assign heading_tracking = settings.heading_tracking | divided_by: 100.0
-  assign heading_scale = settings.heading_scale | divided_by: 100.0
+  assign heading_tracking = settings.heading_tracking | times: 0.01
+  assign heading_scale = settings.heading_scale | times: 0.01
 -%}
 <style>
   {{ body_font | font_face: font_display: 'swap' }}

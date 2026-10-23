@@ -20,7 +20,13 @@
         <li>
           <a class="bp-icon-button" href="{{ settings[key] }}" rel="noopener" target="_blank">
             <span class="bp-visually-hidden">{{ label_key | t }}</span>
-            {%- render 'icon', name: network -%}
+            {%- liquid
+              assign icon_name = network
+              if network == 'x'
+                assign icon_name = 'x-social'
+              endif
+            -%}
+            {%- render 'icon', name: icon_name -%}
           </a>
         </li>
       {%- endif -%}
