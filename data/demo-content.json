@@ -1,0 +1,4614 @@
+{
+  "_source": "Extracted from reference/Blueprint Theme v4.dc.html (Component.buildStores and friends)",
+  "presets": {
+    "clinical": {
+      "name": "Clinical",
+      "swatch": "#1E6B4F",
+      "bg": "#FFFFFF",
+      "surface": "#EEF3F0",
+      "ink": "#0F1A14",
+      "line": "#DCE3DF",
+      "accent": "#1E6B4F",
+      "accentSoft": "#E3F0EA",
+      "onAccent": "#FFFFFF",
+      "star": "#1E6B4F",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'DM Sans', sans-serif",
+      "headWeight": 600,
+      "headTrack": "-0.04em",
+      "radius": "12px",
+      "radiusSm": "8px",
+      "btnRadius": "999px"
+    },
+    "editorial": {
+      "name": "Editorial",
+      "swatch": "#B5532E",
+      "bg": "#F6F1E8",
+      "surface": "#EADFCE",
+      "ink": "#2A2420",
+      "line": "#DCCFBC",
+      "accent": "#B5532E",
+      "accentSoft": "#F2E1D6",
+      "onAccent": "#FFF8F0",
+      "star": "#B5532E",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'Instrument Serif', Georgia, serif",
+      "headWeight": 400,
+      "headTrack": "-0.01em",
+      "radius": "4px",
+      "radiusSm": "3px",
+      "btnRadius": "3px"
+    },
+    "bold": {
+      "name": "Bold",
+      "swatch": "#D8FF3D",
+      "bg": "#0F0F12",
+      "surface": "#1E1E25",
+      "ink": "#FFFFFF",
+      "line": "#2E2E38",
+      "accent": "#D8FF3D",
+      "accentSoft": "#2A2F14",
+      "onAccent": "#0F0F12",
+      "star": "#D8FF3D",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'DM Sans', sans-serif",
+      "headWeight": 700,
+      "headTrack": "-0.05em",
+      "radius": "18px",
+      "radiusSm": "12px",
+      "btnRadius": "14px"
+    },
+    "verde": {
+      "name": "Clinical",
+      "swatch": "#17533D",
+      "bg": "#F7F7F2",
+      "surface": "#E8EDE3",
+      "ink": "#0F1F17",
+      "line": "#D8DED2",
+      "accent": "#17533D",
+      "accentSoft": "#DCE8DF",
+      "onAccent": "#FFFFFF",
+      "star": "#17533D",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'DM Sans', sans-serif",
+      "headWeight": 600,
+      "headTrack": "-0.04em",
+      "radius": "12px",
+      "radiusSm": "8px",
+      "btnRadius": "999px"
+    },
+    "omni": {
+      "name": "Clinical",
+      "swatch": "#0B1526",
+      "bg": "#0B1526",
+      "surface": "#15223A",
+      "ink": "#F3F0E8",
+      "line": "#243350",
+      "accent": "#F3F0E8",
+      "accentSoft": "#1C2A45",
+      "onAccent": "#0B1526",
+      "star": "#F3F0E8",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'DM Sans', sans-serif",
+      "headWeight": 600,
+      "headTrack": "-0.04em",
+      "radius": "10px",
+      "radiusSm": "6px",
+      "btnRadius": "999px"
+    },
+    "kindly": {
+      "name": "Bold",
+      "swatch": "#0E7C7B",
+      "bg": "#FFF7EE",
+      "surface": "#FBE8D6",
+      "ink": "#1F1B18",
+      "line": "#F0DAC5",
+      "accent": "#0E7C7B",
+      "accentSoft": "#D6EEEA",
+      "onAccent": "#FFFFFF",
+      "star": "#0E7C7B",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'DM Sans', sans-serif",
+      "headWeight": 700,
+      "headTrack": "-0.04em",
+      "radius": "18px",
+      "radiusSm": "12px",
+      "btnRadius": "999px"
+    },
+    "dreamr": {
+      "name": "Bold",
+      "swatch": "#7C3AED",
+      "bg": "#0E0A1C",
+      "surface": "#1A1332",
+      "ink": "#FFFFFF",
+      "line": "#2C2450",
+      "accent": "#7C3AED",
+      "accentSoft": "#2A1C4F",
+      "onAccent": "#FFFFFF",
+      "star": "#C4B5FD",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'DM Sans', sans-serif",
+      "headWeight": 700,
+      "headTrack": "-0.05em",
+      "radius": "18px",
+      "radiusSm": "12px",
+      "btnRadius": "14px"
+    },
+    "goodboy": {
+      "name": "Bold",
+      "swatch": "#F0611A",
+      "bg": "#FFFCF5",
+      "surface": "#FFF0D6",
+      "ink": "#1F1A14",
+      "line": "#F1E2C6",
+      "accent": "#F0611A",
+      "accentSoft": "#FFE4D2",
+      "onAccent": "#FFFFFF",
+      "star": "#F0611A",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'DM Sans', sans-serif",
+      "headWeight": 700,
+      "headTrack": "-0.04em",
+      "radius": "18px",
+      "radiusSm": "12px",
+      "btnRadius": "999px"
+    },
+    "ode": {
+      "name": "Editorial",
+      "swatch": "#1A1815",
+      "bg": "#F4F1EB",
+      "surface": "#E8E3DA",
+      "ink": "#1A1815",
+      "line": "#DAD4C9",
+      "accent": "#1A1815",
+      "accentSoft": "#E4DFD5",
+      "onAccent": "#F4F1EB",
+      "star": "#1A1815",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'Instrument Serif', Georgia, serif",
+      "headWeight": 400,
+      "headTrack": "-0.01em",
+      "radius": "2px",
+      "radiusSm": "2px",
+      "btnRadius": "2px"
+    },
+    "rawform": {
+      "name": "Bold",
+      "swatch": "#D9FF3D",
+      "bg": "#0C0C0E",
+      "surface": "#1A1A1F",
+      "ink": "#FFFFFF",
+      "line": "#2A2A32",
+      "accent": "#D9FF3D",
+      "accentSoft": "#262B12",
+      "onAccent": "#0C0C0E",
+      "star": "#D9FF3D",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'DM Sans', sans-serif",
+      "headWeight": 700,
+      "headTrack": "-0.05em",
+      "radius": "6px",
+      "radiusSm": "4px",
+      "btnRadius": "6px"
+    },
+    "kindling": {
+      "name": "Editorial",
+      "swatch": "#B4581E",
+      "bg": "#F6F0E4",
+      "surface": "#EBE1CF",
+      "ink": "#2A1F17",
+      "line": "#DDD1BC",
+      "accent": "#B4581E",
+      "accentSoft": "#F1DFCB",
+      "onAccent": "#FFF8F0",
+      "star": "#B4581E",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'Instrument Serif', Georgia, serif",
+      "headWeight": 400,
+      "headTrack": "-0.01em",
+      "radius": "6px",
+      "radiusSm": "4px",
+      "btnRadius": "999px"
+    },
+    "allele": {
+      "name": "Clinical",
+      "swatch": "#27496D",
+      "bg": "#FFFFFF",
+      "surface": "#F1F3F4",
+      "ink": "#121417",
+      "line": "#E1E5E8",
+      "accent": "#27496D",
+      "accentSoft": "#E4EBF2",
+      "onAccent": "#FFFFFF",
+      "star": "#27496D",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'DM Sans', sans-serif",
+      "headWeight": 600,
+      "headTrack": "-0.04em",
+      "radius": "4px",
+      "radiusSm": "3px",
+      "btnRadius": "4px"
+    },
+    "stillwater": {
+      "name": "Editorial",
+      "swatch": "#141414",
+      "bg": "#FFFFFF",
+      "surface": "#F1EFEA",
+      "ink": "#141414",
+      "line": "#E3E0D9",
+      "accent": "#141414",
+      "accentSoft": "#ECEAE4",
+      "onAccent": "#FFFFFF",
+      "star": "#141414",
+      "font": "'DM Sans', sans-serif",
+      "headFont": "'DM Sans', sans-serif",
+      "headWeight": 600,
+      "headTrack": "-0.03em",
+      "radius": "0px",
+      "radiusSm": "0px",
+      "btnRadius": "0px"
+    }
+  },
+  "presetOrder": [
+    "clinical",
+    "editorial",
+    "bold"
+  ],
+  "storeOrder": [
+    "verde",
+    "omni",
+    "kindly",
+    "dreamr",
+    "goodboy",
+    "ode",
+    "rawform",
+    "kindling",
+    "allele",
+    "stillwater"
+  ],
+  "sectionLabels": {
+    "buybox": "Buy box",
+    "hero": "Hero",
+    "press": "As seen in",
+    "ticker": "Ticker",
+    "benefits": "Benefits grid",
+    "usvsthem": "Us vs. them",
+    "ingredients": "Ingredients table",
+    "steps": "Steps",
+    "stats": "Statistics",
+    "reviews": "Review carousel",
+    "ugc": "UGC grid",
+    "founder": "Founder note",
+    "features": "Alternating features",
+    "beforeafter": "Before / after",
+    "countdown": "Sale countdown",
+    "faq": "Store FAQ",
+    "guarantee": "Guarantee",
+    "collection": "Collection grid",
+    "comments": "Comments",
+    "badges": "Trust badges",
+    "study": "Clinical results",
+    "subscription": "Subscription",
+    "quiz": "Quiz finder",
+    "videos": "Video testimonials",
+    "bundle": "Bundle builder",
+    "imagetext": "Image with text"
+  },
+  "editorBlockList": [
+    [
+      "rating",
+      "Reviews rating"
+    ],
+    [
+      "viewers",
+      "Viewer count"
+    ],
+    [
+      "award",
+      "Award badge"
+    ],
+    [
+      "title",
+      "Product title"
+    ],
+    [
+      "price",
+      "Price"
+    ],
+    [
+      "benefits",
+      "Benefits grid"
+    ],
+    [
+      "stock",
+      "Stock indicator"
+    ],
+    [
+      "bundle",
+      "Bundle & save"
+    ],
+    [
+      "sub",
+      "Subscription toggle"
+    ],
+    [
+      "shipping",
+      "Shipping countdown"
+    ],
+    [
+      "atc",
+      "Add to cart"
+    ],
+    [
+      "guarantee",
+      "Guarantee row"
+    ],
+    [
+      "moneyback",
+      "Money-back statistic"
+    ],
+    [
+      "pay",
+      "Payment icons"
+    ]
+  ],
+  "defaultBlocks": {
+    "viewers": false,
+    "rating": true,
+    "award": false,
+    "title": true,
+    "price": true,
+    "benefits": true,
+    "stock": false,
+    "bundle": true,
+    "sub": true,
+    "shipping": false,
+    "atc": true,
+    "guarantee": true,
+    "moneyback": false,
+    "pay": true
+  },
+  "defaultThemeSettings": {
+    "accent": null,
+    "bg": "light",
+    "font": "sans",
+    "radius": "soft"
+  },
+  "tabs": [
+    {
+      "id": "product",
+      "name": "Product",
+      "path": "/products/",
+      "title": "Product"
+    },
+    {
+      "id": "home",
+      "name": "Home",
+      "path": "/",
+      "title": "Home"
+    },
+    {
+      "id": "advertorial",
+      "name": "Advertorial",
+      "path": "/pages/article",
+      "title": "Advertorial"
+    },
+    {
+      "id": "listicle",
+      "name": "Listicle",
+      "path": "/pages/reasons",
+      "title": "Listicle"
+    },
+    {
+      "id": "collection",
+      "name": "Collection",
+      "path": "/collections/all",
+      "title": "Collection"
+    },
+    {
+      "id": "cart",
+      "name": "Cart drawer",
+      "path": "/cart",
+      "title": "Cart drawer"
+    }
+  ],
+  "icons": {
+    "shield": "M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z M9 12l2 2 4-4",
+    "coin": "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M15 9.5c0-1.4-1.3-2-3-2s-3 .6-3 2 1.3 1.8 3 2 3 .8 3 2.2-1.3 2.3-3 2.3-3-.8-3-2.2 M12 6v1.5 M12 16.5V18",
+    "noapps": "M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13.5 13.5l6 6 M19.5 13.5l-6 6",
+    "refresh": "M20 12a8 8 0 1 1-2.3-5.7 M20 4v4h-4",
+    "sparkle": "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7L19 16z",
+    "leaf": "M5 19C5 10 10 5 20 4c-1 10-6 15-15 15z M5 19c3-5 6-8 10-10",
+    "flask": "M9 3h6 M10 3v6l-5 9.5A1.5 1.5 0 0 0 6.3 21h11.4a1.5 1.5 0 0 0 1.3-2.5L14 9V3 M7.5 15h9",
+    "drop": "M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z",
+    "star": "M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8L12 3.5z",
+    "bolt": "M13 2L4 14h7l-1 8 9-12h-7l1-8z",
+    "moon": "M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z",
+    "heart": "M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z",
+    "paw": "M12 20c-3 0-5-1.5-5-3.5S9.5 12 12 12s5 2.5 5 4.5-2 3.5-5 3.5z M6 10.5a1.75 2 0 1 0 0-4 1.75 2 0 0 0 0 4z M18 10.5a1.75 2 0 1 0 0-4 1.75 2 0 0 0 0 4z M9.5 7.5a1.75 2.25 0 1 0 0-4.5 1.75 2.25 0 0 0 0 4.5z M14.5 7.5a1.75 2.25 0 1 0 0-4.5 1.75 2.25 0 0 0 0 4.5z",
+    "clock": "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 7v5l3 2",
+    "truck": "M3 7h11v9H3z M14 10h4l3 3v3h-7 M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M17 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z",
+    "chart": "M5 20V11 M11 20V5 M17 20v-7 M3 20h18",
+    "layers": "M12 3l9 5-9 5-9-5 9-5z M3 13l9 5 9-5",
+    "grid": "M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z",
+    "chat": "M4 5h16v11H9l-5 4V5z",
+    "flame": "M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 1.5 1 2.5 2 2.5 0-3 1-5 1-8z",
+    "cart": "M3 4h2l2.5 11h11L21 7H6.5 M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z M17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z",
+    "image": "M4 5h16v14H4z M4 16l5-5 4 4 3-3 4 4 M15.5 9.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z",
+    "pencil": "M4 20l4-1L19.5 7.5a2 2 0 0 0-3-3L5 16l-1 4z M14 6l4 4",
+    "palette": "M12 3a9 9 0 0 0 0 18c1.5 0 2-1 1.5-2s0-2 1.5-2h1.5a4 4 0 0 0 4-4c0-5.5-4-10-8.5-10z M7.5 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2z M10.5 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2z M15 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2z",
+    "toggle": "M3 12a5 5 0 0 1 5-5h8a5 5 0 0 1 0 10H8a5 5 0 0 1-5-5z M16 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z",
+    "speed": "M4 14a8 8 0 1 1 16 0 M12 14l4-5 M12 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2z",
+    "video": "M4 7h12v10H4z M16 10l4-2v8l-4-2",
+    "plug": "M9 3v4 M15 3v4 M6 7h12v3a6 6 0 0 1-12 0V7z M12 16v5",
+    "check": "M5 12.5l4.5 4.5L19 7",
+    "x": "M6 6l12 12 M18 6L6 18",
+    "users": "M9 12a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z M3 20a6 6 0 0 1 12 0 M16 5a3 3 0 0 1 0 6 M21 20a5.5 5.5 0 0 0-4-5.3",
+    "doc": "M6 3h8l4 4v14H6V3z M14 3v4h4 M9 12h6 M9 16h6",
+    "phone": "M8 3h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M11 18h2"
+  },
+  "stores": {
+    "verde": {
+      "id": "verde",
+      "preset": "verde",
+      "brand": "VERDE",
+      "domain": "drinkverde.com",
+      "vertical": "Greens powder",
+      "vibe": "AG1 archetype. Clinical trust, one hero SKU, subscription first.",
+      "bar": "Free shipping on subscriptions · 90-day money-back guarantee",
+      "nav": [
+        "Shop",
+        "Science",
+        "Ingredients",
+        "Reviews"
+      ],
+      "filters": [
+        "Daily",
+        "Travel",
+        "Bundles"
+      ],
+      "product": {
+        "name": "Verde Daily",
+        "title": "One scoop. 75 ingredients. Every morning.",
+        "price": 79,
+        "was": 99,
+        "save": "Save 20% with subscription",
+        "reviews": "41,208",
+        "badge": "NSF Certified",
+        "thumbs": "+14",
+        "photo": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight",
+        "variants": [
+          {
+            "label": "Format",
+            "options": [
+              "30-serving pouch",
+              "30 travel packs"
+            ]
+          }
+        ],
+        "benefits": [
+          [
+            "leaf",
+            "Gut, energy, immunity, focus"
+          ],
+          [
+            "flask",
+            "NSF Certified for Sport"
+          ],
+          [
+            "drop",
+            "No added sugar, vegan"
+          ],
+          [
+            "shield",
+            "Clinically tested formula"
+          ]
+        ],
+        "tiers": [
+          {
+            "label": "1 pouch",
+            "sub": "30 servings",
+            "price": 79,
+            "was": 99
+          },
+          {
+            "label": "2 pouches",
+            "sub": "60 servings · free shipping",
+            "price": 142,
+            "was": 198,
+            "tag": "Most popular"
+          },
+          {
+            "label": "3 pouches",
+            "sub": "90 servings · free travel packs",
+            "price": 199,
+            "was": 297,
+            "tag": "Best value"
+          }
+        ],
+        "trust": [
+          "90-day guarantee",
+          "Ships in 24h",
+          "41,208 verified reviews"
+        ]
+      },
+      "upsell": {
+        "name": "Vitamin D3 + K2 drops",
+        "price": "$24",
+        "deal": "$18 in cart"
+      },
+      "rewards": [
+        "Free shipping",
+        "Free shaker",
+        "Free travel packs"
+      ],
+      "collection": [
+        [
+          "Verde Daily",
+          "$79",
+          "4.8",
+          "Best seller"
+        ],
+        [
+          "Travel packs",
+          "$89",
+          "4.8"
+        ],
+        [
+          "D3 + K2 drops",
+          "$24",
+          "4.9"
+        ],
+        [
+          "Omega-3",
+          "$34",
+          "4.8",
+          "New"
+        ],
+        [
+          "Starter kit",
+          "$99",
+          "4.9",
+          "Save 20%"
+        ],
+        [
+          "Steel shaker",
+          "$18",
+          "4.7"
+        ]
+      ],
+      "adv": {
+        "eyebrow": "Health · Sponsored",
+        "h": "I replaced seven supplements with one scoop. Here is my bloodwork 90 days later.",
+        "by": "By Dana R. · 5 min read",
+        "lede": "I am 38, I run a team of twelve, and until March my kitchen counter looked like a pharmacy. A friend sent me a link and I rolled my eyes.",
+        "pull": "Day 9: the afternoon crash did not come. Day 90: vitamin D up, ferritin up, counter clear.",
+        "cta": "Check availability →"
+      },
+      "list": {
+        "h": "7 reasons 41,000 people start their morning with Verde",
+        "items": [
+          [
+            "It replaces seven bottles",
+            "Multivitamin, probiotic, greens, adaptogens, enzymes, antioxidants, electrolytes. One scoop."
+          ],
+          [
+            "It is tested like a drug, not a drink",
+            "NSF Certified for Sport. Every batch screened for 280 banned substances."
+          ],
+          [
+            "90 days to decide",
+            "Finish three pouches. If you do not feel it, we refund every one."
+          ]
+        ],
+        "cta": "Claim 20% off →"
+      },
+      "home": [
+        {
+          "type": "hero",
+          "layout": "split",
+          "eyebrow": "Daily foundational nutrition",
+          "h": "Your whole supplement shelf. One scoop.",
+          "sub": "75 vitamins, minerals, probiotics and adaptogens in a single morning drink. Replaces your multi, probiotic and greens.",
+          "cta": "Shop Verde · $79",
+          "note": "★ 4.8 · 41,208 reviews",
+          "photo": "Home hero: scoop pouring into a glass, morning kitchen light, bone and green"
+        },
+        {
+          "type": "press",
+          "items": [
+            "Forbes",
+            "Men's Health",
+            "Vogue",
+            "The New York Times",
+            "Well+Good"
+          ]
+        },
+        {
+          "type": "badges",
+          "items": [
+            "NSF Certified for Sport",
+            "Vegan",
+            "Gluten-free",
+            "No added sugar",
+            "Made in a cGMP facility"
+          ]
+        },
+        {
+          "type": "benefits",
+          "h": "Seven supplements. One habit.",
+          "items": [
+            [
+              "leaf",
+              "Gut",
+              "7.2B CFU, prebiotics, enzymes"
+            ],
+            [
+              "bolt",
+              "Energy",
+              "B-complex and rhodiola, no caffeine"
+            ],
+            [
+              "shield",
+              "Immunity",
+              "Vitamin C, D3 and zinc at real doses"
+            ],
+            [
+              "sparkle",
+              "Focus",
+              "Ashwagandha, L-theanine, magnesium"
+            ]
+          ]
+        },
+        {
+          "type": "study",
+          "h": "Tested in a clinical trial, not a focus group.",
+          "sub": "Double-blind, placebo-controlled. 4 weeks, 102 adults, independent lab.",
+          "items": [
+            [
+              97,
+              "reported more sustained energy"
+            ],
+            [
+              91,
+              "better digestion by week 2"
+            ],
+            [
+              84,
+              "fewer afternoon cravings"
+            ]
+          ],
+          "src": "Published in Nutrients, March 2025. Full paper on the Science page."
+        },
+        {
+          "type": "ingredients",
+          "h": "What one scoop contains",
+          "sub": "75 ingredients. Every dose on the label.",
+          "rows": [
+            [
+              "Spirulina + chlorella",
+              "2,400 mg",
+              "Protein, iron, chlorophyll"
+            ],
+            [
+              "Probiotic blend",
+              "7.2B CFU",
+              "L. acidophilus, B. bifidum"
+            ],
+            [
+              "Ashwagandha KSM-66",
+              "300 mg",
+              "Stress response"
+            ],
+            [
+              "Vitamin C",
+              "420 mg",
+              "467% DV, immune support"
+            ],
+            [
+              "Digestive enzymes",
+              "154 mg",
+              "Bloat after meals"
+            ],
+            [
+              "Rhodiola rosea",
+              "50 mg",
+              "Mental stamina"
+            ]
+          ],
+          "foot": "See the full label and batch COA →"
+        },
+        {
+          "type": "usvsthem",
+          "h": "Verde vs. the cabinet",
+          "us": "Verde",
+          "them": "Separate supplements",
+          "rows": [
+            [
+              "One scoop, 60 seconds",
+              1,
+              0
+            ],
+            [
+              "NSF Certified for Sport",
+              1,
+              0
+            ],
+            [
+              "Doses on the label, no blends",
+              1,
+              0
+            ],
+            [
+              "Under $2.70 a day",
+              1,
+              0
+            ],
+            [
+              "Seven bottles on the counter",
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "type": "subscription",
+          "h": "Subscribe, save 20%, never think about it again.",
+          "sub": "Most members stay 14+ months. Here is why.",
+          "items": [
+            [
+              "truck",
+              "Lands before you run out",
+              "30 servings every 30 days, shipping on us."
+            ],
+            [
+              "refresh",
+              "Skip or cancel in two taps",
+              "No calls, no retention scripts, no guilt."
+            ],
+            [
+              "sparkle",
+              "Welcome kit on us",
+              "Steel shaker, canister and five travel packs with your first order."
+            ]
+          ],
+          "cta": "Start subscription · $63/mo"
+        },
+        {
+          "type": "reviews",
+          "h": "What 41,208 people said",
+          "items": [
+            [
+              "Replaced my multivitamin, probiotic and the $9 juice. Tastes like pineapple, not grass.",
+              "Marcus T. · Verified buyer",
+              "Customer photo: glass of Verde on a desk"
+            ],
+            [
+              "Day 10 and the 3pm slump is just gone. I did not expect to notice anything.",
+              "Priya S. · Verified buyer",
+              "Customer photo: pouch in a gym bag"
+            ],
+            [
+              "Bloodwork at 90 days convinced my doctor. Now she takes it.",
+              "Jen R. · Verified buyer",
+              "Customer photo: morning counter with shaker"
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "When will I notice something?",
+              "Energy and digestion within 7 to 14 days for most people. Give it 60 days; the trial ran 4 weeks."
+            ],
+            [
+              "Does it replace my multivitamin?",
+              "Yes. And your probiotic, greens and adaptogens. Keep your omega-3."
+            ],
+            [
+              "Can I pause my subscription?",
+              "Skip, pause, swap flavour or cancel from your account. Two taps, no calls."
+            ]
+          ]
+        },
+        {
+          "type": "guarantee",
+          "h": "90 days. Finish the pouch.",
+          "d": "If you do not feel a difference, email us and we refund it. Fewer than 2% ask.",
+          "cta": "Start today"
+        }
+      ],
+      "pdp": [
+        {
+          "type": "ingredients",
+          "h": "What one scoop contains",
+          "sub": "75 ingredients. Every dose on the label.",
+          "rows": [
+            [
+              "Spirulina + chlorella",
+              "2,400 mg",
+              "Protein, iron, chlorophyll"
+            ],
+            [
+              "Probiotic blend",
+              "7.2B CFU",
+              "L. acidophilus, B. bifidum"
+            ],
+            [
+              "Ashwagandha KSM-66",
+              "300 mg",
+              "Stress response"
+            ],
+            [
+              "Vitamin C",
+              "420 mg",
+              "467% DV, immune support"
+            ],
+            [
+              "Digestive enzymes",
+              "154 mg",
+              "Bloat after meals"
+            ],
+            [
+              "Rhodiola rosea",
+              "50 mg",
+              "Mental stamina"
+            ]
+          ],
+          "foot": "See the full label and batch COA →"
+        },
+        {
+          "type": "study",
+          "h": "Tested in a clinical trial, not a focus group.",
+          "sub": "Double-blind, placebo-controlled. 4 weeks, 102 adults, independent lab.",
+          "items": [
+            [
+              97,
+              "reported more sustained energy"
+            ],
+            [
+              91,
+              "better digestion by week 2"
+            ],
+            [
+              84,
+              "fewer afternoon cravings"
+            ]
+          ],
+          "src": "Published in Nutrients, March 2025. Full paper on the Science page."
+        },
+        {
+          "type": "usvsthem",
+          "h": "Verde vs. the cabinet",
+          "us": "Verde",
+          "them": "Separate supplements",
+          "rows": [
+            [
+              "One scoop, 60 seconds",
+              1,
+              0
+            ],
+            [
+              "NSF Certified for Sport",
+              1,
+              0
+            ],
+            [
+              "Doses on the label, no blends",
+              1,
+              0
+            ],
+            [
+              "Under $2.70 a day",
+              1,
+              0
+            ],
+            [
+              "Seven bottles on the counter",
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "When will I notice something?",
+              "Energy and digestion within 7 to 14 days for most people. Give it 60 days; the trial ran 4 weeks."
+            ],
+            [
+              "Does it replace my multivitamin?",
+              "Yes. And your probiotic, greens and adaptogens. Keep your omega-3."
+            ],
+            [
+              "Can I pause my subscription?",
+              "Skip, pause, swap flavour or cancel from your account. Two taps, no calls."
+            ]
+          ]
+        }
+      ]
+    },
+    "omni": {
+      "id": "omni",
+      "preset": "omni",
+      "brand": "OMNI",
+      "domain": "omnidaily.com",
+      "vertical": "All-in-one daily",
+      "vibe": "IM8 archetype. Premium, doctor-backed, one product replaces sixteen.",
+      "bar": "Formulated by 11 doctors and scientists · Free shipping on subscriptions",
+      "nav": [
+        "Shop",
+        "Research",
+        "Ingredients",
+        "Our team"
+      ],
+      "filters": [
+        "Daily",
+        "Travel",
+        "Sets"
+      ],
+      "product": {
+        "name": "Daily Ultimate Essentials",
+        "title": "92 ingredients. 16 products replaced. One glass a day.",
+        "price": 99,
+        "was": 129,
+        "save": "Save 23% today",
+        "reviews": "12,540",
+        "badge": "Doctor formulated",
+        "thumbs": "+9",
+        "photo": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light",
+        "variants": [
+          {
+            "label": "Flavour",
+            "options": [
+              "Vanilla",
+              "Chocolate",
+              "Unflavoured"
+            ]
+          }
+        ],
+        "benefits": [
+          [
+            "layers",
+            "92 ingredients, 16 products replaced"
+          ],
+          [
+            "flask",
+            "Clinically trialled, results published"
+          ],
+          [
+            "users",
+            "Formulated by 11 doctors"
+          ],
+          [
+            "shield",
+            "No proprietary blends, every dose shown"
+          ]
+        ],
+        "tiers": [
+          {
+            "label": "1 canister",
+            "sub": "30 servings",
+            "price": 99,
+            "was": 129
+          },
+          {
+            "label": "2 canisters",
+            "sub": "One for a partner · free shipping",
+            "price": 178,
+            "was": 258,
+            "tag": "Most popular"
+          },
+          {
+            "label": "3 canisters",
+            "sub": "Quarter supply · free shaker set",
+            "price": 249,
+            "was": 387,
+            "tag": "Best value"
+          }
+        ],
+        "trust": [
+          "60-day guarantee",
+          "Ships in 24h",
+          "12,540 reviews"
+        ]
+      },
+      "upsell": {
+        "name": "Travel sachets · 15",
+        "price": "$54",
+        "deal": "$44 in cart"
+      },
+      "rewards": [
+        "Free shipping",
+        "Free shaker set",
+        "Free month"
+      ],
+      "collection": [
+        [
+          "Daily Ultimate Essentials",
+          "$99",
+          "4.9",
+          "Best seller"
+        ],
+        [
+          "Travel sachets",
+          "$54",
+          "4.8"
+        ],
+        [
+          "Night Formula",
+          "$69",
+          "4.8",
+          "New"
+        ],
+        [
+          "Steel shaker set",
+          "$29",
+          "4.9"
+        ],
+        [
+          "Day + Night set",
+          "$149",
+          "4.9",
+          "Save 15%"
+        ],
+        [
+          "Gift card",
+          "$100",
+          "5.0"
+        ]
+      ],
+      "adv": {
+        "eyebrow": "Longevity · Sponsored",
+        "h": "A cardiologist audited every all-in-one on the market. Only one passed.",
+        "by": "By the Omni research desk · 6 min read",
+        "lede": "Dr. Lena Park does not take supplements. She reads labels for a living and most of them, she says, are marketing with a scoop.",
+        "pull": "92 ingredients, every dose disclosed, an 8-week trial with bloodwork. She started taking it the week she finished the audit.",
+        "cta": "See the full formula →"
+      },
+      "list": {
+        "h": "6 things every all-in-one should prove before you buy it",
+        "items": [
+          [
+            "Full doses, not fairy dust",
+            "3 g creatine, 5 g collagen, 20B CFU. If the label hides amounts in a blend, walk away."
+          ],
+          [
+            "A human trial",
+            "Not a study on one ingredient. A trial on the finished product. Ours is published."
+          ],
+          [
+            "Who formulated it",
+            "Eleven names, eleven credentials, on the website. Ask the other brands for theirs."
+          ]
+        ],
+        "cta": "Compare Omni →"
+      },
+      "home": [
+        {
+          "type": "hero",
+          "layout": "center",
+          "eyebrow": "Formulated by a team of 11 doctors and scientists",
+          "h": "Everything your body needs. One scoop a day.",
+          "sub": "Multivitamin, probiotics, omega-3, collagen, creatine, adaptogens and more. 92 ingredients, 16 products replaced, every dose on the label.",
+          "cta": "Shop Daily Ultimate · $99",
+          "stats": [
+            [
+              "92",
+              "ingredients"
+            ],
+            [
+              "16",
+              "products replaced"
+            ],
+            [
+              "12,540",
+              "five-star reviews"
+            ]
+          ],
+          "photo": "Home hero: canister, glass and scoop on dark stone, cinematic rim light"
+        },
+        {
+          "type": "press",
+          "items": [
+            "Forbes",
+            "GQ",
+            "Bloomberg",
+            "The Times",
+            "Men's Journal"
+          ]
+        },
+        {
+          "type": "ticker",
+          "items": [
+            "Multivitamin",
+            "Probiotic 20B CFU",
+            "Omega-3",
+            "Collagen 5 g",
+            "Creatine 3 g",
+            "Greens",
+            "Adaptogens",
+            "Electrolytes"
+          ]
+        },
+        {
+          "type": "features",
+          "h": "Sixteen products. One glass.",
+          "items": [
+            [
+              "Replaces 01–06",
+              "Multivitamin, minerals, omega-3, D3, B12, magnesium",
+              "Every micronutrient at a clinically meaningful dose, not a label-filler dose.",
+              "Macro: powder and capsules side by side, navy backdrop"
+            ],
+            [
+              "Replaces 07–11",
+              "Probiotic, prebiotic, enzymes, greens, antioxidants",
+              "20B CFU across 8 strains, plus the fibre they feed on.",
+              "Macro: scoop with powder, lab light"
+            ],
+            [
+              "Replaces 12–16",
+              "Collagen, creatine, adaptogens, electrolytes, nootropics",
+              "5 g collagen peptides, 3 g creatine, ashwagandha and lion's mane. The part a multivitamin never covers.",
+              "Glass of Omni being stirred, slow shutter"
+            ]
+          ]
+        },
+        {
+          "type": "study",
+          "h": "Measured, not marketed.",
+          "sub": "Independent 8-week trial, 60 adults aged 35 to 65, bloodwork at day 0 and day 56.",
+          "items": [
+            [
+              95,
+              "felt more energised by week 4"
+            ],
+            [
+              89,
+              "improved gut comfort"
+            ],
+            [
+              31,
+              "drop in hs-CRP, an inflammation marker"
+            ]
+          ],
+          "src": "Trial run by a third-party CRO. Protocol and results on the Research page."
+        },
+        {
+          "type": "stats",
+          "items": [
+            [
+              "11",
+              "doctors and scientists on the formula"
+            ],
+            [
+              "92",
+              "ingredients, all disclosed"
+            ],
+            [
+              "0",
+              "proprietary blends"
+            ],
+            [
+              "$3.30",
+              "per day on subscription"
+            ]
+          ]
+        },
+        {
+          "type": "videos",
+          "h": "Hear it from them",
+          "items": [
+            [
+              "I check a formula like I check a chart. This is the first one I take myself.",
+              "Dr. Lena Park · Cardiologist",
+              "Video still: doctor in clinic, navy scrubs"
+            ],
+            [
+              "Replaced a counter full of tubs. Recovery is the thing I notice.",
+              "Marcus Oyelaran · Pro triathlete",
+              "Video still: athlete post-training"
+            ],
+            [
+              "I am 61. I have more energy than my son and he knows it.",
+              "Carol B. · Member since 2024",
+              "Video still: customer in garden"
+            ]
+          ]
+        },
+        {
+          "type": "subscription",
+          "h": "Members pay $79, not $99.",
+          "sub": "Subscription is how most people take Omni. Change flavour, skip a month or cancel in your account.",
+          "items": [
+            [
+              "coin",
+              "20% off, every order",
+              "$79 a canister instead of $99."
+            ],
+            [
+              "truck",
+              "Free shipping, always",
+              "Lands on the same day each month."
+            ],
+            [
+              "sparkle",
+              "Shaker set and travel case",
+              "In your first box, on us."
+            ]
+          ],
+          "cta": "Subscribe · $79/mo"
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Is one scoop really enough?",
+              "Yes. 92 ingredients at full doses; the scoop is 26 g, about three times a typical greens powder."
+            ],
+            [
+              "Can I take it with medication?",
+              "Most people can. The full label is public so your doctor can check it in a minute."
+            ],
+            [
+              "Why is it $99?",
+              "Because it replaces about $240 of separate products. Per day it is $3.30 with subscription."
+            ]
+          ]
+        }
+      ],
+      "pdp": [
+        {
+          "type": "features",
+          "h": "Sixteen products. One glass.",
+          "items": [
+            [
+              "Replaces 01–06",
+              "Multivitamin, minerals, omega-3, D3, B12, magnesium",
+              "Every micronutrient at a clinically meaningful dose, not a label-filler dose.",
+              "Macro: powder and capsules side by side, navy backdrop"
+            ],
+            [
+              "Replaces 07–11",
+              "Probiotic, prebiotic, enzymes, greens, antioxidants",
+              "20B CFU across 8 strains, plus the fibre they feed on.",
+              "Macro: scoop with powder, lab light"
+            ],
+            [
+              "Replaces 12–16",
+              "Collagen, creatine, adaptogens, electrolytes, nootropics",
+              "5 g collagen peptides, 3 g creatine, ashwagandha and lion's mane. The part a multivitamin never covers.",
+              "Glass of Omni being stirred, slow shutter"
+            ]
+          ]
+        },
+        {
+          "type": "study",
+          "h": "Measured, not marketed.",
+          "sub": "Independent 8-week trial, 60 adults aged 35 to 65, bloodwork at day 0 and day 56.",
+          "items": [
+            [
+              95,
+              "felt more energised by week 4"
+            ],
+            [
+              89,
+              "improved gut comfort"
+            ],
+            [
+              31,
+              "drop in hs-CRP, an inflammation marker"
+            ]
+          ],
+          "src": "Trial run by a third-party CRO. Protocol and results on the Research page."
+        },
+        {
+          "type": "videos",
+          "h": "Hear it from them",
+          "items": [
+            [
+              "I check a formula like I check a chart. This is the first one I take myself.",
+              "Dr. Lena Park · Cardiologist",
+              "Video still: doctor in clinic, navy scrubs"
+            ],
+            [
+              "Replaced a counter full of tubs. Recovery is the thing I notice.",
+              "Marcus Oyelaran · Pro triathlete",
+              "Video still: athlete post-training"
+            ],
+            [
+              "I am 61. I have more energy than my son and he knows it.",
+              "Carol B. · Member since 2024",
+              "Video still: customer in garden"
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Is one scoop really enough?",
+              "Yes. 92 ingredients at full doses; the scoop is 26 g, about three times a typical greens powder."
+            ],
+            [
+              "Can I take it with medication?",
+              "Most people can. The full label is public so your doctor can check it in a minute."
+            ],
+            [
+              "Why is it $99?",
+              "Because it replaces about $240 of separate products. Per day it is $3.30 with subscription."
+            ]
+          ]
+        }
+      ]
+    },
+    "kindly": {
+      "id": "kindly",
+      "preset": "kindly",
+      "brand": "KINDLY",
+      "domain": "kindly.com",
+      "vertical": "Clean deodorant & body care",
+      "vibe": "Native archetype. Pastel, scent-led, mix-and-match packs. Zero fear-mongering.",
+      "bar": "Free shipping on 3+ · 30-day returns, even if you used it",
+      "nav": [
+        "Deodorant",
+        "Body wash",
+        "Scents",
+        "Sensitive"
+      ],
+      "filters": [
+        "Deodorant",
+        "Body wash",
+        "Packs"
+      ],
+      "product": {
+        "name": "Deodorant",
+        "title": "Aluminium-free deodorant that actually lasts all day.",
+        "price": 13,
+        "was": 15,
+        "save": "Save 20% on 3-packs",
+        "reviews": "68,112",
+        "badge": "#1 natural deodorant",
+        "thumbs": "+11",
+        "photo": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light",
+        "variants": [
+          {
+            "label": "Scent",
+            "options": [
+              "Coconut & Vanilla",
+              "Cucumber & Mint",
+              "Eucalyptus & Mint",
+              "Lavender & Rose",
+              "Unscented"
+            ],
+            "swatches": [
+              "#F3D9B5",
+              "#BFE3C8",
+              "#A9D8CF",
+              "#DCC8E8",
+              "#EFEFEA"
+            ]
+          }
+        ],
+        "benefits": [
+          [
+            "clock",
+            "72-hour odour protection"
+          ],
+          [
+            "leaf",
+            "Aluminium, paraben and sulphate free"
+          ],
+          [
+            "drop",
+            "Baking-soda-free Sensitive option"
+          ],
+          [
+            "refresh",
+            "Free returns, even used"
+          ]
+        ],
+        "tiers": [
+          {
+            "label": "1 stick",
+            "sub": "2.65 oz · about 2 months",
+            "price": 13,
+            "was": 15
+          },
+          {
+            "label": "3-pack",
+            "sub": "Mix any scents · free shipping",
+            "price": 36,
+            "was": 45,
+            "tag": "Most popular"
+          },
+          {
+            "label": "5-pack",
+            "sub": "Family pack · free body wash",
+            "price": 56,
+            "was": 75,
+            "tag": "Best value"
+          }
+        ],
+        "trust": [
+          "30-day returns, used",
+          "Ships in 24h",
+          "68,112 reviews"
+        ]
+      },
+      "upsell": {
+        "name": "Body wash · Coconut & Vanilla",
+        "price": "$12",
+        "deal": "$9 in cart"
+      },
+      "rewards": [
+        "Free shipping",
+        "Free mini",
+        "Free body wash"
+      ],
+      "collection": [
+        [
+          "Deodorant",
+          "$13",
+          "4.8",
+          "Best seller"
+        ],
+        [
+          "Sensitive deodorant",
+          "$13",
+          "4.8"
+        ],
+        [
+          "Body wash",
+          "$12",
+          "4.9"
+        ],
+        [
+          "Bar soap · 3",
+          "$18",
+          "4.7"
+        ],
+        [
+          "Mini travel set",
+          "$16",
+          "4.8",
+          "New"
+        ],
+        [
+          "Scent discovery kit",
+          "$20",
+          "4.9",
+          "Save 25%"
+        ]
+      ],
+      "adv": {
+        "eyebrow": "Beauty · Partner",
+        "h": "I gave up on natural deodorant three times. A dermatologist told me what I was doing wrong.",
+        "by": "By Jess K. · 4 min read",
+        "lede": "Every natural stick I tried quit by lunch. Turns out the two-week switch window is real, and nobody had explained it.",
+        "pull": "Week 2, day 3: hot yoga, no reapply, no regrets.",
+        "cta": "Find your scent →"
+      },
+      "list": {
+        "h": "5 reasons 68,000 people switched to Kindly this year",
+        "items": [
+          [
+            "It works for 72 hours",
+            "Independent panel tested. Most sticks claim 24 and deliver 8."
+          ],
+          [
+            "Scents you will actually want",
+            "Coconut & Vanilla outsells everything else we make, including body wash."
+          ],
+          [
+            "Used it? Still returnable",
+            "Scent is personal. 30 days, no questions, keep the stick."
+          ]
+        ],
+        "cta": "Build a 3-pack →"
+      },
+      "home": [
+        {
+          "type": "hero",
+          "layout": "split",
+          "eyebrow": "Over 100,000 five-star reviews",
+          "h": "Deodorant you'll actually look forward to.",
+          "sub": "Aluminium-free, 72-hour protection, and scents that smell like a holiday. Pick yours or let the quiz do it.",
+          "cta": "Find your scent",
+          "note": "Free shipping on 3+",
+          "photo": "Home hero: three sticks on pastel blocks, playful studio, peach and mint"
+        },
+        {
+          "type": "ticker",
+          "items": [
+            "Aluminium-free",
+            "72-hour protection",
+            "Paraben-free",
+            "Cruelty-free",
+            "Made in the USA",
+            "Used it? Return it"
+          ]
+        },
+        {
+          "type": "quiz",
+          "eyebrow": "Scent finder",
+          "h": "Not sure where to start?",
+          "sub": "Four questions, 20 seconds, one scent you will not return.",
+          "q": "Which smells most like you?",
+          "opts": [
+            "Fresh & clean",
+            "Sweet & warm",
+            "Soft & floral",
+            "Nothing at all"
+          ],
+          "results": [
+            "Your match: Cucumber & Mint →",
+            "Your match: Coconut & Vanilla →",
+            "Your match: Lavender & Rose →",
+            "Your match: Unscented Sensitive →"
+          ],
+          "cta": "Show my match"
+        },
+        {
+          "type": "benefits",
+          "h": "What is not in it",
+          "items": [
+            [
+              "x",
+              "No aluminium",
+              "Nothing plugging your pores"
+            ],
+            [
+              "x",
+              "No parabens",
+              "Or phthalates, or sulphates"
+            ],
+            [
+              "x",
+              "No talc",
+              "Arrowroot absorbs instead"
+            ],
+            [
+              "heart",
+              "Yes to skin",
+              "Shea, coconut oil, magnesium"
+            ]
+          ]
+        },
+        {
+          "type": "imagetext",
+          "k": "Making the switch",
+          "h": "The first two weeks, explained honestly.",
+          "d": "Your body spent years with aluminium plugging the pores. Days 1 to 10 can be a little sweatier while it adjusts. By week two, most people say they forgot they switched. If you do not, send it back, used.",
+          "cta": "Read the switch guide →",
+          "photo": "Lifestyle: deodorant stick on a bathroom shelf, peach wall, morning light"
+        },
+        {
+          "type": "bundle",
+          "h": "Build your 3-pack",
+          "sub": "Mix any scents. Three or more ships free and saves 20%.",
+          "pct": 20,
+          "min": 3,
+          "note": "Free shipping unlocked · swap scents anytime",
+          "cta": "Add bundle",
+          "items": [
+            [
+              "Coconut & Vanilla",
+              13,
+              1
+            ],
+            [
+              "Cucumber & Mint",
+              13,
+              1
+            ],
+            [
+              "Eucalyptus & Mint",
+              13,
+              1
+            ],
+            [
+              "Lavender & Rose",
+              13,
+              0
+            ],
+            [
+              "Unscented",
+              13,
+              0
+            ],
+            [
+              "Body wash · Coconut",
+              12,
+              0
+            ]
+          ]
+        },
+        {
+          "type": "reviews",
+          "h": "68,112 reviews and counting",
+          "items": [
+            [
+              "I have tried every natural deodorant. This is the first one that lasted through a hot yoga class.",
+              "Monica R. · Verified buyer",
+              "Customer photo: stick in a gym bag"
+            ],
+            [
+              "Coconut & Vanilla smells like a holiday. My husband stole it, so now we subscribe to two.",
+              "Dani P. · Verified buyer"
+            ],
+            [
+              "Switched for my teenager. No rash, no complaints, which from a 15-year-old is a rave.",
+              "Kerry L. · Verified buyer"
+            ]
+          ]
+        },
+        {
+          "type": "subscription",
+          "h": "Subscribe and never run out mid-week.",
+          "sub": "A new stick every 8 weeks, or whatever cadence you pick.",
+          "items": [
+            [
+              "coin",
+              "Save 15% on every order",
+              "$11 a stick."
+            ],
+            [
+              "refresh",
+              "Swap scents any time",
+              "Coconut in summer, Eucalyptus in winter."
+            ],
+            [
+              "truck",
+              "Free shipping",
+              "Every box, every time."
+            ]
+          ],
+          "cta": "Subscribe · $11/stick"
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Will I smell by 3pm?",
+              "72-hour odour protection in independent testing. Most people never reapply, some do after a workout."
+            ],
+            [
+              "Is it baking-soda free?",
+              "The Sensitive line is. The classic line uses a small amount; if you have reacted before, start with Sensitive."
+            ],
+            [
+              "Can I return it if I have used it?",
+              "Yes. Scent is personal. 30 days, used or not, no questions."
+            ]
+          ]
+        }
+      ],
+      "pdp": [
+        {
+          "type": "bundle",
+          "h": "Build your 3-pack",
+          "sub": "Mix any scents. Three or more ships free and saves 20%.",
+          "pct": 20,
+          "min": 3,
+          "note": "Free shipping unlocked · swap scents anytime",
+          "cta": "Add bundle",
+          "items": [
+            [
+              "Coconut & Vanilla",
+              13,
+              1
+            ],
+            [
+              "Cucumber & Mint",
+              13,
+              1
+            ],
+            [
+              "Eucalyptus & Mint",
+              13,
+              1
+            ],
+            [
+              "Lavender & Rose",
+              13,
+              0
+            ],
+            [
+              "Unscented",
+              13,
+              0
+            ],
+            [
+              "Body wash · Coconut",
+              12,
+              0
+            ]
+          ]
+        },
+        {
+          "type": "imagetext",
+          "k": "Making the switch",
+          "h": "The first two weeks, explained honestly.",
+          "d": "Your body spent years with aluminium plugging the pores. Days 1 to 10 can be a little sweatier while it adjusts. By week two, most people say they forgot they switched. If you do not, send it back, used.",
+          "cta": "Read the switch guide →",
+          "photo": "Lifestyle: deodorant stick on a bathroom shelf, peach wall, morning light"
+        },
+        {
+          "type": "reviews",
+          "h": "68,112 reviews and counting",
+          "items": [
+            [
+              "I have tried every natural deodorant. This is the first one that lasted through a hot yoga class.",
+              "Monica R. · Verified buyer",
+              "Customer photo: stick in a gym bag"
+            ],
+            [
+              "Coconut & Vanilla smells like a holiday. My husband stole it, so now we subscribe to two.",
+              "Dani P. · Verified buyer"
+            ],
+            [
+              "Switched for my teenager. No rash, no complaints, which from a 15-year-old is a rave.",
+              "Kerry L. · Verified buyer"
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Will I smell by 3pm?",
+              "72-hour odour protection in independent testing. Most people never reapply, some do after a workout."
+            ],
+            [
+              "Is it baking-soda free?",
+              "The Sensitive line is. The classic line uses a small amount; if you have reacted before, start with Sensitive."
+            ],
+            [
+              "Can I return it if I have used it?",
+              "Yes. Scent is personal. 30 days, used or not, no questions."
+            ]
+          ]
+        }
+      ]
+    },
+    "dreamr": {
+      "id": "dreamr",
+      "preset": "dreamr",
+      "brand": "DREAMR",
+      "domain": "getdreamr.com",
+      "vertical": "Sleep gummies",
+      "vibe": "TikTok-native in violet. Social proof everywhere, urgency on top.",
+      "bar": "Asleep in 20 min or your money back · Free shipping over $40",
+      "nav": [
+        "Shop",
+        "Reviews",
+        "TikTok",
+        "Bundle"
+      ],
+      "filters": [
+        "Sleep",
+        "Calm",
+        "Bundles"
+      ],
+      "product": {
+        "name": "Sleep Gummies",
+        "title": "Asleep in 20 minutes. Or your money back.",
+        "price": 34,
+        "was": 44,
+        "save": "30% off today",
+        "reviews": "8,221",
+        "badge": "TikTok famous",
+        "thumbs": "+20",
+        "photo": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling",
+        "variants": [
+          {
+            "label": "Flavour",
+            "options": [
+              "Black cherry",
+              "Blueberry lavender"
+            ],
+            "swatches": [
+              "#5B1A3A",
+              "#6B5BB5"
+            ]
+          }
+        ],
+        "benefits": [
+          [
+            "moon",
+            "Melatonin-free formula"
+          ],
+          [
+            "bolt",
+            "Works in about 20 minutes"
+          ],
+          [
+            "heart",
+            "No groggy morning"
+          ],
+          [
+            "star",
+            "8,221 five-star reviews"
+          ]
+        ],
+        "tiers": [
+          {
+            "label": "1 bottle",
+            "sub": "30 nights",
+            "price": 34,
+            "was": 44
+          },
+          {
+            "label": "2 bottles",
+            "sub": "60 nights · free shipping",
+            "price": 58,
+            "was": 88,
+            "tag": "TikTok bundle"
+          },
+          {
+            "label": "3 bottles",
+            "sub": "90 nights · free silk mask",
+            "price": 78,
+            "was": 132,
+            "tag": "Best value"
+          }
+        ],
+        "trust": [
+          "Money-back guarantee",
+          "Ships today",
+          "8,221 reviews"
+        ]
+      },
+      "upsell": {
+        "name": "Silk sleep mask",
+        "price": "$18",
+        "deal": "$12 in cart"
+      },
+      "rewards": [
+        "Free shipping",
+        "Free mask",
+        "Free bottle"
+      ],
+      "collection": [
+        [
+          "Sleep Gummies",
+          "$34",
+          "4.9",
+          "Best seller"
+        ],
+        [
+          "Calm Gummies",
+          "$29",
+          "4.8"
+        ],
+        [
+          "Focus Gummies",
+          "$29",
+          "4.7",
+          "New"
+        ],
+        [
+          "Night Stack",
+          "$59",
+          "4.9",
+          "Save 25%"
+        ],
+        [
+          "Silk sleep mask",
+          "$18",
+          "4.8"
+        ],
+        [
+          "Magnesium spray",
+          "$22",
+          "4.6"
+        ]
+      ],
+      "adv": {
+        "eyebrow": "Sleep · Sponsored",
+        "h": "I'm a nurse on nights. This is the only gummy that got me to sleep at 9am.",
+        "by": "By Kayla B., RN · 3 min read",
+        "lede": "Blackout curtains, white noise, melatonin that left me hungover for my next shift. Then a coworker handed me two of these.",
+        "pull": "Shift ended 8:15. Gummies 8:40. Last thing I remember is 9:02.",
+        "cta": "Get 30% off →"
+      },
+      "list": {
+        "h": "7 reasons 8,221 people gave Dreamr five stars",
+        "items": [
+          [
+            "No melatonin hangover",
+            "Magnesium glycinate, L-theanine, apigenin. Nothing that fogs the morning."
+          ],
+          [
+            "It actually tastes like candy",
+            "Black cherry. People eat them as dessert."
+          ],
+          [
+            "Twenty minutes",
+            "Average time to sleep in our 1,000-person survey: 19 minutes."
+          ]
+        ],
+        "cta": "Claim the TikTok bundle →"
+      },
+      "home": [
+        {
+          "type": "hero",
+          "layout": "split",
+          "eyebrow": "As seen on TikTok · 48M views",
+          "h": "The sleep gummy TikTok won't shut up about.",
+          "sub": "Melatonin-free. Asleep in 20 minutes. 8,221 five-star reviews and counting.",
+          "cta": "Get 30% off",
+          "note": "★★★★★ 8,221",
+          "photo": "Home hero: person in bed, violet jar on nightstand, flash photography"
+        },
+        {
+          "type": "countdown",
+          "h": "Flash sale · 30% off the 2-bottle bundle",
+          "sub": "Ends tonight"
+        },
+        {
+          "type": "press",
+          "items": [
+            "TikTok",
+            "BuzzFeed",
+            "Cosmopolitan",
+            "Bustle",
+            "PopSugar"
+          ]
+        },
+        {
+          "type": "ugc",
+          "h": "Not ads. Customers.",
+          "items": [
+            "@sleepyari",
+            "@nightshiftnurse",
+            "@mombrain.co",
+            "@gymratgreg"
+          ],
+          "photo": "UGC vertical video still, phone-shot, violet jar in frame"
+        },
+        {
+          "type": "comments",
+          "h": "2,104 comments",
+          "items": [
+            [
+              "Marisol V.",
+              "ok I was skeptical. night 1: out in 15 min. night 2: same. where has this been",
+              "1.2K"
+            ],
+            [
+              "Greg H.",
+              "bought the 3 pack after the first night lol",
+              "846"
+            ],
+            [
+              "Dana P.",
+              "no grogginess!!! melatonin always wrecked me, this doesn't",
+              "512"
+            ]
+          ]
+        },
+        {
+          "type": "study",
+          "h": "We asked 1,000 customers. They answered.",
+          "sub": "Independent survey, 30 nights of use, run by a third-party panel in 2026.",
+          "items": [
+            [
+              91,
+              "asleep within 30 minutes"
+            ],
+            [
+              88,
+              "woke up without grogginess"
+            ],
+            [
+              79,
+              "stopped using melatonin entirely"
+            ]
+          ],
+          "src": "Full methodology on the Reviews page. Individual results vary."
+        },
+        {
+          "type": "reviews",
+          "h": "Five stars, 8,221 times",
+          "items": [
+            [
+              "Out cold in 20 minutes and no hangover. I have tried everything.",
+              "Ari S. · Verified buyer",
+              "Customer photo: jar on nightstand, phone flash"
+            ],
+            [
+              "Tastes like a cherry sour. My teenager asks for one.",
+              "Mel K. · Verified buyer"
+            ],
+            [
+              "Night shift nurse. These saved my days.",
+              "Kayla B. · Verified buyer"
+            ]
+          ]
+        },
+        {
+          "type": "guarantee",
+          "h": "Asleep in 20 min or it's free.",
+          "d": "Try a bottle. If it does not work for you, we refund it and you keep the bottle.",
+          "cta": "Try it tonight"
+        }
+      ],
+      "pdp": [
+        {
+          "type": "ugc",
+          "h": "Not ads. Customers.",
+          "items": [
+            "@sleepyari",
+            "@nightshiftnurse",
+            "@mombrain.co",
+            "@gymratgreg"
+          ],
+          "photo": "UGC vertical video still, phone-shot, violet jar in frame"
+        },
+        {
+          "type": "comments",
+          "h": "2,104 comments",
+          "items": [
+            [
+              "Marisol V.",
+              "ok I was skeptical. night 1: out in 15 min. night 2: same. where has this been",
+              "1.2K"
+            ],
+            [
+              "Greg H.",
+              "bought the 3 pack after the first night lol",
+              "846"
+            ],
+            [
+              "Dana P.",
+              "no grogginess!!! melatonin always wrecked me, this doesn't",
+              "512"
+            ]
+          ]
+        },
+        {
+          "type": "study",
+          "h": "We asked 1,000 customers. They answered.",
+          "sub": "Independent survey, 30 nights of use, run by a third-party panel in 2026.",
+          "items": [
+            [
+              91,
+              "asleep within 30 minutes"
+            ],
+            [
+              88,
+              "woke up without grogginess"
+            ],
+            [
+              79,
+              "stopped using melatonin entirely"
+            ]
+          ],
+          "src": "Full methodology on the Reviews page. Individual results vary."
+        }
+      ]
+    },
+    "goodboy": {
+      "id": "goodboy",
+      "preset": "goodboy",
+      "brand": "GOODBOY",
+      "domain": "goodboy.co",
+      "vertical": "Pet supplement",
+      "vibe": "Warm and playful, written in pet-parent voice. Quiz-led.",
+      "bar": "Vet formulated · Free shipping over $50 · Picky-eater guarantee",
+      "nav": [
+        "Shop",
+        "Quiz",
+        "Why it works",
+        "Reviews"
+      ],
+      "filters": [
+        "Gut",
+        "Calm",
+        "Joints"
+      ],
+      "product": {
+        "name": "Daily Gut Chews",
+        "title": "Gut chews your dog will beg for. Vet formulated.",
+        "price": 36,
+        "was": 45,
+        "save": "Save 20%",
+        "reviews": "22,410",
+        "badge": "Vet approved",
+        "thumbs": "+9",
+        "photo": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents",
+        "variants": [
+          {
+            "label": "Dog size",
+            "options": [
+              "Small · under 25 lb",
+              "Medium · 25–60 lb",
+              "Large · 60 lb+"
+            ],
+            "def": 1
+          }
+        ],
+        "benefits": [
+          [
+            "paw",
+            "Formulated by 3 vets"
+          ],
+          [
+            "leaf",
+            "Pumpkin, probiotics, prebiotics"
+          ],
+          [
+            "heart",
+            "Picky-eater approved or refunded"
+          ],
+          [
+            "truck",
+            "Free shipping over $50"
+          ]
+        ],
+        "tiers": [
+          {
+            "label": "1 bag",
+            "sub": "60 chews · 1 month",
+            "price": 36,
+            "was": 45
+          },
+          {
+            "label": "3 bags",
+            "sub": "3 months · free shipping",
+            "price": 92,
+            "was": 135,
+            "tag": "Most popular"
+          },
+          {
+            "label": "6 bags",
+            "sub": "6 months · free bandana",
+            "price": 168,
+            "was": 270,
+            "tag": "Best value"
+          }
+        ],
+        "trust": [
+          "Picky-eater guarantee",
+          "Ships in 24h",
+          "22,410 reviews"
+        ]
+      },
+      "upsell": {
+        "name": "Calming Chews",
+        "price": "$32",
+        "deal": "$26 in cart"
+      },
+      "rewards": [
+        "Free shipping",
+        "Free bandana",
+        "Free bag"
+      ],
+      "collection": [
+        [
+          "Daily Gut Chews",
+          "$36",
+          "4.9",
+          "Best seller"
+        ],
+        [
+          "Calming Chews",
+          "$32",
+          "4.8"
+        ],
+        [
+          "Hip & Joint",
+          "$42",
+          "4.9"
+        ],
+        [
+          "Skin & Coat",
+          "$36",
+          "4.8",
+          "New"
+        ],
+        [
+          "Puppy Starter",
+          "$56",
+          "4.9",
+          "Save 20%"
+        ],
+        [
+          "Dental Sticks",
+          "$22",
+          "4.7"
+        ]
+      ],
+      "adv": {
+        "eyebrow": "Pets · Sponsored",
+        "h": "Our rescue had a sensitive stomach for 3 years. A vet friend told us to try this.",
+        "by": "By Jordan M. · 4 min read",
+        "lede": "Biscuit is a 6-year-old beagle mix with opinions about everything, especially food. Three vets, four kibbles, one very tired carpet cleaner.",
+        "pull": "Week 2: solid. Week 4: he waits by the cupboard at 7am for the chew.",
+        "cta": "Try a bag →"
+      },
+      "list": {
+        "h": "6 reasons 22,000 dog parents switched to Goodboy",
+        "items": [
+          [
+            "Dogs eat them",
+            "Pumpkin and chicken liver. We tested on 40 picky eaters. 38 ate it."
+          ],
+          [
+            "Probiotics that survive the bag",
+            "5B CFU, strain-specific for dogs, stable at room temperature."
+          ],
+          [
+            "Vet formulated",
+            "Three vets, one of whom is the founder's sister. She is tough."
+          ]
+        ],
+        "cta": "Get 20% off →"
+      },
+      "home": [
+        {
+          "type": "hero",
+          "layout": "split",
+          "eyebrow": "Vet formulated · 5B CFU",
+          "h": "Happy gut. Happy dog. Happier rug.",
+          "sub": "Pumpkin, probiotics and prebiotics in a chew 38 out of 40 picky eaters ate on the first try.",
+          "cta": "Shop Gut Chews · $36",
+          "note": "★ 4.9 · 22,410 reviews",
+          "photo": "Home hero: golden retriever mid-catch, warm cream studio, orange accents"
+        },
+        {
+          "type": "press",
+          "items": [
+            "The Dodo",
+            "Rover",
+            "Dogster",
+            "BuzzFeed",
+            "Wirecutter"
+          ]
+        },
+        {
+          "type": "benefits",
+          "h": "Built for the sensitive ones",
+          "items": [
+            [
+              "leaf",
+              "Pumpkin + fibre",
+              "Firms things up in 1 to 2 weeks"
+            ],
+            [
+              "flask",
+              "5B CFU",
+              "Dog-specific strains, room-stable"
+            ],
+            [
+              "paw",
+              "Picky approved",
+              "Chicken liver base, 95% first-try acceptance"
+            ],
+            [
+              "shield",
+              "Vet formulated",
+              "Three vets, zero fillers"
+            ]
+          ]
+        },
+        {
+          "type": "beforeafter",
+          "h": "Week 0 vs week 6",
+          "a": "Week 0",
+          "b": "Week 6",
+          "photoA": "Dog, week 0, dull coat, tired eyes",
+          "photoB": "Same dog, week 6, glossy coat, bright eyes",
+          "cap": "Biscuit, 6-year-old beagle mix. Photos from his owner, unedited."
+        },
+        {
+          "type": "quiz",
+          "eyebrow": "Formula finder",
+          "h": "Find your dog's formula",
+          "sub": "Age, weight, one problem. We match the chew and the dose.",
+          "q": "What is bugging your pup?",
+          "opts": [
+            "Sensitive stomach",
+            "Itchy skin",
+            "Stiff joints",
+            "Anxious energy"
+          ],
+          "results": [
+            "Your match: Daily Gut Chews →",
+            "Your match: Skin & Coat →",
+            "Your match: Hip & Joint →",
+            "Your match: Calming Chews →"
+          ],
+          "cta": "Show my match"
+        },
+        {
+          "type": "reviews",
+          "h": "Dog parents",
+          "items": [
+            [
+              "My French bulldog had a sensitive stomach his whole life. Two weeks in, no more 3am accidents.",
+              "Tasha + Bruno · Verified",
+              "Customer photo: French bulldog with chew bag"
+            ],
+            [
+              "She thinks it is a treat. I think it is medicine. We are both right.",
+              "Owen + Maple · Verified",
+              "Customer photo: golden retriever mid-catch"
+            ],
+            [
+              "Switched from the vet-prescribed brand at twice the price. Same results, better breath.",
+              "Priya + Chai · Verified",
+              "Customer photo: dachshund on sofa"
+            ]
+          ]
+        },
+        {
+          "type": "subscription",
+          "h": "Subscribe, then forget about it.",
+          "sub": "The bag lands before you run out. Size adjusts as your dog grows.",
+          "items": [
+            [
+              "coin",
+              "20% off every bag",
+              "$29 instead of $36."
+            ],
+            [
+              "truck",
+              "Ships monthly, free",
+              "Change the date from your phone."
+            ],
+            [
+              "refresh",
+              "Skip anytime",
+              "Two taps. No calls, no guilt."
+            ]
+          ],
+          "cta": "Subscribe · $29/bag"
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "What if my dog won't eat it?",
+              "Email us a photo of the refusal. Full refund, keep the bag."
+            ],
+            [
+              "Is it OK with their kibble?",
+              "Yes. It is a supplement, not a food replacement."
+            ],
+            [
+              "Puppies?",
+              "From 12 weeks. Half dose under 10 lb."
+            ]
+          ]
+        },
+        {
+          "type": "guarantee",
+          "h": "Picky eater? Full refund.",
+          "d": "If your dog turns it down, email us a photo of the refusal. We refund the bag and you keep it.",
+          "cta": "Try a bag"
+        }
+      ],
+      "pdp": [
+        {
+          "type": "beforeafter",
+          "h": "Week 0 vs week 6",
+          "a": "Week 0",
+          "b": "Week 6",
+          "photoA": "Dog, week 0, dull coat, tired eyes",
+          "photoB": "Same dog, week 6, glossy coat, bright eyes",
+          "cap": "Biscuit, 6-year-old beagle mix. Photos from his owner, unedited."
+        },
+        {
+          "type": "reviews",
+          "h": "Dog parents",
+          "items": [
+            [
+              "My French bulldog had a sensitive stomach his whole life. Two weeks in, no more 3am accidents.",
+              "Tasha + Bruno · Verified",
+              "Customer photo: French bulldog with chew bag"
+            ],
+            [
+              "She thinks it is a treat. I think it is medicine. We are both right.",
+              "Owen + Maple · Verified",
+              "Customer photo: golden retriever mid-catch"
+            ],
+            [
+              "Switched from the vet-prescribed brand at twice the price. Same results, better breath.",
+              "Priya + Chai · Verified",
+              "Customer photo: dachshund on sofa"
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "What if my dog won't eat it?",
+              "Email us a photo of the refusal. Full refund, keep the bag."
+            ],
+            [
+              "Is it OK with their kibble?",
+              "Yes. It is a supplement, not a food replacement."
+            ],
+            [
+              "Puppies?",
+              "From 12 weeks. Half dose under 10 lb."
+            ]
+          ]
+        }
+      ]
+    },
+    "ode": {
+      "id": "ode",
+      "preset": "ode",
+      "brand": "ODE",
+      "domain": "ode-parfums.com",
+      "vertical": "Fragrance",
+      "vibe": "Quiet luxury. Image-led, serif, black on bone. No discounts, ever.",
+      "bar": "Complimentary shipping over $80 · Two samples with every order",
+      "nav": [
+        "Fragrance",
+        "Discovery",
+        "Journal",
+        "Maison"
+      ],
+      "filters": [
+        "Eau de parfum",
+        "Discovery",
+        "Travel"
+      ],
+      "product": {
+        "name": "No. 04 Iris",
+        "title": "No. 04. Iris, fig leaf and a warm skin musk.",
+        "price": 120,
+        "was": 0,
+        "save": "Two samples included",
+        "reviews": "3,204",
+        "badge": "Bestseller",
+        "thumbs": "+6",
+        "photo": "PDP hero: heavy glass bottle on bone linen, window light, long shadow",
+        "variants": [
+          {
+            "label": "Size",
+            "options": [
+              "10 ml travel",
+              "50 ml",
+              "100 ml"
+            ],
+            "def": 1
+          }
+        ],
+        "benefits": [
+          [
+            "sparkle",
+            "Extrait strength, 8-hour wear"
+          ],
+          [
+            "leaf",
+            "Vegan, no phthalates"
+          ],
+          [
+            "heart",
+            "Composed and bottled in Grasse"
+          ],
+          [
+            "refresh",
+            "30-day returns, even opened"
+          ]
+        ],
+        "tiers": [
+          {
+            "label": "Discovery set",
+            "sub": "6 × 1.5 ml · credited toward a bottle",
+            "price": 28
+          },
+          {
+            "label": "50 ml",
+            "sub": "Eau de parfum · two samples",
+            "price": 120,
+            "tag": "Most loved"
+          },
+          {
+            "label": "100 ml",
+            "sub": "Best per ml · engraving included",
+            "price": 180,
+            "tag": "Best value"
+          }
+        ],
+        "trust": [
+          "Free returns, 30 days",
+          "Ships in 24h",
+          "3,204 reviews"
+        ]
+      },
+      "upsell": {
+        "name": "Travel atomiser · 10 ml",
+        "price": "$38",
+        "deal": "Engraving included"
+      },
+      "rewards": [
+        "Free shipping",
+        "Free samples",
+        "Free engraving"
+      ],
+      "collection": [
+        [
+          "No. 01 Fig",
+          "$120",
+          "4.8"
+        ],
+        [
+          "No. 02 Neroli",
+          "$120",
+          "4.9"
+        ],
+        [
+          "No. 03 Oud",
+          "$140",
+          "4.8",
+          "Limited"
+        ],
+        [
+          "No. 04 Iris",
+          "$120",
+          "4.9",
+          "Bestseller"
+        ],
+        [
+          "Discovery set",
+          "$28",
+          "4.9"
+        ],
+        [
+          "Travel atomiser",
+          "$38",
+          "4.7"
+        ]
+      ],
+      "adv": {
+        "eyebrow": "Beauty · Partner",
+        "h": "The $120 perfume people keep mistaking for a $400 one.",
+        "by": "By Claire M. · 5 min read",
+        "lede": "I review fragrance for a living, which means I own too much of it. Last month a sample of No. 04 ended up in my bag by accident.",
+        "pull": "Three strangers asked what I was wearing in one week. That has never happened with the expensive ones.",
+        "cta": "Try the discovery set →"
+      },
+      "list": {
+        "h": "5 reasons No. 04 sold out twice this spring",
+        "items": [
+          [
+            "It wears like an extrait",
+            "Concentration most houses save for the $400 bottle, at $120."
+          ],
+          [
+            "The iris is real",
+            "Orris butter from Tuscany, not the synthetic that smells like lipstick."
+          ],
+          [
+            "It changes on skin",
+            "Fig leaf in the first hour, a warm musk by lunch."
+          ]
+        ],
+        "cta": "Order the discovery set →"
+      },
+      "home": [
+        {
+          "type": "hero",
+          "layout": "bleed",
+          "eyebrow": "No. 04 · Now in 100 ml",
+          "h": "Worn close. Noticed anyway.",
+          "sub": "Iris, fig leaf and a warm skin musk. Our quietest scent and the one people ask about.",
+          "cta": "Discover No. 04",
+          "photo": "Home hero: model in linen, side-lit, bottle in hand, bone and black"
+        },
+        {
+          "type": "ticker",
+          "items": [
+            "Iris pallida",
+            "Fig leaf",
+            "Pink pepper",
+            "Skin musk",
+            "Ambrette",
+            "Composed in Grasse"
+          ]
+        },
+        {
+          "type": "features",
+          "h": "The notes",
+          "items": [
+            [
+              "Top · 0–20 min",
+              "Fig leaf and pink pepper",
+              "Green and a little sharp, like a garden in June.",
+              "Macro: fig leaf with water droplets, bone backdrop"
+            ],
+            [
+              "Heart · 1–4 h",
+              "Iris pallida",
+              "Powdery, cool, expensive. The reason it exists.",
+              "Macro: orris root, dusty violet tones"
+            ],
+            [
+              "Base · all day",
+              "Skin musk and ambrette",
+              "Warm and close. Smells like you, on a good day.",
+              "Skin texture, warm side light"
+            ]
+          ]
+        },
+        {
+          "type": "founder",
+          "q": "\"I wanted a perfume that disappears into you rather than announcing you. It took four years and 212 trials.\"",
+          "name": "Hélène Marchand",
+          "role": "Founder and nose, Ode",
+          "photo": "Founder portrait, studio, natural light, black turtleneck"
+        },
+        {
+          "type": "imagetext",
+          "k": "Discovery set",
+          "h": "Try all six. We credit the set toward your bottle.",
+          "d": "Six 1.5 ml vials, enough for three wears each. Find the one, and the $28 comes off your 50 ml. Nearly everyone who tries the set buys a bottle; the rest keep the vials.",
+          "cta": "Order the discovery set · $28 →",
+          "photo": "Discovery set: six glass vials in a linen-wrapped box, soft window light",
+          "flip": true
+        },
+        {
+          "type": "collection",
+          "h": "The collection",
+          "items": [
+            [
+              "No. 01 Fig",
+              "$120",
+              "4.8"
+            ],
+            [
+              "No. 02 Neroli",
+              "$120",
+              "4.9"
+            ],
+            [
+              "No. 03 Oud",
+              "$140",
+              "4.8",
+              "Limited"
+            ],
+            [
+              "No. 04 Iris",
+              "$120",
+              "4.9",
+              "Bestseller"
+            ]
+          ]
+        },
+        {
+          "type": "ugc",
+          "h": "Worn by",
+          "items": [
+            "@claire.wears",
+            "@theorrisdiaries",
+            "@noteworthy.fm",
+            "@sundayscent"
+          ],
+          "photo": "Editorial UGC still, film grain, bone tones"
+        },
+        {
+          "type": "reviews",
+          "h": "In their words",
+          "items": [
+            [
+              "Lasts from my 8am train to dinner. On me it's mostly the musk and I'm not complaining.",
+              "Anaïs L. · Verified buyer",
+              "Customer photo: bottle on a marble sink"
+            ],
+            [
+              "Got the discovery set, bought No. 04 full size the same week.",
+              "Tom W. · Verified buyer"
+            ],
+            [
+              "Finally an iris that doesn't smell like my grandmother's compact.",
+              "Rosa P. · Verified buyer"
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "How long does it last?",
+              "6 to 8 hours on skin, longer on fabric. It is an extrait-strength eau de parfum."
+            ],
+            [
+              "Can I return an opened bottle?",
+              "Yes, within 30 days. Scent is personal."
+            ],
+            [
+              "Is it unisex?",
+              "Everything we make is. No. 04 skews soft; No. 03 skews smoky."
+            ]
+          ]
+        }
+      ],
+      "pdp": [
+        {
+          "type": "features",
+          "h": "The notes",
+          "items": [
+            [
+              "Top · 0–20 min",
+              "Fig leaf and pink pepper",
+              "Green and a little sharp, like a garden in June.",
+              "Macro: fig leaf with water droplets, bone backdrop"
+            ],
+            [
+              "Heart · 1–4 h",
+              "Iris pallida",
+              "Powdery, cool, expensive. The reason it exists.",
+              "Macro: orris root, dusty violet tones"
+            ],
+            [
+              "Base · all day",
+              "Skin musk and ambrette",
+              "Warm and close. Smells like you, on a good day.",
+              "Skin texture, warm side light"
+            ]
+          ]
+        },
+        {
+          "type": "imagetext",
+          "k": "Discovery set",
+          "h": "Try all six. We credit the set toward your bottle.",
+          "d": "Six 1.5 ml vials, enough for three wears each. Find the one, and the $28 comes off your 50 ml. Nearly everyone who tries the set buys a bottle; the rest keep the vials.",
+          "cta": "Order the discovery set · $28 →",
+          "photo": "Discovery set: six glass vials in a linen-wrapped box, soft window light",
+          "flip": true
+        },
+        {
+          "type": "reviews",
+          "h": "In their words",
+          "items": [
+            [
+              "Lasts from my 8am train to dinner. On me it's mostly the musk and I'm not complaining.",
+              "Anaïs L. · Verified buyer",
+              "Customer photo: bottle on a marble sink"
+            ],
+            [
+              "Got the discovery set, bought No. 04 full size the same week.",
+              "Tom W. · Verified buyer"
+            ],
+            [
+              "Finally an iris that doesn't smell like my grandmother's compact.",
+              "Rosa P. · Verified buyer"
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "How long does it last?",
+              "6 to 8 hours on skin, longer on fabric. It is an extrait-strength eau de parfum."
+            ],
+            [
+              "Can I return an opened bottle?",
+              "Yes, within 30 days. Scent is personal."
+            ],
+            [
+              "Is it unisex?",
+              "Everything we make is. No. 04 skews soft; No. 03 skews smoky."
+            ]
+          ]
+        }
+      ]
+    },
+    "rawform": {
+      "id": "rawform",
+      "preset": "rawform",
+      "brand": "RAWFORM",
+      "domain": "rawform.com",
+      "vertical": "Protein & sports nutrition",
+      "vibe": "Transparent Labs meets Ghost. Loud, lab-tested, stack-driven.",
+      "bar": "Informed Sport certified · Free shipping over $75 · Subscribe & save 15%",
+      "nav": [
+        "Protein",
+        "Creatine",
+        "Stacks",
+        "Lab results"
+      ],
+      "filters": [
+        "Protein",
+        "Performance",
+        "Stacks"
+      ],
+      "product": {
+        "name": "Grass-fed Whey Isolate",
+        "title": "28 g protein. 1 g sugar. Nothing to hide.",
+        "price": 54,
+        "was": 64,
+        "save": "Save 15% with subscription",
+        "reviews": "15,882",
+        "badge": "Informed Sport",
+        "thumbs": "+12",
+        "photo": "PDP hero: black tub with lime label, scoop and powder spill, hard flash",
+        "variants": [
+          {
+            "label": "Flavour",
+            "options": [
+              "Chocolate",
+              "Vanilla",
+              "Cookies & cream",
+              "Unflavoured"
+            ]
+          },
+          {
+            "label": "Size",
+            "options": [
+              "2 lb · 28 servings",
+              "5 lb · 70 servings"
+            ]
+          }
+        ],
+        "benefits": [
+          [
+            "bolt",
+            "28 g protein, 3.1 g leucine"
+          ],
+          [
+            "flask",
+            "Informed Sport, every batch"
+          ],
+          [
+            "x",
+            "No artificial sweeteners"
+          ],
+          [
+            "shield",
+            "Grass-fed, cold-filtered isolate"
+          ]
+        ],
+        "tiers": [
+          {
+            "label": "1 tub",
+            "sub": "28 servings",
+            "price": 54,
+            "was": 64
+          },
+          {
+            "label": "2 tubs",
+            "sub": "56 servings · free shipping",
+            "price": 98,
+            "was": 128,
+            "tag": "Most popular"
+          },
+          {
+            "label": "3 tubs",
+            "sub": "84 servings · free shaker",
+            "price": 138,
+            "was": 192,
+            "tag": "Best value"
+          }
+        ],
+        "trust": [
+          "60-day guarantee",
+          "Ships in 24h",
+          "15,882 reviews"
+        ]
+      },
+      "upsell": {
+        "name": "Creatine Monohydrate",
+        "price": "$29",
+        "deal": "$24 in cart"
+      },
+      "rewards": [
+        "Free shipping",
+        "Free shaker",
+        "Free samples"
+      ],
+      "collection": [
+        [
+          "Whey Isolate",
+          "$54",
+          "4.9",
+          "Best seller"
+        ],
+        [
+          "Creatine Monohydrate",
+          "$29",
+          "4.9"
+        ],
+        [
+          "Pre-Workout",
+          "$39",
+          "4.8"
+        ],
+        [
+          "Electrolytes",
+          "$24",
+          "4.8",
+          "New"
+        ],
+        [
+          "Starter stack",
+          "$109",
+          "4.9",
+          "Save 15%"
+        ],
+        [
+          "Collagen Peptides",
+          "$36",
+          "4.7"
+        ]
+      ],
+      "adv": {
+        "eyebrow": "Fitness · Sponsored",
+        "h": "A powerlifter sent 12 protein powders to a lab. Only 3 matched their label.",
+        "by": "By Tom Reyes · 5 min read",
+        "lede": "I have taken whey for twelve years and I had never read a certificate of analysis. Then a lifter at my gym failed a drug test off a clean-labelled pre-workout.",
+        "pull": "Nine of twelve under-delivered on protein. One was spiked with cheap aminos. Rawform matched to the gram.",
+        "cta": "See the lab results →"
+      },
+      "list": {
+        "h": "6 things to check before you buy any protein",
+        "items": [
+          [
+            "Protein per scoop, not per serving",
+            "Some labels count two scoops. Ours is 28 g in one."
+          ],
+          [
+            "Third-party certification",
+            "Informed Sport tests the batch you are holding, not a sample from last year."
+          ],
+          [
+            "The sweetener",
+            "Sucralose and ace-K are cheap. Monk fruit is not. Check which one you are drinking."
+          ]
+        ],
+        "cta": "Compare Rawform →"
+      },
+      "home": [
+        {
+          "type": "hero",
+          "layout": "split",
+          "eyebrow": "Grass-fed · Informed Sport certified",
+          "h": "Protein for people who read the label.",
+          "sub": "28 g per scoop, 1 g sugar, zero artificial sweeteners. Third-party tested, every single batch.",
+          "cta": "Shop Whey Isolate · $54",
+          "note": "★ 4.9 · 15,882 reviews",
+          "photo": "Home hero: athlete mid-shake, black and lime, gym flash"
+        },
+        {
+          "type": "press",
+          "items": [
+            "Men's Health",
+            "GQ",
+            "BarBend",
+            "Muscle & Fitness",
+            "Runner's World"
+          ]
+        },
+        {
+          "type": "stats",
+          "items": [
+            [
+              "28 g",
+              "protein per scoop"
+            ],
+            [
+              "1 g",
+              "sugar"
+            ],
+            [
+              "0",
+              "artificial sweeteners"
+            ],
+            [
+              "100%",
+              "of batches third-party tested"
+            ]
+          ]
+        },
+        {
+          "type": "ingredients",
+          "h": "Per scoop",
+          "sub": "32 g scoop · Chocolate. Full panel on every tub.",
+          "rows": [
+            [
+              "Protein",
+              "28 g",
+              "Grass-fed whey isolate, cold-filtered"
+            ],
+            [
+              "Sugar",
+              "1 g",
+              "From cocoa. No sucralose, no ace-K"
+            ],
+            [
+              "Carbohydrates",
+              "3 g",
+              "Net 2 g"
+            ],
+            [
+              "Leucine",
+              "3.1 g",
+              "The amino that triggers synthesis"
+            ],
+            [
+              "Digestive enzymes",
+              "100 mg",
+              "ProHydrolase, no bloat"
+            ],
+            [
+              "Artificial anything",
+              "0 mg",
+              "Monk fruit and sea salt, that is it"
+            ]
+          ],
+          "foot": "Download the batch COA →"
+        },
+        {
+          "type": "usvsthem",
+          "h": "Rawform vs. big-box whey",
+          "us": "Rawform",
+          "them": "Big-box whey",
+          "rows": [
+            [
+              "Grass-fed isolate, cold-filtered",
+              1,
+              0
+            ],
+            [
+              "Informed Sport certified",
+              1,
+              0
+            ],
+            [
+              "No artificial sweeteners",
+              1,
+              0
+            ],
+            [
+              "COA published per batch",
+              1,
+              0
+            ],
+            [
+              "Amino spiking",
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "type": "badges",
+          "items": [
+            "Informed Sport",
+            "Grass-fed",
+            "Non-GMO",
+            "Gluten-free",
+            "Made in the USA"
+          ]
+        },
+        {
+          "type": "videos",
+          "h": "Athletes who read labels",
+          "items": [
+            [
+              "I get drug-tested. Informed Sport or it does not go in my bag.",
+              "Jade Okafor · 400 m hurdles",
+              "Video still: track athlete, stadium"
+            ],
+            [
+              "Switched from a tub that gave me bloat for a decade. Gone in a week.",
+              "Tom Reyes · Powerlifter",
+              "Video still: lifter in gym"
+            ],
+            [
+              "28 g, 1 g sugar, tastes like a milkshake. I stopped looking.",
+              "Sam Lee · CrossFit coach",
+              "Video still: coach at the box"
+            ]
+          ]
+        },
+        {
+          "type": "bundle",
+          "h": "Build your stack",
+          "sub": "Pick three or more. Save 15% and ship free.",
+          "pct": 15,
+          "min": 3,
+          "note": "Free shipping · free shaker over $100",
+          "cta": "Add stack",
+          "items": [
+            [
+              "Whey Isolate",
+              54,
+              1
+            ],
+            [
+              "Creatine Monohydrate",
+              29,
+              1
+            ],
+            [
+              "Pre-Workout",
+              39,
+              1
+            ],
+            [
+              "Electrolytes",
+              24,
+              0
+            ],
+            [
+              "Collagen Peptides",
+              36,
+              0
+            ],
+            [
+              "Shaker",
+              12,
+              0
+            ]
+          ]
+        },
+        {
+          "type": "reviews",
+          "h": "15,882 reviews",
+          "items": [
+            [
+              "Zero bloat for the first time in ten years of whey. That alone.",
+              "Tom R. · Verified buyer",
+              "Customer photo: tub on a squat rack"
+            ],
+            [
+              "Chocolate tastes like a milkshake, not a chemistry set.",
+              "Priya N. · Verified buyer"
+            ],
+            [
+              "The COA is on the tub. That is why I switched my whole team.",
+              "Coach Sam L. · Verified buyer"
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Why isolate over concentrate?",
+              "Higher protein per gram, almost no lactose, cold-filtered to keep the fractions intact."
+            ],
+            [
+              "Is it third-party tested?",
+              "Informed Sport, every batch. The certificate number is printed on the tub."
+            ],
+            [
+              "Which flavour?",
+              "Chocolate outsells everything. Unflavoured if you blend it into oats or coffee."
+            ]
+          ]
+        }
+      ],
+      "pdp": [
+        {
+          "type": "ingredients",
+          "h": "Per scoop",
+          "sub": "32 g scoop · Chocolate. Full panel on every tub.",
+          "rows": [
+            [
+              "Protein",
+              "28 g",
+              "Grass-fed whey isolate, cold-filtered"
+            ],
+            [
+              "Sugar",
+              "1 g",
+              "From cocoa. No sucralose, no ace-K"
+            ],
+            [
+              "Carbohydrates",
+              "3 g",
+              "Net 2 g"
+            ],
+            [
+              "Leucine",
+              "3.1 g",
+              "The amino that triggers synthesis"
+            ],
+            [
+              "Digestive enzymes",
+              "100 mg",
+              "ProHydrolase, no bloat"
+            ],
+            [
+              "Artificial anything",
+              "0 mg",
+              "Monk fruit and sea salt, that is it"
+            ]
+          ],
+          "foot": "Download the batch COA →"
+        },
+        {
+          "type": "usvsthem",
+          "h": "Rawform vs. big-box whey",
+          "us": "Rawform",
+          "them": "Big-box whey",
+          "rows": [
+            [
+              "Grass-fed isolate, cold-filtered",
+              1,
+              0
+            ],
+            [
+              "Informed Sport certified",
+              1,
+              0
+            ],
+            [
+              "No artificial sweeteners",
+              1,
+              0
+            ],
+            [
+              "COA published per batch",
+              1,
+              0
+            ],
+            [
+              "Amino spiking",
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "type": "bundle",
+          "h": "Build your stack",
+          "sub": "Pick three or more. Save 15% and ship free.",
+          "pct": 15,
+          "min": 3,
+          "note": "Free shipping · free shaker over $100",
+          "cta": "Add stack",
+          "items": [
+            [
+              "Whey Isolate",
+              54,
+              1
+            ],
+            [
+              "Creatine Monohydrate",
+              29,
+              1
+            ],
+            [
+              "Pre-Workout",
+              39,
+              1
+            ],
+            [
+              "Electrolytes",
+              24,
+              0
+            ],
+            [
+              "Collagen Peptides",
+              36,
+              0
+            ],
+            [
+              "Shaker",
+              12,
+              0
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Why isolate over concentrate?",
+              "Higher protein per gram, almost no lactose, cold-filtered to keep the fractions intact."
+            ],
+            [
+              "Is it third-party tested?",
+              "Informed Sport, every batch. The certificate number is printed on the tub."
+            ],
+            [
+              "Which flavour?",
+              "Chocolate outsells everything. Unflavoured if you blend it into oats or coffee."
+            ]
+          ]
+        }
+      ]
+    },
+    "kindling": {
+      "id": "kindling",
+      "preset": "kindling",
+      "brand": "Kindling",
+      "domain": "drinkkindling.com",
+      "vertical": "Functional coffee",
+      "vibe": "Mud/Wtr meets Everyday Dose. Warm, ritual-led, a little literary.",
+      "bar": "Roasted to order · Free shipping on subscriptions · Certified organic",
+      "nav": [
+        "Shop",
+        "Why mushrooms",
+        "Brew guide",
+        "Journal"
+      ],
+      "filters": [
+        "Coffee",
+        "Sachets",
+        "Gear"
+      ],
+      "product": {
+        "name": "Mushroom Coffee",
+        "title": "Half the caffeine. None of the crash. All of the ritual.",
+        "price": 38,
+        "was": 45,
+        "save": "Save 20% with subscription",
+        "reviews": "9,316",
+        "badge": "Organic",
+        "thumbs": "+8",
+        "photo": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light",
+        "variants": [
+          {
+            "label": "Grind",
+            "options": [
+              "Whole bean",
+              "Ground",
+              "Single-serve sachets"
+            ],
+            "def": 1
+          }
+        ],
+        "benefits": [
+          [
+            "sparkle",
+            "1,000 mg lion's mane per cup"
+          ],
+          [
+            "bolt",
+            "50 mg caffeine, no crash"
+          ],
+          [
+            "leaf",
+            "Certified organic"
+          ],
+          [
+            "heart",
+            "Gentle on the stomach"
+          ]
+        ],
+        "tiers": [
+          {
+            "label": "1 bag",
+            "sub": "30 cups",
+            "price": 38,
+            "was": 45
+          },
+          {
+            "label": "2 bags",
+            "sub": "60 cups · free shipping",
+            "price": 70,
+            "was": 90,
+            "tag": "Most popular"
+          },
+          {
+            "label": "3 bags",
+            "sub": "90 cups · free ceramic mug",
+            "price": 99,
+            "was": 135,
+            "tag": "Best value"
+          }
+        ],
+        "trust": [
+          "Love it or it is free",
+          "Roasted to order",
+          "9,316 reviews"
+        ]
+      },
+      "upsell": {
+        "name": "Oat creamer · Vanilla",
+        "price": "$14",
+        "deal": "$11 in cart"
+      },
+      "rewards": [
+        "Free shipping",
+        "Free sachets",
+        "Free mug"
+      ],
+      "collection": [
+        [
+          "Mushroom Coffee",
+          "$38",
+          "4.9",
+          "Best seller"
+        ],
+        [
+          "Decaf Mushroom Coffee",
+          "$38",
+          "4.8"
+        ],
+        [
+          "Evening Cacao",
+          "$34",
+          "4.8",
+          "New"
+        ],
+        [
+          "Oat creamer",
+          "$14",
+          "4.7"
+        ],
+        [
+          "Starter kit",
+          "$64",
+          "4.9",
+          "Save 20%"
+        ],
+        [
+          "Ceramic mug",
+          "$24",
+          "4.9"
+        ]
+      ],
+      "adv": {
+        "eyebrow": "Wellness · Partner",
+        "h": "I swapped my 7am coffee for this for 30 days. My 3pm self wrote this.",
+        "by": "By Elena V. · 4 min read",
+        "lede": "I am not a mushroom person. I am a two-cups-before-nine person with a 2pm crash I had accepted as weather.",
+        "pull": "Day 12: I noticed at 4pm that I had not noticed 2pm.",
+        "cta": "Try a bag →"
+      },
+      "list": {
+        "h": "5 reasons 9,000 people switched their morning cup",
+        "items": [
+          [
+            "It tastes like coffee",
+            "Because it is coffee. Organic arabica with extracts stirred in, not ground mushrooms."
+          ],
+          [
+            "Half the caffeine, all the focus",
+            "50 mg plus 1,000 mg lion's mane. Steady for five hours."
+          ],
+          [
+            "No crash",
+            "L-theanine smooths the caffeine curve. The 2pm slump is the first thing people report losing."
+          ]
+        ],
+        "cta": "Get 20% off →"
+      },
+      "home": [
+        {
+          "type": "hero",
+          "layout": "split",
+          "eyebrow": "Organic · 1,000 mg lion's mane",
+          "h": "The morning cup, without the afternoon.",
+          "sub": "Half the caffeine of coffee, functional mushrooms at real doses, and a taste you will not have to get used to.",
+          "cta": "Shop Mushroom Coffee · $38",
+          "note": "★ 4.9 · 9,316 reviews",
+          "photo": "Home hero: pour-over into ceramic mug, kraft bag, warm window light"
+        },
+        {
+          "type": "press",
+          "items": [
+            "Bon Appétit",
+            "GQ",
+            "Well+Good",
+            "Fast Company",
+            "Outside"
+          ]
+        },
+        {
+          "type": "steps",
+          "h": "Brew it like coffee, because it is",
+          "items": [
+            [
+              "Scoop",
+              "One tablespoon, or one sachet. Any brewer you already own."
+            ],
+            [
+              "Brew",
+              "Pour-over, French press, drip, espresso. 94°C water."
+            ],
+            [
+              "Sip",
+              "Steady focus by the second cup, no crash by the third hour."
+            ]
+          ]
+        },
+        {
+          "type": "ingredients",
+          "h": "In every cup",
+          "sub": "Organic. Half the caffeine of coffee. Full doses, not dustings.",
+          "rows": [
+            [
+              "Organic arabica",
+              "6 g",
+              "Peru, medium roast, 50 mg caffeine"
+            ],
+            [
+              "Lion's mane",
+              "1,000 mg",
+              "Fruiting body, focus"
+            ],
+            [
+              "Chaga",
+              "500 mg",
+              "Antioxidants"
+            ],
+            [
+              "Cordyceps",
+              "500 mg",
+              "Endurance"
+            ],
+            [
+              "L-theanine",
+              "100 mg",
+              "Calm with the caffeine"
+            ],
+            [
+              "Ceylon cinnamon",
+              "200 mg",
+              "Taste, blood sugar"
+            ]
+          ],
+          "foot": "See the full label and organic certificate →"
+        },
+        {
+          "type": "usvsthem",
+          "h": "Kindling vs. your regular cup",
+          "us": "Kindling",
+          "them": "Regular coffee",
+          "rows": [
+            [
+              "Steady focus for 5 to 6 hours",
+              1,
+              0
+            ],
+            [
+              "No 2pm crash",
+              1,
+              0
+            ],
+            [
+              "Gentle on the stomach",
+              1,
+              0
+            ],
+            [
+              "Functional mushrooms, dosed",
+              1,
+              0
+            ],
+            [
+              "Jitters and the 3pm slump",
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "type": "founder",
+          "q": "\"I quit coffee four times. The fifth time I stopped trying to quit and started trying to fix it.\"",
+          "name": "Theo Marsh",
+          "role": "Founder and roaster, Kindling",
+          "photo": "Founder portrait at the roaster, warm overcast light"
+        },
+        {
+          "type": "subscription",
+          "h": "Never wake up to an empty bag.",
+          "sub": "A fresh bag every 2, 3 or 4 weeks. Roasted the week it ships.",
+          "items": [
+            [
+              "coin",
+              "Save 20%",
+              "$30 a bag instead of $38."
+            ],
+            [
+              "truck",
+              "Free shipping",
+              "Roasted Monday, at your door by Thursday."
+            ],
+            [
+              "refresh",
+              "Change anything",
+              "Grind, cadence, pause. From your phone."
+            ]
+          ],
+          "cta": "Subscribe · $30/bag"
+        },
+        {
+          "type": "reviews",
+          "h": "From the mug",
+          "items": [
+            [
+              "Three weeks in and I have not had a 2pm crash. I did not know that was optional.",
+              "Elena V. · Verified buyer",
+              "Customer photo: mug on a desk"
+            ],
+            [
+              "Tastes like good coffee. I keep waiting for the mushroom and it never comes.",
+              "Mark D. · Verified buyer"
+            ],
+            [
+              "Switched my whole office. Fewer headaches, calmer standups.",
+              "Anna L. · Verified buyer"
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Does it taste like mushrooms?",
+              "No. It tastes like a smooth medium roast with a little cinnamon. The mushrooms are extracts, not ground caps."
+            ],
+            [
+              "How much caffeine?",
+              "50 mg a cup, about half a regular coffee. Enough to feel, not enough to crash."
+            ],
+            [
+              "Can I use it in my machine?",
+              "Whole bean and ground work in any brewer. Sachets dissolve in hot water or milk."
+            ]
+          ]
+        },
+        {
+          "type": "guarantee",
+          "h": "Love it or it is free.",
+          "d": "Finish the bag. If you want your old coffee back, we refund it and you keep the mug.",
+          "cta": "Try a bag"
+        }
+      ],
+      "pdp": [
+        {
+          "type": "ingredients",
+          "h": "In every cup",
+          "sub": "Organic. Half the caffeine of coffee. Full doses, not dustings.",
+          "rows": [
+            [
+              "Organic arabica",
+              "6 g",
+              "Peru, medium roast, 50 mg caffeine"
+            ],
+            [
+              "Lion's mane",
+              "1,000 mg",
+              "Fruiting body, focus"
+            ],
+            [
+              "Chaga",
+              "500 mg",
+              "Antioxidants"
+            ],
+            [
+              "Cordyceps",
+              "500 mg",
+              "Endurance"
+            ],
+            [
+              "L-theanine",
+              "100 mg",
+              "Calm with the caffeine"
+            ],
+            [
+              "Ceylon cinnamon",
+              "200 mg",
+              "Taste, blood sugar"
+            ]
+          ],
+          "foot": "See the full label and organic certificate →"
+        },
+        {
+          "type": "usvsthem",
+          "h": "Kindling vs. your regular cup",
+          "us": "Kindling",
+          "them": "Regular coffee",
+          "rows": [
+            [
+              "Steady focus for 5 to 6 hours",
+              1,
+              0
+            ],
+            [
+              "No 2pm crash",
+              1,
+              0
+            ],
+            [
+              "Gentle on the stomach",
+              1,
+              0
+            ],
+            [
+              "Functional mushrooms, dosed",
+              1,
+              0
+            ],
+            [
+              "Jitters and the 3pm slump",
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "type": "subscription",
+          "h": "Never wake up to an empty bag.",
+          "sub": "A fresh bag every 2, 3 or 4 weeks. Roasted the week it ships.",
+          "items": [
+            [
+              "coin",
+              "Save 20%",
+              "$30 a bag instead of $38."
+            ],
+            [
+              "truck",
+              "Free shipping",
+              "Roasted Monday, at your door by Thursday."
+            ],
+            [
+              "refresh",
+              "Change anything",
+              "Grind, cadence, pause. From your phone."
+            ]
+          ],
+          "cta": "Subscribe · $30/bag"
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Does it taste like mushrooms?",
+              "No. It tastes like a smooth medium roast with a little cinnamon. The mushrooms are extracts, not ground caps."
+            ],
+            [
+              "How much caffeine?",
+              "50 mg a cup, about half a regular coffee. Enough to feel, not enough to crash."
+            ],
+            [
+              "Can I use it in my machine?",
+              "Whole bean and ground work in any brewer. Sachets dissolve in hot water or milk."
+            ]
+          ]
+        }
+      ]
+    },
+    "allele": {
+      "id": "allele",
+      "preset": "allele",
+      "brand": "ALLELE",
+      "domain": "allele.skin",
+      "vertical": "Clinical skincare",
+      "vibe": "Dermatologist-led, numbers on everything, Jones Road restraint.",
+      "bar": "Dermatologist developed · Free shipping over $50 · 60-day results guarantee",
+      "nav": [
+        "Shop",
+        "Science",
+        "Routine",
+        "Skin quiz"
+      ],
+      "filters": [
+        "Treat",
+        "Cleanse",
+        "Protect"
+      ],
+      "product": {
+        "name": "Retinal 0.1% Serum",
+        "title": "Retinal 0.1%. Eleven times faster than retinol. Shown in 8 weeks.",
+        "price": 68,
+        "was": 80,
+        "save": "Save 15% with subscription",
+        "reviews": "7,402",
+        "badge": "Dermatologist developed",
+        "thumbs": "+7",
+        "photo": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light",
+        "variants": [
+          {
+            "label": "Strength",
+            "options": [
+              "0.05% · Starter",
+              "0.1% · Standard",
+              "0.2% · Advanced"
+            ],
+            "def": 1
+          }
+        ],
+        "benefits": [
+          [
+            "flask",
+            "Clinically tested, 112 participants"
+          ],
+          [
+            "sparkle",
+            "Encapsulated retinal, low irritation"
+          ],
+          [
+            "x",
+            "Fragrance-free, non-comedogenic"
+          ],
+          [
+            "users",
+            "Developed with 4 dermatologists"
+          ]
+        ],
+        "tiers": [
+          {
+            "label": "1 bottle",
+            "sub": "30 ml · about 2 months",
+            "price": 68,
+            "was": 80
+          },
+          {
+            "label": "2 bottles",
+            "sub": "Four-month supply · free shipping",
+            "price": 122,
+            "was": 160,
+            "tag": "Most popular"
+          },
+          {
+            "label": "Routine set",
+            "sub": "Serum + cleanser + SPF 50",
+            "price": 148,
+            "was": 196,
+            "tag": "Best value"
+          }
+        ],
+        "trust": [
+          "60-day results guarantee",
+          "Ships in 24h",
+          "7,402 reviews"
+        ]
+      },
+      "upsell": {
+        "name": "SPF 50 Mineral",
+        "price": "$36",
+        "deal": "$29 in cart"
+      },
+      "rewards": [
+        "Free shipping",
+        "Free minis",
+        "Free cleanser"
+      ],
+      "collection": [
+        [
+          "Retinal 0.1% Serum",
+          "$68",
+          "4.9",
+          "Best seller"
+        ],
+        [
+          "Gel Cleanser",
+          "$28",
+          "4.8"
+        ],
+        [
+          "SPF 50 Mineral",
+          "$36",
+          "4.8"
+        ],
+        [
+          "Barrier Cream",
+          "$42",
+          "4.9",
+          "New"
+        ],
+        [
+          "Bakuchiol Serum",
+          "$58",
+          "4.7"
+        ],
+        [
+          "Routine set",
+          "$148",
+          "4.9",
+          "Save 25%"
+        ]
+      ],
+      "adv": {
+        "eyebrow": "Skin · Sponsored",
+        "h": "A dermatologist explains why your retinol stopped working, and what she uses instead.",
+        "by": "By Dr. Maya Chen · 6 min read",
+        "lede": "Most people buy retinol, peel for a week, quit, and conclude retinoids are not for them. The problem is almost never the retinoid. It is the strength and the schedule.",
+        "pull": "Start at 0.05%, three nights a week. In 8 weeks you will not recognise your texture.",
+        "cta": "Take the skin quiz →"
+      },
+      "list": {
+        "h": "5 things the percentage on the box tells you",
+        "items": [
+          [
+            "Whether it can work at all",
+            "Below 0.03% retinal is a marketing claim. Ours starts at 0.05% and is clinically tested at 0.1%."
+          ],
+          [
+            "Whether it will irritate",
+            "Encapsulation releases it over hours. Same dose, a fraction of the sting."
+          ],
+          [
+            "Whether the brand trusts you",
+            "If they hide the number, ask why."
+          ]
+        ],
+        "cta": "Shop Retinal 0.1% →"
+      },
+      "home": [
+        {
+          "type": "hero",
+          "layout": "split",
+          "eyebrow": "Retinal 0.1% · Clinically tested",
+          "h": "Skincare with the numbers on the outside.",
+          "sub": "Dermatologist-developed actives at disclosed percentages, tested on 112 people for 8 weeks. One serum, one strength for you.",
+          "cta": "Shop Retinal 0.1% · $68",
+          "note": "★ 4.9 · 7,402 reviews",
+          "photo": "Home hero: dropper bottle on white stone, single shadow, clinical minimal"
+        },
+        {
+          "type": "press",
+          "items": [
+            "Vogue",
+            "Allure",
+            "Byrdie",
+            "Harper's Bazaar",
+            "Wirecutter"
+          ]
+        },
+        {
+          "type": "study",
+          "h": "Clinically tested. Independently.",
+          "sub": "8-week instrumental and dermatologist-graded study, 112 participants.",
+          "items": [
+            [
+              92,
+              "smoother texture at 8 weeks"
+            ],
+            [
+              87,
+              "visibly reduced fine lines"
+            ],
+            [
+              96,
+              "would repurchase"
+            ]
+          ],
+          "src": "Run by a third-party clinical lab, 2026. Summary on the Science page."
+        },
+        {
+          "type": "beforeafter",
+          "h": "Week 0 vs week 8",
+          "a": "Week 0",
+          "b": "Week 8",
+          "photoA": "Clinical close-up, cheek, week 0, flat light",
+          "photoB": "Same subject, week 8, same light",
+          "cap": "Participant 041, Retinal 0.1%, nightly. Unretouched, same camera, same light."
+        },
+        {
+          "type": "ingredients",
+          "h": "Actives, to the percent",
+          "sub": "No fragrance, no essential oils, no proprietary complex.",
+          "rows": [
+            [
+              "Retinaldehyde",
+              "0.1%",
+              "Encapsulated. 11× faster than retinol"
+            ],
+            [
+              "Niacinamide",
+              "4%",
+              "Barrier, pores, redness"
+            ],
+            [
+              "Bakuchiol",
+              "1%",
+              "Softens the retinoid curve"
+            ],
+            [
+              "Ceramides NP, AP, EOP",
+              "1.5%",
+              "Barrier repair"
+            ],
+            [
+              "Squalane",
+              "5%",
+              "Slip without clogging"
+            ]
+          ],
+          "foot": "Full INCI list and pH →"
+        },
+        {
+          "type": "steps",
+          "h": "Your routine, AM and PM",
+          "items": [
+            [
+              "Cleanse",
+              "The Gel Cleanser, 30 seconds, lukewarm water."
+            ],
+            [
+              "Treat · PM",
+              "Two pumps of Retinal 0.1%. Start three nights a week, build to nightly."
+            ],
+            [
+              "Protect · AM",
+              "SPF 50 Mineral. Non-negotiable with any retinoid."
+            ]
+          ]
+        },
+        {
+          "type": "quiz",
+          "eyebrow": "Skin quiz",
+          "h": "Which strength is yours?",
+          "sub": "Three questions. We match strength and cadence to your skin, not your age.",
+          "q": "Have you used a retinoid before?",
+          "opts": [
+            "Never",
+            "Retinol, occasionally",
+            "Retinol, nightly",
+            "Prescription tretinoin"
+          ],
+          "results": [
+            "Your match: 0.05% Starter, 3 nights a week →",
+            "Your match: 0.1% Standard, every other night →",
+            "Your match: 0.1% Standard, nightly →",
+            "Your match: 0.2% Advanced →"
+          ],
+          "cta": "Show my strength"
+        },
+        {
+          "type": "reviews",
+          "h": "Verified, with photos",
+          "items": [
+            [
+              "Week 6 and the texture on my forehead is gone. My derm asked what I switched to.",
+              "Hannah M. · Verified buyer",
+              "Customer photo: forehead close-up, week 6"
+            ],
+            [
+              "Starter strength, zero peeling, which has never happened with a retinoid for me.",
+              "Ruth A. · Verified buyer",
+              "Customer photo: bottle on bathroom shelf"
+            ],
+            [
+              "The percentages are on the box. That is why I bought it.",
+              "Daniel K. · Verified buyer",
+              "Customer photo: product box"
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Retinal vs retinol?",
+              "Retinal (retinaldehyde) is one conversion step from retinoic acid; retinol is two. Faster results, similar tolerance when encapsulated."
+            ],
+            [
+              "Will I peel?",
+              "The Starter strength is designed not to. Start three nights a week and build."
+            ],
+            [
+              "Pregnancy?",
+              "No retinoids during pregnancy or breastfeeding. Our Bakuchiol Serum is the alternative."
+            ]
+          ]
+        }
+      ],
+      "pdp": [
+        {
+          "type": "study",
+          "h": "Clinically tested. Independently.",
+          "sub": "8-week instrumental and dermatologist-graded study, 112 participants.",
+          "items": [
+            [
+              92,
+              "smoother texture at 8 weeks"
+            ],
+            [
+              87,
+              "visibly reduced fine lines"
+            ],
+            [
+              96,
+              "would repurchase"
+            ]
+          ],
+          "src": "Run by a third-party clinical lab, 2026. Summary on the Science page."
+        },
+        {
+          "type": "beforeafter",
+          "h": "Week 0 vs week 8",
+          "a": "Week 0",
+          "b": "Week 8",
+          "photoA": "Clinical close-up, cheek, week 0, flat light",
+          "photoB": "Same subject, week 8, same light",
+          "cap": "Participant 041, Retinal 0.1%, nightly. Unretouched, same camera, same light."
+        },
+        {
+          "type": "ingredients",
+          "h": "Actives, to the percent",
+          "sub": "No fragrance, no essential oils, no proprietary complex.",
+          "rows": [
+            [
+              "Retinaldehyde",
+              "0.1%",
+              "Encapsulated. 11× faster than retinol"
+            ],
+            [
+              "Niacinamide",
+              "4%",
+              "Barrier, pores, redness"
+            ],
+            [
+              "Bakuchiol",
+              "1%",
+              "Softens the retinoid curve"
+            ],
+            [
+              "Ceramides NP, AP, EOP",
+              "1.5%",
+              "Barrier repair"
+            ],
+            [
+              "Squalane",
+              "5%",
+              "Slip without clogging"
+            ]
+          ],
+          "foot": "Full INCI list and pH →"
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Retinal vs retinol?",
+              "Retinal (retinaldehyde) is one conversion step from retinoic acid; retinol is two. Faster results, similar tolerance when encapsulated."
+            ],
+            [
+              "Will I peel?",
+              "The Starter strength is designed not to. Start three nights a week and build."
+            ],
+            [
+              "Pregnancy?",
+              "No retinoids during pregnancy or breastfeeding. Our Bakuchiol Serum is the alternative."
+            ]
+          ]
+        }
+      ]
+    },
+    "stillwater": {
+      "id": "stillwater",
+      "preset": "stillwater",
+      "brand": "STILLWATER",
+      "domain": "stillwater.co",
+      "vertical": "Apparel basics",
+      "vibe": "Everlane archetype. Quiet, honest pricing, the product is the brand.",
+      "bar": "Free shipping over $75 · 365-day returns · Made in Los Angeles",
+      "nav": [
+        "Men",
+        "Women",
+        "Tees",
+        "About"
+      ],
+      "filters": [
+        "Tees",
+        "Sweats",
+        "Denim"
+      ],
+      "product": {
+        "name": "The Heavyweight Tee",
+        "title": "The Heavyweight Tee. 7 oz. cotton, garment-dyed, made to be kept.",
+        "price": 38,
+        "was": 0,
+        "save": "Free shipping on 2+",
+        "reviews": "4,871",
+        "badge": "Best seller",
+        "thumbs": "+9",
+        "photo": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light",
+        "variants": [
+          {
+            "label": "Colour",
+            "options": [
+              "Bone",
+              "Black",
+              "Olive",
+              "Washed Navy"
+            ],
+            "swatches": [
+              "#E9E3D5",
+              "#1B1B1B",
+              "#5B6042",
+              "#3B4A63"
+            ]
+          },
+          {
+            "label": "Size",
+            "options": [
+              "XS",
+              "S",
+              "M",
+              "L",
+              "XL",
+              "XXL"
+            ],
+            "def": 2
+          }
+        ],
+        "benefits": [
+          [
+            "layers",
+            "7 oz. ring-spun cotton"
+          ],
+          [
+            "refresh",
+            "365-day returns, worn or washed"
+          ],
+          [
+            "shield",
+            "Shrinkage under 2%"
+          ],
+          [
+            "heart",
+            "Sewn and dyed in Los Angeles"
+          ]
+        ],
+        "tiers": [
+          {
+            "label": "1 tee",
+            "sub": "Any colour",
+            "price": 38
+          },
+          {
+            "label": "3-pack",
+            "sub": "Any colours · save 15%",
+            "price": 97,
+            "was": 114,
+            "tag": "Most popular"
+          },
+          {
+            "label": "5-pack",
+            "sub": "Save 20% · free shipping",
+            "price": 152,
+            "was": 190,
+            "tag": "Best value"
+          }
+        ],
+        "trust": [
+          "365-day returns",
+          "Ships in 24h",
+          "4,871 reviews"
+        ]
+      },
+      "upsell": {
+        "name": "The Crew Sock · 3-pack",
+        "price": "$24",
+        "deal": "$19 in cart"
+      },
+      "rewards": [
+        "Free shipping",
+        "Free socks",
+        "Free tote"
+      ],
+      "collection": [
+        [
+          "The Heavyweight Tee",
+          "$38",
+          "4.9",
+          "Best seller"
+        ],
+        [
+          "The Long Sleeve",
+          "$48",
+          "4.8"
+        ],
+        [
+          "The Crew Sweatshirt",
+          "$78",
+          "4.9"
+        ],
+        [
+          "The Relaxed Jean",
+          "$118",
+          "4.8",
+          "New"
+        ],
+        [
+          "The Chore Coat",
+          "$168",
+          "4.9"
+        ],
+        [
+          "The Crew Sock · 3",
+          "$24",
+          "4.7"
+        ]
+      ],
+      "adv": {
+        "eyebrow": "Style · Partner",
+        "h": "I bought one $38 tee to prove a point. Eighteen months later I own nine.",
+        "by": "By James O. · 4 min read",
+        "lede": "I had a drawer of $12 tees that twisted after a month and a theory that expensive basics were a scam.",
+        "pull": "Wash 30: same shape, same colour, same collar. The $12 drawer went to the shelter.",
+        "cta": "Shop the tee →"
+      },
+      "list": {
+        "h": "5 reasons this is the last tee you will buy for a while",
+        "items": [
+          [
+            "7 oz. cotton",
+            "Twice the weight of a fast-fashion tee. It drapes instead of clinging."
+          ],
+          [
+            "Garment-dyed",
+            "Dyed after sewing, so the colour goes deep and the shrink is already done."
+          ],
+          [
+            "365-day returns",
+            "Wear it for a year. If it fails you, send it back."
+          ]
+        ],
+        "cta": "Shop the 3-pack →"
+      },
+      "home": [
+        {
+          "type": "hero",
+          "layout": "bleed",
+          "eyebrow": "Fall 2026",
+          "h": "Made well. Priced honestly.",
+          "sub": "Heavyweight basics from one factory in Los Angeles. We show you the cost; you decide if it is fair.",
+          "cta": "Shop the tee · $38",
+          "photo": "Home hero: two models in bone and olive tees, concrete wall, overcast light"
+        },
+        {
+          "type": "ticker",
+          "items": [
+            "Free shipping over $75",
+            "365-day returns",
+            "Garment-dyed in Los Angeles",
+            "Fair-wage factory",
+            "Under 2% shrinkage"
+          ]
+        },
+        {
+          "type": "collection",
+          "h": "Shop by category",
+          "items": [
+            [
+              "Tees",
+              "From $38",
+              "4.9",
+              "Best seller"
+            ],
+            [
+              "Sweats",
+              "From $78",
+              "4.8"
+            ],
+            [
+              "Denim",
+              "From $118",
+              "4.8",
+              "New"
+            ],
+            [
+              "Outerwear",
+              "From $168",
+              "4.9"
+            ]
+          ]
+        },
+        {
+          "type": "features",
+          "h": "Why it costs $38 and not $12",
+          "items": [
+            [
+              "Fabric",
+              "7 oz. ring-spun cotton",
+              "Heavy enough to hold a shape, soft enough from the first wash. Milled in North Carolina.",
+              "Macro: fabric weave, bone cotton, raking light"
+            ],
+            [
+              "Construction",
+              "Shoulder-to-shoulder taping, double-needle hems",
+              "The two things that stop a tee twisting after fifty washes.",
+              "Detail: inside collar seam tape"
+            ],
+            [
+              "Dye",
+              "Garment-dyed, pre-shrunk",
+              "Dyed after sewing for depth of colour. Shrinkage under 2%.",
+              "Dye house: tees on racks, Los Angeles"
+            ]
+          ]
+        },
+        {
+          "type": "imagetext",
+          "k": "Fit",
+          "h": "True to size. Built to keep its shape.",
+          "d": "A classic fit: not boxy, not slim. Model is 6 ft 1, 180 lb and wears a Medium. Between sizes? Size down for a closer fit; the fabric relaxes a quarter inch with wear.",
+          "cta": "Open the size guide →",
+          "photo": "Model in bone heavyweight tee, grey backdrop, full length, natural pose",
+          "flip": true
+        },
+        {
+          "type": "ugc",
+          "h": "#instillwater",
+          "items": [
+            "@jo.wears",
+            "@daily.uniform",
+            "@m.okafor",
+            "@quietcloset"
+          ],
+          "photo": "UGC still: customer in heavyweight tee, street, natural light"
+        },
+        {
+          "type": "reviews",
+          "h": "4,871 reviews",
+          "items": [
+            [
+              "Washed it thirty times. Still the same shape as day one. I own six now.",
+              "James O. · Verified buyer · wears L",
+              "Customer photo: tee after 30 washes"
+            ],
+            [
+              "Heavy in the right way. Finally a white tee that is not see-through.",
+              "Priya K. · Verified buyer · wears S"
+            ],
+            [
+              "Returned a Large for a Medium at month four. No questions, free label.",
+              "Marcus D. · Verified buyer · wears M"
+            ]
+          ]
+        },
+        {
+          "type": "bundle",
+          "h": "Build a 3-pack",
+          "sub": "Any colours, any sizes. Three saves 15%, five saves 20%.",
+          "pct": 15,
+          "min": 3,
+          "note": "Free shipping · 365-day returns",
+          "cta": "Add 3-pack",
+          "items": [
+            [
+              "Bone",
+              38,
+              1
+            ],
+            [
+              "Black",
+              38,
+              1
+            ],
+            [
+              "Olive",
+              38,
+              1
+            ],
+            [
+              "Washed Navy",
+              38,
+              0
+            ],
+            [
+              "Heather Grey",
+              38,
+              0
+            ],
+            [
+              "White",
+              38,
+              0
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Will it shrink?",
+              "Under 2%. It is pre-shrunk and garment-dyed; wash cold, tumble low."
+            ],
+            [
+              "365-day returns, really?",
+              "Yes. Worn, washed, whatever. Send it back within a year for a refund or a different size."
+            ],
+            [
+              "Where is it made?",
+              "Cotton milled in North Carolina, sewn and dyed in Los Angeles. The factory is on the About page, with photos."
+            ]
+          ]
+        }
+      ],
+      "pdp": [
+        {
+          "type": "features",
+          "h": "Why it costs $38 and not $12",
+          "items": [
+            [
+              "Fabric",
+              "7 oz. ring-spun cotton",
+              "Heavy enough to hold a shape, soft enough from the first wash. Milled in North Carolina.",
+              "Macro: fabric weave, bone cotton, raking light"
+            ],
+            [
+              "Construction",
+              "Shoulder-to-shoulder taping, double-needle hems",
+              "The two things that stop a tee twisting after fifty washes.",
+              "Detail: inside collar seam tape"
+            ],
+            [
+              "Dye",
+              "Garment-dyed, pre-shrunk",
+              "Dyed after sewing for depth of colour. Shrinkage under 2%.",
+              "Dye house: tees on racks, Los Angeles"
+            ]
+          ]
+        },
+        {
+          "type": "imagetext",
+          "k": "Fit",
+          "h": "True to size. Built to keep its shape.",
+          "d": "A classic fit: not boxy, not slim. Model is 6 ft 1, 180 lb and wears a Medium. Between sizes? Size down for a closer fit; the fabric relaxes a quarter inch with wear.",
+          "cta": "Open the size guide →",
+          "photo": "Model in bone heavyweight tee, grey backdrop, full length, natural pose",
+          "flip": true
+        },
+        {
+          "type": "reviews",
+          "h": "4,871 reviews",
+          "items": [
+            [
+              "Washed it thirty times. Still the same shape as day one. I own six now.",
+              "James O. · Verified buyer · wears L",
+              "Customer photo: tee after 30 washes"
+            ],
+            [
+              "Heavy in the right way. Finally a white tee that is not see-through.",
+              "Priya K. · Verified buyer · wears S"
+            ],
+            [
+              "Returned a Large for a Medium at month four. No questions, free label.",
+              "Marcus D. · Verified buyer · wears M"
+            ]
+          ]
+        },
+        {
+          "type": "faq",
+          "h": "Questions",
+          "items": [
+            [
+              "Will it shrink?",
+              "Under 2%. It is pre-shrunk and garment-dyed; wash cold, tumble low."
+            ],
+            [
+              "365-day returns, really?",
+              "Yes. Worn, washed, whatever. Send it back within a year for a refund or a different size."
+            ],
+            [
+              "Where is it made?",
+              "Cotton milled in North Carolina, sewn and dyed in Los Angeles. The factory is on the About page, with photos."
+            ]
+          ]
+        }
+      ]
+    }
+  }
+}
