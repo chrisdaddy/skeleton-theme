@@ -1,0 +1,12 @@
+{% doc %}
+  Grid of product cards.
+
+  @param {product[]} products - Products to show
+{% enddoc %}
+<ul class="bp-grid" role="list">
+  {%- for product in products -%}
+    <li>{%- render 'product-card', product: product -%}</li>
+  {%- else -%}
+    <li>{{ 'collections.empty' | t }}</li>
+  {%- endfor -%}
+</ul>

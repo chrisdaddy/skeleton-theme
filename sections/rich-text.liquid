@@ -1,0 +1,79 @@
+<div class="bp-page-width bp-page-width--narrow bp-stack bp-center">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'heading' -%}
+        <h2 {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</h2>
+      {%- when 'text' -%}
+        <div class="bp-rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+      {%- when 'button' -%}
+        <a class="bp-button" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+          {{- block.settings.label | escape -}}
+        </a>
+    {%- endcase -%}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.rich_text.name",
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:blocks.heading.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:blocks.heading.settings.text.label",
+          "default": "Talk about your brand"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:blocks.text.name",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:blocks.text.settings.text.label",
+          "default": "<p>Share what makes your product worth trying.</p>"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:blocks.button.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:blocks.button.settings.label.label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:blocks.button.settings.link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.rich_text.name",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

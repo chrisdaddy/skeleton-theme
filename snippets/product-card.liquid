@@ -1,0 +1,30 @@
+{% doc %}
+  Product card used in grids and search results.
+  Phase 4 adds badges, rating, hover image and quick add.
+
+  @param {product} product - The product to show
+{% enddoc %}
+<div class="bp-card bp-stack">
+  <a href="{{ product.url }}" class="bp-card__media">
+    {%- if product.featured_media -%}
+      {{
+        product.featured_media
+        | image_url: width: 720
+        | image_tag:
+          widths: '240, 360, 480, 720',
+          sizes: '(min-width: 990px) 25vw, 50vw',
+          loading: 'lazy',
+          alt: product.featured_media.alt
+      }}
+    {%- endif -%}
+    <span class="bp-card__title">{{ product.title | escape }}</span>
+  </a>
+  <span class="bp-price">
+    {%- if product.price_varies -%}
+      {%- assign price_min = product.price_min | money -%}
+      {{ 'products.price_from' | t: price: price_min }}
+    {%- else -%}
+      {{ product.price | money }}
+    {%- endif -%}
+  </span>
+</div>

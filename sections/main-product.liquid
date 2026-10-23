@@ -1,0 +1,73 @@
+{% comment %}
+  Product page: gallery and a buy form that works without JavaScript.
+  Phase 2 replaces this with the full buy box built from theme blocks (docs/PLAN.md §5).
+{% endcomment %}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+<div class="bp-page-width bp-product">
+  <div class="bp-product__media">
+    {%- if product.featured_media -%}
+      {{
+        product.featured_media
+        | image_url: width: 1400
+        | image_tag:
+          widths: '360, 540, 720, 900, 1080, 1400',
+          sizes: '(min-width: 990px) 55vw, 100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          preload: true
+      }}
+    {%- endif -%}
+  </div>
+  <div class="bp-product__info">
+    <h1>{{ product.title | escape }}</h1>
+    <p class="bp-price">{{ current_variant.price | money }}</p>
+    {%- form 'product', product, class: 'bp-stack' -%}
+      {%- if product.has_only_default_variant -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+      {%- else -%}
+        <label for="Variant-{{ section.id }}">{{ 'products.variant' | t }}</label>
+        <select id="Variant-{{ section.id }}" name="id">
+          {%- for variant in product.variants -%}
+            <option
+              value="{{ variant.id }}"
+              {% if variant == current_variant %}
+                selected
+              {% endif %}
+              {% unless variant.available %}
+                disabled
+              {% endunless %}
+            >
+              {{ variant.title | escape }} – {{ variant.price | money }}
+            </option>
+          {%- endfor -%}
+        </select>
+      {%- endif -%}
+      <label for="Quantity-{{ section.id }}">{{ 'products.quantity' | t }}</label>
+      <input id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1">
+      <button type="submit" class="bp-button" {% unless current_variant.available %}disabled{% endunless %}>
+        {%- if current_variant.available -%}
+          {{ 'products.add_to_cart' | t }}
+        {%- else -%}
+          {{ 'products.sold_out' | t }}
+        {%- endif -%}
+      </button>
+      {{ form | payment_button }}
+    {%- endform -%}
+    {%- for block in section.blocks -%}
+      {% render block %}
+    {%- endfor -%}
+    <div class="bp-rte">{{ product.description }}</div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_product.name",
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": []
+}
+{% endschema %}

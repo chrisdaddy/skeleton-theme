@@ -1,0 +1,16 @@
+{% doc %}
+  Previous and next page links for a paginated list.
+
+  @param {object} paginate - The paginate object
+{% enddoc %}
+{%- if paginate.pages > 1 -%}
+  <nav class="bp-pagination bp-inline-list" aria-label="{{ 'accessibility.pagination' | t }}">
+    {%- if paginate.previous -%}
+      <a href="{{ paginate.previous.url }}">{{ 'general.previous' | t }}</a>
+    {%- endif -%}
+    <span>{{ 'general.page_of' | t: current: paginate.current_page, total: paginate.pages }}</span>
+    {%- if paginate.next -%}
+      <a href="{{ paginate.next.url }}">{{ 'general.next' | t }}</a>
+    {%- endif -%}
+  </nav>
+{%- endif -%}

@@ -1,70 +1,83 @@
 {
-  "general": {
-    "404": "Not found",
-    "article": "Article",
-    "block": "Block",
-    "blog": "Blog",
-    "cart": "Cart",
-    "collection": "Collection",
-    "collections": "Collections",
-    "collection_card": "Collection card",
-    "collections_grid": "Collections grid",
-    "colors": "Colors",
-    "column": "Column",
-    "container": "Container",
-    "content": "Content",
-    "fonts": "Fonts",
-    "footer": "Footer",
-    "group": "Group",
+  "settings_schema": {
+    "colors": {
+      "name": "Colors",
+      "settings": {
+        "bg": { "label": "Background" },
+        "ink": { "label": "Text" },
+        "line": { "label": "Lines" },
+        "accent": { "label": "Accent" },
+        "on_accent": { "label": "Text on accent" }
+      }
+    },
+    "favicon": {
+      "name": "Favicon",
+      "settings": {
+        "favicon": { "label": "Favicon image" }
+      }
+    }
+  },
+  "section_groups": {
     "header": "Header",
-    "hello_world": "Hello world",
-    "layout": "Layout",
-    "liquid_tips": "Liquid tips",
-    "main": "Main",
-    "page": "Page",
-    "password": "Password",
-    "primary": "Primary",
-    "product": "Product",
-    "row": "Row",
-    "search": "Search",
-    "secondary": "Secondary",
-    "settings": "Settings",
-    "sidebar": "Sidebar",
-    "theme": "Theme",
-    "typography": "Typography"
+    "footer": "Footer"
   },
-  "labels": {
-    "alignment": "Alignment",
-    "background": "Background",
-    "foreground": "Foreground",
-    "grid_gap": "Grid spacing",
-    "grid_item_width": "Grid item width",
-    "input_corner_radius": "Input corner radius",
-    "layout_direction": "Layout direction",
-    "menu": "Menu",
-    "customer_account_menu": "Customer account menu",
-    "padding": "Padding",
-    "page_margin": "Page margin",
-    "page_width": "Page width",
-    "show_payment_icons": "Show payment icons"
+  "sections": {
+    "common": {
+      "settings": {
+        "heading": { "label": "Heading" }
+      }
+    },
+    "header": {
+      "name": "Header",
+      "settings": {
+        "logo": { "label": "Logo" },
+        "logo_height": { "label": "Logo height" },
+        "menu": { "label": "Menu" }
+      }
+    },
+    "footer": {
+      "name": "Footer",
+      "settings": {
+        "menu": { "label": "Menu" }
+      }
+    },
+    "main_product": { "name": "Product information" },
+    "main_collection": {
+      "name": "Product grid",
+      "settings": {
+        "per_page": { "label": "Products per page" }
+      }
+    },
+    "main_cart": { "name": "Cart" },
+    "main_search": { "name": "Search results" },
+    "main_404": { "name": "Page not found" },
+    "main_blog": { "name": "Blog posts" },
+    "main_article": { "name": "Blog post" },
+    "main_page": { "name": "Page" },
+    "main_list_collections": { "name": "Collections list" },
+    "main_password": { "name": "Password" },
+    "contact_form": { "name": "Contact form" },
+    "rich_text": { "name": "Rich text" }
   },
-  "options": {
-    "alignment": {
-      "left": "Left",
-      "center": "Center",
-      "right": "Right"
+  "blocks": {
+    "heading": {
+      "name": "Heading",
+      "settings": {
+        "text": { "label": "Text" }
+      }
     },
-    "direction": {
-      "horizontal": "Horizontal",
-      "vertical": "Vertical"
+    "text": {
+      "name": "Text",
+      "settings": {
+        "text": { "label": "Text" }
+      }
     },
-    "page_width": {
-      "narrow": "Narrow",
-      "wide": "Wide"
-    },
-    "size": {
-      "large": "Large",
-      "small": "Small"
+    "button": {
+      "name": "Button",
+      "settings": {
+        "label": { "label": "Label" },
+        "link": { "label": "Link" }
+      }
     }
   }
 }

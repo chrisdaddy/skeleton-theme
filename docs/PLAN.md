@@ -1,6 +1,17 @@
 # PLAN: Blueprint Theme
 
-**Status:** draft for approval. No theme code is written until this plan is approved (START_HERE, Step 0).
+**Status:** approved to proceed with Phase 0 (owner's answers, 2026-10-23, below).
+
+### Decisions log
+
+| # | Question | Owner's answer | What the plan does |
+|---|---|---|---|
+| Q1 | Development stores | Not created yet | **Before stores exist:** Phase 0 and Phase 1 code proceeds; Theme Check and unit tests run offline. **To create them:** three free Plus-plan dev stores via the Dev Dashboard or `shopify store create dev --plan plus --demo-data` (Plus gives Flow and custom-app Functions). Needed by the end of Phase 1. **Blocker:** this cloud environment's network policy currently blocks every Shopify host (`*.myshopify.com`, `cdn.shopify.com`, `accounts.shopify.com`, `shopify.dev`). Theme preview, push, seeding and Lighthouse need those hosts allowed, plus a Theme Access password per store as an environment secret. |
+| Q2 | Channel | **Direct first**, Theme Store rules later | D2 as recommended |
+| Q3 | Base and repo | **Yes**: original code, replace Skeleton and `AGENTS.md`, keep this repo | D1 + D3 as recommended |
+| Q4/Q5 | Subscription and reviews apps | "Whatever you suggest; give merchants options" | Default and first-tested: **Shopify Subscriptions** and **Judge.me**. **Subscriptions:** works with any selling-plan app (Recharge, Skio, Loop, Appstle); the theme toggle steps aside when an app's own widget is present. **Reviews:** a provider setting (`auto`, standard metafields, Judge.me, Okendo, Yotpo, Loox, Stamped, none) plus `@app` slots everywhere stars or reviews appear. |
+| Q6 | License and delivery | "How does Elixir do it? Do that, or our own custom; Lemon Squeezy last" | Elixir-style own stack (§13.1) |
+| Q7–Q15 | Remaining questions | Not yet answered | Plan defaults apply until changed |
 
 **Inputs:**
 - `docs/brief/START_HERE.md`
@@ -859,7 +870,32 @@ PDP, mobile, first load, theme-owned bytes only. Rationale and the Dawn baseline
   5. Apply declarative, idempotent `migrations/<from>-<to>.json`. Show a diff, plus the list of code files the merchant edited (detected with a checksum manifest).
   6. `themeFilesUpsert` the merchant files into the new theme, at most 50 per call.
   7. The merchant previews and publishes. The old theme stays as the rollback.
-- **No license check inside the theme.** It doesn't stop piracy and it risks paying merchants' stores (RESEARCH Part 5).
+- **No license check inside the theme.** It doesn't stop piracy and it risks paying merchants' stores (RESEARCH Part 5). Elixir copies are resold on Etsy and nulled-theme forums anyway.
+
+### 13.1 Sales, delivery and licensing: own stack, Elixir-style (decided Q6)
+
+**How Elixir does it.** Its own site, ecomelixir.com, was blocked from this environment, so this comes from search extracts and reviews:
+- **Storefront:** sells direct from its own storefront. The URL patterns (`/products/elixir-shopify-theme`, `/pages/bundle-builder`) indicate a Shopify store.
+- **Licensing:** one license per store, at $200 per license. A "bundle builder" discounts multi-license purchases (2–3 licenses).
+- **Delivery:** an `ElixirShopifyTheme.zip` download plus a "Web Portal" for managing licenses in one place.
+- **Updates:** "all V1 updates for life". The "Automatic Theme Updater" is described as a web app, "almost finished", that lets merchants connect a custom app to their store. Until it ships, merchants keep customizations by merging the old JSON values into the new files by hand.
+- **Other terms:** 30-day money-back guarantee and a Discord community. Prices rise as updates ship.
+
+Sources: [product page](https://ecomelixir.com/products/elixir-shopify-theme), [recent updates](https://ecomelixir.com/pages/recent-updates), [bundle builder](https://ecomelixir.com/pages/bundle-builder), [DropMagic review](https://dropmagic.ai/shopify-themes/elixir-theme-review), [SectionStore review](https://sectionstore.io/shopify-themes/elixir-theme-review/). These pages couldn't be opened directly; the details come from search-result extracts.
+
+**Blueprint does the same, finished.**
+
+| Piece | Choice |
+|---|---|
+| Storefront and checkout | A Blueprint-owned Shopify store (e.g. blueprinttheme.com) **running Blueprint itself**, which doubles as a live demo. Products: Theme (1 store) $149, Agency (5 licenses) $249, extra license $49, DFY $1,149. |
+| Delivery at purchase | The zip is attached to the product with Shopify's free Digital Downloads app (download link on the order confirmation), plus the portal below. |
+| License keys | **Blueprint Portal**, a small serverless app (Cloudflare Worker + D1, roughly $0–5/month). An `orders/paid` webhook from the store mints keys: 1 for Theme, 5 for Agency. A key binds to a `*.myshopify.com` domain on first activation. Merchants can self-serve a transfer (deactivate, then reactivate), with a limit per month. |
+| Portal for buyers | Magic-link sign-in with the order email. It lists keys and activations, downloads every release zip, shows the changelog, and links to setup docs and Discord. |
+| Updates | `blueprint update` (§13) validates the key against the Portal and fetches a signed release URL. A hosted "connect your store" web updater is v1.1: our own App Store app with a `write_themes` exemption, or the merchant's custom app as Elixir plans. |
+| Refunds | Refunds are issued in the store admin. The webhook revokes the key. |
+
+- **Trade-off vs Lemon Squeezy:** selling from our own Shopify store makes us the **seller of record**, so VAT/GST on digital goods sold to EU, UK and AU buyers is ours to collect and file (Shopify Tax can calculate it). Lemon Squeezy, as merchant of record, would handle that. It stays the fallback if the tax admin outweighs owning the checkout.
+- **Effort:** Phase 8 grows by about 1 week (Portal + webhook + magic-link auth).
 - **Fallbacks:** a documented Shopify CLI script, then a manual zip + copy-JSON guide.
 - **Theme Store channel:** Shopify's update flow. Merchant JSON is preserved, and updates are spaced at least 4 weeks apart.
 - **v1.1 (Nov):** quiz pre-lander, meaning `page.quiz.json` plus the `quiz` section in a full-page layout.
@@ -913,9 +949,9 @@ Every PR follows the same rules:
 | **5. Templates + pre-landers** | the 8 templates + polish set; landing layout; pre-lander sections; URL contract | deep links preselect correctly with and without JS; noindex verified; no CLS | 1.5 wk |
 | **6. Demo stores** | seed script, 3 stores, shot list | the 3 stores match the reference at 390/1440 (side-by-side screenshots) | 1 wk |
 | **7. AI kit** | MCP server, 22 prompts, setup docs | end to end on a real store: drafts a listicle from real reviews into a draft theme; refuses to write to the live theme (test) | 2 wk |
-| **8. Updater + docs + launch** | `blueprint update`, migrations framework, CHANGELOG, merchant docs, LAUNCH.md (zip, license keys, Theme Store checklist), app-compatibility pass | updating a customised store from 1.0.0 to 1.0.1 preserves settings and templates (test) | 1.5 wk |
+| **8. Updater + docs + launch** | `blueprint update`, migrations framework, Blueprint Portal (license keys, downloads, §13.1), sales store, CHANGELOG, merchant docs, LAUNCH.md (zip, license keys, Theme Store checklist), app-compatibility pass | updating a customised store from 1.0.0 to 1.0.1 preserves settings and templates (test); a test purchase mints a key, binds it to a store, and a refund revokes it | 2.5 wk |
 
-**Total:** about 18 weeks for one engineer, or less with parallel tracks after Phase 1.
+**Total:** about 19 weeks for one engineer, or less with parallel tracks after Phase 1.
 
 ---
 
@@ -965,12 +1001,12 @@ Every PR follows the same rules:
 
 ## 18. Open questions (answer once; the plan's defaults are in brackets)
 
-1. **Development stores:** URLs and access (collaborator access + a Dev Dashboard app per store). Three stores: Verde, Ode, Rawform. [needed for Phase 0]
-2. **Distribution channel:** direct sale or Theme Store? [direct first, Theme-Store-ready code]
-3. **Base and repo:** approve original code (D1), and replacing Skeleton plus this repo's `AGENTS.md` (D3)? Keep this repo or start `blueprint-theme`? [original code, this repo]
-4. **Subscription app to target first.** [Shopify Subscriptions: free, native selling plans]
-5. **Reviews app to target first.** [Judge.me: free tier, standard metafields, read API]
-6. **License and delivery platform:** Lemon Squeezy, Gumroad or Payhip? [Lemon Squeezy: license-key API with instance activation]
+1. **Development stores** (not created yet; see Decisions log): URLs and access (collaborator access + a Dev Dashboard app per store). Three stores: Verde, Ode, Rawform. [needed for Phase 0]
+2. ~~Distribution channel~~ **Decided:** direct first, Theme Store rules later.
+3. ~~Base and repo~~ **Decided:** original code; replace Skeleton and `AGENTS.md`; this repo.
+4. ~~Subscription app~~ **Decided:** Shopify Subscriptions first; any selling-plan app supported.
+5. ~~Reviews app~~ **Decided:** Judge.me first; provider setting for the rest.
+6. ~~License and delivery platform~~ **Decided:** own Elixir-style stack: own Shopify store + Blueprint Portal (§13.1); Lemon Squeezy as fallback.
 7. **Real product photography timing.** [placeholders + shot list until then]
 8. **Sales-page claims (§1):** approve the rewording, removal of the testimonials and "v1.0.4 live", and the DFY price.
 9. **Savings reference:** compare-at or "vs singles"? [compare-at when set, else singles; docs on genuine compare-at prices]

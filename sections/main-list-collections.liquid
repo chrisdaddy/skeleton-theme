@@ -1,0 +1,24 @@
+<div class="bp-page-width bp-stack">
+  <h1>{{ 'collections.title' | t }}</h1>
+  <ul class="bp-grid" role="list">
+    {%- for collection in collections -%}
+      <li class="bp-stack">
+        {%- if collection.featured_image -%}
+          {{
+            collection.featured_image
+            | image_url: width: 720
+            | image_tag: widths: '360, 540, 720', sizes: '(min-width: 990px) 33vw, 50vw', loading: 'lazy'
+          }}
+        {%- endif -%}
+        <a href="{{ collection.url }}">{{ collection.title | escape }}</a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_list_collections.name",
+  "settings": []
+}
+{% endschema %}

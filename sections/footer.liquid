@@ -1,0 +1,32 @@
+{% comment %}
+  Site footer: footer menu, policy links and copyright.
+  Phase 1 adds the full footer (blocks for menus, newsletter, social, payment icons).
+{% endcomment %}
+<footer class="bp-footer bp-page-width">
+  {%- if section.settings.menu.links.size > 0 -%}
+    <nav aria-label="{{ 'accessibility.footer_menu' | t }}">
+      <ul class="bp-inline-list" role="list">
+        {%- for link in section.settings.menu.links -%}
+          <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  {%- endif -%}
+  {%- assign current_year = 'now' | date: '%Y' -%}
+  <p class="bp-muted">{{ 'general.copyright' | t: year: current_year, shop: shop.name }}</p>
+</footer>
+
+{% schema %}
+{
+  "name": "t:sections.footer.name",
+  "class": "bp-section-footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "footer",
+      "label": "t:sections.footer.settings.menu.label"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,45 @@
+{% comment %}
+  Cart page: line items with quantity inputs, subtotal and checkout.
+  Phase 3 replaces this with the cart components shared with the drawer (docs/PLAN.md §8).
+{% endcomment %}
+<div class="bp-page-width bp-stack">
+  <h1>{{ 'cart.title' | t }}</h1>
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" class="bp-stack">
+      <ul class="bp-cart-lines" role="list">
+        {%- for item in cart.items -%}
+          <li class="bp-cart-line">
+            <a href="{{ item.url }}">{{ item.product.title | escape }}</a>
+            {%- unless item.product.has_only_default_variant -%}
+              <span class="bp-muted">{{ item.variant.title | escape }}</span>
+            {%- endunless -%}
+            {%- if item.selling_plan_allocation -%}
+              <span class="bp-muted">{{ item.selling_plan_allocation.selling_plan.name | escape }}</span>
+            {%- endif -%}
+            <label for="Quantity-{{ item.key }}">{{ 'products.quantity' | t }}</label>
+            <input id="Quantity-{{ item.key }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0">
+            <span>{{ item.final_line_price | money }}</span>
+            <a href="{{ item.url_to_remove }}">{{ 'cart.remove' | t }}</a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <p class="bp-cart-total">
+        {{ 'cart.subtotal' | t }}: <strong>{{ cart.total_price | money_with_currency }}</strong>
+      </p>
+      <div class="bp-inline-list">
+        <button type="submit" name="update" class="bp-button bp-button--secondary">{{ 'cart.update' | t }}</button>
+        <button type="submit" name="checkout" class="bp-button">{{ 'cart.checkout' | t }}</button>
+      </div>
+    </form>
+  {%- else -%}
+    <p>{{ 'cart.empty' | t }}</p>
+    <a class="bp-button" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue_shopping' | t }}</a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_cart.name",
+  "settings": []
+}
+{% endschema %}

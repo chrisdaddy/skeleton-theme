@@ -1,0 +1,14 @@
+{% doc %}
+  Emits the design tokens as CSS custom properties on :root.
+  Phase 1 replaces this with the full token system in docs/PLAN.md §3
+  (light and dark sets, derived contrast-safe tokens, corners, fonts).
+{% enddoc %}
+<style>
+  :root {
+    --bp-bg: {{ settings.color_bg }};
+    --bp-ink: {{ settings.color_ink }};
+    --bp-accent: {{ settings.color_accent }};
+    --bp-on-accent: {{ settings.color_on_accent }};
+    --bp-line: {{ settings.color_line }};
+  }
+</style>

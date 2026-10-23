@@ -1,0 +1,35 @@
+{% comment %}
+  Search page: search form and paginated results across products, articles and pages.
+{% endcomment %}
+<div class="bp-page-width bp-stack">
+  <h1>{{ 'search.title' | t }}</h1>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="bp-inline-list">
+    <label for="Search-{{ section.id }}" class="bp-visually-hidden">{{ 'search.label' | t }}</label>
+    <input id="Search-{{ section.id }}" type="search" name="q" value="{{ search.terms | escape }}">
+    <button type="submit" class="bp-button">{{ 'search.submit' | t }}</button>
+  </form>
+  {%- if search.performed -%}
+    <p role="status">{{ 'search.results_count' | t: count: search.results_count, terms: search.terms }}</p>
+    {%- paginate search.results by 24 -%}
+      <ul class="bp-grid" role="list">
+        {%- for item in search.results -%}
+          <li>
+            {%- if item.object_type == 'product' -%}
+              {%- render 'product-card', product: item -%}
+            {%- else -%}
+              <a href="{{ item.url }}">{{ item.title | escape }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- render 'pagination', paginate: paginate -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_search.name",
+  "settings": []
+}
+{% endschema %}

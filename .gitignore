@@ -16,5 +16,5 @@ node_modules/
 release
 *.zip
 
-## Local listings
-listings/
+## Package dependencies
+mcp/node_modules/

@@ -1,0 +1,62 @@
+{% comment %}
+  Site header: logo or shop name, main menu and cart link.
+  Phase 1 adds the full header (mobile menu, search, sticky behaviour).
+{% endcomment %}
+<header class="bp-header bp-page-width">
+  <a class="bp-header__logo" href="{{ routes.root_url }}">
+    {%- if section.settings.logo -%}
+      {{
+        section.settings.logo
+        | image_url: width: 320
+        | image_tag: height: section.settings.logo_height, alt: shop.name, loading: 'eager'
+      }}
+    {%- else -%}
+      {{ shop.name }}
+    {%- endif -%}
+  </a>
+  {%- if section.settings.menu.links.size > 0 -%}
+    <nav class="bp-header__nav" aria-label="{{ 'accessibility.main_menu' | t }}">
+      <ul class="bp-inline-list" role="list">
+        {%- for link in section.settings.menu.links -%}
+          <li>
+            <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  {%- endif -%}
+  <a class="bp-header__cart" href="{{ routes.cart_url }}">
+    {{- 'cart.title' | t -}}
+    <span class="bp-count">{{ 'cart.item_count' | t: count: cart.item_count }}</span>
+  </a>
+</header>
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "class": "bp-section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 16,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 32,
+      "label": "t:sections.header.settings.logo_height.label"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    }
+  ]
+}
+{% endschema %}
