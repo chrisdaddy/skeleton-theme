@@ -1,9 +1,37 @@
 {
   "accessibility": {
     "skip_to_content": "Skip to content",
-    "main_menu": "Main menu",
-    "footer_menu": "Footer menu",
     "pagination": "Pagination"
+  },
+  "announcements": {
+    "label": "Announcements",
+    "previous": "Previous announcement",
+    "next": "Next announcement",
+    "pause": "Pause announcements"
+  },
+  "header": {
+    "main_menu": "Main menu",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu",
+    "search": "Search",
+    "account": "Account",
+    "cart": "Cart"
+  },
+  "footer": {
+    "payment_methods": "Payment methods"
+  },
+  "newsletter": {
+    "email": "Email address",
+    "submit": "Subscribe",
+    "success": "Thanks for subscribing."
+  },
+  "social": {
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "x": "X",
+    "pinterest": "Pinterest"
   },
   "general": {
     "page": "Page {{ number }}",

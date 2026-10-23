@@ -1,0 +1,11 @@
+{
+  "type": "header",
+  "name": "t:section_groups.landing_header",
+  "sections": {
+    "header": {
+      "type": "header-minimal",
+      "settings": {}
+    }
+  },
+  "order": ["header"]
+}

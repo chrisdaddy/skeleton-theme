@@ -3,7 +3,7 @@
   Phase 2 replaces this with the full buy box built from theme blocks (docs/PLAN.md §5).
 {% endcomment %}
 {%- assign current_variant = product.selected_or_first_available_variant -%}
-<div class="bp-page-width bp-product">
+<div class="bp-section bp-page-width bp-product">
   <div class="bp-product__media">
     {%- if product.featured_media -%}
       {{
@@ -26,7 +26,7 @@
         <input type="hidden" name="id" value="{{ current_variant.id }}">
       {%- else -%}
         <label for="Variant-{{ section.id }}">{{ 'products.variant' | t }}</label>
-        <select id="Variant-{{ section.id }}" name="id">
+        <select class="bp-select" id="Variant-{{ section.id }}" name="id">
           {%- for variant in product.variants -%}
             <option
               value="{{ variant.id }}"
@@ -43,7 +43,7 @@
         </select>
       {%- endif -%}
       <label for="Quantity-{{ section.id }}">{{ 'products.quantity' | t }}</label>
-      <input id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1">
+      <input id="Quantity-{{ section.id }}" class="bp-input" type="number" name="quantity" value="1" min="1">
       <button type="submit" class="bp-button" {% unless current_variant.available %}disabled{% endunless %}>
         {%- if current_variant.available -%}
           {{ 'products.add_to_cart' | t }}

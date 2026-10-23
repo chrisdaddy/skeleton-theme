@@ -1,4 +1,4 @@
-<div class="bp-page-width bp-page-width--narrow bp-stack">
+<div class="bp-section bp-page-width bp-page-width--narrow bp-stack">
   {%- if section.settings.heading != blank -%}
     <h2>{{ section.settings.heading | escape }}</h2>
   {%- endif -%}
@@ -8,11 +8,11 @@
     {%- endif -%}
     {{ form.errors | default_errors }}
     <label for="ContactName-{{ section.id }}">{{ 'contact.name' | t }}</label>
-    <input id="ContactName-{{ section.id }}" type="text" name="contact[name]" autocomplete="name">
+    <input id="ContactName-{{ section.id }}" class="bp-input" type="text" name="contact[name]" autocomplete="name">
     <label for="ContactEmail-{{ section.id }}">{{ 'contact.email' | t }}</label>
-    <input id="ContactEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" required>
+    <input id="ContactEmail-{{ section.id }}" class="bp-input" type="email" name="contact[email]" autocomplete="email" required>
     <label for="ContactBody-{{ section.id }}">{{ 'contact.message' | t }}</label>
-    <textarea id="ContactBody-{{ section.id }}" name="contact[body]" rows="6"></textarea>
+    <textarea class="bp-input" id="ContactBody-{{ section.id }}" name="contact[body]" rows="6"></textarea>
     <button type="submit" class="bp-button">{{ 'contact.submit' | t }}</button>
   {%- endform -%}
 </div>

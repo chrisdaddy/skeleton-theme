@@ -10,7 +10,7 @@ The theme includes:
 - advertorial, listicle and comparison pre-landers
 - an AI kit (MCP server and prompt library)
 
-**Status:** Phase 0 (foundation). See [`docs/PLAN.md`](docs/PLAN.md) for the plan of record and [`docs/RESEARCH.md`](docs/RESEARCH.md) for the research behind it.
+**Status:** Phase 1 (design foundation) done. See [`docs/PLAN.md`](docs/PLAN.md) for the plan of record and [`docs/RESEARCH.md`](docs/RESEARCH.md) for the research behind it.
 
 ## Develop
 
@@ -19,7 +19,15 @@ Requirements: [Shopify CLI](https://shopify.dev/docs/api/shopify-cli) and Node.j
 ```sh
 shopify theme dev --store <your-dev-store>   # preview on a development store
 shopify theme check                          # must report no offenses
-npm test                                     # unit tests and contrast check (offline)
+npm test                                     # unit tests, contrast and budget checks (offline)
+```
+
+### Offline preview
+
+When no store is reachable, `tools/preview/` renders the theme with LiquidJS and demo data and takes screenshots. It approximates Shopify's renderer for layout and style checks only.
+
+```sh
+cd tools/preview && npm install && npm run shots   # writes out/<preset>/*.html and out/shots/*.png
 ```
 
 Read [`AGENTS.md`](AGENTS.md) before changing code. It lists the conventions every change must follow.

@@ -1,4 +1,4 @@
-<article class="bp-page-width bp-page-width--narrow bp-stack">
+<article class="bp-section bp-page-width bp-page-width--narrow bp-stack">
   <h1>{{ article.title | escape }}</h1>
   {%- assign published = article.published_at | time_tag: format: 'date' -%}
   <p class="bp-muted">{{ 'blog.byline' | t: author: article.author, date: published }}</p>

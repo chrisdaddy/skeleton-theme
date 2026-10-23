@@ -1,14 +1,82 @@
 {% doc %}
-  Emits the design tokens as CSS custom properties on :root.
-  Phase 1 replaces this with the full token system in docs/PLAN.md §3
-  (light and dark sets, derived contrast-safe tokens, corners, fonts).
+  Emits fonts and design tokens as CSS custom properties (docs/PLAN.md §3).
+
+  :root carries the active color mode. Sections with surface style "Inverse"
+  get the other mode, so a dark band on a light page needs no extra settings.
+  The Surface and Accent styles are defined in base.css from these tokens.
 {% enddoc %}
+{%- liquid
+  if settings.color_mode == 'dark'
+    assign other_mode = 'light'
+  else
+    assign other_mode = 'dark'
+  endif
+
+  if settings.heading_style == 'serif'
+    assign heading_font = settings.type_heading_serif
+  else
+    assign heading_font = settings.type_heading_sans
+  endif
+
+  assign body_font = settings.type_body_font
+  assign body_bold = body_font | font_modify: 'weight', 'bold'
+  assign body_italic = body_font | font_modify: 'style', 'italic'
+  assign body_bold_italic = body_bold | font_modify: 'style', 'italic'
+
+  case settings.corners
+    when 'sharp'
+      assign radius = 4
+      assign radius_small = 3
+      assign radius_button = 3
+    when 'round'
+      assign radius = 18
+      assign radius_small = 12
+      assign radius_button = 14
+    when 'custom'
+      assign radius = settings.radius_card
+      assign radius_small = settings.radius_small
+      if settings.button_pill
+        assign radius_button = 999
+      else
+        assign radius_button = settings.radius_button
+      endif
+    else
+      assign radius = 12
+      assign radius_small = 8
+      assign radius_button = 999
+  endcase
+
+  assign heading_tracking = settings.heading_tracking | divided_by: 100.0
+  assign heading_scale = settings.heading_scale | divided_by: 100.0
+-%}
 <style>
+  {{ body_font | font_face: font_display: 'swap' }}
+  {{ body_bold | font_face: font_display: 'swap' }}
+  {{ body_italic | font_face: font_display: 'swap' }}
+  {{ body_bold_italic | font_face: font_display: 'swap' }}
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {% render 'font-fallbacks', font: body_font %}
+  {%- unless heading_font.family == body_font.family %}
+    {% render 'font-fallbacks', font: heading_font %}
+  {%- endunless %}
+
   :root {
-    --bp-bg: {{ settings.color_bg }};
-    --bp-ink: {{ settings.color_ink }};
-    --bp-accent: {{ settings.color_accent }};
-    --bp-on-accent: {{ settings.color_on_accent }};
-    --bp-line: {{ settings.color_line }};
+    {% render 'tokens-mode', mode: settings.color_mode %}
+    --bp-font-body: {% render 'font-stack', font: body_font %};
+    --bp-font-body-weight: {{ body_font.weight }};
+    --bp-font-head: {% render 'font-stack', font: heading_font %};
+    --bp-font-head-weight: {{ heading_font.weight }};
+    --bp-font-head-style: {{ heading_font.style }};
+    --bp-head-track: {{ heading_tracking }}em;
+    --bp-head-scale: {{ heading_scale }};
+    --bp-radius: {{ radius }}px;
+    --bp-radius-sm: {{ radius_small }}px;
+    --bp-radius-btn: {{ radius_button }}px;
+    --bp-page-width: {{ settings.page_width }}px;
+    --bp-section-space: {{ settings.section_spacing }}px;
+  }
+
+  [data-surface='inverse'] {
+    {% render 'tokens-mode', mode: other_mode %}
   }
 </style>

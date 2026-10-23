@@ -1,11 +1,11 @@
 {% comment %}
   Search page: search form and paginated results across products, articles and pages.
 {% endcomment %}
-<div class="bp-page-width bp-stack">
+<div class="bp-section bp-page-width bp-stack">
   <h1>{{ 'search.title' | t }}</h1>
   <form action="{{ routes.search_url }}" method="get" role="search" class="bp-inline-list">
     <label for="Search-{{ section.id }}" class="bp-visually-hidden">{{ 'search.label' | t }}</label>
-    <input id="Search-{{ section.id }}" type="search" name="q" value="{{ search.terms | escape }}">
+    <input id="Search-{{ section.id }}" class="bp-input" type="search" name="q" value="{{ search.terms | escape }}">
     <button type="submit" class="bp-button">{{ 'search.submit' | t }}</button>
   </form>
   {%- if search.performed -%}

@@ -1,6 +1,6 @@
 {
   "name": "blueprint-theme",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Blueprint Theme: a Shopify Online Store 2.0 theme for DTC brands.",
   "type": "module",
@@ -8,8 +8,9 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test tests/unit/*.test.mjs && node tools/contrast-check.mjs",
+    "test": "node --test tests/unit/*.test.mjs && node tools/contrast-check.mjs && node tools/budget-check.mjs",
     "check:theme": "shopify theme check",
-    "report:demo-contrast": "node tools/contrast-check.mjs --demo"
+    "report:demo-contrast": "node tools/contrast-check.mjs --demo",
+    "check:budget": "node tools/budget-check.mjs"
   }
 }

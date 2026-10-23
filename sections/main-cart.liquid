@@ -2,7 +2,7 @@
   Cart page: line items with quantity inputs, subtotal and checkout.
   Phase 3 replaces this with the cart components shared with the drawer (docs/PLAN.md §8).
 {% endcomment %}
-<div class="bp-page-width bp-stack">
+<div class="bp-section bp-page-width bp-stack">
   <h1>{{ 'cart.title' | t }}</h1>
   {%- if cart.item_count > 0 -%}
     <form action="{{ routes.cart_url }}" method="post" class="bp-stack">
@@ -17,7 +17,7 @@
               <span class="bp-muted">{{ item.selling_plan_allocation.selling_plan.name | escape }}</span>
             {%- endif -%}
             <label for="Quantity-{{ item.key }}">{{ 'products.quantity' | t }}</label>
-            <input id="Quantity-{{ item.key }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0">
+            <input id="Quantity-{{ item.key }}" class="bp-input" type="number" name="updates[]" value="{{ item.quantity }}" min="0">
             <span>{{ item.final_line_price | money }}</span>
             <a href="{{ item.url_to_remove }}">{{ 'cart.remove' | t }}</a>
           </li>

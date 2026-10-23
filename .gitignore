@@ -18,3 +18,7 @@ release
 
 ## Package dependencies
 mcp/node_modules/
+
+## Preview harness
+tools/preview/node_modules/
+tools/preview/out/

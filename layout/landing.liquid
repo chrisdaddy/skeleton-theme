@@ -1,0 +1,33 @@
+{% comment %}
+  Pre-lander layout (advertorial, listicle, comparison). Same domain, pixels and
+  cart as the store, with a minimal header and footer so readers stay on the page.
+
+  Robots: the theme default (Pre-landers settings) applies unless the page's
+  blueprint.robots metafield says otherwise. Shopify's own seo.hidden metafield
+  also works, but it adds nofollow as well as noindex.
+{% endcomment %}
+{%- liquid
+  assign robots = settings.prelander_robots
+  assign page_robots = page.metafields.blueprint.robots.value
+  if page_robots == 'index' or page_robots == 'noindex_follow'
+    assign robots = page_robots
+  endif
+-%}
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    {%- render 'layout-head' -%}
+    {%- if robots == 'noindex_follow' -%}
+      <meta name="robots" content="noindex, follow">
+    {%- endif -%}
+    {{ content_for_header }}
+  </head>
+  <body class="bp-landing">
+    <a class="bp-skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
+    {% sections 'landing-header-group' %}
+    <main id="MainContent" class="bp-main" tabindex="-1" data-template="{{ template.name }}">
+      {{ content_for_layout }}
+    </main>
+    {% sections 'landing-footer-group' %}
+  </body>
+</html>

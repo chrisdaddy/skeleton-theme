@@ -13,6 +13,47 @@
 | Q6 | License and delivery | "How does Elixir do it? Do that, or our own custom; Lemon Squeezy last" | Elixir-style own stack (§13.1) |
 | Q7–Q15 | Remaining questions | Not yet answered | Plan defaults apply until changed |
 
+### Progress
+
+| Phase | Status | Notes |
+|---|---|---|
+| 0. Setup | Done | Original foundation, new `AGENTS.md`, CI (Theme Check, unit tests, contrast) |
+| 1. Foundation | Done, pending store verification | See "Phase 1 delivered" below |
+
+#### Phase 1 delivered
+
+- **Settings and tokens (§3):**
+  - The Quick style group comes first: accent, background (light/dark), headings (sans/serif) and corners (sharp/soft/round/custom).
+  - Light and dark color sets, each with optional overrides.
+  - Contrast-safe derived tokens, computed in Liquid with `color_mix` and `color_contrast`, aiming for 4.6:1 because `color_contrast` rounds to one decimal.
+  - `tools/lib/tokens.mjs` mirrors the Liquid derivation, so CI checks exactly what the storefront renders.
+- **Presets:** Clinical, Editorial and Bold in `settings_data.json`. Every preset passes in both modes. The proposed dark and light counterpart sets from §3.4 are now in use.
+- **Fonts:**
+  - The Shopify font library supplies DM Sans and Instrument Serif via `font_picker`.
+  - Bold, italic and bold-italic variants come from `font_modify`.
+  - Two preloads at most.
+  - Metric-matched fallback faces (from Capsize metrics) stop text shifting when fonts swap in.
+- **Layouts and chrome:**
+  - Layouts: `theme`, `landing` (pre-landers, with default `noindex, follow` plus a per-page `blueprint.robots` override) and `password`.
+  - Header and footer groups, plus landing header and footer groups.
+  - Announcement bar: rotating, the same height for every message (no layout shift), pausable, and off under reduced motion.
+  - Header: menu with dropdowns, a mobile `<dialog>` drawer, search, account and a live cart count.
+  - Footer: menu, text, newsletter and social blocks, plus payment icons and policies.
+  - Minimal pre-lander header and footer.
+- **JavaScript:**
+  - `bp-core.js` holds the lazy module loader, cart-count refresh, the invoker-commands fallback and reveal-on-scroll.
+  - `bp-standard-actions.js` loads above `content_for_header`.
+  - Every-page theme JS is **1.7 KB** Brotli (budget 8 KB) and CSS is 3.1 KB, enforced by `tools/budget-check.mjs`.
+- **Offline preview:**
+  - **Why:** Shopify hosts are blocked from the build environment.
+  - **How:** `tools/preview/` renders the theme with LiquidJS and mock data from `data/demo-content.json` (Verde, Ode, Rawform), then screenshots every preset at 390 and 1440 px.
+  - **Results:** layout shift measured ≤ 0.017 on every view, with no console errors. Screenshots are in `docs/screenshots/phase-1/`.
+  - **Limits:** it approximates Shopify's renderer. Phase 1 acceptance still needs a pass on a real store (Q1).
+- **Still to verify on a store:**
+  - that `dm_sans_n4`, `dm_sans_n6`, `dm_sans_n7` and `instrument_serif_n4` are valid font handles;
+  - that the editor's `visible_if` settings behave as expected;
+  - that the Standard Actions handlers fire.
+
 **Inputs:**
 - `docs/brief/START_HERE.md`
 - `docs/brief/SPEC.md`

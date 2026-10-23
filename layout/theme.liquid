@@ -1,12 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {%- render 'head-meta' -%}
-    {%- render 'tokens' -%}
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-    <script src="{{ 'bp-core.js' | asset_url }}" type="module" defer="defer"></script>
+    {%- render 'layout-head' -%}
     {{ content_for_header }}
   </head>
   <body>

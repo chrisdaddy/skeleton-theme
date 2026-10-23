@@ -1,82 +1,391 @@
 {
   "settings_schema": {
-    "colors": {
-      "name": "Colors",
-      "settings": {
-        "bg": { "label": "Background" },
-        "ink": { "label": "Text" },
-        "line": { "label": "Lines" },
-        "accent": { "label": "Accent" },
-        "on_accent": { "label": "Text on accent" }
+    "quick_style": {
+      "name": "Quick style",
+      "info": "The four settings that change the look of every page. The color sets below hold the rest.",
+      "accent": {
+        "label": "Accent color"
+      },
+      "color_mode": {
+        "label": "Background",
+        "light": "Light",
+        "dark": "Dark"
+      },
+      "heading_style": {
+        "label": "Headings",
+        "sans": "Sans",
+        "serif": "Serif"
+      },
+      "corners": {
+        "label": "Corners",
+        "sharp": "Sharp",
+        "soft": "Soft",
+        "round": "Round",
+        "custom": "Custom"
+      },
+      "radius_card": {
+        "label": "Card corners"
+      },
+      "radius_small": {
+        "label": "Small element corners"
+      },
+      "button_pill": {
+        "label": "Pill-shaped buttons"
+      },
+      "radius_button": {
+        "label": "Button corners"
+      }
+    },
+    "colors_light": {
+      "name": "Colors: light background",
+      "info": "Used when Background is Light, and for inverse sections on a dark page.",
+      "bg": {
+        "label": "Background"
+      },
+      "surface": {
+        "label": "Surface"
+      },
+      "ink": {
+        "label": "Text"
+      },
+      "line": {
+        "label": "Lines"
+      }
+    },
+    "colors_dark": {
+      "name": "Colors: dark background",
+      "info": "Used when Background is Dark, and for inverse sections on a light page.",
+      "bg": {
+        "label": "Background"
+      },
+      "surface": {
+        "label": "Surface"
+      },
+      "ink": {
+        "label": "Text"
+      },
+      "line": {
+        "label": "Lines"
+      }
+    },
+    "colors_overrides": {
+      "header": "Advanced",
+      "info": "Leave these empty and the theme picks colors that stay readable (4.5:1 contrast for text). Set one only to match exact brand colors.",
+      "accent_soft": {
+        "label": "Selected fill"
+      },
+      "on_accent": {
+        "label": "Text on accent"
+      },
+      "accent_text": {
+        "label": "Accent text"
+      },
+      "muted": {
+        "label": "Secondary text"
+      },
+      "star": {
+        "label": "Rating stars"
+      }
+    },
+    "colors_status": {
+      "name": "Colors: badges",
+      "success": {
+        "label": "Free gift badge",
+        "info": "Used for FREE GIFT badges. The text color is picked for contrast."
+      }
+    },
+    "typography": {
+      "name": "Typography",
+      "body_font": {
+        "label": "Body font"
+      },
+      "heading_sans": {
+        "label": "Heading font (sans)",
+        "info": "Used when Headings is Sans."
+      },
+      "heading_serif": {
+        "label": "Heading font (serif)",
+        "info": "Used when Headings is Serif."
+      },
+      "heading_tracking": {
+        "label": "Heading letter spacing",
+        "info": "In hundredths of an em. Negative values tighten headings."
+      },
+      "heading_scale": {
+        "label": "Heading size"
+      }
+    },
+    "layout": {
+      "name": "Layout",
+      "page_width": {
+        "label": "Page width",
+        "narrow": "Narrow",
+        "standard": "Standard",
+        "wide": "Wide"
+      },
+      "section_spacing": {
+        "label": "Space between sections",
+        "info": "Desktop spacing. Phones use about two thirds of it."
+      }
+    },
+    "animations": {
+      "name": "Animations",
+      "reveal_on_scroll": {
+        "label": "Reveal sections on scroll",
+        "info": "Off for visitors who ask their device for reduced motion."
+      }
+    },
+    "prelanders": {
+      "name": "Pre-landers",
+      "robots": {
+        "label": "Search engines on pre-landers",
+        "info": "Pre-landers are for ad traffic, so they are hidden from search by default. A page's blueprint.robots metafield overrides this.",
+        "noindex_follow": "Hide from search, follow links",
+        "index": "Allow in search"
+      }
+    },
+    "social": {
+      "name": "Social media",
+      "instagram": {
+        "label": "Instagram"
+      },
+      "tiktok": {
+        "label": "TikTok"
+      },
+      "facebook": {
+        "label": "Facebook"
+      },
+      "youtube": {
+        "label": "YouTube"
+      },
+      "x": {
+        "label": "X"
+      },
+      "pinterest": {
+        "label": "Pinterest"
       }
     },
     "favicon": {
       "name": "Favicon",
       "settings": {
-        "favicon": { "label": "Favicon image" }
+        "favicon": {
+          "label": "Favicon image",
+          "info": "Square, at least 64 × 64 px."
+        }
       }
     }
   },
   "section_groups": {
     "header": "Header",
-    "footer": "Footer"
+    "footer": "Footer",
+    "landing_header": "Pre-lander header",
+    "landing_footer": "Pre-lander footer"
   },
   "sections": {
     "common": {
       "settings": {
-        "heading": { "label": "Heading" }
+        "heading": {
+          "label": "Heading"
+        },
+        "surface_style": {
+          "label": "Color style",
+          "options": {
+            "default": "Default",
+            "surface": "Surface",
+            "accent": "Accent",
+            "inverse": "Inverse"
+          }
+        }
+      }
+    },
+    "announcement_bar": {
+      "name": "Announcement bar",
+      "settings": {
+        "autoplay": {
+          "label": "Rotate messages"
+        },
+        "interval": {
+          "label": "Time per message"
+        }
+      },
+      "blocks": {
+        "message": {
+          "name": "Message",
+          "settings": {
+            "text": {
+              "label": "Text"
+            },
+            "link": {
+              "label": "Link"
+            }
+          }
+        }
       }
     },
     "header": {
       "name": "Header",
       "settings": {
-        "logo": { "label": "Logo" },
-        "logo_height": { "label": "Logo height" },
-        "menu": { "label": "Menu" }
+        "logo": {
+          "label": "Logo"
+        },
+        "logo_height": {
+          "label": "Logo height"
+        },
+        "layout": {
+          "label": "Logo position",
+          "options": {
+            "left": "Left",
+            "center": "Center"
+          }
+        },
+        "menu": {
+          "label": "Menu"
+        },
+        "sticky": {
+          "label": "Stick to the top on scroll"
+        },
+        "show_search": {
+          "label": "Show search"
+        },
+        "show_account": {
+          "label": "Show account"
+        }
+      }
+    },
+    "header_minimal": {
+      "name": "Pre-lander header",
+      "settings": {
+        "style": {
+          "label": "Style",
+          "options": {
+            "hidden": "Hidden",
+            "logo": "Logo only",
+            "logo_cta": "Logo and button"
+          }
+        },
+        "cta_label": {
+          "label": "Button label"
+        },
+        "cta_link": {
+          "label": "Button link"
+        }
       }
     },
     "footer": {
       "name": "Footer",
       "settings": {
-        "menu": { "label": "Menu" }
+        "show_payment_icons": {
+          "label": "Show payment icons"
+        },
+        "show_policies": {
+          "label": "Show policy links"
+        }
+      },
+      "blocks": {
+        "menu": {
+          "name": "Menu",
+          "settings": {
+            "menu": {
+              "label": "Menu"
+            }
+          }
+        },
+        "text": {
+          "name": "Text",
+          "settings": {
+            "text": {
+              "label": "Text"
+            }
+          }
+        },
+        "newsletter": {
+          "name": "Newsletter"
+        },
+        "social": {
+          "name": "Social links",
+          "settings": {
+            "info": "Add your profile links in Theme settings > Social media."
+          }
+        }
       }
     },
-    "main_product": { "name": "Product information" },
+    "footer_minimal": {
+      "name": "Pre-lander footer",
+      "settings": {
+        "disclosure": {
+          "label": "Disclosure",
+          "info": "Advertorials should say they are advertising."
+        }
+      }
+    },
+    "main_product": {
+      "name": "Product information"
+    },
     "main_collection": {
       "name": "Product grid",
       "settings": {
-        "per_page": { "label": "Products per page" }
+        "per_page": {
+          "label": "Products per page"
+        }
       }
     },
-    "main_cart": { "name": "Cart" },
-    "main_search": { "name": "Search results" },
-    "main_404": { "name": "Page not found" },
-    "main_blog": { "name": "Blog posts" },
-    "main_article": { "name": "Blog post" },
-    "main_page": { "name": "Page" },
-    "main_list_collections": { "name": "Collections list" },
-    "main_password": { "name": "Password" },
-    "contact_form": { "name": "Contact form" },
-    "rich_text": { "name": "Rich text" }
+    "main_cart": {
+      "name": "Cart"
+    },
+    "main_search": {
+      "name": "Search results"
+    },
+    "main_404": {
+      "name": "Page not found"
+    },
+    "main_blog": {
+      "name": "Blog posts"
+    },
+    "main_article": {
+      "name": "Blog post"
+    },
+    "main_page": {
+      "name": "Page"
+    },
+    "main_list_collections": {
+      "name": "Collections list"
+    },
+    "main_password": {
+      "name": "Password"
+    },
+    "contact_form": {
+      "name": "Contact form"
+    },
+    "rich_text": {
+      "name": "Rich text"
+    }
   },
   "blocks": {
     "heading": {
       "name": "Heading",
       "settings": {
-        "text": { "label": "Text" }
+        "text": {
+          "label": "Text"
+        }
       }
     },
     "text": {
       "name": "Text",
       "settings": {
-        "text": { "label": "Text" }
+        "text": {
+          "label": "Text"
+        }
       }
     },
     "button": {
       "name": "Button",
       "settings": {
-        "label": { "label": "Label" },
-        "link": { "label": "Link" }
+        "label": {
+          "label": "Label"
+        },
+        "link": {
+          "label": "Link"
+        }
       }
     }
   }
