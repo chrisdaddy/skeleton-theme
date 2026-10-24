@@ -1,0 +1,419 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign rating_product = s.product
+  assign rating = rating_product.metafields.reviews.rating.value
+  assign rating_count = rating_product.metafields.reviews.rating_count.value
+  assign tag = s.heading_tag | default: 'h1'
+  assign size = 'bp-h1'
+  if tag != 'h1'
+    assign size = 'bp-h2'
+  endif
+-%}
+<section {% render 'section-attributes', section: section, name: 'hero', modifier: s.layout %}>
+  {%- if s.layout == 'bleed' -%}
+    <div class="bp-hero__backdrop" style="--bp-overlay: {{ s.overlay | times: 0.01 }};">
+      {%- if s.image_mobile != blank -%}
+        <div class="bp-hero__image bp-hide-desktop">
+          {%- render 'section-image', image: s.image_mobile, sizes: '100vw', section: section -%}
+        </div>
+        <div class="bp-hero__image bp-hide-mobile">
+          {%- render 'section-image', image: s.image, sizes: '100vw', section: section -%}
+        </div>
+      {%- else -%}
+        <div class="bp-hero__image">
+          {%- render 'section-image', image: s.image, sizes: '100vw', section: section -%}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+  <div class="bp-page-width bp-page-width--{{ s.width }} bp-hero__inner">
+    <div class="bp-hero__content">
+      {%- if s.eyebrow != blank -%}
+        <p class="bp-kicker">{{ s.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if s.heading != blank -%}
+        <{{ tag }} class="{{ size }} bp-hero__heading" id="Heading-{{ section.id }}">{{ s.heading }}</{{ tag }}>
+      {%- endif -%}
+      {%- if s.subheading != blank -%}
+        <p class="bp-hero__sub">{{ s.subheading }}</p>
+      {%- endif -%}
+      {%- liquid
+        assign buttons = section.blocks | where: 'type', 'button'
+        assign stats = section.blocks | where: 'type', 'stat'
+      -%}
+      {%- if buttons.size > 0 or rating != blank or s.note != blank -%}
+        <div class="bp-buttons">
+          {%- for block in buttons -%}
+            {%- liquid
+              assign label = block.settings.label | escape
+              if block.settings.show_price and rating_product != blank
+                assign price = rating_product.price | money
+                if rating_product.price_varies
+                  assign price = 'products.price_from' | t: price: price
+                endif
+                assign label = label | append: ' · ' | append: price
+              endif
+            -%}
+            <a
+              class="bp-button{% if block.settings.style == 'secondary' %} bp-button--secondary{% endif %}"
+              href="{{ block.settings.link | default: rating_product.url | default: routes.all_products_collection_url }}"
+              {{ block.shopify_attributes }}
+            >
+              {{- label -}}
+            </a>
+          {%- endfor -%}
+          {%- if s.note != blank -%}
+            <span class="bp-hero__rating">{{ s.note | escape }}</span>
+          {%- endif -%}
+          {%- if s.show_rating and rating != blank -%}
+            <span class="bp-hero__rating">
+              {%- render 'rating-stars', rating: rating.rating, scale_max: rating.scale_max -%}
+              {%- if rating_count != blank -%}
+                {%- capture formatted -%}{%- render 'format-number', number: rating_count -%}{%- endcapture -%}
+                <span>{{ rating.rating | round: 1 }} · {{ 'products.rating.count' | t: count: rating_count, formatted: formatted }}</span>
+              {%- endif -%}
+            </span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- if stats.size > 0 -%}
+        <dl class="bp-hero__stats">
+          {%- for block in stats -%}
+            <div class="bp-hero__stat" {{ block.shopify_attributes }}>
+              <dt class="bp-visually-hidden">{{ block.settings.label | escape }}</dt>
+              <dd class="bp-hero__stat-value">{{ block.settings.value | escape }}</dd>
+              <dd class="bp-hero__stat-label" aria-hidden="true">{{ block.settings.label | escape }}</dd>
+            </div>
+          {%- endfor -%}
+        </dl>
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == '@app' -%}{% render block %}{%- endif -%}
+      {%- endfor -%}
+    </div>
+    {%- unless s.layout == 'bleed' -%}
+      <div class="bp-media bp-hero__media">
+        {%- if s.image_mobile != blank -%}
+          <div class="bp-hide-desktop">{%- render 'section-image', image: s.image_mobile, sizes: '100vw', section: section -%}</div>
+          <div class="bp-hide-mobile">{%- render 'section-image', image: s.image, sizes: '(min-width: 990px) 50vw, 100vw', section: section -%}</div>
+        {%- else -%}
+          {%- render 'section-image', image: s.image, sizes: '(min-width: 990px) 50vw, 100vw', section: section -%}
+        {%- endif -%}
+      </div>
+    {%- endunless -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.hero.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.hero.settings.layout.label",
+      "default": "split",
+      "options": [
+        {
+          "value": "split",
+          "label": "t:sections.hero.settings.layout.options.split"
+        },
+        {
+          "value": "centered",
+          "label": "t:sections.hero.settings.layout.options.centered"
+        },
+        {
+          "value": "bleed",
+          "label": "t:sections.hero.settings.layout.options.bleed"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.common.settings.eyebrow.label",
+      "default": "Our best seller"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Say what your product does in one line"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label",
+      "default": "Back it with the one detail people care about most."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.common.settings.image.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "t:sections.hero.settings.image_mobile.label",
+      "info": "t:sections.hero.settings.image_mobile.info"
+    },
+    {
+      "type": "range",
+      "id": "overlay",
+      "label": "t:sections.hero.settings.overlay.label",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 0,
+      "visible_if": "{{ section.settings.layout == 'bleed' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.hero.settings.rating_and_price"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.hero.settings.product.label",
+      "info": "t:sections.hero.settings.product.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "t:sections.hero.settings.show_rating.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "t:sections.hero.settings.note.label",
+      "info": "t:sections.hero.settings.note.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h1",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.common.settings.heading_tag.options.h1"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "t:sections.hero.blocks.button.name",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:sections.hero.blocks.button.settings.label.label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.hero.blocks.button.settings.link.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_price",
+          "label": "t:sections.hero.blocks.button.settings.show_price.label",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "t:sections.hero.blocks.button.settings.style.label",
+          "default": "primary",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.hero.blocks.button.settings.style.options.primary"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.hero.blocks.button.settings.style.options.secondary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "t:sections.hero.blocks.stat.name",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "t:sections.hero.blocks.stat.settings.value.label",
+          "default": "4.8"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:sections.hero.blocks.stat.settings.label.label",
+          "default": "average rating"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.hero.presets.hero_split.name",
+      "settings": {
+        "layout": "split"
+      },
+      "blocks": [
+        {
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.hero.presets.hero_centered_with_stats.name",
+      "settings": {
+        "layout": "centered"
+      },
+      "blocks": [
+        {
+          "type": "button"
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "4.8",
+            "label": "average rating"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "30 days",
+            "label": "to feel the difference"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "money-back guarantee"
+          }
+        }
+      ]
+    },
+    {
+      "name": "t:sections.hero.presets.hero_full_bleed.name",
+      "settings": {
+        "layout": "bleed",
+        "overlay": 0
+      },
+      "blocks": [
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,482 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign source = s.product | default: product
+  assign benefits = ''
+  if s.use_metafield
+    assign benefits = source.metafields.blueprint.benefits.value
+  endif
+-%}
+{%- if benefits != blank or section.blocks.size > 0 or s.hide_empty == false -%}
+  <section {% render 'section-attributes', section: section, name: 'benefit-grid', modifier: s.icon_style %}>
+    <div class="bp-page-width bp-page-width--{{ s.width }}">
+      {%- render 'section-heading', section: section -%}
+      {%- capture items -%}
+        {%- if benefits != blank -%}
+          {%- for benefit in benefits -%}
+            <li class="bp-benefit-card bp-card-surface">
+              <span class="bp-benefit-card__icon">
+                {%- if benefit.image.value != blank -%}
+                  {{ benefit.image.value | image_url: width: 80 | image_tag: width: 22, height: 22, alt: '', loading: 'lazy' }}
+                {%- else -%}
+                  {%- render 'icon', name: benefit.icon.value -%}
+                {%- endif -%}
+              </span>
+              <h3 class="bp-benefit-card__title">{{ benefit.title.value | escape }}</h3>
+              {%- if benefit.text.value != blank -%}<p class="bp-benefit-card__text">{{ benefit.text.value | escape }}</p>{%- endif -%}
+            </li>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for block in section.blocks -%}
+            <li class="bp-benefit-card bp-card-surface" {{ block.shopify_attributes }}>
+              <span class="bp-benefit-card__icon">{%- render 'icon', name: block.settings.icon -%}</span>
+              <h3 class="bp-benefit-card__title">{{ block.settings.title | escape }}</h3>
+              {%- if block.settings.text != blank -%}<p class="bp-benefit-card__text">{{ block.settings.text | escape }}</p>{%- endif -%}
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endcapture -%}
+      {%- if s.layout == 'slider' -%}
+        <bp-slider class="bp-slider" data-bp-module="{{ 'bp-slider.js' | asset_url }}" data-bp-load="visible" data-label-previous="{{ 'general.previous' | t }}" data-label-next="{{ 'general.next' | t }}">
+          <ul class="bp-scroller" role="list" style="--bp-cols: {{ s.columns }};" tabindex="0" aria-label="{{ s.heading | strip_html | escape }}">{{ items }}</ul>
+        </bp-slider>
+      {%- else -%}
+        <ul class="bp-cols" role="list" style="--bp-cols: {{ s.columns }}; --bp-cols-mobile: {{ s.columns_mobile }};">{{ items }}</ul>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.benefits.name",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Why it works"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.common.settings.eyebrow.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.common.settings.alignment.label",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.common.settings.alignment.options.start"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.settings.alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.benefits.settings.layout.label",
+      "default": "grid",
+      "options": [
+        {
+          "value": "grid",
+          "label": "t:sections.benefits.settings.layout.options.grid"
+        },
+        {
+          "value": "slider",
+          "label": "t:sections.benefits.settings.layout.options.slider"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:sections.benefits.settings.columns.label",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "t:sections.benefits.settings.columns_mobile.label",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.benefits.settings.columns_mobile.options.1"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.benefits.settings.columns_mobile.options.2"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "icon_style",
+      "label": "t:sections.benefits.settings.icon_style.label",
+      "default": "filled",
+      "options": [
+        {
+          "value": "filled",
+          "label": "t:sections.benefits.settings.icon_style.options.filled"
+        },
+        {
+          "value": "line",
+          "label": "t:sections.benefits.settings.icon_style.options.line"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.benefits.settings.reads_the_product_s_blueprint_benefits_m"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.common.settings.product.label",
+      "info": "t:sections.common.settings.product.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_metafield",
+      "label": "t:sections.common.settings.use_metafield.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_empty",
+      "label": "t:sections.common.settings.hide_empty.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "t:sections.benefits.blocks.benefit.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.common.settings.icon.label",
+          "default": "leaf",
+          "options": [
+            {
+              "value": "check",
+              "label": "t:sections.common.icon_options.check"
+            },
+            {
+              "value": "leaf",
+              "label": "t:sections.common.icon_options.leaf"
+            },
+            {
+              "value": "bolt",
+              "label": "t:sections.common.icon_options.bolt"
+            },
+            {
+              "value": "shield",
+              "label": "t:sections.common.icon_options.shield"
+            },
+            {
+              "value": "sparkle",
+              "label": "t:sections.common.icon_options.sparkle"
+            },
+            {
+              "value": "truck",
+              "label": "t:sections.common.icon_options.truck"
+            },
+            {
+              "value": "refresh",
+              "label": "t:sections.common.icon_options.refresh"
+            },
+            {
+              "value": "heart",
+              "label": "t:sections.common.icon_options.heart"
+            },
+            {
+              "value": "star",
+              "label": "t:sections.common.icon_options.star"
+            },
+            {
+              "value": "drop",
+              "label": "t:sections.common.icon_options.drop"
+            },
+            {
+              "value": "flask",
+              "label": "t:sections.common.icon_options.flask"
+            },
+            {
+              "value": "award",
+              "label": "t:sections.common.icon_options.award"
+            },
+            {
+              "value": "gift",
+              "label": "t:sections.common.icon_options.gift"
+            },
+            {
+              "value": "clock",
+              "label": "t:sections.common.icon_options.clock"
+            },
+            {
+              "value": "lock",
+              "label": "t:sections.common.icon_options.lock"
+            },
+            {
+              "value": "box",
+              "label": "t:sections.common.icon_options.box"
+            },
+            {
+              "value": "users",
+              "label": "t:sections.common.icon_options.users"
+            },
+            {
+              "value": "chat",
+              "label": "t:sections.common.icon_options.chat"
+            },
+            {
+              "value": "moon",
+              "label": "t:sections.common.icon_options.moon"
+            },
+            {
+              "value": "paw",
+              "label": "t:sections.common.icon_options.paw"
+            },
+            {
+              "value": "flame",
+              "label": "t:sections.common.icon_options.flame"
+            },
+            {
+              "value": "coin",
+              "label": "t:sections.common.icon_options.coin"
+            },
+            {
+              "value": "chart",
+              "label": "t:sections.common.icon_options.chart"
+            },
+            {
+              "value": "speed",
+              "label": "t:sections.common.icon_options.speed"
+            },
+            {
+              "value": "calendar",
+              "label": "t:sections.common.icon_options.calendar"
+            },
+            {
+              "value": "eye",
+              "label": "t:sections.common.icon_options.eye"
+            },
+            {
+              "value": "layers",
+              "label": "t:sections.common.icon_options.layers"
+            },
+            {
+              "value": "pin",
+              "label": "t:sections.common.icon_options.pin"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.benefits.blocks.benefit.settings.title.label",
+          "default": "Benefit"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "t:sections.benefits.blocks.benefit.settings.text.label",
+          "default": "One short sentence about what changes for the customer."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.benefits.presets.benefits_grid.name",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "leaf",
+            "title": "Gut"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "bolt",
+            "title": "Energy"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "shield",
+            "title": "Immunity"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Focus"
+          }
+        }
+      ]
+    },
+    {
+      "name": "t:sections.benefits.presets.benefits_slider.name",
+      "settings": {
+        "layout": "slider",
+        "columns": 3
+      },
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "leaf",
+            "title": "Gut"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "bolt",
+            "title": "Energy"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "shield",
+            "title": "Immunity"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Focus"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

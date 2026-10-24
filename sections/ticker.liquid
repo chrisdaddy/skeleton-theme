@@ -1,0 +1,332 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'ticker' %}>
+  <div class="bp-marquee{% if s.direction == 'right' %} bp-marquee--reverse{% endif %}" style="--bp-marquee-duration: {{ 120 | divided_by: s.speed }}s;">
+    <div class="bp-marquee__track">
+      {%- for i in (1..2) -%}
+        <ul class="bp-marquee__group bp-ticker__list" role="list" {% if forloop.index == 2 %}aria-hidden="true"{% endif %}>
+          {%- for block in section.blocks -%}
+            <li class="bp-ticker__item" {% if forloop.parentloop.index == 1 %}{{ block.shopify_attributes }}{% endif %}>
+              {%- if block.settings.icon != 'none' -%}{%- render 'icon', name: block.settings.icon -%}{%- endif -%}
+              <span>{{ block.settings.text | escape }}</span>
+              <span class="bp-ticker__sep bp-ticker__sep--{{ s.separator }}" aria-hidden="true"></span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.ticker.name",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "t:sections.ticker.settings.speed.label",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "t:sections.ticker.settings.direction.label",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.ticker.settings.direction.options.left"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.ticker.settings.direction.options.right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "separator",
+      "label": "t:sections.ticker.settings.separator.label",
+      "default": "dot",
+      "options": [
+        {
+          "value": "dot",
+          "label": "t:sections.ticker.settings.separator.options.dot"
+        },
+        {
+          "value": "slash",
+          "label": "t:sections.ticker.settings.separator.options.slash"
+        },
+        {
+          "value": "none",
+          "label": "t:sections.ticker.settings.separator.options.none"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.ticker.settings.pauses_on_hover_and_focus_and_stays_stil"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "accent",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "full",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "t:sections.ticker.blocks.item.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:sections.ticker.blocks.item.settings.text.label",
+          "default": "Free shipping over $50"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.ticker.blocks.item.settings.icon.label",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.ticker.blocks.item.settings.icon.options.none"
+            },
+            {
+              "value": "check",
+              "label": "t:sections.common.icon_options.check"
+            },
+            {
+              "value": "leaf",
+              "label": "t:sections.common.icon_options.leaf"
+            },
+            {
+              "value": "bolt",
+              "label": "t:sections.common.icon_options.bolt"
+            },
+            {
+              "value": "shield",
+              "label": "t:sections.common.icon_options.shield"
+            },
+            {
+              "value": "sparkle",
+              "label": "t:sections.common.icon_options.sparkle"
+            },
+            {
+              "value": "truck",
+              "label": "t:sections.common.icon_options.truck"
+            },
+            {
+              "value": "refresh",
+              "label": "t:sections.common.icon_options.refresh"
+            },
+            {
+              "value": "heart",
+              "label": "t:sections.common.icon_options.heart"
+            },
+            {
+              "value": "star",
+              "label": "t:sections.common.icon_options.star"
+            },
+            {
+              "value": "drop",
+              "label": "t:sections.common.icon_options.drop"
+            },
+            {
+              "value": "flask",
+              "label": "t:sections.common.icon_options.flask"
+            },
+            {
+              "value": "award",
+              "label": "t:sections.common.icon_options.award"
+            },
+            {
+              "value": "gift",
+              "label": "t:sections.common.icon_options.gift"
+            },
+            {
+              "value": "clock",
+              "label": "t:sections.common.icon_options.clock"
+            },
+            {
+              "value": "lock",
+              "label": "t:sections.common.icon_options.lock"
+            },
+            {
+              "value": "box",
+              "label": "t:sections.common.icon_options.box"
+            },
+            {
+              "value": "users",
+              "label": "t:sections.common.icon_options.users"
+            },
+            {
+              "value": "chat",
+              "label": "t:sections.common.icon_options.chat"
+            },
+            {
+              "value": "moon",
+              "label": "t:sections.common.icon_options.moon"
+            },
+            {
+              "value": "paw",
+              "label": "t:sections.common.icon_options.paw"
+            },
+            {
+              "value": "flame",
+              "label": "t:sections.common.icon_options.flame"
+            },
+            {
+              "value": "coin",
+              "label": "t:sections.common.icon_options.coin"
+            },
+            {
+              "value": "chart",
+              "label": "t:sections.common.icon_options.chart"
+            },
+            {
+              "value": "speed",
+              "label": "t:sections.common.icon_options.speed"
+            },
+            {
+              "value": "calendar",
+              "label": "t:sections.common.icon_options.calendar"
+            },
+            {
+              "value": "eye",
+              "label": "t:sections.common.icon_options.eye"
+            },
+            {
+              "value": "layers",
+              "label": "t:sections.common.icon_options.layers"
+            },
+            {
+              "value": "pin",
+              "label": "t:sections.common.icon_options.pin"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.ticker.presets.scrolling_ticker.name",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "text": "Free shipping over $50"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "90-day guarantee"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "Third-party tested"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "Cancel any time"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

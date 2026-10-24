@@ -1,0 +1,148 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'newsletter' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }} bp-newsletter__inner">
+    {%- render 'section-heading', section: section -%}
+    {%- render 'newsletter-form', id: section.id, button_label: s.button_label -%}
+    {%- if s.note != blank -%}<p class="bp-small bp-muted bp-newsletter__note">{{ s.note | escape }}</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.newsletter.name",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Get the good emails"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label",
+      "default": "New launches and member offers. Unsubscribe any time."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.newsletter.settings.button_label.label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "t:sections.newsletter.settings.note.label",
+      "info": "t:sections.newsletter.settings.note.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "surface",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.newsletter.presets.newsletter.name"
+    }
+  ]
+}
+{% endschema %}

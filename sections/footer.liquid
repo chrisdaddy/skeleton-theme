@@ -22,27 +22,8 @@
                 {%- if block.settings.text != blank -%}
                   <div class="bp-rte">{{ block.settings.text }}</div>
                 {%- endif -%}
-                {%- form 'customer', id: 'FooterNewsletter', class: 'bp-stack bp-stack--tight' -%}
-                  <input type="hidden" name="contact[tags]" value="newsletter">
-                  {%- if form.posted_successfully? -%}
-                    <p class="bp-form-message" role="status">{{ 'newsletter.success' | t }}</p>
-                  {%- elsif form.errors -%}
-                    <div class="bp-form-message" role="alert">{{ form.errors | default_errors }}</div>
-                  {%- endif -%}
-                  <label class="bp-visually-hidden" for="NewsletterEmail-{{ block.id }}">{{ 'newsletter.email' | t }}</label>
-                  <div class="bp-input-group">
-                    <input
-                      id="NewsletterEmail-{{ block.id }}"
-                      class="bp-input"
-                      type="email"
-                      name="contact[email]"
-                      autocomplete="email"
-                      placeholder="{{ 'newsletter.email' | t }}"
-                      required
-                    >
-                    <button type="submit" class="bp-button">{{ 'newsletter.submit' | t }}</button>
-                  </div>
-                {%- endform -%}
+                {%- assign newsletter_id = 'FooterNewsletter-' | append: block.id -%}
+                {%- render 'newsletter-form', id: newsletter_id -%}
               {%- when 'social' -%}
                 {%- render 'social-links' -%}
             {%- endcase -%}

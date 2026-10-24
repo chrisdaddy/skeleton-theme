@@ -1,12 +1,17 @@
 {% doc %}
-  The product title as the page's h1, with the optional Shopify subtitle.
+  The product title, with the optional Shopify subtitle. It is the page's h1 on the product
+  page's own buy box, and an h2 anywhere else (featured product, quick add).
 {% enddoc %}
 {%- liquid
   assign product = closest.product
   assign subtitle = product.metafields.descriptors.subtitle.value
+  assign tag = 'h2'
+  if template.name == 'product' and section.settings.product == blank and section.id != 'quick-add'
+    assign tag = 'h1'
+  endif
 -%}
 <div class="bp-product-title" {{ block.shopify_attributes }}>
-  <h1 class="bp-{{ block.settings.size }}">{{ product.title | escape }}</h1>
+  <{{ tag }} class="bp-{{ block.settings.size }}">{{ product.title | escape }}</{{ tag }}>
   {%- if block.settings.show_subtitle and subtitle != blank -%}
     <p class="bp-muted">{{ subtitle | escape }}</p>
   {%- endif -%}

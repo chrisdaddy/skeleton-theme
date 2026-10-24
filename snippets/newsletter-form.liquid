@@ -1,0 +1,29 @@
+{% doc %}
+  Email sign-up (Shopify customer form, tagged "newsletter"), with its success and error
+  messages. Works without JavaScript.
+
+  @param {string} id - Unique form ID
+  @param {string} [button_label] - Button text (default: the translated "Subscribe")
+{% enddoc %}
+{%- assign default_label = 'newsletter.submit' | t -%}
+{%- form 'customer', id: id, class: 'bp-newsletter-form bp-stack bp-stack--tight' -%}
+  <input type="hidden" name="contact[tags]" value="newsletter">
+  {%- if form.posted_successfully? -%}
+    <p class="bp-form-message" role="status">{{ 'newsletter.success' | t }}</p>
+  {%- elsif form.errors -%}
+    <div class="bp-form-message" role="alert">{{ form.errors | default_errors }}</div>
+  {%- endif -%}
+  <label class="bp-visually-hidden" for="{{ id }}-email">{{ 'newsletter.email' | t }}</label>
+  <div class="bp-input-group">
+    <input
+      id="{{ id }}-email"
+      class="bp-input"
+      type="email"
+      name="contact[email]"
+      autocomplete="email"
+      placeholder="{{ 'newsletter.email' | t }}"
+      required
+    >
+    <button type="submit" class="bp-button">{{ button_label | default: default_label | escape }}</button>
+  </div>
+{%- endform -%}

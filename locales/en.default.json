@@ -133,7 +133,15 @@
     "errors": {
       "generic": "Something went wrong. Please try again."
     },
-    "added": "Added to your cart"
+    "added": "Added to your cart",
+    "quick_add": {
+      "add": "Add to cart",
+      "choose": "Choose options",
+      "close": "Close",
+      "loading": "Loading product",
+      "added": "{{ title }} added to your cart",
+      "view": "View full details"
+    }
   },
   "cart": {
     "title": "Your cart",
@@ -218,5 +226,75 @@
     "expires_on": "Expires on {{ date }}",
     "add_to_apple_wallet": "Add to Apple Wallet",
     "shop_link": "Start shopping"
+  },
+  "sections": {
+    "ingredients": {
+      "name": "Ingredient",
+      "dose": "Dose",
+      "why": "What it's for"
+    },
+    "usvsthem": {
+      "feature": "Feature",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "subscription": {
+      "from": "from {{ price }}"
+    },
+    "reviews": {
+      "verified": "{{ name }} · Verified buyer"
+    },
+    "guarantee": {
+      "days": "days"
+    },
+    "videos": {
+      "play": "Play video from {{ name }}",
+      "watch": "Watch the video",
+      "unmute": "Turn sound on",
+      "mute": "Turn sound off"
+    },
+    "comments": {
+      "likes": "{{ count }} likes"
+    },
+    "before_after": {
+      "slider": "Drag to compare before and after"
+    },
+    "countdown": {
+      "ends": "Ends {{ date }}",
+      "set_end": "Set the end date and time in the section settings.",
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    },
+    "quiz": {
+      "step": "Question [current] of {{ total }}",
+      "restart": "Start again"
+    },
+    "bundle": {
+      "pick": "Pick {{ min }} or more",
+      "progress": "[count] of {{ min }} picked",
+      "ready": "Bundle ready",
+      "select": "Add {{ title }} to the bundle",
+      "unavailable": "Sold out",
+      "empty": "Add products to this bundle in the section settings."
+    },
+    "featured_collection": {
+      "view_all": "View all",
+      "placeholder": "Product name"
+    },
+    "slideshow": {
+      "pause": "Pause slideshow",
+      "play": "Play slideshow",
+      "slide": "Slide {{ current }} of {{ total }}"
+    },
+    "featured_blog": {
+      "view_all": "View all posts",
+      "placeholder": "Blog post title"
+    },
+    "featured_product": {
+      "placeholder": "Your product",
+      "choose": "Pick a product in this section's settings."
+    }
   }
 }

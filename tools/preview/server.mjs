@@ -16,7 +16,7 @@ import { createServer } from 'node:http';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PAGES, PRESET_PRODUCTS, cart, presetForHandle, renderPage, session } from './render.mjs';
+import { PAGES, PRESET_PRODUCTS, cart, presetForHandle, renderPage, renderStoreSections, session } from './render.mjs';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
 const theme = join(here, '..', '..');
@@ -103,7 +103,17 @@ export function startServer() {
         const pairs = parsed.pairs ?? [];
         const field = (key) => (body ? body[key] : pairs.filter(([k]) => k === key).map(([, v]) => v).at(-1));
         let items = [];
-        if (action === 'add') items = body ? (body.items ?? [body]) : [itemFromPairs(pairs)];
+        if (action === 'add') {
+          // Form posts can send several lines as items[n][id] / items[n][quantity].
+          const indexed = {};
+          for (const [k, v] of pairs) {
+            const m = /^items\[(\d*)\]\[(id|quantity)\]$/.exec(k);
+            if (m) (indexed[m[1]] ||= {})[m[2]] = v;
+          }
+          if (body) items = body.items ?? [body];
+          else if (Object.keys(indexed).length) items = Object.values(indexed).filter((i) => i.id).map((i) => ({ id: i.id, quantity: i.quantity || 1 }));
+          else items = [itemFromPairs(pairs)];
+        }
         requests.push({ path: url.pathname, method: req.method, contentType: contentType.split(';')[0], raw: body ?? pairs, items, sections: field('sections') ?? null });
 
         const fault = faults.next;
@@ -154,6 +164,15 @@ export function startServer() {
         return send(200, await renderPage(preset, def, url.searchParams, sectionId));
       };
 
+      // Product recommendations (Section Rendering): the store's best sellers, minus the product itself.
+      if (url.pathname === '/recommendations/products') {
+        const { cartFixtures } = await import('./render.mjs');
+        const products = cartFixtures(session.preset).collection.products.filter((p) => String(p.id) !== url.searchParams.get('product_id')).slice(0, Number(url.searchParams.get('limit') || 4));
+        const html = await renderPage(session.preset, page('product'), url.searchParams, url.searchParams.get('section_id'), {
+          scope: { recommendations: { performed: true, products, products_count: products.length, intent: url.searchParams.get('intent') } },
+        });
+        return send(200, html);
+      }
       if (url.pathname === '/cart') return respond(session.preset, page('cart'));
       if (url.pathname === '/') return respond(session.preset, page('home'));
 
@@ -163,6 +182,13 @@ export function startServer() {
         if (!preset) return send(404, 'not found', 'text/plain');
         session.preset = preset;
         return respond(preset, page('product'));
+      }
+
+      const storeSections = /^\/stores\/(\w+)\/sections\.html$/.exec(url.pathname);
+      if (storeSections) {
+        const { html, skipped } = await renderStoreSections(storeSections[1], url.searchParams.get('include') || 'all');
+        res.setHeader('x-skipped', skipped.join(','));
+        return send(200, html);
       }
 
       const named = /^\/(\w+)\/(\w+)\.html$/.exec(url.pathname);

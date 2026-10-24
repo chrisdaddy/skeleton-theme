@@ -7,13 +7,13 @@
 // instead of Shopify's font CDN. Use a real store for anything behavioural.
 //
 //   node render.mjs        writes out/<preset>/<page>.html
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Hash, Liquid, Tag } from 'liquidjs';
 import { contrast, mix } from '../lib/color.mjs';
 import { createCart } from './mock-cart.mjs';
-import { buildCartFixtures, buildDemoProducts, productForRequest } from './mock-products.mjs';
+import { buildCartFixtures, buildDemoProducts, productForRequest, simpleProduct } from './mock-products.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const theme = join(here, '..', '..');
@@ -95,7 +95,7 @@ function themeSettings(preset, store) {
   const values = { ...defaults(schema.flatMap((g) => g.settings ?? [])), ...settingsData.presets[preset] };
   for (const key of ['type_body_font', 'type_heading_sans', 'type_heading_serif']) values[key] = font(values[key]);
   // Cart settings a merchant would set (mock thresholds and gifts: see buildCartFixtures).
-  const fixtures = CART.fixtures[store.id];
+  const fixtures = CART.fixtures[store.id] ?? CART.fixtures.verde;
   fixtures.rewards.forEach((reward, i) => {
     values[`cart_reward_${i + 1}_label`] = reward.label;
     values[`cart_reward_${i + 1}_threshold`] = reward.threshold;
@@ -256,7 +256,7 @@ engine.registerTag(
     }
   },
 );
-const staticSection = (name) => ({ sections: { [name]: { type: name, settings: {} } }, order: [name] });
+const staticSection = (type, id = type, settings = {}) => ({ sections: { [id]: { type, settings } }, order: [id] });
 
 // {% content_for 'blocks' %}: renders the current section's or block's child theme blocks.
 engine.registerTag(
@@ -265,8 +265,16 @@ engine.registerTag(
     constructor(token, remainTokens, liquid) {
       super(token, remainTokens, liquid);
       this.kind = /'(\w+)'/.exec(token.args)?.[1];
+      this.args = token.args;
     }
     *render(ctx, emitter) {
+      // {% content_for 'block', type: 'x', id: 'y' %}: a static block with default settings.
+      if (this.kind === 'block') {
+        const type = /type:\s*'([^']+)'/.exec(this.args)?.[1];
+        const id = /id:\s*'([^']+)'/.exec(this.args)?.[1];
+        emitter.write(yield renderBlock({ id, type, settings: {} }, ctx.getSync(['section']), ctx.getSync(['__globals'])));
+        return;
+      }
       if (this.kind !== 'blocks') return;
       const children = ctx.getSync(['__children']) ?? [];
       const section = ctx.getSync(['section']);
@@ -290,7 +298,9 @@ async function renderBlock(child, section, globals) {
   const schemaDef = blockSchema(child.type);
   const block = { id: child.id, type: child.type, shopify_attributes: `data-block="${child.type}"`, settings: resolveSettings(schemaDef.settings, child.settings, globals) };
   const source = fs.readFileSync(join(theme, 'blocks', `${child.type}.liquid`));
-  return engine.parseAndRender(source, { section, block, __children: childList(child), __globals: globals }, { globals });
+  // A section with its own product setting (featured product) is its blocks' closest.product.
+  const closest = section?.settings?.product && typeof section.settings.product === 'object' ? { product: section.settings.product } : globals.closest;
+  return engine.parseAndRender(source, { section, block, closest, __children: childList(child), __globals: globals }, { globals });
 }
 
 // ---------- Filters ----------
@@ -326,7 +336,8 @@ const filters = {
       .filter((k) => a[k] !== undefined && a[k] !== null)
       .map((k) => `${k}="${String(a[k]).replace(/"/g, '&quot;')}"`)
       .join(' ');
-    return `<img src="${url}" ${attrs}${a.width ? '' : ' width="800" height="800"'}>`;
+    // Shopify always prints alt (empty when the image has none).
+    return `<img src="${url}" ${attrs}${a.alt === undefined || a.alt === null ? ' alt=""' : ''}${a.width ? '' : ' width="800" height="800"'}>`;
   },
   placeholder_svg_tag: (name, cls) => `<svg class="${cls ?? ''}" viewBox="0 0 10 10"><rect width="10" height="10" fill="currentColor" opacity=".15"/></svg>`,
   metafield_tag: (field) => field?.value ?? '',
@@ -383,9 +394,40 @@ const sectionSchema = (type) => {
   return json ? JSON.parse(json) : {};
 };
 
+// Mock image for an image setting: the demo's shot description becomes a labelled placeholder.
+const mockImage = (alt) => ({ alt, width: 1600, height: 1600, aspect_ratio: 1, src: alt, toString: () => alt });
+
+// Demo-only products named in the reference copy (bundle items, collection grids). Cached by
+// title so the same product keeps its IDs, and registered so the mock cart can add them.
+const mockProducts = new Map();
+function mockProduct({ title, price, rating, badge }) {
+  if (!mockProducts.has(title)) {
+    const product = simpleProduct(title, price);
+    product.metafields = { reviews: rating ? { rating: { value: { rating, scale_max: 5 } } } : {}, blueprint: badge ? { badge: { value: badge } } : {} };
+    mockProducts.set(title, product);
+    ALL_PRODUCTS.push(product);
+  }
+  return mockProducts.get(title);
+}
+
 function resolveSettings(definitions = [], values = {}, scope) {
   const resolved = { ...defaults(definitions), ...values };
-  for (const def of definitions) if (def.type === 'link_list') resolved[def.id] = scope.linklists[resolved[def.id]] ?? { links: [] };
+  for (const def of definitions) {
+    const value = resolved[def.id];
+    if (def.type === 'link_list') resolved[def.id] = scope.linklists[value] ?? { links: [] };
+    if (def.type === 'product' && typeof value === 'string') resolved[def.id] = ALL_PRODUCTS.find((p) => p.handle === value) ?? null;
+    if (def.type === 'collection' && typeof value === 'string') resolved[def.id] = Object.values(CART.fixtures).map((f) => f.collection).find((c) => c.handle === value) ?? null;
+    if (def.type === 'image_picker' && value && typeof value === 'object' && value.mock_image) resolved[def.id] = mockImage(value.mock_image);
+    if (def.type === 'product' && value && typeof value === 'object' && value.mock_product) resolved[def.id] = mockProduct(value.mock_product);
+    if (def.type === 'collection' && value && typeof value === 'object' && value.handles) {
+      const products = value.handles.map((h) => ALL_PRODUCTS.find((p) => p.handle === h)).filter(Boolean);
+      resolved[def.id] = { title: 'Best sellers', handle: 'mixed', url: '/collections/all', products, products_count: products.length, all_products_count: products.length };
+    }
+    if (def.type === 'collection' && value && typeof value === 'object' && value.mock_collection) {
+      const products = value.mock_collection.map(mockProduct);
+      resolved[def.id] = { title: 'Collection', handle: 'mock', url: '/collections/all', products, products_count: products.length, all_products_count: products.length };
+    }
+  }
   return resolved;
 }
 
@@ -423,18 +465,20 @@ const fontLinks = (settings) => {
   return `<link rel="icon" href="data:,">` + local + links.map((href) => `<link rel="stylesheet" href="/fonts/${href}">`).join('');
 };
 
-export async function renderPage(preset, page, query = new URLSearchParams(), onlySection = null) {
-  const store = demo.stores[PRESET_STORES[preset]];
+// Overrides render another demo store's content: { store: 'kindly', template: {...} }.
+export async function renderPage(preset, page, query = new URLSearchParams(), onlySection = null, overrides = {}) {
+  const store = demo.stores[overrides.store ?? PRESET_STORES[preset]];
   const mock = mockStore(store);
   const settings = themeSettings(preset, store);
-  const product = page.type === 'product' ? productForRequest(PRESET_PRODUCTS[preset], query) : null;
+  const baseProduct = overrides.product ?? PRESET_PRODUCTS[preset];
+  const product = page.type === 'product' && baseProduct ? productForRequest(baseProduct, query) : null;
   const scope = {
     cart: cart.view(preset),
     additional_checkout_buttons: true,
     content_for_additional_checkout_buttons: '<div class="shopify-cleanslate"><button type="button" disabled>Express checkout (mocked)</button></div>',
     product,
     closest: { product },
-    request: { locale: { iso_code: 'en' }, page_type: page.type, origin: 'http://localhost' },
+    request: { locale: { iso_code: 'en' }, page_type: page.type, origin: 'http://localhost', design_mode: false },
     ...mock,
     settings,
     routes: {
@@ -445,8 +489,12 @@ export async function renderPage(preset, page, query = new URLSearchParams(), on
       search_url: '/search',
       account_url: '/account',
       all_products_collection_url: '/collections/all',
+      collections_url: '/collections',
+      product_recommendations_url: '/recommendations/products',
     },
     template: { name: page.type },
+    recommendations: { performed: false, products: [], products_count: 0 },
+    ...(overrides.scope || {}),
     page_title: page.title,
     canonical_url: '#',
     content_for_header: `<script>window.Shopify = { routes: { root: '/' } };</script>`,
@@ -461,17 +509,20 @@ export async function renderPage(preset, page, query = new URLSearchParams(), on
   // Section Rendering API: one section (?section_id=) or a map of them (?sections=a,b).
   if (onlySection) {
     const ids = Array.isArray(onlySection) ? onlySection : [onlySection];
-    const template = readJson(join(theme, 'templates', `${page.template}.json`));
+    const template = overrides.template ?? readJson(join(theme, 'templates', `${page.template}.json`));
     const map = {};
     for (const id of ids) {
-      const source = template.sections[id] ? template : staticSection(id);
+      // Section files outside the template render by type (an ID like "related-products-2" → its file).
+      const type = existsSync(join(theme, 'sections', `${id}.liquid`)) ? id : id.replace(/-\d+$/, '');
+      const source = template.sections[id] ? template : staticSection(type, id, overrides.sectionSettings || {});
       map[id] = await renderSections(source, scope, '', id);
     }
     return Array.isArray(onlySection) ? map : map[onlySection];
   }
 
+  if (page.template === 'presets' && !overrides.template) overrides = { ...overrides, template: presetsTemplate(preset) };
   scope.content_for_layout = page.template
-    ? await renderSections(readJson(join(theme, 'templates', `${page.template}.json`)), scope)
+    ? await renderSections(overrides.template ?? readJson(join(theme, 'templates', `${page.template}.json`)), scope)
     : await engine.parseAndRender(readFileSync(join(here, page.file), "utf8"), { store }, { globals: scope });
 
   const layoutSource = fs.readFileSync(join(theme, 'layout', `${page.layout ?? 'theme'}.liquid`));
@@ -480,10 +531,57 @@ export async function renderPage(preset, page, query = new URLSearchParams(), on
   return html;
 }
 
+// Every demo store's sections, rendered with its preset family (data/demo-content.json).
+export const STORE_PRESET = Object.fromEntries(Object.entries(demo.stores).map(([id]) => [id, demo.presets[id].name]));
+export const STORE_PRODUCT = { verde: PRODUCTS.verde, ode: PRODUCTS.ode, rawform: PRODUCTS.rawform };
+export const DEMO_STORES = demo.storeOrder;
+export async function renderStoreSections(storeId, include = 'all') {
+  const { demoTemplate } = await import('./demo-sections.mjs');
+  const product = STORE_PRODUCT[storeId];
+  // A fixed end three days out (the preview never shows a resetting timer).
+  const countdownEnd = new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 16).replace('T', ' ') + ' +0000';
+  const { template, skipped } = demoTemplate(demo.stores[storeId], { productHandle: product?.handle, include, themeRoot: theme, countdownEnd });
+  const page = { name: 'sections', type: product ? 'product' : 'index', title: 'Sections', template: 'sections' };
+  const html = await renderPage(STORE_PRESET[storeId], page, new URLSearchParams(), null, { store: storeId, template, product });
+  return { html, skipped, template };
+}
+
+// Every preset of every section with presets, as the theme editor's "Add section" creates
+// them (product and collection settings filled from the store's demo data).
+export function presetsTemplate(preset) {
+  const sections = {};
+  const order = [];
+  const product = PRESET_PRODUCTS[preset];
+  const collection = CART.fixtures[PRESET_STORES[preset]].collection;
+  for (const file of readdirSync(join(theme, 'sections')).filter((f) => f.endsWith('.liquid')).sort()) {
+    const type = file.replace('.liquid', '');
+    const def = sectionSchema(type);
+    (def.presets || []).forEach((p, i) => {
+      const id = `${type}-${i + 1}`;
+      const blocks = {};
+      const blockOrder = [];
+      (p.blocks || []).forEach((b, j) => {
+        blocks[`b${j + 1}`] = { type: b.type, settings: b.settings || {} };
+        blockOrder.push(`b${j + 1}`);
+      });
+      const settings = { ...(p.settings || {}) };
+      for (const setting of def.settings || []) {
+        if (setting.type === 'product' && !settings[setting.id] && !['badges', 'benefits', 'study', 'ingredients', 'usvsthem', 'faq', 'guarantee'].includes(type)) settings[setting.id] = product.handle;
+        // The store's best sellers plus its multi-variant hero product (so quick add opens a dialog).
+        if (setting.type === 'collection' && !settings[setting.id]) settings[setting.id] = { handles: [product.handle, ...collection.products.map((p) => p.handle)] };
+      }
+      sections[id] = { type, settings, blocks, block_order: blockOrder };
+      order.push(id);
+    });
+  }
+  return { sections, order };
+}
+
 export const PAGES = [
   { name: 'home', type: 'index', title: 'Home', template: 'index' },
   { name: 'product', type: 'product', title: 'Product', template: 'product' },
   { name: 'cart', type: 'cart', title: 'Cart', template: 'cart' },
+  { name: 'presets', type: 'product', title: 'Section presets', template: 'presets' },
   { name: 'styleguide', type: 'page', title: 'Style guide', file: 'styleguide.liquid-preview' },
 ];
 

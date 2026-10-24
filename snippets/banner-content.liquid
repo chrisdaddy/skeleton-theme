@@ -1,0 +1,18 @@
+{% doc %}
+  Eyebrow, heading, subheading and up to two buttons for image banners.
+
+  @param {object} section - The image banner section
+{% enddoc %}
+{%- liquid
+  assign s = section.settings
+  assign tag = s.heading_tag | default: 'h2'
+-%}
+{%- if s.eyebrow != blank -%}<p class="bp-kicker">{{ s.eyebrow | escape }}</p>{%- endif -%}
+{%- if s.heading != blank -%}<{{ tag }} class="bp-h2" id="Heading-{{ section.id }}">{{ s.heading }}</{{ tag }}>{%- endif -%}
+{%- if s.subheading != blank -%}<p class="bp-banner__sub">{{ s.subheading }}</p>{%- endif -%}
+{%- if s.button_label != blank or s.button_label_2 != blank -%}
+  <div class="bp-buttons">
+    {%- if s.button_label != blank -%}<a class="bp-button" href="{{ s.button_link | default: routes.all_products_collection_url }}">{{ s.button_label | escape }}</a>{%- endif -%}
+    {%- if s.button_label_2 != blank -%}<a class="bp-button bp-button--secondary" href="{{ s.button_link_2 | default: routes.all_products_collection_url }}">{{ s.button_label_2 | escape }}</a>{%- endif -%}
+  </div>
+{%- endif -%}

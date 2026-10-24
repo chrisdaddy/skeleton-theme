@@ -1,0 +1,28 @@
+{% doc %}
+  One clinical result: the value, its label and, for percentages, a bar or ring.
+
+  @param {number} value - The result (e.g. 97)
+  @param {string} [suffix] - Unit after the value (e.g. %)
+  @param {string} label - What the value measures
+  @param {string} style - 'bars' or 'rings'
+  @param {string} [attributes] - block.shopify_attributes
+{% enddoc %}
+{%- liquid
+  assign percent = 0
+  if suffix == '%'
+    assign percent = value | at_least: 0 | at_most: 100
+  endif
+-%}
+<li class="bp-study-stat" {{ attributes }}>
+  {%- if style == 'rings' and suffix == '%' -%}
+    <svg class="bp-study-stat__ring" viewBox="0 0 36 36" aria-hidden="true" focusable="false">
+      <circle cx="18" cy="18" r="15.9155" pathLength="100" class="bp-study-stat__track"></circle>
+      <circle cx="18" cy="18" r="15.9155" pathLength="100" class="bp-study-stat__fill" style="stroke-dasharray: {{ percent }} 100;"></circle>
+    </svg>
+  {%- endif -%}
+  <span class="bp-study-stat__value">{{ value }}{{ suffix | escape }}</span>
+  <span class="bp-study-stat__label">{{ label | escape }}</span>
+  {%- if style != 'rings' and suffix == '%' -%}
+    <span class="bp-study-stat__bar" aria-hidden="true"><span style="width: {{ percent }}%;"></span></span>
+  {%- endif -%}
+</li>

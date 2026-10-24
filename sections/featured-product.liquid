@@ -1,0 +1,275 @@
+{%- comment -%}
+  A product's buy box anywhere: the same theme blocks as the product page
+  (blocks/product-*.liquid), reading the product picked here through closest.product.
+{%- endcomment -%}
+{{ 'section-product.css' | asset_url | stylesheet_tag }}
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign featured = s.product
+  assign current_variant = featured.selected_or_first_available_variant
+  assign form_id = 'ProductForm-' | append: section.id
+-%}
+<section {% render 'section-attributes', section: section, name: 'featured-product', modifier: s.layout %}{% if s.heading != blank %}{% endif %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    {%- render 'section-heading', section: section -%}
+    <div class="bp-product bp-product--media-{{ s.media_size }}" style="--bp-media-fit: cover;">
+      <div class="bp-product__media">
+        {%- if featured != blank -%}
+          {%- render 'product-gallery', product: featured, id_prefix: section.id -%}
+        {%- else -%}
+          <div class="bp-media bp-ratio-square">{{ 'product-1' | placeholder_svg_tag: 'bp-media__img' }}</div>
+        {%- endif -%}
+      </div>
+      {%- if featured != blank -%}
+        <bp-product
+          class="bp-product__info bp-buybox"
+          data-section-id="{{ section.id }}"
+          data-product-url="{{ featured.url }}"
+          data-form-id="{{ form_id }}"
+          data-cart-url="{{ routes.cart_url }}"
+          data-error-message="{{ 'products.errors.generic' | t | escape }}"
+          data-bp-module="{{ 'bp-product.js' | asset_url }}"
+          data-bp-load="visible"
+        >
+          <input type="hidden" name="id" value="{{ current_variant.id }}" form="{{ form_id }}">
+          <input type="hidden" name="quantity" value="1" form="{{ form_id }}">
+          {% content_for 'blocks' %}
+        </bp-product>
+      {%- else -%}
+        <div class="bp-product__info bp-stack">
+          <h3 class="bp-h2">{{ 'sections.featured_product.placeholder' | t }}</h3>
+          <p class="bp-muted">{{ 'sections.featured_product.choose' | t }}</p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.featured_product.name",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.featured_product.settings.product.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.common.settings.alignment.label",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.common.settings.alignment.options.start"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.settings.alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.featured_product.settings.layout.label",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "t:sections.featured_product.settings.layout.options.standard"
+        },
+        {
+          "value": "spotlight",
+          "label": "t:sections.featured_product.settings.layout.options.spotlight"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "media_size",
+      "label": "t:sections.featured_product.settings.media_size.label",
+      "default": "large",
+      "options": [
+        {
+          "value": "medium",
+          "label": "t:sections.featured_product.settings.media_size.options.medium"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.featured_product.settings.media_size.options.large"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured_product.presets.featured_product.name",
+      "blocks": [
+        {
+          "type": "product-rating"
+        },
+        {
+          "type": "product-title"
+        },
+        {
+          "type": "product-price"
+        },
+        {
+          "type": "product-variant-picker"
+        },
+        {
+          "type": "product-offer-tiers"
+        },
+        {
+          "type": "product-purchase-options"
+        },
+        {
+          "type": "product-buy-buttons"
+        },
+        {
+          "type": "product-proof-line"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.featured_product.presets.product_spotlight.name",
+      "settings": {
+        "layout": "spotlight",
+        "surface_style": "surface"
+      },
+      "blocks": [
+        {
+          "type": "product-title"
+        },
+        {
+          "type": "product-price"
+        },
+        {
+          "type": "product-variant-picker"
+        },
+        {
+          "type": "product-buy-buttons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,286 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign source = s.product | default: product
+  assign rows = ''
+  assign coa = ''
+  if s.use_metafield
+    assign rows = source.metafields.blueprint.ingredients.value
+    assign coa = source.metafields.blueprint.coa.value
+  endif
+  assign footer_link = s.footer_link
+  if coa != blank
+    assign footer_link = coa.url
+  endif
+-%}
+{%- if rows != blank or section.blocks.size > 0 or s.hide_empty == false -%}
+  <section {% render 'section-attributes', section: section, name: 'ingredients' %}>
+    <div class="bp-page-width bp-page-width--{{ s.width }}">
+      <div class="bp-ingredients__head">
+        {%- render 'section-heading', section: section, align: 'start' -%}
+      </div>
+      <table class="bp-ingredients__table">
+        <caption class="bp-visually-hidden">{{ s.heading | strip_html | escape }}</caption>
+        <thead class="bp-visually-hidden">
+          <tr>
+            <th scope="col">{{ 'sections.ingredients.name' | t }}</th>
+            {%- if s.show_dose -%}<th scope="col">{{ 'sections.ingredients.dose' | t }}</th>{%- endif -%}
+            {%- if s.show_why -%}<th scope="col">{{ 'sections.ingredients.why' | t }}</th>{%- endif -%}
+          </tr>
+        </thead>
+        <tbody>
+          {%- if rows != blank -%}
+            {%- for row in rows -%}
+              <tr>
+                <th scope="row">{{ row.name.value | escape }}</th>
+                {%- if s.show_dose -%}<td class="bp-ingredients__dose">{{ row.dose.value | escape }}</td>{%- endif -%}
+                {%- if s.show_why -%}<td class="bp-ingredients__why">{{ row.why.value | escape }}</td>{%- endif -%}
+              </tr>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for block in section.blocks -%}
+              <tr {{ block.shopify_attributes }}>
+                <th scope="row">{{ block.settings.name | escape }}</th>
+                {%- if s.show_dose -%}<td class="bp-ingredients__dose">{{ block.settings.dose | escape }}</td>{%- endif -%}
+                {%- if s.show_why -%}<td class="bp-ingredients__why">{{ block.settings.why | escape }}</td>{%- endif -%}
+              </tr>
+            {%- endfor -%}
+          {%- endif -%}
+        </tbody>
+      </table>
+      {%- if s.footer_label != blank and footer_link != blank -%}
+        <p class="bp-ingredients__foot"><a class="bp-link-arrow" href="{{ footer_link }}">{{ s.footer_label | escape }}</a></p>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.ingredients.name",
+  "max_blocks": 40,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "What one serving contains"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label",
+      "default": "Every dose on the label."
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.common.settings.alignment.label",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.common.settings.alignment.options.start"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.settings.alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dose",
+      "label": "t:sections.ingredients.settings.show_dose.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_why",
+      "label": "t:sections.ingredients.settings.show_why.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "footer_label",
+      "label": "t:sections.ingredients.settings.footer_label.label",
+      "default": "See the full label and batch COA"
+    },
+    {
+      "type": "url",
+      "id": "footer_link",
+      "label": "t:sections.ingredients.settings.footer_link.label",
+      "info": "t:sections.ingredients.settings.footer_link.info"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.ingredients.settings.reads_the_product_s_blueprint_ingredient"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.common.settings.product.label",
+      "info": "t:sections.common.settings.product.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_metafield",
+      "label": "t:sections.common.settings.use_metafield.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_empty",
+      "label": "t:sections.common.settings.hide_empty.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "t:sections.ingredients.blocks.row.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "t:sections.ingredients.blocks.row.settings.name.label",
+          "default": "Ingredient"
+        },
+        {
+          "type": "text",
+          "id": "dose",
+          "label": "t:sections.ingredients.blocks.row.settings.dose.label",
+          "default": "100 mg"
+        },
+        {
+          "type": "text",
+          "id": "why",
+          "label": "t:sections.ingredients.blocks.row.settings.why.label",
+          "default": "What it does, in a few words"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.ingredients.presets.ingredients_table.name",
+      "blocks": [
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

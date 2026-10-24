@@ -1,0 +1,262 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'collections', modifier: s.style %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    {%- render 'section-heading', section: section, align: 'start' -%}
+    <ul class="bp-cols" role="list" style="--bp-cols: {{ s.columns }}; --bp-cols-mobile: 2;">
+      {%- for block in section.blocks -%}
+        {%- assign collection = block.settings.collection -%}
+        <li {{ block.shopify_attributes }}>
+          <a class="bp-collection-card" href="{{ collection.url | default: routes.collections_url }}">
+            <span class="bp-media bp-ratio-{{ s.image_ratio }}">
+              {%- assign image = block.settings.image | default: collection.featured_image -%}
+              {%- render 'section-image', image: image, sizes: '(min-width: 990px) 25vw, 50vw', section: section, width: 900, placeholder: 'collection-1', alt: '' -%}
+            </span>
+            <span class="bp-collection-card__title">{{ collection.title | default: block.settings.fallback_title | escape }}</span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.collection_list.name",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Shop by need"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.common.settings.alignment.label",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.common.settings.alignment.options.start"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.settings.alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:sections.collection_list.settings.style.label",
+      "default": "list",
+      "options": [
+        {
+          "value": "list",
+          "label": "t:sections.collection_list.settings.style.options.list"
+        },
+        {
+          "value": "tiles",
+          "label": "t:sections.collection_list.settings.style.options.tiles"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:sections.collection_list.settings.columns.label",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "t:sections.collection_list.settings.image_ratio.label",
+      "default": "square",
+      "options": [
+        {
+          "value": "square",
+          "label": "t:sections.collection_list.settings.image_ratio.options.square"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.collection_list.settings.image_ratio.options.portrait"
+        },
+        {
+          "value": "landscape",
+          "label": "t:sections.collection_list.settings.image_ratio.options.landscape"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "t:sections.collection_list.blocks.collection.name",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "t:sections.collection_list.blocks.collection.settings.collection.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.collection_list.blocks.collection.settings.image.label",
+          "info": "t:sections.collection_list.blocks.collection.settings.image.info"
+        },
+        {
+          "type": "text",
+          "id": "fallback_title",
+          "label": "t:sections.collection_list.blocks.collection.settings.fallback_title.label",
+          "default": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.collection_list.presets.collection_list.name",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.collection_list.presets.collection_tiles.name",
+      "settings": {
+        "style": "tiles",
+        "columns": 3,
+        "image_ratio": "portrait"
+      },
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+{% doc %}
+  One product in the bundle builder: a checkbox posting the product's first available
+  variant (items[n][id]), so the bundle adds to the cart without JavaScript too.
+
+  @param {product} product - The product
+  @param {number} index - Its position (for the items[] field name)
+  @param {boolean} [preselected] - Starts checked
+  @param {string} [attributes] - block.shopify_attributes
+{% enddoc %}
+{%- assign variant = product.selected_or_first_available_variant -%}
+{%- if product != blank -%}
+  <label class="bp-bundle-item" {{ attributes }}>
+    <input
+      type="checkbox"
+      class="bp-bundle-item__input"
+      name="items[{{ index }}][id]"
+      value="{{ variant.id }}"
+      data-price="{{ variant.price }}"
+      {% if preselected and variant.available %}
+        checked
+      {% endif %}
+      {% unless variant.available %}
+        disabled
+      {% endunless %}
+    >
+    <span class="bp-media bp-ratio-square bp-bundle-item__media">
+      {%- if product.featured_media -%}
+        {{ product.featured_media | image_url: width: 400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 15vw, 30vw', widths: '200, 300, 400', class: 'bp-media__img', alt: '' }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'bp-media__img' }}
+      {%- endif -%}
+      <span class="bp-bundle-item__check" aria-hidden="true">{%- render 'icon', name: 'check' -%}</span>
+    </span>
+    <span class="bp-bundle-item__title">{{ product.title | escape }}</span>
+    <span class="bp-bundle-item__price">
+      {%- if variant.available -%}{{ variant.price | money }}{%- else -%}{{ 'sections.bundle.unavailable' | t }}{%- endif -%}
+    </span>
+  </label>
+{%- endif -%}

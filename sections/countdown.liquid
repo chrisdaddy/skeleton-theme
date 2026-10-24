@@ -1,0 +1,287 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign end_seconds = 0
+  if s.mode == 'fixed' and s.end != blank
+    assign end_seconds = s.end | date: '%s' | plus: 0
+  endif
+  assign now_seconds = 'now' | date: '%s' | plus: 0
+  assign expired = false
+  if s.mode == 'fixed' and end_seconds > 0 and end_seconds < now_seconds
+    assign expired = true
+  endif
+  # Without an end date the section only shows in the theme editor, with a reminder.
+  assign unset = false
+  if s.mode == 'fixed' and end_seconds == 0
+    assign unset = true
+  endif
+-%}
+{%- if unset and request.design_mode == false -%}
+{%- elsif expired and s.hide_expired -%}
+{%- else -%}
+  <section {% render 'section-attributes', section: section, name: 'countdown', modifier: s.style %}>
+    <div class="bp-page-width bp-page-width--{{ s.width }} bp-countdown__inner">
+      <div class="bp-countdown__text">
+        {%- if s.heading != blank -%}
+          {%- assign tag = s.heading_tag | default: 'h2' -%}
+          <{{ tag }} class="{% if s.style == 'bar' %}bp-countdown__title{% else %}bp-h2{% endif %}" id="Heading-{{ section.id }}">{{ s.heading }}</{{ tag }}>
+        {%- endif -%}
+        {%- if s.subheading != blank -%}<p class="bp-countdown__sub">{{ s.subheading }}</p>{%- endif -%}
+      </div>
+      {%- if s.mode == 'fixed' and end_seconds == 0 -%}
+        <p class="bp-countdown__note bp-small">{{ 'sections.countdown.set_end' | t }}</p>
+      {%- elsif expired -%}
+        <p class="bp-countdown__ended">{{ s.ended_text | escape }}</p>
+      {%- else -%}
+        <bp-timer
+          class="bp-timer"
+          {% if s.mode == 'fixed' %}data-end="{{ end_seconds }}"{% else %}data-evergreen-hours="{{ s.evergreen_hours }}" data-key="{{ section.id }}"{% endif %}
+          data-ended-text="{{ s.ended_text | escape }}"
+          {% if s.hide_expired %}data-hide-section="Section-{{ section.id }}"{% endif %}
+          data-bp-module="{{ 'bp-timer.js' | asset_url }}"
+          data-bp-load="visible"
+        >
+          <span class="bp-timer__fallback">
+            {%- if s.mode == 'fixed' -%}
+              {%- assign end_date = s.end | date: format: 'date' -%}
+              {{ 'sections.countdown.ends' | t: date: end_date }}
+            {%- endif -%}
+          </span>
+          <span class="bp-timer__units" hidden>
+            {%- for unit in (1..4) -%}
+              {%- liquid
+                case unit
+                  when 1
+                    assign key = 'days'
+                    assign label = 'sections.countdown.days' | t
+                  when 2
+                    assign key = 'hours'
+                    assign label = 'sections.countdown.hours' | t
+                  when 3
+                    assign key = 'minutes'
+                    assign label = 'sections.countdown.minutes' | t
+                  else
+                    assign key = 'seconds'
+                    assign label = 'sections.countdown.seconds' | t
+                endcase
+              -%}
+              <span class="bp-timer__unit" data-unit="{{ key }}"><span class="bp-timer__value">00</span><span class="bp-timer__label">{{ label }}</span></span>
+            {%- endfor -%}
+          </span>
+        </bp-timer>
+      {%- endif -%}
+      {%- if s.button_label != blank -%}
+        <a class="bp-button{% if s.style == 'bar' %} bp-button--small{% endif %}" href="{{ s.button_link | default: routes.all_products_collection_url }}">{{ s.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.countdown.name",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Sale ends soon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label"
+    },
+    {
+      "type": "select",
+      "id": "mode",
+      "label": "t:sections.countdown.settings.mode.label",
+      "default": "fixed",
+      "options": [
+        {
+          "value": "fixed",
+          "label": "t:sections.countdown.settings.mode.options.fixed"
+        },
+        {
+          "value": "evergreen",
+          "label": "t:sections.countdown.settings.mode.options.evergreen"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "end",
+      "label": "t:sections.countdown.settings.end.label",
+      "info": "t:sections.countdown.settings.end.info",
+      "placeholder": "2026-11-30 23:59 -0500"
+    },
+    {
+      "type": "range",
+      "id": "evergreen_hours",
+      "label": "t:sections.countdown.settings.evergreen_hours.label",
+      "min": 1,
+      "max": 72,
+      "step": 1,
+      "default": 24,
+      "info": "t:sections.countdown.settings.evergreen_hours.info",
+      "visible_if": "{{ section.settings.mode == 'evergreen' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_expired",
+      "label": "t:sections.countdown.settings.hide_expired.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "ended_text",
+      "label": "t:sections.countdown.settings.ended_text.label",
+      "default": "This offer has ended"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:sections.countdown.settings.style.label",
+      "default": "block",
+      "options": [
+        {
+          "value": "block",
+          "label": "t:sections.countdown.settings.style.options.block"
+        },
+        {
+          "value": "bar",
+          "label": "t:sections.countdown.settings.style.options.bar"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.common.settings.button_label.label",
+      "default": "Shop the sale"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.common.settings.button_link.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.countdown.presets.offer_countdown.name"
+    },
+    {
+      "name": "t:sections.countdown.presets.countdown_bar.name",
+      "settings": {
+        "style": "bar",
+        "surface_style": "surface",
+        "padding_top": 16,
+        "padding_bottom": 16,
+        "button_label": ""
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -21,6 +21,7 @@
 | 1. Foundation | Done, pending store verification | See "Phase 1 delivered" below |
 | 2. Product page | Done offline, pending store verification | See "Phase 2 delivered" below. Quick-add sheet moved to Phase 4 (it belongs with product cards) |
 | 3. Cart drawer | Done offline, pending store verification | See "Phase 3 delivered" below |
+| 4. Content sections | Done offline, pending store verification | See "Phase 4 delivered" below. Includes the quick add moved from Phase 2 |
 
 #### Phase 1 delivered
 
@@ -55,6 +56,66 @@
   - that `dm_sans_n4`, `dm_sans_n6`, `dm_sans_n7` and `instrument_serif_n4` are valid font handles;
   - that the editor's `visible_if` settings behave as expected;
   - that the Standard Actions handlers fire.
+
+#### Phase 4 delivered
+
+- **Sections:**
+  - All 25 SPEC §4 types (§4.1) and the 17 essentials (§4.3): 42 merchant-addable sections with 61 presets, plus the `quick-add` section used by product cards.
+  - Some file names are more descriptive than the plan's: `image-with-text`, `bundle-builder`, `featured-collection`, `before-after`.
+  - `rich-text` and `contact-form` were rebuilt on the shared settings.
+- **Shared settings** (every content section): color style, width (page, narrow, full), heading tag, top and bottom padding, hide on mobile or desktop, custom CSS class. They come from `snippets/section-attributes.liquid` and `snippets/section-heading.liquid`.
+- **Product data first (SPEC §4):**
+  - These sections read the bound product's metafield first, then their own blocks: badges, benefits, clinical results, ingredients (including the COA file), us vs. them, FAQ and guarantee.
+  - "Hide when empty" is a setting.
+  - The product is the section's product picker, or the page's product.
+- **Honesty and money:**
+  - Button prices, subscription prices and savings come from variants and selling plans. The subscription heading's `[percent]` token is the plan's real saving, rounded down, and the section hides when the product has no plan.
+  - The hero shows "From $X" when prices vary.
+  - The bundle builder computes totals in cents from variant prices, and its saving is rounded down (unit-tested). Its percentage is display-only and must match an automatic discount; the setting says so.
+  - Reviews, comments and UGC carry "real customers only" notes.
+  - Review summaries come only from the `reviews.*` metafields.
+  - The countdown defaults to a fixed end. The per-visitor mode is labelled and never resets on reload. A countdown with no end date shows only in the theme editor.
+  - Placeholder counts are never invented.
+- **Without JavaScript:**
+  - Quiz answers are links to their results.
+  - The bundle builder posts `items[n][id]` to the cart.
+  - Before/after shows both photos side by side.
+  - Tabs show every panel.
+  - Countdowns show their end date.
+  - Video embeds are links, and sliders scroll natively.
+- **Accessibility:**
+  - Native range input for before/after, ARIA tabs with arrow keys, and slideshow autoplay with a pause button (off by default).
+  - Marquees, counters, autoplay and videos stop under reduced motion.
+  - Real tables for ingredients and comparisons, with yes/no announced as text.
+  - Sections are not region landmarks (60 unlabelled regions helped nobody); headings carry the structure.
+- **Product card and quick add:**
+  - Badges come from `blueprint.badge`, "Save N%" from a real compare-at price (rounded down), and "Sold out". Cards show the rating from the `reviews.*` metafields and a hover image.
+  - Quick add: single-variant cards are a real add-to-cart form, sent in place. Other cards open the full buy box in a dialog (`sections/quick-add.liquid`, the product theme blocks rendered as static blocks); without JS they link to the product.
+- **JavaScript:** 12 small modules, each loaded when its section scrolls into view or on interaction:
+  - slider, counter, video, before/after, timer, quiz, bundle, tabs, recommendations, quick add.
+  - All of them together are 19.9 KB, but no page loads them all up front.
+- **CSS:**
+  - One `section-content.css` (5.6 KB) for every content section, so a page of sections costs one request.
+  - The product card's styles and the accordion moved to `base.css`.
+  - Worst case (one of every section on a page): 13.9 KB of CSS. Now enforced by `tools/budget-check.mjs`.
+- **Demo mapping:** `tools/preview/demo-sections.mjs` turns each demo store's reference sections into Blueprint section JSON. Phase 6 seeding will reuse it.
+  - It strips reference prices from button copy; buttons show the product's own price.
+  - It takes guarantee days only from "N-day" copy.
+- **Checklist:** `npm run check:sections` (`tools/preview/sections-checklist.mjs`) runs 135 checks, and all pass. It covers:
+  - All 10 demo stores' sections and every section preset in all three presets, at 390 and 1440: no console errors, no sideways scrolling, nothing unexpectedly empty, no axe violations.
+  - Reduced motion and no-JS behaviour.
+  - Interactions: quiz, bundle (totals and add), before/after by keyboard, tabs by keyboard, countdown, FAQ JSON-LD, related products, and both quick-add paths.
+  - The buy-box (451) and cart (280) checklists still pass.
+- **Screenshots:** `docs/screenshots/phase-4/` has every demo store's sections at 1440, and Verde, Ode and Rawform at 390.
+- **Plan changes:**
+  - The upsell's in-cart deal label is `blueprint.cart_deal_label` on the upsell product (§6.1 said `upsell_deal_label` on the main product). The deal belongs to the upsell however it was chosen.
+  - `main-collection-grid` filters, sort and the collection banner move to Phase 5, with the templates.
+- **Still to verify on a store:**
+  - that `closest.product` in featured-product blocks resolves to the section's product picker;
+  - that static `content_for 'block'` blocks render in `quick-add` through the Section Rendering API;
+  - that `/cart/add` accepts `items[n][id]` form posts;
+  - that `request.design_mode` hides the unset countdown;
+  - that `product_recommendations_url` returns the section with `intent=complementary`.
 
 #### Phase 3 delivered
 
@@ -630,7 +691,7 @@ Two of these are merchant-addable and count toward the 72 picker entries: `annou
 | `badge` | single_line_text | gallery badge ("NSF Certified") |
 | `certifications` | list.single_line_text | badges section |
 | `upsell` | product_reference | cart "Goes well with" and the complementary block |
-| `upsell_deal_label` | single_line_text | "$18 in cart". Shown only when the matching automatic discount is verified after add (§8). |
+| `cart_deal_label` (on the upsell product) | single_line_text | "$18 in cart". Hidden once the deal is seen not to apply after add (§8). Renamed from `upsell_deal_label` in Phase 3. |
 | `sold_today` | number_integer | proof line. Written by a documented Shopify Flow template; hidden when missing or stale. |
 | `sold_today_date` | date | staleness check |
 | `live_viewers` | number_integer | viewers block (integration only) |

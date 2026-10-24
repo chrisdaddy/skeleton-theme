@@ -30,9 +30,10 @@ When no store is reachable, `tools/preview/` renders the theme with LiquidJS and
 cd tools/preview && npm install && npm run shots   # writes out/<preset>/*.html and out/shots/*.png
 npm run check:buybox                               # buy box checklist (docs/PLAN.md §16) in Chromium
 npm run check:cart                                 # cart drawer and cart page checklist in Chromium
+npm run check:sections                             # every content section, preset and demo store in Chromium
 ```
 
-The two checklists run from the repository root once `tools/preview` has its dependencies.
+The checklists run from the repository root once `tools/preview` has its dependencies.
 
 Read [`AGENTS.md`](AGENTS.md) before changing code. It lists the conventions every change must follow.
 

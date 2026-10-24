@@ -1,0 +1,16 @@
+{% doc %}
+  A comparison table cell: "yes" or "no" become a check or a cross (with text for screen
+  readers); anything else is shown as written.
+
+  @param {string} value - The cell value
+{% enddoc %}
+{%- assign normalised = value | strip | downcase -%}
+{%- if normalised == 'yes' or normalised == 'true' or normalised == '1' -%}
+  <span class="bp-mark bp-mark--yes">{%- render 'icon', name: 'check' -%}</span>
+  <span class="bp-visually-hidden">{{ 'sections.usvsthem.yes' | t }}</span>
+{%- elsif normalised == 'no' or normalised == 'false' or normalised == '0' -%}
+  <span class="bp-mark bp-mark--no">{%- render 'icon', name: 'x' -%}</span>
+  <span class="bp-visually-hidden">{{ 'sections.usvsthem.no' | t }}</span>
+{%- else -%}
+  {{ value | escape }}
+{%- endif -%}

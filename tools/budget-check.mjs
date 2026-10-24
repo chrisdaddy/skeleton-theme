@@ -44,8 +44,17 @@ export function measure() {
     const text = read(file);
     for (const m of text.matchAll(/'([\w.-]+\.(?:js|css))'\s*\|\s*asset_url/g)) product.add(m[1]);
   }
+  // Any page: every-page assets plus everything any section, block or snippet can load
+  // (the worst case: one of every section on a page).
+  const all = new Set();
+  for (const dir of ['sections', 'blocks', 'snippets']) {
+    for (const file of readdirSync(new URL(`${dir}/`, root))) {
+      for (const m of read(`${dir}/${file}`).matchAll(/'([\w.-]+\.(?:js|css))'\s*\|\s*asset_url/g)) all.add(m[1]);
+    }
+  }
   const size = (file) => brotli(read(`assets/${file}`));
   return {
+    everySection: [...new Set([...everyPage, ...all])].map((file) => ({ file, bytes: size(file) })),
     everyPage: everyPage.map((file) => ({ file, bytes: size(file) })),
     lazy: [...lazy].map((file) => ({ file, bytes: size(file) })),
     product: [...new Set([...everyPage, ...product])].map((file) => ({ file, bytes: size(file) })),
@@ -53,7 +62,7 @@ export function measure() {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const { everyPage, lazy, product } = measure();
+  const { everyPage, lazy, product, everySection } = measure();
   const kb = (n) => `${(n / 1024).toFixed(1)} KB`;
   const sum = (list, ext) => list.filter((a) => a.file.endsWith(ext)).reduce((t, a) => t + a.bytes, 0);
   const problems = [];
@@ -74,6 +83,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   console.log(`Product page (every block): JS ${kb(productJs)} of ${kb(BUDGET.productJs)}, CSS ${kb(productCss)} of ${kb(BUDGET.productCss)}`);
   if (productJs > BUDGET.productJs) problems.push(`product page JS ${kb(productJs)} exceeds ${kb(BUDGET.productJs)}`);
   if (productCss > BUDGET.productCss) problems.push(`product page CSS ${kb(productCss)} exceeds ${kb(BUDGET.productCss)}`);
+  const allJs = sum(everySection, '.js');
+  const allCss = sum(everySection, '.css');
+  // Section modules load only when their section scrolls into view (or on interaction), so
+  // this JS total is never loaded up front; it's reported, not enforced. The CSS is.
+  console.log(`Page with every section (worst case): CSS ${kb(allCss)} of ${kb(BUDGET.productCss)}; all section modules together ${kb(allJs)}, each loaded on visibility`);
+  if (allCss > BUDGET.productCss) problems.push(`every-section CSS ${kb(allCss)} exceeds ${kb(BUDGET.productCss)}`);
   if (problems.length) {
     console.error(`\nOver budget:\n  ${problems.join('\n  ')}`);
     process.exit(1);

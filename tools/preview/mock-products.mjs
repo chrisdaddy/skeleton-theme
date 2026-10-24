@@ -27,7 +27,7 @@ function linkVariants(product) {
   for (const variant of product.variants) Object.defineProperty(variant, 'product', { value: product, enumerable: false });
 }
 
-function simpleProduct(title, price, extra = {}) {
+export function simpleProduct(title, price, extra = {}) {
   const variantId = id();
   const product = {
     id: id(),
@@ -46,6 +46,8 @@ function simpleProduct(title, price, extra = {}) {
   product.price_varies = false;
   product.options_with_values = [];
   product.has_only_default_variant = true;
+  product.requires_selling_plan = false;
+  product.selling_plan_groups = [];
   linkVariants(product);
   return product;
 }
@@ -90,6 +92,9 @@ function buildProduct({ title, handle, options, priceFor, compareFor, packOption
     return variant;
   });
 
+  product.selected_or_first_available_variant = product.variants.find((v) => v.available) || product.variants[0];
+  product.price = Math.min(...product.variants.map((v) => v.price));
+  product.price_varies = new Set(product.variants.map((v) => v.price)).size > 1;
   product.options = options.map((o) => o.name);
   product.has_only_default_variant = false;
   product.media = media(mediaAlt);
@@ -266,7 +271,7 @@ export function buildCartFixtures(demo, products) {
         product.metafields = { reviews: { rating: field({ rating: Number(rating), scale_max: 5 }) } };
         return product;
       });
-    return { title: 'Best sellers', products: items, products_count: items.length };
+    return { title: 'Best sellers', handle: `${store.id}-best-sellers`, url: `/collections/${store.id}-best-sellers`, products: items, products_count: items.length, all_products_count: items.length };
   };
   const reward = (label, threshold, gift = null) => ({ label, threshold, gift });
   const verde = demo.stores.verde;
