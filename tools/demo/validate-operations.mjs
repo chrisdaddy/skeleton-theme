@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Validates every Admin API call the seed makes against Shopify's published Admin GraphQL
+// Validates every Admin API call the seed makes (and the updater's operations) against Shopify's published Admin GraphQL
 // schema: the operation documents, and the actual variables a seed of each demo store sends.
 //
 // The schema comes from shopify.dev's public schema proxy (the one its GraphiQL uses) and is
@@ -13,6 +13,7 @@ import { getVariableValues } from 'graphql/execution/values.js';
 import { API_VERSION } from './admin.mjs';
 import { fakeAdmin } from './fake-admin.mjs';
 import { seed } from './seed.mjs';
+import { OPERATIONS as UPDATER } from '../update/updater.mjs';
 
 const here = new URL('./', import.meta.url);
 const cache = new URL(`.cache/admin-${API_VERSION}.json`, here);
@@ -50,6 +51,12 @@ for (const store of ['verde', 'ode', 'rawform', 'omni', 'kindly', 'dreamr', 'goo
     for (const error of errors ?? []) problems.push(`${store} ${call.operation}: ${error.message}`);
     checked += 1;
   }
+}
+
+// The updater's operations (tools/update/updater.mjs), documents only.
+for (const [name, doc] of Object.entries(UPDATER)) {
+  for (const error of validate(admin, parse(doc))) problems.push(`updater ${name}: ${error.message}`);
+  seen.add(`updater:${name}`);
 }
 
 for (const p of [...new Set(problems)]) console.log(`✗ ${p}`);

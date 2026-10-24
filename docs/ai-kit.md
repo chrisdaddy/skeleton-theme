@@ -63,6 +63,10 @@ Node.js 22 or later is required.
 
 ChatGPT isn't supported in v1, because it needs a remote (HTTP) server. Version 1.1 will include a template to deploy your own on Cloudflare Workers.
 
+## Updating the theme
+
+The same package updates Blueprint: `npx -y @blueprint/mcp update`, with your licence key in `BLUEPRINT_LICENSE_KEY`. It installs the new version as an unpublished theme and carries over your settings. See [Updating Blueprint](merchant/updating.md).
+
 ## 3. Reviews (optional)
 
 The kit reads reviews from the first source that is set up, in this order. All but the CSV route need a key in the kit's environment:

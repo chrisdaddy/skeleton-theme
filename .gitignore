@@ -28,3 +28,4 @@ tools/demo/.cache/
 mcp/dist/
 mcp/*.mcpb
 mcp/prompts/
+dist/

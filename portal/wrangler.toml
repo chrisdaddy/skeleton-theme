@@ -1,0 +1,23 @@
+# Blueprint Portal: license keys, release downloads and the buyer portal (docs/PLAN.md §13.1).
+# Deploy: npx wrangler deploy. Secrets (npx wrangler secret put …):
+#   SHOPIFY_WEBHOOK_SECRET   the sales store's webhook signing secret
+#   SIGNING_SECRET           random 32+ bytes, signs download URLs and CSRF tokens
+#   RESEND_API_KEY           sends magic-link emails (https://resend.com)
+name = "blueprint-portal"
+main = "src/worker.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+PORTAL_URL = "https://portal.blueprinttheme.com"
+EMAIL_FROM = "Blueprint <portal@blueprinttheme.com>"
+DOCS_URL = "https://blueprinttheme.com/docs"
+DISCORD_URL = "https://discord.gg/blueprint"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "blueprint-portal"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "RELEASES"
+bucket_name = "blueprint-releases"

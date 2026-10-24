@@ -1,0 +1,126 @@
+{
+  "id": "sales",
+  "brand": "Blueprint",
+  "preset": "Clinical",
+  "listing": "clinical",
+  "required": false,
+  "mode": "pack",
+  "notice": "",
+  "files": [],
+  "products": [
+    {
+      "handle": "blueprint-theme",
+      "title": "Blueprint theme (1 store)",
+      "productType": "Theme licence",
+      "tags": [
+        "blueprint"
+      ],
+      "descriptionHtml": "<p>The Blueprint Shopify theme for one store: 3 presets, pre-landers, bundles, subscriptions, a cart that sells and the AI kit. Includes every 1.x update. Your licence key is in the Blueprint Portal after purchase.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "149.00",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": true,
+          "tracked": false,
+          "sku": "BP-THEME"
+        }
+      ],
+      "files": [],
+      "metafields": []
+    },
+    {
+      "handle": "blueprint-agency",
+      "title": "Blueprint agency pack (5 stores)",
+      "productType": "Theme licence",
+      "tags": [
+        "blueprint"
+      ],
+      "descriptionHtml": "<p>Five Blueprint licences for client or brand-portfolio stores, each bound to one store and movable from the Blueprint Portal. Includes every 1.x update.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "249.00",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": true,
+          "tracked": false,
+          "sku": "BP-AGENCY"
+        }
+      ],
+      "files": [],
+      "metafields": []
+    },
+    {
+      "handle": "blueprint-extra-licence",
+      "title": "Extra Blueprint licence",
+      "productType": "Theme licence",
+      "tags": [
+        "blueprint"
+      ],
+      "descriptionHtml": "<p>One more store licence for an existing Blueprint customer.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "49.00",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": true,
+          "tracked": false,
+          "sku": "BP-LICENSE"
+        }
+      ],
+      "files": [],
+      "metafields": []
+    },
+    {
+      "handle": "blueprint-done-for-you",
+      "title": "Blueprint done for you",
+      "productType": "Theme licence",
+      "tags": [
+        "blueprint"
+      ],
+      "descriptionHtml": "<p>We install and set up Blueprint on your store in 7 days: preset, products, bundles, subscriptions, cart rewards and two pre-landers. Includes a Blueprint licence.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "1149.00",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": true,
+          "tracked": false,
+          "sku": "BP-DFY"
+        }
+      ],
+      "files": [],
+      "metafields": []
+    }
+  ],
+  "metaobjects": [],
+  "sellingPlanGroups": [],
+  "collections": [
+    {
+      "handle": "licences",
+      "title": "Licences",
+      "products": [
+        "blueprint-theme",
+        "blueprint-agency",
+        "blueprint-extra-licence",
+        "blueprint-done-for-you"
+      ]
+    }
+  ],
+  "pages": [],
+  "menus": [],
+  "discounts": [],
+  "theme": {
+    "preset": "Clinical",
+    "listing": "clinical",
+    "settings": {}
+  }
+}

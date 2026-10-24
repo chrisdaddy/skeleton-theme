@@ -19,7 +19,7 @@
   },
   "scripts": {
     "sync": "node scripts/sync.mjs",
-    "build": "node scripts/sync.mjs && tsc -p tsconfig.json && node scripts/copy-prompts.mjs && node scripts/manifest.mjs",
+    "build": "node scripts/sync.mjs && tsc -p tsconfig.json && node scripts/copy-prompts.mjs && node scripts/copy-updater.mjs && node scripts/manifest.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "npm run build && node --test test/*.test.mjs",
     "validate": "node scripts/validate-operations.mjs",

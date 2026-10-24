@@ -72,10 +72,13 @@ layout/ config/ sections/ blocks/ snippets/ templates/ locales/ assets/   theme 
 listings/<preset>/templates/   per-preset template content (Clinical, Editorial, Bold)
 data/demo-content.json         demo stores, presets and copy extracted from the reference
 reference/                     the reference demo (visual and behavioural target)
-tools/                         node scripts: contrast and budget checks, demo seeding, release zip
+tools/                         node scripts: checks, demo seeding, release, updater (tools/update/)
 tests/                         node:test unit tests (offline) and Playwright suites (dev store)
 docs/                          plan, research, brief, merchant docs
 mcp/ prompts/                  AI kit (Phase 7)
+migrations/                    declarative migrations of merchant JSON (migrations/README.md)
+portal/                        Blueprint Portal: licence keys and downloads (Cloudflare Worker)
+release/<version>/             committed release manifests (update-safety baseline)
 ```
 
 Non-theme folders are listed in `.shopifyignore`.

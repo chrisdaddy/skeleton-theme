@@ -34,3 +34,15 @@ jobs:
       - run: node scripts/sync.mjs --check
       - run: npm test
       - run: npm run validate:manifest
+  portal:
+    name: Blueprint Portal (Worker)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: portal
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test

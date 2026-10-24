@@ -14,3 +14,8 @@ README.md
 LICENSE.md
 package.json
 shopify.theme.toml
+portal/
+release/
+dist/
+CHANGELOG.md
+LAUNCH.md

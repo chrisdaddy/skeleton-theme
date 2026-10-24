@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // stdio entry point: `npx -y @blueprint/mcp`, or the .mcpb bundle in Claude Desktop.
+// `npx -y @blueprint/mcp update` runs the theme updater instead (docs/merchant/updating.md).
 //
 // Configuration (environment):
 //   BLUEPRINT_SHOP                      your-store.myshopify.com
@@ -12,6 +13,13 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { adminExecutor, tokenProvider } from './admin.ts';
 import { DraftRegistry } from './registry.ts';
 import { createServer } from './server.ts';
+
+// `npx -y @blueprint/mcp update`: the theme updater (dist/update/cli.mjs, copied at build).
+if (process.argv[2] === 'update') {
+  const cli = './update/cli.mjs';
+  const { main } = (await import(cli)) as { main: (args: string[]) => Promise<number> };
+  process.exit(await main(process.argv.slice(3)));
+}
 
 const env = process.env;
 const shop = (env.BLUEPRINT_SHOP ?? '').replace(/^https?:\/\//, '').replace(/\/.*$/, '');

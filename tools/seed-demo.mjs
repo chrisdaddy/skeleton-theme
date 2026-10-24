@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 // Seeds a demo store from tools/demo/stores/<store>.json through the Admin GraphQL API.
 //
-//   node tools/seed-demo.mjs <store> [--dry-run] [--steps=products,metafields] [--skip=files]
+//   node tools/seed-demo.mjs <store> [--dry-run] [--steps=products,metafields] [--skip=files] [--config=<file>]
+//
+// --config seeds another catalog in the same format, e.g. the sales store (tools/sales/store.json).
 //
 // <store> is a demo store ID (verde, ode, rawform, …) with an environment of the same name in
 // shopify.theme.toml. Credentials, from the environment (never from files):
@@ -33,7 +35,7 @@ const dryRun = args.includes('--dry-run');
 
 let config;
 try {
-  config = JSON.parse(readFileSync(new URL(`tools/demo/stores/${storeId}.json`, root), 'utf8'));
+  config = JSON.parse(readFileSync(flag('config')?.[0] ?? new URL(`tools/demo/stores/${storeId}.json`, root), 'utf8'));
 } catch {
   console.error('Usage: node tools/seed-demo.mjs <store> [--dry-run] [--steps=a,b] [--skip=a,b]   (stores: tools/demo/stores/*.json)');
   process.exit(2);

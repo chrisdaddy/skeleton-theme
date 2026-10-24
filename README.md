@@ -10,7 +10,7 @@ The theme includes:
 - advertorial, listicle and comparison pre-landers
 - an AI kit (MCP server and prompt library)
 
-**Status:** Phase 1 (design foundation) done. See [`docs/PLAN.md`](docs/PLAN.md) for the plan of record and [`docs/RESEARCH.md`](docs/RESEARCH.md) for the research behind it.
+**Status:** version 1.0.0, all eight phases built and tested offline. Store verification and launch steps are in [`LAUNCH.md`](LAUNCH.md). See [`docs/PLAN.md`](docs/PLAN.md) for the plan of record and [`docs/RESEARCH.md`](docs/RESEARCH.md) for the research behind it.
 
 ## Develop
 
@@ -55,6 +55,19 @@ node tools/demo/theme.mjs verde --push             # push the demo theme, unpubl
 node tools/demo/compare.mjs verde ode rawform      # reference vs Blueprint, side by side at 390 and 1440
 ```
 
+### Releases, updates and the Portal
+
+Releases are additive within 1.x, and `npm test` enforces it against the last release. The runbook is [`LAUNCH.md`](LAUNCH.md).
+
+```sh
+node tools/release.mjs                             # build dist/blueprint-<v>.zip and release/<v>/manifest.json
+node tools/publish-release.mjs <v> --run           # upload to the Portal (Cloudflare R2 + D1)
+node tools/blueprint.mjs update --dry-run          # the updater merchants run as: npx -y @blueprint/mcp update
+cd portal && npm test                              # licence keys, webhooks, downloads, sign-in
+```
+
+Migrations are in [`migrations/`](migrations/README.md). Merchant docs are in [`docs/merchant/`](docs/merchant/README.md); `npm run docs` regenerates the section and metafield references.
+
 Read [`AGENTS.md`](AGENTS.md) before changing code. It lists the conventions every change must follow.
 
 ## Repository layout
@@ -64,5 +77,9 @@ Read [`AGENTS.md`](AGENTS.md) before changing code. It lists the conventions eve
 | `layout/`, `config/`, `sections/`, `blocks/`, `snippets/`, `templates/`, `locales/`, `assets/` | The theme |
 | `data/demo-content.json` | Presets, demo stores and copy from the reference demo |
 | `reference/` | The reference demo (visual and behavioural target) |
-| `tools/`, `tests/` | Checks and test suites |
+| `tools/`, `tests/` | Checks, release and update tooling, and test suites |
+| `migrations/` | Declarative migrations of merchant JSON between versions |
+| `mcp/`, `prompts/` | The AI kit and its prompts; the package also carries the updater |
+| `portal/` | Blueprint Portal: licence keys, downloads, buyer sign-in (Cloudflare Worker) |
+| `release/` | One manifest per released version (checksums and schema baseline) |
 | `docs/` | Plan, research, brief and merchant docs |
