@@ -1,0 +1,27 @@
+{
+  "name": "blueprint-theme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Blueprint Theme: a Shopify Online Store 2.0 theme for DTC brands.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/unit/*.test.mjs && node tools/contrast-check.mjs && node tools/budget-check.mjs && node tools/check-locales.mjs && node tools/app-compat.mjs && node tools/merchant-docs.mjs --check && node tools/release.mjs --check",
+    "check:buybox": "node tools/preview/checklist.mjs",
+    "check:theme": "shopify theme check",
+    "report:demo-contrast": "node tools/contrast-check.mjs --demo",
+    "check:budget": "node tools/budget-check.mjs",
+    "check:cart": "node tools/preview/cart-checklist.mjs",
+    "store": "node tools/store.mjs",
+    "check:sections": "node tools/preview/sections-checklist.mjs",
+    "check:landing": "node tools/preview/landing-checklist.mjs",
+    "seed": "node tools/seed-demo.mjs",
+    "demo:build": "node tools/demo/build-stores.mjs && node tools/demo/shot-list.mjs",
+    "release": "node tools/release.mjs",
+    "test:portal": "cd portal && npm test",
+    "update": "node tools/blueprint.mjs update",
+    "docs": "node tools/merchant-docs.mjs"
+  }
+}

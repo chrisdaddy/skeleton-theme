@@ -1,0 +1,321 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign source = s.product | default: product
+  assign meta = ''
+  if s.use_metafield
+    assign meta = source.metafields.blueprint.guarantee.value
+  endif
+  assign heading = s.heading
+  assign text = s.text
+  assign days = s.days
+  assign icon = s.icon
+  if meta != blank
+    assign heading = meta.title.value | default: heading
+    assign text = meta.body.value | default: text
+    assign days = meta.days.value | default: days
+    assign icon = meta.icon.value | default: icon
+  endif
+-%}
+<section {% render 'section-attributes', section: section, name: 'guarantee' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    <div class="bp-guarantee__card">
+      <span class="bp-guarantee__badge" aria-hidden="true">
+        {%- if days > 0 -%}
+          <span class="bp-guarantee__days">{{ days }}</span><span class="bp-guarantee__unit">{{ 'sections.guarantee.days' | t }}</span>
+        {%- else -%}
+          {%- render 'icon', name: icon -%}
+        {%- endif -%}
+      </span>
+      <div class="bp-guarantee__text">
+        {%- assign tag = s.heading_tag | default: 'h2' -%}
+        <{{ tag }} class="bp-h3" id="Heading-{{ section.id }}">{{ heading }}</{{ tag }}>
+        {%- if text != blank -%}<div class="bp-rte">{{ text }}</div>{%- endif -%}
+      </div>
+      {%- if s.button_label != blank -%}
+        <a class="bp-button" href="{{ s.button_link | default: source.url | default: routes.all_products_collection_url }}">{{ s.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.guarantee.name",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Try it for 90 days"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "t:sections.common.settings.text.label",
+      "default": "<p>If it doesn't work for you, email us and we refund it. No return needed.</p>"
+    },
+    {
+      "type": "number",
+      "id": "days",
+      "label": "t:sections.guarantee.settings.days.label",
+      "default": 90,
+      "info": "t:sections.guarantee.settings.days.info"
+    },
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "t:sections.common.settings.icon.label",
+      "default": "shield",
+      "options": [
+        {
+          "value": "check",
+          "label": "t:sections.common.icon_options.check"
+        },
+        {
+          "value": "leaf",
+          "label": "t:sections.common.icon_options.leaf"
+        },
+        {
+          "value": "bolt",
+          "label": "t:sections.common.icon_options.bolt"
+        },
+        {
+          "value": "shield",
+          "label": "t:sections.common.icon_options.shield"
+        },
+        {
+          "value": "sparkle",
+          "label": "t:sections.common.icon_options.sparkle"
+        },
+        {
+          "value": "truck",
+          "label": "t:sections.common.icon_options.truck"
+        },
+        {
+          "value": "refresh",
+          "label": "t:sections.common.icon_options.refresh"
+        },
+        {
+          "value": "heart",
+          "label": "t:sections.common.icon_options.heart"
+        },
+        {
+          "value": "star",
+          "label": "t:sections.common.icon_options.star"
+        },
+        {
+          "value": "drop",
+          "label": "t:sections.common.icon_options.drop"
+        },
+        {
+          "value": "flask",
+          "label": "t:sections.common.icon_options.flask"
+        },
+        {
+          "value": "award",
+          "label": "t:sections.common.icon_options.award"
+        },
+        {
+          "value": "gift",
+          "label": "t:sections.common.icon_options.gift"
+        },
+        {
+          "value": "clock",
+          "label": "t:sections.common.icon_options.clock"
+        },
+        {
+          "value": "lock",
+          "label": "t:sections.common.icon_options.lock"
+        },
+        {
+          "value": "box",
+          "label": "t:sections.common.icon_options.box"
+        },
+        {
+          "value": "users",
+          "label": "t:sections.common.icon_options.users"
+        },
+        {
+          "value": "chat",
+          "label": "t:sections.common.icon_options.chat"
+        },
+        {
+          "value": "moon",
+          "label": "t:sections.common.icon_options.moon"
+        },
+        {
+          "value": "paw",
+          "label": "t:sections.common.icon_options.paw"
+        },
+        {
+          "value": "flame",
+          "label": "t:sections.common.icon_options.flame"
+        },
+        {
+          "value": "coin",
+          "label": "t:sections.common.icon_options.coin"
+        },
+        {
+          "value": "chart",
+          "label": "t:sections.common.icon_options.chart"
+        },
+        {
+          "value": "speed",
+          "label": "t:sections.common.icon_options.speed"
+        },
+        {
+          "value": "calendar",
+          "label": "t:sections.common.icon_options.calendar"
+        },
+        {
+          "value": "eye",
+          "label": "t:sections.common.icon_options.eye"
+        },
+        {
+          "value": "layers",
+          "label": "t:sections.common.icon_options.layers"
+        },
+        {
+          "value": "pin",
+          "label": "t:sections.common.icon_options.pin"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.common.settings.button_label.label",
+      "default": "Start today"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.common.settings.button_link.label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.guarantee.settings.reads_the_product_s_blueprint_guarantee_"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.common.settings.product.label",
+      "info": "t:sections.common.settings.product.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_metafield",
+      "label": "t:sections.common.settings.use_metafield.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.guarantee.presets.guarantee.name"
+    }
+  ]
+}
+{% endschema %}

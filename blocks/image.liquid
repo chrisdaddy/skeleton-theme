@@ -1,0 +1,39 @@
+{% doc %}
+  An image.
+{% enddoc %}
+<div class="bp-image-block" style="--bp-image-width: {{ block.settings.width }}%;" {{ block.shopify_attributes }}>
+  {%- if block.settings.image -%}
+    {{ block.settings.image | image_url: width: 1200 | image_tag: widths: '300, 600, 900, 1200', sizes: '(min-width: 990px) 40vw, 100vw', loading: 'lazy' }}
+  {%- else -%}
+    {{ 'image' | placeholder_svg_tag: 'bp-placeholder' }}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:blocks.image.name",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:blocks.image.settings.image.label"
+    },
+    {
+      "type": "range",
+      "id": "width",
+      "label": "t:blocks.image.settings.width.label",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.image.name",
+      "category": "t:blocks.categories.content"
+    }
+  ]
+}
+{% endschema %}

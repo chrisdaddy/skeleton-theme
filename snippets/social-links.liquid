@@ -1,0 +1,35 @@
+{% doc %}
+  Links to the social profiles set in theme settings. Renders nothing when none are set.
+{% enddoc %}
+{%- liquid
+  assign networks = 'instagram,tiktok,facebook,youtube,x,pinterest' | split: ','
+  assign has_any = false
+  for network in networks
+    assign key = 'social_' | append: network
+    if settings[key] != blank
+      assign has_any = true
+    endif
+  endfor
+-%}
+{%- if has_any -%}
+  <ul class="bp-social" role="list">
+    {%- for network in networks -%}
+      {%- assign key = 'social_' | append: network -%}
+      {%- if settings[key] != blank -%}
+        {%- assign label_key = 'social.' | append: network -%}
+        <li>
+          <a class="bp-icon-button" href="{{ settings[key] }}" rel="noopener" target="_blank">
+            <span class="bp-visually-hidden">{{ label_key | t }}</span>
+            {%- liquid
+              assign icon_name = network
+              if network == 'x'
+                assign icon_name = 'x-social'
+              endif
+            -%}
+            {%- render 'icon', name: icon_name -%}
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+{%- endif -%}

@@ -1,0 +1,110 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+<section {% render 'section-attributes', section: section, name: 'not-found' %}>
+  <div class="bp-page-width bp-page-width--{{ section.settings.width }} bp-richtext__inner bp-richtext--center">
+    <p class="bp-kicker">404</p>
+    <h1 class="bp-h1">{{ 'not_found.title' | t }}</h1>
+    <p class="bp-richtext__text">{{ 'not_found.text' | t }}</p>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="bp-search__form">
+      <label for="Search-{{ section.id }}" class="bp-visually-hidden">{{ 'search.label' | t }}</label>
+      <div class="bp-input-group">
+        <input id="Search-{{ section.id }}" class="bp-input" type="search" name="q" placeholder="{{ 'search.label' | t }}">
+        <button type="submit" class="bp-button">{{ 'search.submit' | t }}</button>
+      </div>
+    </form>
+    <a class="bp-link-arrow" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue_shopping' | t }}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_404.name",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ]
+}
+{% endschema %}

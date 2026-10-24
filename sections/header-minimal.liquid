@@ -1,0 +1,104 @@
+{% comment %}
+  Pre-lander header (landing layout). "Hidden" renders nothing, "Logo" shows only the logo,
+  and "Logo and button" adds one call to action, so readers stay on the page.
+  A page can override the style with its blueprint.header metafield (full | minimal | hidden).
+{% endcomment %}
+{%- liquid
+  assign header_style = section.settings.style
+  assign page_override = page.metafields.blueprint.header.value
+  if page_override == 'hidden'
+    assign header_style = 'hidden'
+  elsif page_override == 'minimal'
+    assign header_style = 'logo'
+  endif
+-%}
+{%- unless header_style == 'hidden' -%}
+  <header class="bp-header" data-surface="{{ section.settings.surface_style }}">
+    <div class="bp-header__inner bp-page-width">
+      <a class="bp-header__logo" href="{{ routes.root_url }}">
+        {%- if section.settings.logo -%}
+          {%- liquid
+            assign logo_alt = section.settings.logo.alt | default: shop.name
+            assign logo_style = '--bp-logo-height: ' | append: section.settings.logo_height | append: 'px'
+          -%}
+          {{
+            section.settings.logo
+            | image_url: width: 600
+            | image_tag: widths: '150, 300, 450, 600', sizes: '300px', alt: logo_alt, loading: 'eager', style: logo_style
+          }}
+        {%- else -%}
+          {{ shop.name }}
+        {%- endif -%}
+      </a>
+      {%- if header_style == 'logo_cta' and section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+        <div class="bp-header__actions">
+          <a class="bp-button" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label | escape }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </header>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "t:sections.header_minimal.name",
+  "class": "bp-section-header",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:sections.header_minimal.settings.style.label",
+      "default": "logo",
+      "options": [
+        { "value": "hidden", "label": "t:sections.header_minimal.settings.style.options.hidden" },
+        { "value": "logo", "label": "t:sections.header_minimal.settings.style.options.logo" },
+        { "value": "logo_cta", "label": "t:sections.header_minimal.settings.style.options.logo_cta" }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label",
+      "visible_if": "{{ section.settings.style != 'hidden' }}"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 16,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 28,
+      "label": "t:sections.header.settings.logo_height.label",
+      "visible_if": "{{ section.settings.style != 'hidden' }}"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "t:sections.header_minimal.settings.cta_label.label",
+      "default": "Check availability",
+      "visible_if": "{{ section.settings.style == 'logo_cta' }}"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "t:sections.header_minimal.settings.cta_link.label",
+      "visible_if": "{{ section.settings.style == 'logo_cta' }}"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "t:sections.common.settings.surface_style.options.default" },
+        { "value": "surface", "label": "t:sections.common.settings.surface_style.options.surface" },
+        { "value": "inverse", "label": "t:sections.common.settings.surface_style.options.inverse" }
+      ]
+    }
+  ]
+}
+{% endschema %}

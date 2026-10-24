@@ -1,0 +1,134 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'blog-page' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    <div class="bp-section-heading bp-section-heading--start"><h1 class="bp-h1">{{ blog.title | escape }}</h1></div>
+    {%- paginate blog.articles by s.per_page -%}
+      <ul class="bp-cols" role="list" style="--bp-cols: {{ s.columns }};">
+        {%- for article in blog.articles -%}
+          <li class="bp-article-card">
+            <a class="bp-media bp-ratio-landscape" href="{{ article.url }}" tabindex="-1" aria-hidden="true">
+              {%- render 'section-image', image: article.image, sizes: '(min-width: 990px) 33vw, 100vw', section: section, width: 1200, alt: '', placeholder: 'blog-apparel-1' -%}
+            </a>
+            <p class="bp-small bp-muted">{{ article.published_at | time_tag: format: 'date' }}</p>
+            <h2 class="bp-h4"><a class="bp-article-card__title" href="{{ article.url }}">{{ article.title | escape }}</a></h2>
+            <p class="bp-muted">{{ article.excerpt_or_content | strip_html | truncatewords: 26 }}</p>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- render 'pagination', paginate: paginate -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_blog.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "per_page",
+      "label": "t:sections.main_blog.settings.per_page.label",
+      "min": 3,
+      "max": 24,
+      "step": 3,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:sections.main_blog.settings.columns.label",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ]
+}
+{% endschema %}

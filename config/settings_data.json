@@ -1,12 +1,64 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
-  "current": {}
+  "current": "Clinical",
+  "presets": {
+    "Clinical": {
+      "accent_color": "#1E6B4F",
+      "color_mode": "light",
+      "heading_style": "sans",
+      "corners": "soft",
+      "light_bg": "#FFFFFF",
+      "light_surface": "#EEF3F0",
+      "light_ink": "#0F1A14",
+      "light_line": "#DCE3DF",
+      "light_accent_soft": "#E3F0EA",
+      "dark_bg": "#0B1526",
+      "dark_surface": "#15223A",
+      "dark_ink": "#F3F0E8",
+      "dark_line": "#243350",
+      "type_body_font": "dm_sans_n4",
+      "type_heading_sans": "dm_sans_n6",
+      "type_heading_serif": "instrument_serif_n4",
+      "heading_tracking": -4
+    },
+    "Editorial": {
+      "accent_color": "#B5532E",
+      "color_mode": "light",
+      "heading_style": "serif",
+      "corners": "sharp",
+      "light_bg": "#F6F1E8",
+      "light_surface": "#EADFCE",
+      "light_ink": "#2A2420",
+      "light_line": "#DCCFBC",
+      "light_accent_soft": "#F2E1D6",
+      "light_on_accent": "#FFF8F0",
+      "dark_bg": "#1C1814",
+      "dark_surface": "#2A241F",
+      "dark_ink": "#F6F1E8",
+      "dark_line": "#3A322B",
+      "type_body_font": "dm_sans_n4",
+      "type_heading_sans": "dm_sans_n6",
+      "type_heading_serif": "instrument_serif_n4",
+      "heading_tracking": -1
+    },
+    "Bold": {
+      "accent_color": "#D8FF3D",
+      "color_mode": "dark",
+      "heading_style": "sans",
+      "corners": "round",
+      "light_bg": "#FFFFFF",
+      "light_surface": "#F1F1EE",
+      "light_ink": "#0F0F12",
+      "light_line": "#E4E4E0",
+      "dark_bg": "#0F0F12",
+      "dark_surface": "#1E1E25",
+      "dark_ink": "#FFFFFF",
+      "dark_line": "#2E2E38",
+      "dark_accent_soft": "#2A2F14",
+      "dark_on_accent": "#0F0F12",
+      "type_body_font": "dm_sans_n4",
+      "type_heading_sans": "dm_sans_n7",
+      "type_heading_serif": "instrument_serif_n4",
+      "heading_tracking": -5
+    }
+  }
 }

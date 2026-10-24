@@ -1,0 +1,123 @@
+{
+  "layout": "landing",
+  "sections": {
+    "header": {
+      "type": "article-header",
+      "settings": {
+        "eyebrow": "Beauty · Partner",
+        "heading": "The $120 perfume people keep mistaking for a $400 one.",
+        "lede": ""
+      }
+    },
+    "byline": {
+      "type": "author-byline",
+      "settings": {
+        "author": "Claire M.",
+        "read_time": 5
+      }
+    },
+    "body": {
+      "type": "article-body",
+      "settings": {},
+      "blocks": {
+        "image_1": {
+          "type": "image",
+          "settings": {
+            "ratio": "landscape"
+          }
+        },
+        "text_2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>I review fragrance for a living, which means I own too much of it. Last month a sample of No. 04 ended up in my bag by accident.</p>"
+          }
+        },
+        "quote_3": {
+          "type": "quote",
+          "settings": {
+            "quote": "<p>Three strangers asked what I was wearing in one week. That has never happened with the expensive ones.</p>"
+          }
+        },
+        "text_4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Keep every claim specific and true: what they tried before, what changed and when. Link the study, show the label, say what it costs.</p>"
+          }
+        },
+        "product_5": {
+          "type": "product",
+          "settings": {
+            "cta_label": "Try the discovery set",
+            "cta_product": "ode-no-04",
+            "cta_tier": 1,
+            "cta_plan": "default"
+          }
+        }
+      },
+      "block_order": [
+        "image_1",
+        "text_2",
+        "quote_3",
+        "text_4",
+        "product_5"
+      ]
+    },
+    "offer": {
+      "type": "offer",
+      "settings": {
+        "product": "ode-no-04",
+        "default_tier": 1,
+        "heading": "Try it risk-free",
+        "guarantee": "Free returns, 30 days"
+      },
+      "blocks": {
+        "rating_1": {
+          "type": "product-rating",
+          "settings": {}
+        },
+        "title_2": {
+          "type": "product-title",
+          "settings": {}
+        },
+        "offer-tiers_3": {
+          "type": "product-offer-tiers",
+          "settings": {}
+        },
+        "purchase-options_4": {
+          "type": "product-purchase-options",
+          "settings": {}
+        },
+        "buy-buttons_5": {
+          "type": "product-buy-buttons",
+          "settings": {}
+        },
+        "trust-tiles_6": {
+          "type": "product-trust-tiles",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rating_1",
+        "title_2",
+        "offer-tiers_3",
+        "purchase-options_4",
+        "buy-buttons_5",
+        "trust-tiles_6"
+      ]
+    },
+    "sticky": {
+      "type": "sticky-cta",
+      "settings": {
+        "target": "offer",
+        "cta_label": "Try the discovery set"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "byline",
+    "body",
+    "offer",
+    "sticky"
+  ]
+}

@@ -1,0 +1,347 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "rating": {
+          "type": "product-rating",
+          "settings": {}
+        },
+        "viewers": {
+          "type": "product-viewers",
+          "settings": {},
+          "disabled": true
+        },
+        "award": {
+          "type": "product-award",
+          "settings": {},
+          "disabled": true
+        },
+        "title": {
+          "type": "product-title",
+          "settings": {}
+        },
+        "price": {
+          "type": "product-price",
+          "settings": {}
+        },
+        "benefits": {
+          "type": "product-benefits",
+          "settings": {}
+        },
+        "stock": {
+          "type": "product-stock",
+          "settings": {},
+          "disabled": true
+        },
+        "variants": {
+          "type": "product-variant-picker",
+          "settings": {}
+        },
+        "bundle": {
+          "type": "product-offer-tiers",
+          "settings": {}
+        },
+        "plans": {
+          "type": "product-purchase-options",
+          "settings": {}
+        },
+        "shipping": {
+          "type": "product-shipping-countdown",
+          "settings": {},
+          "disabled": true
+        },
+        "buttons": {
+          "type": "product-buy-buttons",
+          "settings": {}
+        },
+        "proof": {
+          "type": "product-proof-line",
+          "settings": {}
+        },
+        "trust": {
+          "type": "product-trust-tiles",
+          "settings": {}
+        },
+        "payment": {
+          "type": "product-payment-icons",
+          "settings": {}
+        },
+        "guarantee": {
+          "type": "product-guarantee",
+          "settings": {}
+        },
+        "moneyback": {
+          "type": "product-moneyback",
+          "settings": {},
+          "disabled": true
+        },
+        "faq": {
+          "type": "product-faq",
+          "settings": {}
+        },
+        "sticky": {
+          "type": "product-sticky-atc",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rating",
+        "viewers",
+        "award",
+        "title",
+        "price",
+        "benefits",
+        "stock",
+        "variants",
+        "bundle",
+        "plans",
+        "shipping",
+        "buttons",
+        "proof",
+        "trust",
+        "payment",
+        "guarantee",
+        "moneyback",
+        "faq",
+        "sticky"
+      ],
+      "settings": {}
+    },
+    "ingredients_1": {
+      "type": "ingredients",
+      "settings": {
+        "heading": "Per scoop",
+        "subheading": "32 g scoop · Chocolate. Full panel on every tub.",
+        "footer_label": "Download the batch COA",
+        "footer_link": "#"
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "name": "Protein",
+            "dose": "28 g",
+            "why": "Grass-fed whey isolate, cold-filtered"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "name": "Sugar",
+            "dose": "1 g",
+            "why": "From cocoa. No sucralose, no ace-K"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "name": "Carbohydrates",
+            "dose": "3 g",
+            "why": "Net 2 g"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "name": "Leucine",
+            "dose": "3.1 g",
+            "why": "The amino that triggers synthesis"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "name": "Digestive enzymes",
+            "dose": "100 mg",
+            "why": "ProHydrolase, no bloat"
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "name": "Artificial anything",
+            "dose": "0 mg",
+            "why": "Monk fruit and sea salt, that is it"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6"
+      ]
+    },
+    "usvsthem_2": {
+      "type": "usvsthem",
+      "settings": {
+        "heading": "Rawform vs. big-box whey",
+        "us_label": "Rawform",
+        "them_label": "Big-box whey"
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "feature": "Grass-fed isolate, cold-filtered",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "feature": "Informed Sport certified",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "feature": "No artificial sweeteners",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "feature": "COA published per batch",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "feature": "Amino spiking",
+            "us": "no",
+            "them": "yes"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5"
+      ]
+    },
+    "bundle_3": {
+      "type": "bundle-builder",
+      "settings": {
+        "heading": "Build your stack",
+        "subheading": "Pick three or more. Save 15% and ship free.",
+        "min_items": 3,
+        "discount_percent": 15,
+        "note": "Free shipping · free shaker over $100",
+        "button_label": "Add stack"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "product": "rawform-whey",
+            "preselected": true
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "product": "creatine-monohydrate",
+            "preselected": true
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "product": "pre-workout",
+            "preselected": true
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "product": "electrolytes",
+            "preselected": false
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "product": "collagen-peptides",
+            "preselected": false
+          }
+        },
+        "item_6": {
+          "type": "item",
+          "settings": {
+            "product": "shaker",
+            "preselected": false
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5",
+        "item_6"
+      ]
+    },
+    "faq_4": {
+      "type": "faq",
+      "settings": {
+        "heading": "Questions"
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "Why isolate over concentrate?",
+            "answer": "<p>Higher protein per gram, almost no lactose, cold-filtered to keep the fractions intact.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "Is it third-party tested?",
+            "answer": "<p>Informed Sport, every batch. The certificate number is printed on the tub.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Which flavour?",
+            "answer": "<p>Chocolate outsells everything. Unflavoured if you blend it into oats or coffee.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3"
+      ]
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "heading": "Pairs well with"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "ingredients_1",
+    "usvsthem_2",
+    "bundle_3",
+    "faq_4",
+    "related"
+  ]
+}

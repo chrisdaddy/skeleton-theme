@@ -1,0 +1,95 @@
+{% doc %}
+  The product form, add-to-cart button (with the checked tier's total) and dynamic checkout buttons. Every other buy-box input points at this form.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign form_id = 'ProductForm-' | append: section.id
+  assign variant = product.selected_or_first_available_variant
+-%}
+{%- capture tier_total -%}
+  {%- render 'offer-tier-spans', product: product, field: 'total', plan: 'both', prefix: ' · ' -%}
+{%- endcapture -%}
+<div class="bp-buy-buttons" {{ block.shopify_attributes }}>
+  {%- form 'product', product, id: form_id, class: 'bp-buy-buttons__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+    {%- comment -%}
+      Disabled until bp-product.js syncs them, so without JS only the tier and plan radios submit.
+      Dynamic checkout buttons read these from inside the form.
+    {%- endcomment -%}
+    <input type="hidden" name="id" value="{{ variant.id }}" disabled data-bp-sync="id">
+    <input type="hidden" name="selling_plan" value="" disabled data-bp-sync="selling_plan">
+    {%- if product.gift_card? and block.settings.show_gift_card_recipient -%}
+      {%- render 'gift-card-recipient', form_id: form_id -%}
+    {%- endif -%}
+    <button
+      type="submit"
+      name="add"
+      class="bp-button bp-button--block bp-buy-buttons__atc"
+      data-bp-atc
+      {% unless variant.available %}
+        disabled
+      {% endunless %}
+    >
+      {%- if variant.available -%}
+        <span>
+          {%- if block.settings.label != blank -%}
+            {{ block.settings.label | escape }}
+          {%- else -%}
+            {{ 'products.add_to_cart' | t }}
+          {%- endif -%}
+        </span>
+        {%- if block.settings.show_price -%}
+          {%- if tier_total != blank -%}
+            {{ tier_total }}
+          {%- else -%}
+            <span>&nbsp;·&nbsp;{{ variant.price | money }}</span>
+          {%- endif -%}
+        {%- endif -%}
+      {%- else -%}
+        {{ 'products.sold_out' | t }}
+      {%- endif -%}
+    </button>
+    {%- if block.settings.show_dynamic_checkout -%}
+      {{ form | payment_button }}
+    {%- endif -%}
+    <p class="bp-form-message bp-buy-buttons__error" role="alert" data-bp-error hidden></p>
+  {%- endform -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:blocks.product_buy_buttons.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "t:blocks.product_buy_buttons.settings.label.label",
+      "info": "t:blocks.product_buy_buttons.settings.label.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "t:blocks.product_buy_buttons.settings.show_price.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "label": "t:blocks.product_buy_buttons.settings.show_dynamic_checkout.label",
+      "default": true,
+      "info": "t:blocks.product_buy_buttons.settings.show_dynamic_checkout.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gift_card_recipient",
+      "label": "t:blocks.product_buy_buttons.settings.show_gift_card_recipient.label",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_buy_buttons.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

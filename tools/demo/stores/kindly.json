@@ -1,0 +1,939 @@
+{
+  "id": "kindly",
+  "brand": "KINDLY",
+  "preset": "Bold",
+  "listing": "bold",
+  "required": false,
+  "mode": "mix",
+  "notice": "Demo store: sample products, prices and reviews",
+  "files": [
+    {
+      "key": "hero",
+      "filename": "bp-kindly-hero.png",
+      "label": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light",
+      "alt": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light"
+    },
+    {
+      "key": "hero-2",
+      "filename": "bp-kindly-hero-2.png",
+      "label": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light · view 2",
+      "alt": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light · view 2"
+    },
+    {
+      "key": "hero-3",
+      "filename": "bp-kindly-hero-3.png",
+      "label": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light · view 3",
+      "alt": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light · view 3"
+    },
+    {
+      "key": "hero-4",
+      "filename": "bp-kindly-hero-4.png",
+      "label": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light · view 4",
+      "alt": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light · view 4"
+    },
+    {
+      "key": "hero-5",
+      "filename": "bp-kindly-hero-5.png",
+      "label": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light · view 5",
+      "alt": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light · view 5"
+    },
+    {
+      "key": "body-wash",
+      "filename": "bp-kindly-body-wash.png",
+      "label": "Body wash",
+      "alt": "Body wash"
+    },
+    {
+      "key": "bar-soap-3",
+      "filename": "bp-kindly-bar-soap-3.png",
+      "label": "Bar soap · 3",
+      "alt": "Bar soap · 3"
+    },
+    {
+      "key": "mini-travel-set",
+      "filename": "bp-kindly-mini-travel-set.png",
+      "label": "Mini travel set",
+      "alt": "Mini travel set"
+    },
+    {
+      "key": "scent-discovery-kit",
+      "filename": "bp-kindly-scent-discovery-kit.png",
+      "label": "Scent discovery kit",
+      "alt": "Scent discovery kit"
+    },
+    {
+      "key": "coconut-and-vanilla",
+      "filename": "bp-kindly-coconut-and-vanilla.png",
+      "label": "Coconut & Vanilla",
+      "alt": "Coconut & Vanilla"
+    },
+    {
+      "key": "cucumber-and-mint",
+      "filename": "bp-kindly-cucumber-and-mint.png",
+      "label": "Cucumber & Mint",
+      "alt": "Cucumber & Mint"
+    },
+    {
+      "key": "eucalyptus-and-mint",
+      "filename": "bp-kindly-eucalyptus-and-mint.png",
+      "label": "Eucalyptus & Mint",
+      "alt": "Eucalyptus & Mint"
+    },
+    {
+      "key": "lavender-and-rose",
+      "filename": "bp-kindly-lavender-and-rose.png",
+      "label": "Lavender & Rose",
+      "alt": "Lavender & Rose"
+    },
+    {
+      "key": "unscented",
+      "filename": "bp-kindly-unscented.png",
+      "label": "Unscented",
+      "alt": "Unscented"
+    },
+    {
+      "key": "body-wash-coconut",
+      "filename": "bp-kindly-body-wash-coconut.png",
+      "label": "Body wash · Coconut",
+      "alt": "Body wash · Coconut"
+    },
+    {
+      "key": "bp-kindly-photo-home-hero-three-sticks-on-pastel-blocks-playful-studio-peach",
+      "filename": "bp-kindly-photo-home-hero-three-sticks-on-pastel-blocks-playful-studio-peach.png",
+      "label": "Home hero: three sticks on pastel blocks, playful studio, peach and mint",
+      "alt": ""
+    },
+    {
+      "key": "bp-kindly-photo-lifestyle-deodorant-stick-on-a-bathroom-shelf-peach-wall-mor",
+      "filename": "bp-kindly-photo-lifestyle-deodorant-stick-on-a-bathroom-shelf-peach-wall-mor.png",
+      "label": "Lifestyle: deodorant stick on a bathroom shelf, peach wall, morning light",
+      "alt": ""
+    },
+    {
+      "key": "bp-kindly-photo-customer-photo-stick-in-a-gym-bag",
+      "filename": "bp-kindly-photo-customer-photo-stick-in-a-gym-bag.png",
+      "label": "Customer photo: stick in a gym bag",
+      "alt": ""
+    },
+    {
+      "key": "bp-kindly-photo-advertorial-lead-image",
+      "filename": "bp-kindly-photo-advertorial-lead-image.png",
+      "label": "Advertorial lead image",
+      "alt": ""
+    }
+  ],
+  "products": [
+    {
+      "handle": "kindly-deodorant",
+      "title": "Deodorant",
+      "productType": "Deodorant",
+      "tags": [
+        "bp-hero"
+      ],
+      "descriptionHtml": "<p>Aluminium-free deodorant that actually lasts all day.</p>",
+      "files": [
+        {
+          "$file": "hero"
+        },
+        {
+          "$file": "hero-2"
+        },
+        {
+          "$file": "hero-3"
+        },
+        {
+          "$file": "hero-4"
+        },
+        {
+          "$file": "hero-5"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "tiers",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_tier/kindly-tier-1"
+            },
+            {
+              "$metaobject": "blueprint_tier/kindly-tier-2"
+            },
+            {
+              "$metaobject": "blueprint_tier/kindly-tier-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "badge",
+          "type": "single_line_text_field",
+          "value": "#1 natural deodorant"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "benefits",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_benefit/kindly-benefit-1"
+            },
+            {
+              "$metaobject": "blueprint_benefit/kindly-benefit-2"
+            },
+            {
+              "$metaobject": "blueprint_benefit/kindly-benefit-3"
+            },
+            {
+              "$metaobject": "blueprint_benefit/kindly-benefit-4"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "faqs",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_faq/kindly-faq-1"
+            },
+            {
+              "$metaobject": "blueprint_faq/kindly-faq-2"
+            },
+            {
+              "$metaobject": "blueprint_faq/kindly-faq-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "guarantee",
+          "type": "metaobject_reference",
+          "value": {
+            "$metaobject": "blueprint_guarantee/kindly-guarantee"
+          }
+        },
+        {
+          "namespace": "blueprint",
+          "key": "upsell",
+          "type": "product_reference",
+          "value": {
+            "$product": "body-wash"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating_count",
+          "type": "number_integer",
+          "value": 68112
+        },
+        {
+          "namespace": "descriptors",
+          "key": "subtitle",
+          "type": "single_line_text_field",
+          "value": "Aluminium-free deodorant that actually lasts all day."
+        },
+        {
+          "namespace": "blueprint",
+          "key": "shot_note",
+          "type": "single_line_text_field",
+          "value": "PDP hero: five pastel deodorant sticks in a row, peach backdrop, soft studio light"
+        }
+      ],
+      "options": [
+        {
+          "name": "Scent",
+          "values": [
+            "Coconut & Vanilla",
+            "Cucumber & Mint",
+            "Eucalyptus & Mint",
+            "Lavender & Rose",
+            "Unscented"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "options": [
+            "Coconut & Vanilla"
+          ],
+          "price": "13.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Cucumber & Mint"
+          ],
+          "price": "13.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Eucalyptus & Mint"
+          ],
+          "price": "13.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Lavender & Rose"
+          ],
+          "price": "13.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Unscented"
+          ],
+          "price": "13.00",
+          "compareAtPrice": null
+        }
+      ]
+    },
+    {
+      "handle": "body-wash",
+      "title": "Body wash",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Body wash.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "12.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "body-wash"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "cart_deal_label",
+          "type": "single_line_text_field",
+          "value": "$9 in cart"
+        }
+      ]
+    },
+    {
+      "handle": "bar-soap-3",
+      "title": "Bar soap · 3",
+      "productType": "Body wash",
+      "tags": [],
+      "descriptionHtml": "<p>Bar soap · 3.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "18.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "bar-soap-3"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.7",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "mini-travel-set",
+      "title": "Mini travel set",
+      "productType": "Packs",
+      "tags": [],
+      "descriptionHtml": "<p>Mini travel set.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "16.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "mini-travel-set"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "scent-discovery-kit",
+      "title": "Scent discovery kit",
+      "productType": "Deodorant",
+      "tags": [],
+      "descriptionHtml": "<p>Scent discovery kit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "20.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "scent-discovery-kit"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "coconut-and-vanilla",
+      "title": "Coconut & Vanilla",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Coconut & Vanilla.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "13.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "coconut-and-vanilla"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "cucumber-and-mint",
+      "title": "Cucumber & Mint",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Cucumber & Mint.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "13.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "cucumber-and-mint"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "eucalyptus-and-mint",
+      "title": "Eucalyptus & Mint",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Eucalyptus & Mint.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "13.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "eucalyptus-and-mint"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "lavender-and-rose",
+      "title": "Lavender & Rose",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Lavender & Rose.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "13.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "lavender-and-rose"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "unscented",
+      "title": "Unscented",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Unscented.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "13.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "unscented"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "body-wash-coconut",
+      "title": "Body wash · Coconut",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Body wash · Coconut.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "12.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "body-wash-coconut"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "shipping-protection",
+      "title": "Shipping protection",
+      "productType": "",
+      "tags": [
+        "bp-protection"
+      ],
+      "descriptionHtml": "<p>Covers loss, theft and damage in transit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "2.95",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": false
+        }
+      ],
+      "files": [],
+      "metafields": []
+    }
+  ],
+  "metaobjects": [
+    {
+      "type": "blueprint_tier",
+      "handle": "kindly-tier-1",
+      "fields": {
+        "label": "1 stick",
+        "sublabel": "2.65 oz · about 2 months",
+        "preselected": false,
+        "quantity": 1
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "kindly-tier-2",
+      "fields": {
+        "label": "3-pack",
+        "sublabel": "Mix any scents · free shipping",
+        "badge": "Most popular",
+        "preselected": true,
+        "quantity": 3,
+        "discount_label": "3-pack discount"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "kindly-tier-3",
+      "fields": {
+        "label": "5-pack",
+        "sublabel": "Family pack · free body wash",
+        "badge": "Best value",
+        "preselected": false,
+        "quantity": 5,
+        "discount_label": "5-pack discount"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "kindly-benefit-1",
+      "fields": {
+        "icon": "clock",
+        "title": "72-hour odour protection"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "kindly-benefit-2",
+      "fields": {
+        "icon": "leaf",
+        "title": "Aluminium, paraben and sulphate free"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "kindly-benefit-3",
+      "fields": {
+        "icon": "drop",
+        "title": "Baking-soda-free Sensitive option"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "kindly-benefit-4",
+      "fields": {
+        "icon": "refresh",
+        "title": "Free returns, even used"
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "kindly-faq-1",
+      "fields": {
+        "question": "Will I smell by 3pm?",
+        "answer": {
+          "rich": "72-hour odour protection in independent testing. Most people never reapply, some do after a workout."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "kindly-faq-2",
+      "fields": {
+        "question": "Is it baking-soda free?",
+        "answer": {
+          "rich": "The Sensitive line is. The classic line uses a small amount; if you have reacted before, start with Sensitive."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "kindly-faq-3",
+      "fields": {
+        "question": "Can I return it if I have used it?",
+        "answer": {
+          "rich": "Yes. Scent is personal. 30 days, used or not, no questions."
+        }
+      }
+    },
+    {
+      "type": "blueprint_guarantee",
+      "handle": "kindly-guarantee",
+      "fields": {
+        "title": "30-day returns, used"
+      }
+    }
+  ],
+  "sellingPlanGroups": [],
+  "collections": [
+    {
+      "handle": "best-sellers",
+      "title": "Best sellers",
+      "products": [
+        "kindly-deodorant",
+        "body-wash",
+        "bar-soap-3",
+        "mini-travel-set",
+        "scent-discovery-kit"
+      ]
+    },
+    {
+      "handle": "deodorant",
+      "title": "Deodorant",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Deodorant"
+      }
+    },
+    {
+      "handle": "body-wash",
+      "title": "Body wash",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Body wash"
+      }
+    },
+    {
+      "handle": "packs",
+      "title": "Packs",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Packs"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "handle": "advertorial",
+      "title": "I gave up on natural deodorant three times. A dermatologist told me what I was doing wrong.",
+      "templateSuffix": "advertorial",
+      "body": "<p>Every natural stick I tried quit by lunch. Turns out the two-week switch window is real, and nobody had explained it.</p>"
+    },
+    {
+      "handle": "listicle",
+      "title": "5 reasons 68,000 people switched to Kindly this year",
+      "templateSuffix": "listicle",
+      "body": ""
+    },
+    {
+      "handle": "comparison",
+      "title": "How KINDLY compares",
+      "templateSuffix": "comparison",
+      "body": ""
+    },
+    {
+      "handle": "about",
+      "title": "About KINDLY",
+      "templateSuffix": "about",
+      "body": "<p>Native archetype. Pastel, scent-led, mix-and-match packs. Zero fear-mongering.</p>"
+    },
+    {
+      "handle": "contact",
+      "title": "Contact",
+      "templateSuffix": "contact",
+      "body": ""
+    }
+  ],
+  "menus": [
+    {
+      "handle": "main-menu",
+      "title": "Main menu",
+      "items": [
+        {
+          "title": "Deodorant",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "best-sellers"
+          },
+          "items": [
+            {
+              "title": "Deodorant",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "kindly-deodorant"
+              }
+            },
+            {
+              "title": "Body wash",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "body-wash"
+              }
+            },
+            {
+              "title": "Bar soap · 3",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "bar-soap-3"
+              }
+            },
+            {
+              "title": "Mini travel set",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "mini-travel-set"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Body wash",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "body-wash"
+          }
+        },
+        {
+          "title": "Scents",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Sensitive",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "footer",
+      "title": "Footer menu",
+      "items": [
+        {
+          "title": "Search",
+          "type": "SEARCH",
+          "url": "/search"
+        },
+        {
+          "title": "Shipping",
+          "type": "HTTP",
+          "url": "/policies/shipping-policy"
+        },
+        {
+          "title": "Returns",
+          "type": "HTTP",
+          "url": "/policies/refund-policy"
+        },
+        {
+          "title": "Contact",
+          "type": "PAGE",
+          "ref": {
+            "$page": "contact"
+          }
+        }
+      ]
+    }
+  ],
+  "discounts": [
+    {
+      "kind": "freeShipping",
+      "title": "Blueprint demo: free shipping over $50",
+      "minimumSubtotal": "50.00"
+    },
+    {
+      "kind": "amountOffProduct",
+      "title": "Blueprint demo: Body wash · Coconut & Vanilla $9 in cart",
+      "products": [
+        {
+          "$product": "body-wash"
+        }
+      ],
+      "amountEach": "3.00"
+    },
+    {
+      "kind": "percentOffQuantity",
+      "title": "3-pack discount",
+      "products": [
+        {
+          "$product": "kindly-deodorant"
+        }
+      ],
+      "minimumQuantity": 3,
+      "percentage": 7
+    },
+    {
+      "kind": "percentOffQuantity",
+      "title": "5-pack discount",
+      "products": [
+        {
+          "$product": "kindly-deodorant"
+        }
+      ],
+      "minimumQuantity": 5,
+      "percentage": 13
+    }
+  ],
+  "theme": {
+    "preset": "Bold",
+    "listing": "bold",
+    "settings": {
+      "color_mode": "light",
+      "accent_color": "#0E7C7B",
+      "light_bg": "#FFF7EE",
+      "light_surface": "#FBE8D6",
+      "light_ink": "#1F1B18",
+      "light_line": "#F0DAC5",
+      "light_accent_soft": "#D6EEEA",
+      "light_on_accent": "",
+      "dark_on_accent": "",
+      "light_accent_text": "",
+      "dark_accent_text": "",
+      "cart_protection_product": "shipping-protection",
+      "cart_upsell_collection": "best-sellers",
+      "cart_upsell_show_deal": true,
+      "cart_empty_collection": "best-sellers",
+      "social_instagram": "https://instagram.com/kindly",
+      "social_tiktok": "https://tiktok.com/@kindly",
+      "cart_reward_1_label": "Free shipping",
+      "cart_reward_1_threshold": 50,
+      "cart_reward_1_gift": "",
+      "cart_reward_2_label": "",
+      "cart_reward_2_threshold": null,
+      "cart_reward_2_gift": "",
+      "cart_reward_3_label": "",
+      "cart_reward_3_threshold": null,
+      "cart_reward_3_gift": ""
+    }
+  }
+}

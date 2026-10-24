@@ -1,0 +1,28 @@
+{% doc %}
+  A call-to-action link: to a product with its tier and plan preselected (snippets/cta-url),
+  or to a plain link. Marked data-bp-cta so campaign parameters carry over on click.
+  Prints nothing without a label or a destination.
+
+  @param {string} label - Button text
+  @param {product} [product] - Product to open
+  @param {number} [tier] - Tier to preselect (0 for the product's default)
+  @param {string} [plan] - 'sub', 'once' or 'default'
+  @param {string} [link] - Used when there is no product
+  @param {string} [class] - CSS class (default 'bp-button')
+{% enddoc %}
+{%- liquid
+  assign href = link
+  if product != blank
+    assign plan_choice = plan
+    if plan_choice == 'default'
+      assign plan_choice = ''
+    endif
+    capture href
+      render 'cta-url', product: product, tier: tier, plan: plan_choice
+    endcapture
+    assign href = href | strip
+  endif
+-%}
+{%- if label != blank and href != blank -%}
+  <a class="{{ class | default: 'bp-button' }}" href="{{ href }}" data-bp-cta>{{ label | escape }}</a>
+{%- endif -%}

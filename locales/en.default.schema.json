@@ -1,70 +1,3074 @@
 {
-  "general": {
-    "404": "Not found",
-    "article": "Article",
-    "block": "Block",
-    "blog": "Blog",
-    "cart": "Cart",
-    "collection": "Collection",
-    "collections": "Collections",
-    "collection_card": "Collection card",
-    "collections_grid": "Collections grid",
-    "colors": "Colors",
-    "column": "Column",
-    "container": "Container",
-    "content": "Content",
-    "fonts": "Fonts",
-    "footer": "Footer",
-    "group": "Group",
+  "settings_schema": {
+    "quick_style": {
+      "name": "Quick style",
+      "info": "The four settings that change the look of every page. The color sets below hold the rest.",
+      "accent": {
+        "label": "Accent color"
+      },
+      "color_mode": {
+        "label": "Background",
+        "light": "Light",
+        "dark": "Dark"
+      },
+      "heading_style": {
+        "label": "Headings",
+        "sans": "Sans",
+        "serif": "Serif"
+      },
+      "corners": {
+        "label": "Corners",
+        "sharp": "Sharp",
+        "soft": "Soft",
+        "round": "Round",
+        "custom": "Custom"
+      },
+      "radius_card": {
+        "label": "Card corners"
+      },
+      "radius_small": {
+        "label": "Small element corners"
+      },
+      "button_pill": {
+        "label": "Pill-shaped buttons"
+      },
+      "radius_button": {
+        "label": "Button corners"
+      }
+    },
+    "colors_light": {
+      "name": "Colors: light background",
+      "info": "Used when Background is Light, and for inverse sections on a dark page.",
+      "bg": {
+        "label": "Background"
+      },
+      "surface": {
+        "label": "Surface"
+      },
+      "ink": {
+        "label": "Text"
+      },
+      "line": {
+        "label": "Lines"
+      }
+    },
+    "colors_dark": {
+      "name": "Colors: dark background",
+      "info": "Used when Background is Dark, and for inverse sections on a light page.",
+      "bg": {
+        "label": "Background"
+      },
+      "surface": {
+        "label": "Surface"
+      },
+      "ink": {
+        "label": "Text"
+      },
+      "line": {
+        "label": "Lines"
+      }
+    },
+    "colors_overrides": {
+      "header": "Advanced",
+      "info": "Leave these empty and the theme picks colors that stay readable (4.5:1 contrast for text). Set one only to match exact brand colors.",
+      "accent_soft": {
+        "label": "Selected fill"
+      },
+      "on_accent": {
+        "label": "Text on accent"
+      },
+      "accent_text": {
+        "label": "Accent text"
+      },
+      "muted": {
+        "label": "Secondary text"
+      },
+      "star": {
+        "label": "Rating stars"
+      }
+    },
+    "colors_status": {
+      "name": "Colors: badges",
+      "success": {
+        "label": "Free gift badge",
+        "info": "Used for FREE GIFT badges. The text color is picked for contrast."
+      }
+    },
+    "typography": {
+      "name": "Typography",
+      "body_font": {
+        "label": "Body font"
+      },
+      "heading_sans": {
+        "label": "Heading font (sans)",
+        "info": "Used when Headings is Sans."
+      },
+      "heading_serif": {
+        "label": "Heading font (serif)",
+        "info": "Used when Headings is Serif."
+      },
+      "heading_tracking": {
+        "label": "Heading letter spacing",
+        "info": "In hundredths of an em. Negative values tighten headings."
+      },
+      "heading_scale": {
+        "label": "Heading size"
+      }
+    },
+    "layout": {
+      "name": "Layout",
+      "page_width": {
+        "label": "Page width",
+        "narrow": "Narrow",
+        "standard": "Standard",
+        "wide": "Wide"
+      },
+      "section_spacing": {
+        "label": "Space between sections",
+        "info": "Desktop spacing. Phones use about two thirds of it."
+      }
+    },
+    "animations": {
+      "name": "Animations",
+      "reveal_on_scroll": {
+        "label": "Reveal sections on scroll",
+        "info": "Off for visitors who ask their device for reduced motion."
+      }
+    },
+    "prelanders": {
+      "name": "Pre-landers",
+      "robots": {
+        "label": "Search engines on pre-landers",
+        "info": "Pre-landers are for ad traffic, so they are hidden from search by default. A page's blueprint.robots metafield overrides this.",
+        "noindex_follow": "Hide from search, follow links",
+        "index": "Allow in search"
+      }
+    },
+    "social": {
+      "name": "Social media",
+      "instagram": {
+        "label": "Instagram"
+      },
+      "tiktok": {
+        "label": "TikTok"
+      },
+      "facebook": {
+        "label": "Facebook"
+      },
+      "youtube": {
+        "label": "YouTube"
+      },
+      "x": {
+        "label": "X"
+      },
+      "pinterest": {
+        "label": "Pinterest"
+      }
+    },
+    "favicon": {
+      "name": "Favicon",
+      "settings": {
+        "favicon": {
+          "label": "Favicon image",
+          "info": "Square, at least 64 × 64 px."
+        }
+      }
+    },
+    "buy_box": {
+      "name": "Buy box",
+      "info": "How bundle tiers show savings. Savings are always rounded down so they are never overstated.",
+      "savings_reference": {
+        "label": "Measure savings against",
+        "info": "Only use compare-at prices that are genuine regular prices.",
+        "auto": "Compare-at price when set, otherwise buying singles",
+        "compare_at": "Compare-at price only",
+        "singles": "Buying singles only"
+      },
+      "show_per_month": {
+        "label": "Lead with the monthly price on multi-month tiers",
+        "info": "Uses the product's blueprint.days_per_unit metafield (default 30 days per unit)."
+      }
+    },
+    "cart": {
+      "name": "Cart",
+      "cart_type": {
+        "label": "Cart type",
+        "drawer": "Drawer",
+        "page": "Page"
+      },
+      "rewards": {
+        "header": "Rewards bar",
+        "info": "Up to three rewards unlocked by cart value. Create a matching automatic discount in Shopify for each one (free shipping over the amount; Buy X Get Y for a gift), or the reward won't apply at checkout.",
+        "enabled": "Show the rewards bar",
+        "reward_1_label": "Reward 1",
+        "reward_2_label": "Reward 2",
+        "reward_3_label": "Reward 3",
+        "threshold": "Unlocks at",
+        "threshold_info": "Cart value in your store currency, after discounts. Gifts and shipping protection don't count. Leave blank to turn this reward off.",
+        "gift": "Free gift product",
+        "gift_info": "Added automatically when the reward unlocks and removed below it. Shoppers can remove it.",
+        "currencies": {
+          "label": "Thresholds in other currencies",
+          "info": "One line per currency, for example EUR: 45, 120, 180. The bar is hidden for currencies without a line, so it never shows a converted guess."
+        }
+      },
+      "protection": {
+        "header": "Shipping protection",
+        "product": "Protection product",
+        "product_info": "A product you create, for example $2.95 with no shipping required. Hide it from search. Leave blank to turn protection off.",
+        "text": "Description",
+        "default": "Add it to carts by default",
+        "default_info": "Off is recommended: pre-checked protection is the subject of a 2026 class action alleging hidden fees. If on, it's added once per cart and never re-added after a shopper removes it."
+      },
+      "upsell": {
+        "header": "Upsell",
+        "enabled": "Show one \"Goes well with\" product",
+        "info": "From the first item's blueprint.upsell metafield, otherwise the collection below. Products already in the cart are skipped.",
+        "collection": "Fallback collection",
+        "show_deal": "Show the in-cart deal label",
+        "show_deal_info": "Shows the upsell product's blueprint.cart_deal_label (for example \"$18 in cart\"). Only turn on with a matching automatic discount."
+      },
+      "checkout": {
+        "header": "Checkout",
+        "secure_text": "Text under the checkout button",
+        "dynamic": "Show express checkout buttons",
+        "dynamic_info": "Shop Pay, Apple Pay and others. They load extra scripts and slow the cart down."
+      },
+      "empty": {
+        "header": "Empty cart",
+        "collection": "Best sellers collection",
+        "info": "Up to three products shown when the cart is empty."
+      }
+    }
+  },
+  "section_groups": {
     "header": "Header",
-    "hello_world": "Hello world",
-    "layout": "Layout",
-    "liquid_tips": "Liquid tips",
-    "main": "Main",
-    "page": "Page",
-    "password": "Password",
-    "primary": "Primary",
-    "product": "Product",
-    "row": "Row",
-    "search": "Search",
-    "secondary": "Secondary",
-    "settings": "Settings",
-    "sidebar": "Sidebar",
-    "theme": "Theme",
-    "typography": "Typography"
+    "footer": "Footer",
+    "landing_header": "Pre-lander header",
+    "landing_footer": "Pre-lander footer"
   },
-  "labels": {
-    "alignment": "Alignment",
-    "background": "Background",
-    "foreground": "Foreground",
-    "grid_gap": "Grid spacing",
-    "grid_item_width": "Grid item width",
-    "input_corner_radius": "Input corner radius",
-    "layout_direction": "Layout direction",
-    "menu": "Menu",
-    "customer_account_menu": "Customer account menu",
-    "padding": "Padding",
-    "page_margin": "Page margin",
-    "page_width": "Page width",
-    "show_payment_icons": "Show payment icons"
+  "sections": {
+    "common": {
+      "settings": {
+        "heading": {
+          "label": "Heading"
+        },
+        "surface_style": {
+          "label": "Color style",
+          "options": {
+            "default": "Default",
+            "surface": "Surface",
+            "accent": "Accent",
+            "inverse": "Inverse"
+          }
+        },
+        "layout_header": "Section layout",
+        "width": {
+          "label": "Width",
+          "options": {
+            "page": "Page",
+            "narrow": "Narrow",
+            "full": "Full width"
+          }
+        },
+        "heading_tag": {
+          "label": "Heading tag",
+          "info": "For search engines and screen readers. Use H1 once per page.",
+          "options": {
+            "h1": "H1",
+            "h2": "H2",
+            "h3": "H3"
+          }
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        },
+        "hide_mobile": {
+          "label": "Hide on mobile"
+        },
+        "hide_desktop": {
+          "label": "Hide on desktop"
+        },
+        "custom_class": {
+          "label": "Custom CSS class",
+          "info": "For styles added through the theme editor's custom CSS."
+        },
+        "product": {
+          "label": "Product",
+          "info": "On a product page, leave blank to use that product."
+        },
+        "use_metafield": {
+          "label": "Use the product's metafield when it has one"
+        },
+        "hide_empty": {
+          "label": "Hide when there is nothing to show"
+        },
+        "eyebrow": {
+          "label": "Eyebrow"
+        },
+        "subheading": {
+          "label": "Subheading"
+        },
+        "text": {
+          "label": "Text"
+        },
+        "button_label": {
+          "label": "Button label"
+        },
+        "button_link": {
+          "label": "Button link"
+        },
+        "image": {
+          "label": "Image"
+        },
+        "alignment": {
+          "label": "Heading alignment",
+          "options": {
+            "start": "Left",
+            "center": "Center"
+          }
+        },
+        "icon": {
+          "label": "Icon"
+        }
+      },
+      "icon_options": {
+        "check": "Check",
+        "leaf": "Leaf",
+        "bolt": "Lightning",
+        "shield": "Shield",
+        "sparkle": "Sparkle",
+        "truck": "Truck",
+        "refresh": "Refresh",
+        "heart": "Heart",
+        "star": "Star",
+        "drop": "Drop",
+        "flask": "Lab flask",
+        "award": "Award",
+        "gift": "Gift",
+        "clock": "Clock",
+        "lock": "Lock",
+        "box": "Box",
+        "users": "People",
+        "chat": "Chat bubble",
+        "moon": "Moon",
+        "paw": "Paw",
+        "flame": "Flame",
+        "coin": "Coin",
+        "chart": "Chart",
+        "speed": "Speed",
+        "calendar": "Calendar",
+        "eye": "Eye",
+        "layers": "Layers",
+        "pin": "Location pin"
+      }
+    },
+    "announcement_bar": {
+      "name": "Announcement bar",
+      "settings": {
+        "autoplay": {
+          "label": "Rotate messages"
+        },
+        "interval": {
+          "label": "Time per message"
+        }
+      },
+      "blocks": {
+        "message": {
+          "name": "Message",
+          "settings": {
+            "text": {
+              "label": "Text"
+            },
+            "link": {
+              "label": "Link"
+            }
+          }
+        }
+      }
+    },
+    "header": {
+      "name": "Header",
+      "settings": {
+        "logo": {
+          "label": "Logo"
+        },
+        "logo_height": {
+          "label": "Logo height"
+        },
+        "layout": {
+          "label": "Logo position",
+          "options": {
+            "left": "Left",
+            "center": "Center"
+          }
+        },
+        "menu": {
+          "label": "Menu"
+        },
+        "sticky": {
+          "label": "Stick to the top on scroll"
+        },
+        "show_search": {
+          "label": "Show search"
+        },
+        "show_account": {
+          "label": "Show account"
+        }
+      }
+    },
+    "header_minimal": {
+      "name": "Pre-lander header",
+      "settings": {
+        "style": {
+          "label": "Style",
+          "options": {
+            "hidden": "Hidden",
+            "logo": "Logo only",
+            "logo_cta": "Logo and button"
+          }
+        },
+        "cta_label": {
+          "label": "Button label"
+        },
+        "cta_link": {
+          "label": "Button link"
+        }
+      }
+    },
+    "footer": {
+      "name": "Footer",
+      "settings": {
+        "show_payment_icons": {
+          "label": "Show payment icons"
+        },
+        "show_policies": {
+          "label": "Show policy links"
+        }
+      },
+      "blocks": {
+        "menu": {
+          "name": "Menu",
+          "settings": {
+            "menu": {
+              "label": "Menu"
+            }
+          }
+        },
+        "text": {
+          "name": "Text",
+          "settings": {
+            "text": {
+              "label": "Text"
+            }
+          }
+        },
+        "newsletter": {
+          "name": "Newsletter"
+        },
+        "social": {
+          "name": "Social links",
+          "settings": {
+            "info": "Add your profile links in Theme settings > Social media."
+          }
+        }
+      }
+    },
+    "footer_minimal": {
+      "name": "Pre-lander footer",
+      "settings": {
+        "disclosure": {
+          "label": "Disclosure",
+          "info": "Advertorials should say they are advertising."
+        }
+      }
+    },
+    "main_product": {
+      "name": "Product information",
+      "settings": {
+        "media_size": {
+          "label": "Media size",
+          "options": {
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "media_fit": {
+          "label": "Image fit",
+          "options": {
+            "cover": "Fill the frame",
+            "contain": "Show the whole image"
+          }
+        },
+        "sticky_info": {
+          "label": "Keep product info in view on desktop"
+        }
+      }
+    },
+    "main_collection": {
+      "name": "Product grid",
+      "settings": {
+        "per_page": {
+          "label": "Products per page"
+        }
+      }
+    },
+    "main_cart": {
+      "name": "Cart"
+    },
+    "main_search": {
+      "name": "Search results",
+      "settings": {
+        "per_page": {
+          "label": "Results per page"
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "quick_add": {
+          "label": "Show quick add"
+        }
+      }
+    },
+    "main_404": {
+      "name": "404 page"
+    },
+    "main_blog": {
+      "name": "Blog",
+      "settings": {
+        "per_page": {
+          "label": "Posts per page"
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        }
+      }
+    },
+    "main_article": {
+      "name": "Blog post"
+    },
+    "main_page": {
+      "name": "Page"
+    },
+    "main_list_collections": {
+      "name": "Collections list page",
+      "settings": {
+        "columns": {
+          "label": "Columns on desktop"
+        }
+      }
+    },
+    "main_password": {
+      "name": "Password page"
+    },
+    "contact_form": {
+      "name": "Contact form",
+      "presets": {
+        "contact_form": {
+          "name": "Contact form"
+        }
+      }
+    },
+    "rich_text": {
+      "name": "Rich text",
+      "blocks": {
+        "eyebrow": {
+          "name": "Eyebrow",
+          "settings": {
+            "text": {
+              "label": "Text"
+            }
+          }
+        },
+        "heading": {
+          "name": "Heading",
+          "settings": {
+            "text": {
+              "label": "Heading"
+            },
+            "size": {
+              "label": "Size",
+              "options": {
+                "h1": "Large",
+                "h2": "Medium",
+                "h3": "Small"
+              }
+            },
+            "tag": {
+              "label": "Heading tag",
+              "options": {
+                "h1": "H1",
+                "h2": "H2",
+                "h3": "H3",
+                "p": "Paragraph"
+              }
+            }
+          }
+        },
+        "text": {
+          "name": "Text",
+          "settings": {
+            "text": {
+              "label": "Text"
+            }
+          }
+        },
+        "button": {
+          "name": "Button",
+          "settings": {
+            "label": {
+              "label": "Label"
+            },
+            "link": {
+              "label": "Link"
+            },
+            "style": {
+              "label": "Style",
+              "options": {
+                "primary": "Primary",
+                "secondary": "Secondary",
+                "link": "Text link"
+              }
+            }
+          }
+        }
+      },
+      "presets": {
+        "rich_text": {
+          "name": "Rich text"
+        }
+      }
+    },
+    "cart_drawer": {
+      "name": "Cart drawer"
+    },
+    "hero": {
+      "name": "Hero",
+      "settings": {
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "split": "Split",
+            "centered": "Centered",
+            "bleed": "Full-bleed image"
+          }
+        },
+        "image_mobile": {
+          "label": "Mobile image",
+          "info": "Optional. Shown below 750px."
+        },
+        "overlay": {
+          "label": "Image overlay"
+        },
+        "rating_and_price": "Rating and price",
+        "product": {
+          "label": "Product",
+          "info": "Its review rating shows next to the buttons, and buttons can add its price. Buttons without a link go to it."
+        },
+        "show_rating": {
+          "label": "Show the product's rating"
+        },
+        "note": {
+          "label": "Note next to the buttons",
+          "info": "Short text, for example \"Free shipping on 3+\"."
+        }
+      },
+      "blocks": {
+        "button": {
+          "name": "Button",
+          "settings": {
+            "label": {
+              "label": "Label"
+            },
+            "link": {
+              "label": "Link"
+            },
+            "show_price": {
+              "label": "Add the product's price"
+            },
+            "style": {
+              "label": "Style",
+              "options": {
+                "primary": "Primary",
+                "secondary": "Secondary"
+              }
+            }
+          }
+        },
+        "stat": {
+          "name": "Stat",
+          "settings": {
+            "value": {
+              "label": "Value"
+            },
+            "label": {
+              "label": "Label"
+            }
+          }
+        }
+      },
+      "presets": {
+        "hero_split": {
+          "name": "Hero: split"
+        },
+        "hero_centered_with_stats": {
+          "name": "Hero: centered with stats"
+        },
+        "hero_full_bleed": {
+          "name": "Hero: full-bleed"
+        }
+      }
+    },
+    "press": {
+      "name": "Press",
+      "settings": {
+        "style": {
+          "label": "Style",
+          "options": {
+            "wordmarks": "Wordmarks",
+            "logos": "Logos"
+          }
+        },
+        "marquee": {
+          "label": "Scroll as a marquee",
+          "info": "Stops for shoppers who prefer reduced motion."
+        },
+        "speed": {
+          "label": "Marquee speed"
+        },
+        "grayscale": {
+          "label": "Show logos in one color"
+        }
+      },
+      "blocks": {
+        "logo": {
+          "name": "Publication",
+          "settings": {
+            "name": {
+              "label": "Name",
+              "info": "Shown as text when there is no logo, and as the logo's alt text."
+            },
+            "logo": {
+              "label": "Logo"
+            }
+          }
+        }
+      },
+      "presets": {
+        "as_seen_in": {
+          "name": "As seen in"
+        },
+        "press_marquee": {
+          "name": "Press marquee"
+        }
+      }
+    },
+    "badges": {
+      "name": "Trust badges",
+      "settings": {
+        "style": {
+          "label": "Style",
+          "options": {
+            "icons": "Icons",
+            "pills": "Pills"
+          }
+        },
+        "reads_the_product_s_blueprint_certificat": "Reads the product's blueprint.certifications metafield first, then the badges below."
+      },
+      "blocks": {
+        "badge": {
+          "name": "Badge",
+          "settings": {
+            "text": {
+              "label": "Text"
+            }
+          }
+        }
+      },
+      "presets": {
+        "trust_badges": {
+          "name": "Trust badges"
+        }
+      }
+    },
+    "benefits": {
+      "name": "Benefits",
+      "settings": {
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "grid": "Grid",
+            "slider": "Slider"
+          }
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Columns on mobile",
+          "options": {
+            "1": "1",
+            "2": "2"
+          }
+        },
+        "icon_style": {
+          "label": "Icon style",
+          "options": {
+            "filled": "Filled circle",
+            "line": "Line"
+          }
+        },
+        "reads_the_product_s_blueprint_benefits_m": "Reads the product's blueprint.benefits metafield first, then the benefits below."
+      },
+      "blocks": {
+        "benefit": {
+          "name": "Benefit",
+          "settings": {
+            "title": {
+              "label": "Title"
+            },
+            "text": {
+              "label": "Text"
+            }
+          }
+        }
+      },
+      "presets": {
+        "benefits_grid": {
+          "name": "Benefits grid"
+        },
+        "benefits_slider": {
+          "name": "Benefits slider"
+        }
+      }
+    },
+    "study": {
+      "name": "Clinical results",
+      "settings": {
+        "source": {
+          "label": "Source",
+          "info": "Name the study, journal or lab. Results without a source shouldn't be shown."
+        },
+        "source_link": {
+          "label": "Source link"
+        },
+        "style": {
+          "label": "Style",
+          "options": {
+            "bars": "Bars",
+            "rings": "Rings"
+          }
+        },
+        "reads_the_product_s_blueprint_studies_me": "Reads the product's blueprint.studies metafield first, then the results below."
+      },
+      "blocks": {
+        "stat": {
+          "name": "Result",
+          "settings": {
+            "value": {
+              "label": "Value"
+            },
+            "suffix": {
+              "label": "Suffix",
+              "info": "Percentages draw a bar or ring."
+            },
+            "label": {
+              "label": "Label"
+            }
+          }
+        }
+      },
+      "presets": {
+        "clinical_results": {
+          "name": "Clinical results"
+        }
+      }
+    },
+    "ingredients": {
+      "name": "Ingredients table",
+      "settings": {
+        "show_dose": {
+          "label": "Show doses"
+        },
+        "show_why": {
+          "label": "Show what each one is for"
+        },
+        "footer_label": {
+          "label": "Footer link label"
+        },
+        "footer_link": {
+          "label": "Footer link",
+          "info": "The product's blueprint.coa file is used when it has one."
+        },
+        "reads_the_product_s_blueprint_ingredient": "Reads the product's blueprint.ingredients metafield first, then the rows below."
+      },
+      "blocks": {
+        "row": {
+          "name": "Ingredient",
+          "settings": {
+            "name": {
+              "label": "Name"
+            },
+            "dose": {
+              "label": "Dose"
+            },
+            "why": {
+              "label": "What it's for"
+            }
+          }
+        }
+      },
+      "presets": {
+        "ingredients_table": {
+          "name": "Ingredients table"
+        }
+      }
+    },
+    "usvsthem": {
+      "name": "Us vs. them",
+      "settings": {
+        "us_label": {
+          "label": "Your column",
+          "info": "Leave blank for your store name."
+        },
+        "them_label": {
+          "label": "Their column"
+        },
+        "only_compare_things_you_can_back_up_read": "Only compare things you can back up. Reads the product's blueprint.comparison metafield first, then the rows below."
+      },
+      "blocks": {
+        "row": {
+          "name": "Row",
+          "settings": {
+            "feature": {
+              "label": "Feature"
+            },
+            "us": {
+              "label": "Yours",
+              "info": "yes or no for a check or a cross, or short text."
+            },
+            "them": {
+              "label": "Theirs",
+              "info": "yes or no for a check or a cross, or short text."
+            }
+          }
+        }
+      },
+      "presets": {
+        "us_vs_them": {
+          "name": "Us vs. them"
+        }
+      }
+    },
+    "subscription": {
+      "name": "Subscription explainer",
+      "settings": {
+        "product": {
+          "label": "Product",
+          "info": "Prices and the saving come from its selling plans. On a product page, leave blank to use that product."
+        },
+        "button_label": {
+          "label": "Button label"
+        },
+        "button_link": {
+          "label": "Button link",
+          "info": "Leave blank to open the product with subscribe selected."
+        }
+      },
+      "blocks": {
+        "tile": {
+          "name": "Reason",
+          "settings": {
+            "title": {
+              "label": "Title"
+            },
+            "text": {
+              "label": "Text"
+            }
+          }
+        }
+      },
+      "presets": {
+        "subscription_explainer": {
+          "name": "Subscription explainer"
+        }
+      }
+    },
+    "reviews": {
+      "name": "Reviews",
+      "settings": {
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "carousel": "Carousel",
+            "grid": "Grid"
+          }
+        },
+        "show_summary": {
+          "label": "Show the rating summary",
+          "info": "From the product's reviews.rating and reviews.rating_count metafields (set by most review apps). Hidden when there is none."
+        },
+        "product": {
+          "label": "Product",
+          "info": "Whose rating to summarize. On a product page, leave blank to use that product."
+        },
+        "only_quote_real_reviews_word_for_word_to": "Only quote real reviews, word for word. To show reviews straight from a reviews app, add its app block."
+      },
+      "blocks": {
+        "review": {
+          "name": "Review",
+          "settings": {
+            "quote": {
+              "label": "Review"
+            },
+            "name": {
+              "label": "Name"
+            },
+            "verified": {
+              "label": "Verified buyer"
+            },
+            "rating": {
+              "label": "Stars",
+              "info": "0 hides the stars."
+            },
+            "image": {
+              "label": "Customer photo"
+            }
+          }
+        }
+      },
+      "presets": {
+        "review_carousel": {
+          "name": "Review carousel"
+        },
+        "review_grid": {
+          "name": "Review grid"
+        }
+      }
+    },
+    "faq": {
+      "name": "FAQ",
+      "settings": {
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "single": "One column",
+            "split": "Heading beside the questions"
+          }
+        },
+        "open_first": {
+          "label": "Open the first question"
+        },
+        "structured_data": {
+          "label": "Add FAQ structured data for search engines",
+          "info": "Turn off if another FAQ on the page already adds it."
+        },
+        "reads_the_product_s_blueprint_faqs_metaf": "Reads the product's blueprint.faqs metafield first, then the questions below."
+      },
+      "blocks": {
+        "question": {
+          "name": "Question",
+          "settings": {
+            "question": {
+              "label": "Question"
+            },
+            "answer": {
+              "label": "Answer"
+            }
+          }
+        }
+      },
+      "presets": {
+        "faq": {
+          "name": "FAQ"
+        },
+        "faq_two_columns": {
+          "name": "FAQ (two columns)"
+        },
+        "product_faq": {
+          "name": "Product FAQ"
+        }
+      }
+    },
+    "guarantee": {
+      "name": "Guarantee",
+      "settings": {
+        "days": {
+          "label": "Days in the badge",
+          "info": "Leave blank to show the icon instead."
+        },
+        "reads_the_product_s_blueprint_guarantee_": "Reads the product's blueprint.guarantee metafield first."
+      },
+      "presets": {
+        "guarantee": {
+          "name": "Guarantee"
+        }
+      }
+    },
+    "ticker": {
+      "name": "Scrolling ticker",
+      "settings": {
+        "speed": {
+          "label": "Speed"
+        },
+        "direction": {
+          "label": "Direction",
+          "options": {
+            "left": "Left",
+            "right": "Right"
+          }
+        },
+        "separator": {
+          "label": "Separator",
+          "options": {
+            "dot": "Dot",
+            "slash": "Slash",
+            "none": "None"
+          }
+        },
+        "pauses_on_hover_and_focus_and_stays_stil": "Pauses on hover and focus, and stays still for shoppers who prefer reduced motion."
+      },
+      "blocks": {
+        "item": {
+          "name": "Item",
+          "settings": {
+            "text": {
+              "label": "Text"
+            },
+            "icon": {
+              "label": "Icon",
+              "options": {
+                "none": "None"
+              }
+            }
+          }
+        }
+      },
+      "presets": {
+        "scrolling_ticker": {
+          "name": "Scrolling ticker"
+        }
+      }
+    },
+    "features": {
+      "name": "Features",
+      "settings": {
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "alternating": "Alternating rows",
+            "grid": "Grid"
+          }
+        },
+        "image_ratio": {
+          "label": "Image shape",
+          "options": {
+            "square": "Square",
+            "landscape": "Landscape",
+            "portrait": "Portrait"
+          }
+        }
+      },
+      "blocks": {
+        "feature": {
+          "name": "Feature",
+          "settings": {
+            "kicker": {
+              "label": "Kicker"
+            },
+            "title": {
+              "label": "Title"
+            },
+            "link_label": {
+              "label": "Link label"
+            },
+            "link": {
+              "label": "Link"
+            }
+          }
+        }
+      },
+      "presets": {
+        "alternating_features": {
+          "name": "Alternating features"
+        },
+        "feature_grid": {
+          "name": "Feature grid"
+        }
+      }
+    },
+    "stats": {
+      "name": "Statistics",
+      "settings": {
+        "style": {
+          "label": "Style",
+          "options": {
+            "cards": "Cards",
+            "bar": "Bar"
+          }
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "animate": {
+          "label": "Count up when scrolled into view",
+          "info": "Shows the final number straight away for shoppers who prefer reduced motion."
+        }
+      },
+      "blocks": {
+        "stat": {
+          "name": "Statistic",
+          "settings": {
+            "value": {
+              "label": "Value",
+              "info": "Only use numbers you can back up, for example 92, 4.9 or 41,208."
+            },
+            "label": {
+              "label": "Label"
+            }
+          }
+        }
+      },
+      "presets": {
+        "statistics": {
+          "name": "Statistics"
+        },
+        "statistics_bar": {
+          "name": "Statistics bar"
+        }
+      }
+    },
+    "steps": {
+      "name": "How it works",
+      "settings": {
+        "marker": {
+          "label": "Step markers",
+          "options": {
+            "numbers": "Numbers",
+            "icons": "Icons"
+          }
+        }
+      },
+      "blocks": {
+        "step": {
+          "name": "Step",
+          "settings": {
+            "title": {
+              "label": "Title"
+            },
+            "text": {
+              "label": "Text"
+            }
+          }
+        }
+      },
+      "presets": {
+        "how_it_works": {
+          "name": "How it works"
+        },
+        "how_it_works_icons": {
+          "name": "How it works (icons)"
+        }
+      }
+    },
+    "image_with_text": {
+      "name": "Image with text",
+      "settings": {
+        "button_style": {
+          "label": "Button style",
+          "options": {
+            "button": "Button",
+            "link": "Text link"
+          }
+        },
+        "image_side": {
+          "label": "Image side",
+          "options": {
+            "left": "Left",
+            "right": "Right"
+          }
+        },
+        "image_ratio": {
+          "label": "Image shape",
+          "options": {
+            "square": "Square",
+            "landscape": "Landscape",
+            "portrait": "Portrait"
+          }
+        }
+      },
+      "presets": {
+        "image_with_text": {
+          "name": "Image with text"
+        },
+        "image_with_text_right": {
+          "name": "Image with text (right)"
+        }
+      }
+    },
+    "founder": {
+      "name": "Founder note",
+      "settings": {
+        "quote": {
+          "label": "Quote"
+        },
+        "name": {
+          "label": "Name"
+        },
+        "role": {
+          "label": "Role"
+        },
+        "image": {
+          "label": "Portrait"
+        },
+        "signature": {
+          "label": "Signature"
+        }
+      },
+      "presets": {
+        "founder_note": {
+          "name": "Founder note"
+        }
+      }
+    },
+    "videos": {
+      "name": "Video testimonials",
+      "settings": {
+        "aspect": {
+          "label": "Video shape",
+          "options": {
+            "tall": "Vertical (9:16)",
+            "portrait": "Portrait (4:5)"
+          }
+        },
+        "autoplay": {
+          "label": "Play muted when scrolled into view",
+          "info": "Uploaded videos only. Never plays for shoppers who prefer reduced motion; tap to hear sound."
+        }
+      },
+      "blocks": {
+        "video": {
+          "name": "Video",
+          "settings": {
+            "video": {
+              "label": "Video",
+              "info": "Upload a short clip, or use a YouTube or Vimeo link below."
+            },
+            "video_url": {
+              "label": "Or a YouTube or Vimeo link"
+            },
+            "poster": {
+              "label": "Cover image",
+              "info": "Shown before a linked video plays."
+            },
+            "quote": {
+              "label": "Quote"
+            },
+            "name": {
+              "label": "Name and role"
+            }
+          }
+        }
+      },
+      "presets": {
+        "video_testimonials": {
+          "name": "Video testimonials"
+        }
+      }
+    },
+    "ugc": {
+      "name": "UGC",
+      "settings": {
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "grid": "Grid",
+            "row": "Scrolling row"
+          }
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "only_post_customer_content_you_have_perm": "Only post customer content you have permission to use. A UGC app's block can replace the tiles."
+      },
+      "blocks": {
+        "item": {
+          "name": "Post",
+          "settings": {
+            "video": {
+              "label": "Video"
+            },
+            "handle": {
+              "label": "Handle"
+            },
+            "link": {
+              "label": "Link to the post"
+            }
+          }
+        }
+      },
+      "presets": {
+        "ugc_grid": {
+          "name": "UGC grid"
+        },
+        "ugc_carousel": {
+          "name": "UGC carousel"
+        }
+      }
+    },
+    "comments": {
+      "name": "Comments",
+      "settings": {
+        "copy_real_customer_comments_word_for_wor": "Copy real customer comments word for word, from your own posts or reviews. Never write them yourself."
+      },
+      "blocks": {
+        "comment": {
+          "name": "Comment",
+          "settings": {
+            "name": {
+              "label": "Name"
+            },
+            "text": {
+              "label": "Comment"
+            },
+            "likes": {
+              "label": "Likes",
+              "info": "The count from the original post, for example 1.2K. Leave blank to hide."
+            }
+          }
+        }
+      },
+      "presets": {
+        "comments": {
+          "name": "Comments"
+        }
+      }
+    },
+    "before_after": {
+      "name": "Before / after",
+      "settings": {
+        "before_image": {
+          "label": "Before image"
+        },
+        "before_label": {
+          "label": "Before label"
+        },
+        "after_image": {
+          "label": "After image"
+        },
+        "after_label": {
+          "label": "After label"
+        },
+        "caption": {
+          "label": "Caption",
+          "info": "Say whose photos these are and that they are unedited."
+        },
+        "start": {
+          "label": "Slider start position"
+        }
+      },
+      "presets": {
+        "before_after": {
+          "name": "Before / after"
+        }
+      }
+    },
+    "countdown": {
+      "name": "Countdown",
+      "settings": {
+        "mode": {
+          "label": "Countdown to",
+          "options": {
+            "fixed": "A fixed end date and time",
+            "evergreen": "A time after each visitor arrives"
+          }
+        },
+        "end": {
+          "label": "End date and time",
+          "info": "For example 2026-11-30 23:59 -0500 (date, time, time zone). Make it the real end of the offer."
+        },
+        "evergreen_hours": {
+          "label": "Hours per visitor",
+          "info": "Only use this when the offer really is per visitor (for example a first-visit code). A timer that resets for everyone misleads shoppers."
+        },
+        "hide_expired": {
+          "label": "Hide when the countdown ends"
+        },
+        "ended_text": {
+          "label": "Text when it ends"
+        },
+        "style": {
+          "label": "Style",
+          "options": {
+            "block": "Block",
+            "bar": "Bar"
+          }
+        }
+      },
+      "presets": {
+        "offer_countdown": {
+          "name": "Offer countdown"
+        },
+        "countdown_bar": {
+          "name": "Countdown bar"
+        }
+      }
+    },
+    "quiz": {
+      "name": "Quiz finder",
+      "settings": {
+        "result_label": {
+          "label": "Result button label"
+        },
+        "add_a_question_then_its_answers_up_to_fo": "Add a Question, then its Answers. Up to four questions. Each answer can lead to a product or a link; the last answer chosen decides the result. Without JavaScript, answers on the first question link straight to their result."
+      },
+      "blocks": {
+        "question": {
+          "name": "Question",
+          "settings": {
+            "question": {
+              "label": "Question"
+            }
+          }
+        },
+        "answer": {
+          "name": "Answer",
+          "settings": {
+            "label": {
+              "label": "Answer"
+            },
+            "product": {
+              "label": "Result product"
+            },
+            "link": {
+              "label": "Or a result link"
+            },
+            "params": {
+              "label": "Link parameters",
+              "info": "Added to the result link, for example tier=2&plan=sub to preselect a bundle."
+            },
+            "result": {
+              "label": "Result text"
+            }
+          }
+        }
+      },
+      "presets": {
+        "quiz_finder": {
+          "name": "Quiz finder"
+        }
+      }
+    },
+    "bundle_builder": {
+      "name": "Bundle builder",
+      "settings": {
+        "min_items": {
+          "label": "Minimum items"
+        },
+        "discount_percent": {
+          "label": "Bundle discount shown",
+          "info": "Display only: create an automatic discount with the same percentage and minimum quantity, or shoppers will see a saving checkout doesn't give. 0 hides the saving."
+        },
+        "note": {
+          "label": "Note"
+        },
+        "button_label": {
+          "label": "Button label"
+        },
+        "collection": {
+          "label": "Products from a collection",
+          "info": "Used when no products are added as blocks."
+        }
+      },
+      "blocks": {
+        "item": {
+          "name": "Product",
+          "settings": {
+            "product": {
+              "label": "Product"
+            },
+            "preselected": {
+              "label": "Start selected"
+            }
+          }
+        }
+      },
+      "presets": {
+        "bundle_builder": {
+          "name": "Bundle builder"
+        }
+      }
+    },
+    "featured_collection": {
+      "name": "Featured collection",
+      "settings": {
+        "collection": {
+          "label": "Collection"
+        },
+        "count": {
+          "label": "Products to show"
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "grid": "Grid",
+            "carousel": "Carousel"
+          }
+        },
+        "show_rating": {
+          "label": "Show ratings"
+        },
+        "show_badges": {
+          "label": "Show badges"
+        },
+        "quick_add": {
+          "label": "Show quick add"
+        },
+        "view_all": {
+          "label": "Show \"View all\""
+        }
+      },
+      "presets": {
+        "featured_collection": {
+          "name": "Featured collection"
+        },
+        "collection_carousel": {
+          "name": "Collection carousel"
+        }
+      }
+    },
+    "quick_add": {
+      "name": "Quick add"
+    },
+    "multicolumn": {
+      "name": "Multicolumn",
+      "settings": {
+        "style": {
+          "label": "Style",
+          "options": {
+            "images": "With images",
+            "text": "Text only"
+          }
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Columns on mobile",
+          "options": {
+            "1": "1",
+            "2": "2"
+          }
+        },
+        "image_ratio": {
+          "label": "Image shape",
+          "options": {
+            "square": "Square",
+            "landscape": "Landscape",
+            "portrait": "Portrait"
+          }
+        }
+      },
+      "blocks": {
+        "column": {
+          "name": "Column",
+          "settings": {
+            "title": {
+              "label": "Title"
+            },
+            "link_label": {
+              "label": "Link label"
+            },
+            "link": {
+              "label": "Link"
+            }
+          }
+        }
+      },
+      "presets": {
+        "multicolumn": {
+          "name": "Multicolumn"
+        }
+      }
+    },
+    "image_banner": {
+      "name": "Image banner",
+      "settings": {
+        "image_mobile": {
+          "label": "Mobile image"
+        },
+        "button_label": {
+          "label": "First button label"
+        },
+        "button_link": {
+          "label": "First button link"
+        },
+        "button_label_2": {
+          "label": "Second button label"
+        },
+        "button_link_2": {
+          "label": "Second button link"
+        },
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "overlay": "Text over the image",
+            "split": "Image beside the text"
+          }
+        },
+        "height": {
+          "label": "Height",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "position": {
+          "label": "Text position",
+          "options": {
+            "bottom-left": "Bottom left",
+            "center": "Center",
+            "top-left": "Top left"
+          }
+        },
+        "show_box": {
+          "label": "Put the text on a panel",
+          "info": "Keeps text readable on any photo."
+        },
+        "overlay": {
+          "label": "Image overlay"
+        }
+      },
+      "presets": {
+        "image_banner": {
+          "name": "Image banner"
+        },
+        "image_banner_split": {
+          "name": "Image banner (split)"
+        }
+      }
+    },
+    "slideshow": {
+      "name": "Slideshow",
+      "settings": {
+        "label": {
+          "label": "Name for screen readers"
+        },
+        "height": {
+          "label": "Height",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "autoplay": {
+          "label": "Change slides automatically",
+          "info": "With a pause button. Stays still for shoppers who prefer reduced motion."
+        },
+        "speed": {
+          "label": "Seconds per slide"
+        }
+      },
+      "blocks": {
+        "slide": {
+          "name": "Slide",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            },
+            "text": {
+              "label": "Text"
+            },
+            "button_label": {
+              "label": "Button label"
+            },
+            "link": {
+              "label": "Button link"
+            },
+            "overlay": {
+              "label": "Image overlay"
+            }
+          }
+        }
+      },
+      "presets": {
+        "slideshow": {
+          "name": "Slideshow"
+        }
+      }
+    },
+    "collage": {
+      "name": "Collage",
+      "settings": {
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "left": "Large item on the left",
+            "right": "Large item on the right"
+          }
+        }
+      },
+      "blocks": {
+        "image": {
+          "name": "Image",
+          "settings": {
+            "caption": {
+              "label": "Caption"
+            },
+            "link": {
+              "label": "Link"
+            }
+          }
+        },
+        "product": {
+          "name": "Product",
+          "settings": {
+            "product": {
+              "label": "Product"
+            }
+          }
+        },
+        "collection": {
+          "name": "Collection",
+          "settings": {
+            "collection": {
+              "label": "Collection"
+            },
+            "fallback_title": {
+              "label": "Title before a collection is chosen"
+            }
+          }
+        }
+      },
+      "presets": {
+        "collage": {
+          "name": "Collage"
+        }
+      }
+    },
+    "newsletter": {
+      "name": "Newsletter",
+      "settings": {
+        "button_label": {
+          "label": "Button label"
+        },
+        "note": {
+          "label": "Small print",
+          "info": "Only promise what you send, for example a code you really email."
+        }
+      },
+      "presets": {
+        "newsletter": {
+          "name": "Newsletter"
+        }
+      }
+    },
+    "email_signup_banner": {
+      "name": "Email signup banner",
+      "settings": {
+        "button_label": {
+          "label": "Button label"
+        },
+        "height": {
+          "label": "Height",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "overlay": {
+          "label": "Image overlay"
+        }
+      },
+      "presets": {
+        "email_signup_banner": {
+          "name": "Email signup banner"
+        }
+      }
+    },
+    "featured_blog": {
+      "name": "Blog posts",
+      "settings": {
+        "blog": {
+          "label": "Blog"
+        },
+        "count": {
+          "label": "Posts to show"
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "show_date": {
+          "label": "Show the date"
+        },
+        "show_excerpt": {
+          "label": "Show the excerpt"
+        }
+      },
+      "presets": {
+        "blog_posts": {
+          "name": "Blog posts"
+        }
+      }
+    },
+    "collection_list": {
+      "name": "Collection list",
+      "settings": {
+        "style": {
+          "label": "Style",
+          "options": {
+            "list": "Title under the image",
+            "tiles": "Title on the image"
+          }
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "image_ratio": {
+          "label": "Image shape",
+          "options": {
+            "square": "Square",
+            "portrait": "Portrait",
+            "landscape": "Landscape"
+          }
+        }
+      },
+      "blocks": {
+        "collection": {
+          "name": "Collection",
+          "settings": {
+            "collection": {
+              "label": "Collection"
+            },
+            "image": {
+              "label": "Image",
+              "info": "Leave blank to use the collection's image."
+            },
+            "fallback_title": {
+              "label": "Title before a collection is chosen"
+            }
+          }
+        }
+      },
+      "presets": {
+        "collection_list": {
+          "name": "Collection list"
+        },
+        "collection_tiles": {
+          "name": "Collection tiles"
+        }
+      }
+    },
+    "video": {
+      "name": "Video",
+      "settings": {
+        "video": {
+          "label": "Video"
+        },
+        "video_url": {
+          "label": "Or a YouTube or Vimeo link"
+        },
+        "cover": {
+          "label": "Cover image"
+        },
+        "description": {
+          "label": "Video description",
+          "info": "For screen readers."
+        },
+        "aspect": {
+          "label": "Shape",
+          "options": {
+            "wide": "Wide (16:9)",
+            "square": "Square",
+            "portrait": "Portrait (4:5)"
+          }
+        },
+        "autoplay": {
+          "label": "Play muted when scrolled into view",
+          "info": "Uploaded videos only, never under reduced motion."
+        }
+      },
+      "presets": {
+        "video": {
+          "name": "Video"
+        }
+      }
+    },
+    "custom_liquid": {
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": {
+          "label": "Custom Liquid",
+          "info": "Add app snippets or other Liquid code."
+        }
+      },
+      "presets": {
+        "custom_liquid": {
+          "name": "Custom Liquid"
+        }
+      }
+    },
+    "apps": {
+      "name": "Apps",
+      "presets": {
+        "apps": {
+          "name": "Apps"
+        }
+      }
+    },
+    "related_products": {
+      "name": "Related products",
+      "settings": {
+        "intent": {
+          "label": "Show",
+          "options": {
+            "related": "Related products",
+            "complementary": "Complementary products (Search & Discovery app)"
+          }
+        },
+        "product": {
+          "label": "Product",
+          "info": "On a product page, leave blank to use that product."
+        },
+        "count": {
+          "label": "Products to show"
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "quick_add": {
+          "label": "Show quick add"
+        }
+      },
+      "presets": {
+        "related_products": {
+          "name": "Related products"
+        },
+        "complementary_products": {
+          "name": "Complementary products"
+        }
+      }
+    },
+    "content_tabs": {
+      "name": "Content tabs",
+      "blocks": {
+        "tab": {
+          "name": "Tab",
+          "settings": {
+            "title": {
+              "label": "Title"
+            },
+            "content": {
+              "label": "Content"
+            },
+            "page": {
+              "label": "Or a page's content"
+            }
+          }
+        }
+      },
+      "presets": {
+        "content_tabs": {
+          "name": "Content tabs"
+        }
+      }
+    },
+    "divider": {
+      "name": "Divider / spacer",
+      "settings": {
+        "style": {
+          "label": "Style",
+          "options": {
+            "line": "Line",
+            "space": "Space only"
+          }
+        }
+      },
+      "presets": {
+        "divider": {
+          "name": "Divider"
+        },
+        "spacer": {
+          "name": "Spacer"
+        }
+      }
+    },
+    "featured_product": {
+      "name": "Featured product",
+      "settings": {
+        "product": {
+          "label": "Product"
+        },
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "standard": "Image beside the buy box",
+            "spotlight": "Spotlight (larger image, shorter buy box)"
+          }
+        },
+        "media_size": {
+          "label": "Image size",
+          "options": {
+            "medium": "Medium",
+            "large": "Large"
+          }
+        }
+      },
+      "presets": {
+        "featured_product": {
+          "name": "Featured product"
+        },
+        "product_spotlight": {
+          "name": "Product spotlight"
+        }
+      }
+    },
+    "article_header": {
+      "name": "Article header",
+      "settings": {
+        "show_disclosure": {
+          "label": "Show the advertising disclosure",
+          "info": "Paid or affiliate content needs a clear disclosure (FTC native-advertising guidance). Turning it off shows a warning in the editor."
+        },
+        "disclosure": {
+          "label": "Disclosure"
+        },
+        "lede": {
+          "label": "Lede"
+        },
+        "caption": {
+          "label": "Image caption"
+        },
+        "image_width": {
+          "label": "Image width",
+          "options": {
+            "narrow": "Text width",
+            "page": "Page width"
+          }
+        }
+      },
+      "presets": {
+        "advertorial_header": {
+          "name": "Advertorial header"
+        }
+      }
+    },
+    "author_byline": {
+      "name": "Author byline",
+      "settings": {
+        "author": {
+          "label": "Author"
+        },
+        "role": {
+          "label": "Role",
+          "info": "For example \"Nutritionist\" or \"Customer since 2024\". Say if the author was paid."
+        },
+        "avatar": {
+          "label": "Photo"
+        },
+        "date": {
+          "label": "Date",
+          "info": "Leave blank for the page's publish date."
+        },
+        "read_time": {
+          "label": "Minutes to read",
+          "info": "Leave blank to estimate from the page content."
+        }
+      },
+      "presets": {
+        "author_byline": {
+          "name": "Author byline"
+        }
+      }
+    },
+    "article_body": {
+      "name": "Article body",
+      "settings": {
+        "drop_cap": {
+          "label": "Large first letter"
+        }
+      },
+      "blocks": {
+        "text": {
+          "name": "Text",
+          "settings": {
+            "text": {
+              "label": "Text"
+            }
+          }
+        },
+        "heading": {
+          "name": "Heading",
+          "settings": {
+            "text": {
+              "label": "Heading"
+            }
+          }
+        },
+        "image": {
+          "name": "Image",
+          "settings": {
+            "caption": {
+              "label": "Caption"
+            },
+            "ratio": {
+              "label": "Shape",
+              "options": {
+                "landscape": "Landscape",
+                "square": "Square",
+                "wide": "Wide"
+              }
+            }
+          }
+        },
+        "quote": {
+          "name": "Pull quote",
+          "settings": {
+            "quote": {
+              "label": "Quote"
+            },
+            "attribution": {
+              "label": "Attribution"
+            }
+          }
+        },
+        "product": {
+          "name": "Product card",
+          "settings": {
+            "cta_label": {
+              "label": "Button label"
+            },
+            "cta_product": {
+              "label": "Product",
+              "info": "The button opens this product with the tier and plan below already chosen."
+            },
+            "cta_tier": {
+              "label": "Tier",
+              "info": "0 keeps the product's own default tier."
+            },
+            "cta_plan": {
+              "label": "Plan",
+              "options": {
+                "default": "Product default",
+                "once": "One-time",
+                "sub": "Subscribe"
+              }
+            },
+            "cta_link": {
+              "label": "Or a link",
+              "info": "Used when no product is chosen."
+            }
+          }
+        },
+        "button": {
+          "name": "Button",
+          "settings": {
+            "cta_label": {
+              "label": "Button label"
+            },
+            "cta_product": {
+              "label": "Product",
+              "info": "The button opens this product with the tier and plan below already chosen."
+            },
+            "cta_tier": {
+              "label": "Tier",
+              "info": "0 keeps the product's own default tier."
+            },
+            "cta_plan": {
+              "label": "Plan",
+              "options": {
+                "default": "Product default",
+                "once": "One-time",
+                "sub": "Subscribe"
+              }
+            },
+            "cta_link": {
+              "label": "Or a link",
+              "info": "Used when no product is chosen."
+            }
+          }
+        }
+      },
+      "presets": {
+        "article_body": {
+          "name": "Article body"
+        }
+      }
+    },
+    "pull_quote": {
+      "name": "Pull quote",
+      "settings": {
+        "quote": {
+          "label": "Quote"
+        },
+        "attribution": {
+          "label": "Attribution"
+        },
+        "style": {
+          "label": "Style",
+          "options": {
+            "rule": "Line beside the quote",
+            "large": "Large, centered"
+          }
+        }
+      },
+      "presets": {
+        "pull_quote": {
+          "name": "Pull quote"
+        }
+      }
+    },
+    "listicle": {
+      "name": "Listicle",
+      "settings": {
+        "numbering": {
+          "label": "Number the items"
+        },
+        "image_side": {
+          "label": "Image side",
+          "options": {
+            "left": "Left",
+            "right": "Right",
+            "alternate": "Alternate"
+          }
+        }
+      },
+      "blocks": {
+        "item": {
+          "name": "Item",
+          "settings": {
+            "title": {
+              "label": "Title"
+            },
+            "cta_label": {
+              "label": "Button label"
+            },
+            "cta_product": {
+              "label": "Product",
+              "info": "The button opens this product with the tier and plan below already chosen."
+            },
+            "cta_tier": {
+              "label": "Tier",
+              "info": "0 keeps the product's own default tier."
+            },
+            "cta_plan": {
+              "label": "Plan",
+              "options": {
+                "default": "Product default",
+                "once": "One-time",
+                "sub": "Subscribe"
+              }
+            },
+            "cta_link": {
+              "label": "Or a link",
+              "info": "Used when no product is chosen."
+            }
+          }
+        }
+      },
+      "presets": {
+        "listicle": {
+          "name": "Listicle"
+        }
+      }
+    },
+    "comparison_table": {
+      "name": "Comparison table",
+      "settings": {
+        "columns": {
+          "label": "Columns",
+          "options": {
+            "2": "2",
+            "3": "3",
+            "4": "4"
+          }
+        },
+        "column_1": {
+          "label": "Column 1"
+        },
+        "column_2": {
+          "label": "Column 2"
+        },
+        "column_3": {
+          "label": "Column 3"
+        },
+        "column_4": {
+          "label": "Column 4"
+        },
+        "highlight": {
+          "label": "Highlight column",
+          "info": "0 for none."
+        },
+        "sticky_first": {
+          "label": "Keep the first column in view while scrolling on mobile"
+        },
+        "only_compare_what_you_can_back_up_and_ke": "Only compare what you can back up, and keep competitor facts current."
+      },
+      "blocks": {
+        "row": {
+          "name": "Row",
+          "settings": {
+            "label": {
+              "label": "Feature"
+            },
+            "cell_1": {
+              "label": "Column 1",
+              "info": "yes or no for a check or a cross, or short text."
+            },
+            "cell_2": {
+              "label": "Column 2",
+              "info": "yes or no for a check or a cross, or short text."
+            },
+            "cell_3": {
+              "label": "Column 3",
+              "info": "yes or no for a check or a cross, or short text."
+            },
+            "cell_4": {
+              "label": "Column 4",
+              "info": "yes or no for a check or a cross, or short text."
+            }
+          }
+        }
+      },
+      "presets": {
+        "comparison_table": {
+          "name": "Comparison table"
+        },
+        "comparison_table_3_columns": {
+          "name": "Comparison table (3 columns)"
+        }
+      }
+    },
+    "offer": {
+      "name": "Offer",
+      "settings": {
+        "product": {
+          "label": "Product"
+        },
+        "default_tier": {
+          "label": "Start on tier",
+          "info": "0 keeps the product's own default. A link with ?variant= still wins."
+        },
+        "default_plan": {
+          "label": "Start on plan",
+          "options": {
+            "product": "Product default",
+            "once": "One-time",
+            "sub": "Subscribe"
+          }
+        },
+        "guarantee": {
+          "label": "Guarantee line"
+        },
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "full": "With product photos",
+            "compact": "Compact card"
+          }
+        }
+      },
+      "presets": {
+        "final_offer": {
+          "name": "Final offer"
+        },
+        "offer_card_compact": {
+          "name": "Offer card (compact)"
+        }
+      }
+    },
+    "sticky_cta": {
+      "name": "Sticky CTA bar",
+      "settings": {
+        "target": {
+          "label": "Button goes to",
+          "options": {
+            "offer": "The offer section on this page",
+            "product": "The product page"
+          }
+        },
+        "text": {
+          "label": "Text",
+          "info": "Leave blank for the product's title."
+        },
+        "show_rating": {
+          "label": "Show the product's rating"
+        },
+        "cta_label": {
+          "label": "Button label"
+        },
+        "cta_product": {
+          "label": "Product",
+          "info": "The button opens this product with the tier and plan below already chosen."
+        },
+        "cta_tier": {
+          "label": "Tier",
+          "info": "0 keeps the product's own default tier."
+        },
+        "cta_plan": {
+          "label": "Plan",
+          "options": {
+            "default": "Product default",
+            "once": "One-time",
+            "sub": "Subscribe"
+          }
+        },
+        "cta_link": {
+          "label": "Or a link",
+          "info": "Used when no product is chosen."
+        },
+        "show_after": {
+          "label": "Show after scrolling"
+        },
+        "hide_over_offer": {
+          "label": "Hide while the offer is on screen"
+        }
+      },
+      "presets": {
+        "sticky_cta_bar": {
+          "name": "Sticky CTA bar"
+        }
+      }
+    },
+    "main_collection_banner": {
+      "name": "Collection banner",
+      "settings": {
+        "show_description": {
+          "label": "Show the collection description"
+        },
+        "show_image": {
+          "label": "Show the collection image"
+        },
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "stacked": "Text only",
+            "split": "Text beside the image"
+          }
+        }
+      }
+    },
+    "main_collection_grid": {
+      "name": "Product grid",
+      "settings": {
+        "per_page": {
+          "label": "Products per page"
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Columns on mobile",
+          "options": {
+            "1": "1",
+            "2": "2"
+          }
+        },
+        "show_filters": {
+          "label": "Show filters",
+          "info": "Set filters up in the Search & Discovery app."
+        },
+        "show_pills": {
+          "label": "Show quick filter pills"
+        },
+        "pill_filter_label": {
+          "label": "Quick filter",
+          "info": "The filter shown as pills, by its name (for example \"Product type\"). Leave blank for the first list filter."
+        },
+        "show_sort": {
+          "label": "Show sorting"
+        },
+        "show_rating": {
+          "label": "Show ratings"
+        },
+        "show_badges": {
+          "label": "Show badges"
+        },
+        "quick_add": {
+          "label": "Show quick add"
+        }
+      }
+    }
   },
-  "options": {
-    "alignment": {
-      "left": "Left",
-      "center": "Center",
-      "right": "Right"
+  "blocks": {
+    "heading": {
+      "name": "Heading",
+      "settings": {
+        "text": {
+          "label": "Text"
+        }
+      }
     },
-    "direction": {
-      "horizontal": "Horizontal",
-      "vertical": "Vertical"
+    "text": {
+      "name": "Text",
+      "settings": {
+        "text": {
+          "label": "Text"
+        },
+        "style": {
+          "label": "Style",
+          "body": "Body",
+          "muted": "Secondary",
+          "eyebrow": "Eyebrow",
+          "heading": "Heading"
+        }
+      }
     },
-    "page_width": {
-      "narrow": "Narrow",
-      "wide": "Wide"
+    "button": {
+      "name": "Button",
+      "settings": {
+        "label": {
+          "label": "Label"
+        },
+        "link": {
+          "label": "Link"
+        }
+      }
     },
-    "size": {
-      "large": "Large",
-      "small": "Small"
+    "common": {
+      "settings": {
+        "heading": {
+          "label": "Heading"
+        },
+        "icon": {
+          "label": "Icon"
+        }
+      },
+      "sizes": {
+        "large": "Large",
+        "medium": "Medium",
+        "small": "Small"
+      },
+      "icons": {
+        "leaf": "Leaf",
+        "flask": "Flask",
+        "drop": "Drop",
+        "shield": "Shield",
+        "bolt": "Bolt",
+        "sparkle": "Sparkle",
+        "truck": "Truck",
+        "refresh": "Refresh",
+        "layers": "Layers",
+        "users": "Users",
+        "coin": "Coin",
+        "clock": "Clock",
+        "heart": "Heart",
+        "moon": "Moon",
+        "star": "Star",
+        "paw": "Paw",
+        "check": "Check",
+        "x": "X",
+        "chart": "Chart",
+        "flame": "Flame",
+        "gift": "Gift",
+        "award": "Award",
+        "box": "Box",
+        "calendar": "Calendar",
+        "lock": "Lock",
+        "eye": "Eye",
+        "pin": "Pin",
+        "ruler": "Ruler",
+        "chat": "Chat",
+        "speed": "Speed"
+      }
+    },
+    "categories": {
+      "buy_box": "Buy box",
+      "content": "Content"
+    },
+    "product_rating": {
+      "settings": {
+        "info": "Reads Shopify's standard review fields (reviews.rating and reviews.rating_count), which Judge.me, Loox, Yotpo and most review apps fill in. Shows nothing until a product has reviews.",
+        "link": {
+          "label": "Link"
+        }
+      },
+      "name": "Reviews rating"
+    },
+    "product_viewers": {
+      "settings": {
+        "info": "Honest data only: shows the number an integration writes to the product's blueprint.live_viewers metafield. The theme never estimates or invents viewers.",
+        "minimum": {
+          "label": "Show from"
+        }
+      },
+      "name": "Viewer count"
+    },
+    "product_award": {
+      "settings": {
+        "text": {
+          "label": "Award",
+          "info": "Only list awards the product has actually won."
+        },
+        "image": {
+          "label": "Logo"
+        }
+      },
+      "name": "Award badge"
+    },
+    "product_title": {
+      "settings": {
+        "size": {
+          "label": "Size"
+        },
+        "show_subtitle": {
+          "label": "Show subtitle",
+          "info": "From the product's subtitle field (descriptors.subtitle)."
+        }
+      },
+      "name": "Product title"
+    },
+    "product_price": {
+      "settings": {
+        "show_savings": {
+          "label": "Show savings",
+          "info": "Savings are rounded down and measured as set in Theme settings > Buy box."
+        },
+        "save_prefix": {
+          "label": "Savings label"
+        },
+        "show_tax_note": {
+          "label": "Show tax note"
+        }
+      },
+      "name": "Price"
+    },
+    "product_benefits": {
+      "settings": {
+        "info": "Uses the product's blueprint.benefits metafield when it has one, so each product shows its own benefits. Otherwise shows the benefits added here.",
+        "use_metafield": {
+          "label": "Use product metafield when set"
+        },
+        "columns": {
+          "label": "Columns"
+        }
+      },
+      "name": "Benefits grid"
+    },
+    "benefit": {
+      "settings": {
+        "text": {
+          "label": "Text"
+        }
+      },
+      "name": "Benefit"
+    },
+    "product_stock": {
+      "settings": {
+        "info": "Real inventory only: shows a low-stock count when Shopify tracks the variant and stops selling at zero.",
+        "threshold": {
+          "label": "Low stock from"
+        },
+        "show_in_stock": {
+          "label": "Show \"In stock\" otherwise"
+        }
+      },
+      "name": "Stock indicator"
+    },
+    "product_purchase_options": {
+      "settings": {
+        "info": "Shows when the product has selling plans from a subscription app (for example the free Shopify Subscriptions app). The saving comes from the plan itself. If a subscription app's own widget is on the page, remove this block so plans aren't chosen twice.",
+        "default_plan": {
+          "label": "Selected by default",
+          "once": "One-time purchase",
+          "sub": "Subscribe"
+        },
+        "subscribe_note": {
+          "label": "Subscription note"
+        }
+      },
+      "name": "Subscription toggle"
+    },
+    "product_buy_buttons": {
+      "settings": {
+        "label": {
+          "label": "Button label",
+          "info": "Leave empty for \"Add to cart\" in the store's language."
+        },
+        "show_price": {
+          "label": "Show the price on the button"
+        },
+        "show_dynamic_checkout": {
+          "label": "Show dynamic checkout buttons",
+          "info": "Shop Pay, Apple Pay and others. They load extra scripts, so turning them off speeds up the page."
+        },
+        "show_gift_card_recipient": {
+          "label": "Show gift card recipient form"
+        }
+      },
+      "name": "Add to cart"
+    },
+    "product_guarantee": {
+      "settings": {
+        "text": {
+          "label": "Text",
+          "info": "The product's blueprint.guarantee metafield takes precedence."
+        }
+      },
+      "name": "Guarantee row"
+    },
+    "product_moneyback": {
+      "settings": {
+        "info": "Shows only when both the statistic and its source are filled in.",
+        "statistic": {
+          "label": "Statistic"
+        },
+        "text": {
+          "label": "Text"
+        },
+        "source": {
+          "label": "Source"
+        }
+      },
+      "name": "Money-back statistic"
+    },
+    "product_payment_icons": {
+      "settings": {
+        "info": "Shows the payment methods enabled in Settings > Payments."
+      },
+      "name": "Payment icons"
+    },
+    "product_trust_tiles": {
+      "settings": {
+        "tile_1": "Tile 1",
+        "title": {
+          "label": "Title"
+        },
+        "text": {
+          "label": "Text"
+        },
+        "tile_2": "Tile 2",
+        "tile_3": "Tile 3"
+      },
+      "name": "Trust tiles"
+    },
+    "product_proof_line": {
+      "settings": {
+        "info": "\"Bought today\" is real data only: it reads blueprint.sold_today and shows it only when blueprint.sold_today_date is today. The setup guide includes a Shopify Flow template that keeps both up to date.",
+        "show_sold_today": {
+          "label": "Show \"bought today\""
+        },
+        "sold_minimum": {
+          "label": "Show bought today from"
+        }
+      },
+      "name": "Rating and bought today"
+    },
+    "product_shipping_countdown": {
+      "settings": {
+        "info": "Counts down to your real daily dispatch cutoff in the store's time zone, skipping weekends. No reset tricks.",
+        "cutoff_hour": {
+          "label": "Same-day dispatch cutoff (hour)"
+        },
+        "transit_min": {
+          "label": "Delivery takes at least (business days)"
+        },
+        "transit_max": {
+          "label": "Delivery takes at most (business days)"
+        }
+      },
+      "name": "Shipping countdown"
+    },
+    "product_variant_picker": {
+      "settings": {
+        "hide_pack_option": {
+          "label": "Hide the pack option",
+          "info": "The pack option (blueprint.pack_option, default \"Pack\") is chosen with the bundle tiers instead."
+        },
+        "swatches": {
+          "label": "Show color swatches",
+          "info": "Uses the swatch colors and images set on option values in Shopify."
+        }
+      },
+      "name": "Variant picker"
+    },
+    "product_gift": {
+      "settings": {
+        "info": "Describes a gift that comes with every order. Gifts tied to a bundle tier show on that tier instead. Set up the matching automatic discount in Discounts.",
+        "text": {
+          "label": "Gift"
+        },
+        "value_label": {
+          "label": "Value"
+        }
+      },
+      "name": "Gift with purchase"
+    },
+    "product_ingredients_popover": {
+      "settings": {
+        "label": {
+          "label": "Link label"
+        }
+      },
+      "name": "Ingredients popover"
+    },
+    "product_size_guide": {
+      "settings": {
+        "label": {
+          "label": "Link label"
+        },
+        "page": {
+          "label": "Page"
+        },
+        "content": {
+          "label": "Content",
+          "info": "Used when no page is chosen."
+        }
+      },
+      "name": "Size guide"
+    },
+    "product_delivery_estimate": {
+      "settings": {
+        "min_days": {
+          "label": "Earliest (business days)"
+        },
+        "max_days": {
+          "label": "Latest (business days)"
+        }
+      },
+      "name": "Delivery estimate"
+    },
+    "product_sticky_atc": {
+      "settings": {
+        "info": "Appears once the add-to-cart button scrolls out of view. Fixed at the bottom of the screen, so it never shifts the page.",
+        "desktop": {
+          "label": "Show on desktop"
+        }
+      },
+      "name": "Sticky add to cart"
+    },
+    "custom_liquid": {
+      "settings": {
+        "custom_liquid": {
+          "label": "Custom Liquid",
+          "info": "Add app snippets or other Liquid code."
+        }
+      },
+      "name": "Custom Liquid"
+    },
+    "icon_list": {
+      "name": "Icon list"
+    },
+    "icon_item": {
+      "settings": {
+        "text": {
+          "label": "Text"
+        }
+      },
+      "name": "Icon item"
+    },
+    "accordion": {
+      "settings": {
+        "heading": {
+          "label": "Heading"
+        },
+        "content": {
+          "label": "Content"
+        },
+        "page": {
+          "label": "Content from a page",
+          "info": "Replaces the content above."
+        },
+        "open": {
+          "label": "Open by default"
+        }
+      },
+      "name": "Collapsible row"
+    },
+    "image": {
+      "settings": {
+        "image": {
+          "label": "Image"
+        },
+        "width": {
+          "label": "Width"
+        }
+      },
+      "name": "Image"
+    },
+    "divider": {
+      "settings": {
+        "space": {
+          "label": "Space around"
+        }
+      },
+      "name": "Divider"
+    },
+    "product_quantity": {
+      "settings": {
+        "info": "Hidden when the product has bundle tiers, because the tier sets the quantity."
+      },
+      "name": "Quantity selector"
+    },
+    "product_description": {
+      "settings": {
+        "collapsed": {
+          "label": "Show in a collapsible row"
+        }
+      },
+      "name": "Description"
+    },
+    "product_badges": {
+      "settings": {
+        "tag_prefix": {
+          "label": "Tag prefix",
+          "info": "Tags that start with this prefix show as labels. For example, the tag \"label:Vegan\" shows \"Vegan\"."
+        }
+      },
+      "name": "Product labels"
+    },
+    "product_share": {
+      "name": "Share"
+    },
+    "product_pickup": {
+      "settings": {
+        "info": "Shows when local pickup is set up for a location that stocks this variant."
+      },
+      "name": "Pickup availability"
+    },
+    "product_complementary": {
+      "settings": {
+        "info": "Shows the product in the blueprint.upsell metafield."
+      },
+      "name": "Goes well with"
+    },
+    "product_faq": {
+      "settings": {
+        "limit": {
+          "label": "Questions shown"
+        }
+      },
+      "name": "Product FAQ"
+    },
+    "product_popup": {
+      "settings": {
+        "label": {
+          "label": "Link label"
+        },
+        "page": {
+          "label": "Page"
+        }
+      },
+      "name": "Popup"
+    },
+    "product_offer_tiers": {
+      "name": "Bundle & save",
+      "settings": {
+        "info": "Tiers come from the product's blueprint.tiers metafield, or from the values of its Pack option. Prices always come from the tier's variant, so the box, cart and checkout match.",
+        "serving_label": {
+          "label": "Unit name",
+          "info": "Used in \"$2.63 / serving\". The product's blueprint.serving_label metafield takes precedence."
+        }
+      }
     }
   }
 }

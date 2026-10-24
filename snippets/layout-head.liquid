@@ -1,0 +1,37 @@
+{% doc %}
+  Everything a layout's <head> needs before {{ content_for_header }}: meta tags,
+  font preloads, tokens, base CSS and the two scripts every page loads.
+
+  The inline script swaps "no-js" for "js" before first paint: doing it later
+  (in a module) would re-flow the header and cause layout shift.
+
+  bp-standard-actions.js must come before {{ content_for_header }}: Shopify only
+  keeps the first handler configured for each Standard Action.
+{% enddoc %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  document.documentElement.classList.replace('no-js', 'js');
+</script>
+{%- render 'head-meta' -%}
+{%- liquid
+  if settings.heading_style == 'serif'
+    assign heading_font = settings.type_heading_serif
+  else
+    assign heading_font = settings.type_heading_sans
+  endif
+-%}
+{%- unless settings.type_body_font.system? and heading_font.system? -%}
+  <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+{%- endunless -%}
+{%- unless settings.type_body_font.system? -%}
+  {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{%- endunless -%}
+{%- unless heading_font.system? or heading_font == settings.type_body_font -%}
+  {{ heading_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{%- endunless -%}
+{%- render 'tokens' -%}
+{{ 'base.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bp-core.js' | asset_url }}" type="module"></script>
+<script src="{{ 'bp-standard-actions.js' | asset_url }}" type="module"></script>

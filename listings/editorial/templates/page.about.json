@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "layout": "bleed",
+        "eyebrow": "About ODE",
+        "heading": "ODE",
+        "subheading": "Quiet luxury. Image-led, serif, black on bone. No discounts, ever."
+      }
+    },
+    "founder": {
+      "type": "founder",
+      "settings": {
+        "quote": "<p>\"I wanted a perfume that disappears into you rather than announcing you. It took four years and 212 trials.\"</p>",
+        "name": "Hélène Marchand",
+        "role": "Founder and nose, Ode"
+      }
+    },
+    "text": {
+      "type": "image-with-text",
+      "settings": {
+        "eyebrow": "How we make it",
+        "heading": "Tell the story behind the product",
+        "image_side": "right"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "founder",
+    "text",
+    "newsletter"
+  ]
+}

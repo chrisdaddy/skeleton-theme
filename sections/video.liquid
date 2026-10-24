@@ -1,0 +1,206 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'video' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    {%- render 'section-heading', section: section -%}
+    <bp-video
+      class="bp-media bp-ratio-{{ s.aspect }} bp-video__frame"
+      {% if s.autoplay %}data-autoplay{% endif %}
+      data-label-unmute="{{ 'sections.videos.unmute' | t }}"
+      data-label-mute="{{ 'sections.videos.mute' | t }}"
+      data-bp-module="{{ 'bp-video.js' | asset_url }}"
+      data-bp-load="visible"
+    >
+      {%- if s.video != blank -%}
+        {{ s.video | video_tag: image_size: '1600x', controls: true, playsinline: true, preload: 'none', class: 'bp-video-card__video' }}
+      {%- else -%}
+        {%- render 'section-image', image: s.cover, sizes: '100vw', section: section, placeholder: 'hero-apparel-1', alt: '' -%}
+        {%- if s.video_url != blank -%}
+          <button type="button" class="bp-video-card__play" data-bp-play>
+            {%- render 'icon', name: 'play' -%}
+            <span class="bp-visually-hidden">{{ s.description | default: s.heading | strip_html | escape }}</span>
+          </button>
+          <template data-bp-embed>{{ s.video_url | external_video_url: autoplay: true, rel: 0 | external_video_tag: loading: 'lazy' }}</template>
+          <noscript><a href="{{ s.video_url }}">{{ 'sections.videos.watch' | t }}</a></noscript>
+        {%- endif -%}
+      {%- endif -%}
+    </bp-video>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.video.name",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "t:sections.video.settings.video.label"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "t:sections.video.settings.video_url.label",
+      "accept": [
+        "youtube",
+        "vimeo"
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "cover",
+      "label": "t:sections.video.settings.cover.label"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "t:sections.video.settings.description.label",
+      "info": "t:sections.video.settings.description.info"
+    },
+    {
+      "type": "select",
+      "id": "aspect",
+      "label": "t:sections.video.settings.aspect.label",
+      "default": "wide",
+      "options": [
+        {
+          "value": "wide",
+          "label": "t:sections.video.settings.aspect.options.wide"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.video.settings.aspect.options.square"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.video.settings.aspect.options.portrait"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "t:sections.video.settings.autoplay.label",
+      "info": "t:sections.video.settings.autoplay.info",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.video.presets.video.name"
+    }
+  ]
+}
+{% endschema %}

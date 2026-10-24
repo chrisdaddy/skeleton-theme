@@ -1,0 +1,277 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign repeat = 1
+  if s.marquee
+    assign repeat = 2
+  endif
+-%}
+<section {% render 'section-attributes', section: section, name: 'press', modifier: s.style %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    {%- if s.heading != blank -%}
+      <p class="bp-press__heading bp-eyebrow" id="Heading-{{ section.id }}">{{ s.heading }}</p>
+    {%- endif -%}
+    <div class="bp-press__wrap{% if s.marquee %} bp-marquee{% endif %}{% if s.grayscale %} bp-press--mono{% endif %}" style="--bp-marquee-duration: {{ 60 | divided_by: s.speed }}s;">
+      <div class="bp-press__track{% if s.marquee %} bp-marquee__track{% endif %}">
+        {%- for i in (1..repeat) -%}
+          <ul class="bp-marquee__group bp-press__list" role="list" {% if forloop.index == 2 %}aria-hidden="true"{% endif %}>
+            {%- for block in section.blocks -%}
+              <li class="bp-press__item" {% if forloop.parentloop.index == 1 %}{{ block.shopify_attributes }}{% endif %}>
+                {%- if block.settings.logo != blank -%}
+                  {{ block.settings.logo | image_url: height: 80 | image_tag: height: 32, loading: 'lazy', alt: block.settings.name, class: 'bp-press__logo' }}
+                {%- else -%}
+                  <span class="bp-press__name">{{ block.settings.name | escape }}</span>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.press.name",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "As seen in"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:sections.press.settings.style.label",
+      "default": "wordmarks",
+      "options": [
+        {
+          "value": "wordmarks",
+          "label": "t:sections.press.settings.style.options.wordmarks"
+        },
+        {
+          "value": "logos",
+          "label": "t:sections.press.settings.style.options.logos"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee",
+      "label": "t:sections.press.settings.marquee.label",
+      "info": "t:sections.press.settings.marquee.info",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "t:sections.press.settings.speed.label",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 2,
+      "visible_if": "{{ section.settings.marquee }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "grayscale",
+      "label": "t:sections.press.settings.grayscale.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "t:sections.press.blocks.logo.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "t:sections.press.blocks.logo.settings.name.label",
+          "info": "t:sections.press.blocks.logo.settings.name.info",
+          "default": "Publication"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "t:sections.press.blocks.logo.settings.logo.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.press.presets.as_seen_in.name",
+      "blocks": [
+        {
+          "type": "logo",
+          "settings": {
+            "name": "Forbes"
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "name": "Men's Health"
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "name": "Vogue"
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "name": "Well+Good"
+          }
+        }
+      ]
+    },
+    {
+      "name": "t:sections.press.presets.press_marquee.name",
+      "settings": {
+        "marquee": true
+      },
+      "blocks": [
+        {
+          "type": "logo",
+          "settings": {
+            "name": "Forbes"
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "name": "Men's Health"
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "name": "Vogue"
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "name": "Well+Good"
+          }
+        },
+        {
+          "type": "logo",
+          "settings": {
+            "name": "GQ"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

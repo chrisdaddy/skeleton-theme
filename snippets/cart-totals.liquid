@@ -1,0 +1,49 @@
+{% doc %}
+  Totals from Shopify's own cart fields: items subtotal, each cart-level discount, then
+  the total. When the lines cost less than their regular or compare-at prices, a note
+  states the saving, computed from Shopify's prices (no subtraction row, so the rows
+  always add up).
+
+  @param {number} protection_id - The shipping protection variant ID (left out of the saving)
+{% enddoc %}
+{%- liquid
+  assign saving = 0
+  for item in cart.items
+    if item.variant_id == protection_id
+      continue
+    endif
+    assign reference = item.variant.compare_at_price | default: 0
+    if item.original_price > reference
+      assign reference = item.original_price
+    endif
+    if item.variant.price > reference
+      assign reference = item.variant.price
+    endif
+    assign line_reference = reference | times: item.quantity
+    if line_reference > item.final_line_price
+      assign line_saving = line_reference | minus: item.final_line_price
+      assign saving = saving | plus: line_saving
+    endif
+  endfor
+-%}
+<dl class="bp-cart-totals">
+  <div class="bp-cart-totals__row">
+    <dt>{{ 'cart.subtotal' | t }}</dt>
+    <dd>{{ cart.items_subtotal_price | money }}</dd>
+  </div>
+  {%- for application in cart.cart_level_discount_applications -%}
+    <div class="bp-cart-totals__row bp-accent-text">
+      <dt>{{ application.title | escape }}</dt>
+      <dd>−{{ application.total_allocated_amount | money }}</dd>
+    </div>
+  {%- endfor -%}
+  <div class="bp-cart-totals__row bp-cart-totals__total">
+    <dt>{{ 'cart.total' | t }}</dt>
+    <dd>{{ cart.total_price | money }}</dd>
+  </div>
+</dl>
+{%- if saving > 0 -%}
+  {%- assign amount = saving | money -%}
+  <p class="bp-cart-totals__saving">{{ 'cart.saving' | t: amount: amount }}</p>
+{%- endif -%}
+<p class="bp-small bp-muted">{{ 'cart.taxes_note' | t }}</p>

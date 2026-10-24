@@ -1,0 +1,313 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign source = s.product | default: product
+  assign faqs = ''
+  if s.use_metafield
+    assign faqs = source.metafields.blueprint.faqs.value
+  endif
+  assign questions = section.blocks | where: 'type', 'question'
+-%}
+{%- if faqs != blank or questions.size > 0 or s.hide_empty == false -%}
+  <section {% render 'section-attributes', section: section, name: 'faq', modifier: s.layout %}>
+    <div class="bp-page-width bp-page-width--{{ s.width }} bp-faq__inner">
+      {%- render 'section-heading', section: section -%}
+      <div class="bp-faq__list">
+        {%- if faqs != blank -%}
+          {%- for faq in faqs -%}
+            <details class="bp-accordion" {% if forloop.first and s.open_first %}open{% endif %}>
+              <summary class="bp-accordion__summary"><span>{{ faq.question.value | escape }}</span>{%- render 'icon', name: 'plus', class: 'bp-accordion__toggle' -%}</summary>
+              <div class="bp-accordion__content bp-rte">{{ faq.answer | metafield_tag }}</div>
+            </details>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for block in questions -%}
+            <details class="bp-accordion" {% if forloop.first and s.open_first %}open{% endif %} {{ block.shopify_attributes }}>
+              <summary class="bp-accordion__summary"><span>{{ block.settings.question | escape }}</span>{%- render 'icon', name: 'plus', class: 'bp-accordion__toggle' -%}</summary>
+              <div class="bp-accordion__content bp-rte">{{ block.settings.answer }}</div>
+            </details>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+    {%- if s.structured_data -%}
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {%- if faqs != blank -%}
+              {%- for faq in faqs -%}
+                {%- assign answer = faq.answer | metafield_tag | strip_html | strip -%}
+                {"@type": "Question", "name": {{ faq.question.value | json }}, "acceptedAnswer": {"@type": "Answer", "text": {{ answer | json }}}}{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            {%- else -%}
+              {%- for block in questions -%}
+                {%- assign answer = block.settings.answer | strip_html | strip -%}
+                {"@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": {"@type": "Answer", "text": {{ answer | json }}}}{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            {%- endif -%}
+          ]
+        }
+      </script>
+    {%- endif -%}
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.faq.name",
+  "max_blocks": 30,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Questions"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.common.settings.alignment.label",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.common.settings.alignment.options.start"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.settings.alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.faq.settings.layout.label",
+      "default": "single",
+      "options": [
+        {
+          "value": "single",
+          "label": "t:sections.faq.settings.layout.options.single"
+        },
+        {
+          "value": "split",
+          "label": "t:sections.faq.settings.layout.options.split"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "t:sections.faq.settings.open_first.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "structured_data",
+      "label": "t:sections.faq.settings.structured_data.label",
+      "default": true,
+      "info": "t:sections.faq.settings.structured_data.info"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.faq.settings.reads_the_product_s_blueprint_faqs_metaf"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.common.settings.product.label",
+      "info": "t:sections.common.settings.product.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_metafield",
+      "label": "t:sections.common.settings.use_metafield.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_empty",
+      "label": "t:sections.common.settings.hide_empty.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "t:sections.faq.blocks.question.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "t:sections.faq.blocks.question.settings.question.label",
+          "default": "Ask a question customers really ask"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "t:sections.faq.blocks.question.settings.answer.label",
+          "default": "<p>Answer it plainly, in two or three sentences.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.faq.presets.faq.name",
+      "settings": {
+        "use_metafield": false
+      },
+      "blocks": [
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.faq.presets.faq_two_columns.name",
+      "settings": {
+        "use_metafield": false,
+        "layout": "split",
+        "width": "page"
+      },
+      "blocks": [
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.faq.presets.product_faq.name",
+      "settings": {
+        "use_metafield": true
+      },
+      "blocks": [
+        {
+          "type": "question"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

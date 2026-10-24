@@ -1,0 +1,276 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign questions = section.blocks | where: 'type', 'question'
+-%}
+<section {% render 'section-attributes', section: section, name: 'quiz' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    <bp-quiz class="bp-quiz__card" data-bp-module="{{ 'bp-quiz.js' | asset_url }}" data-bp-load="visible" data-step-label="{{ 'sections.quiz.step' | t: current: '[current]', total: questions.size }}">
+      <div class="bp-quiz__intro">
+        {%- render 'section-heading', section: section, align: 'start' -%}
+      </div>
+      <div class="bp-quiz__steps">
+        {%- assign step = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'question' -%}
+            {%- assign step = step | plus: 1 -%}
+            {%- assign first_answer = forloop.index -%}
+            <fieldset class="bp-quiz__step" data-step="{{ step }}" {{ block.shopify_attributes }}>
+              <legend class="bp-quiz__question">{{ block.settings.question | escape }}</legend>
+              <ul class="bp-quiz__answers" role="list">
+                {%- for answer in section.blocks offset: first_answer -%}
+                  {%- if answer.type == 'question' -%}{%- break -%}{%- endif -%}
+                  {%- liquid
+                    assign result_url = answer.settings.link
+                    if result_url == blank and answer.settings.product != blank
+                      assign result_url = answer.settings.product.url
+                    endif
+                    if answer.settings.params != blank and result_url != blank
+                      if result_url contains '?'
+                        assign result_url = result_url | append: '&' | append: answer.settings.params
+                      else
+                        assign result_url = result_url | append: '?' | append: answer.settings.params
+                      endif
+                    endif
+                  -%}
+                  <li {{ answer.shopify_attributes }}>
+                    <a
+                      class="bp-quiz__answer"
+                      href="{{ result_url | default: '#' }}"
+                      data-result-url="{{ result_url }}"
+                      data-result-text="{{ answer.settings.result | escape }}"
+                    >
+                      {{- answer.settings.label | escape -}}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </fieldset>
+          {%- endif -%}
+        {%- endfor -%}
+        <div class="bp-quiz__result" data-bp-result hidden tabindex="-1">
+          <p class="bp-quiz__result-text" data-bp-result-text></p>
+          <a class="bp-button" href="#" data-bp-result-link>{{ s.result_label | escape }}</a>
+          <button type="button" class="bp-link bp-small" data-bp-restart>{{ 'sections.quiz.restart' | t }}</button>
+        </div>
+      </div>
+      <p class="bp-visually-hidden" aria-live="polite" data-bp-quiz-status></p>
+    </bp-quiz>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.quiz.name",
+  "max_blocks": 24,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.common.settings.eyebrow.label",
+      "default": "Product finder"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Not sure where to start?"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label",
+      "default": "A few questions, one recommendation."
+    },
+    {
+      "type": "text",
+      "id": "result_label",
+      "label": "t:sections.quiz.settings.result_label.label",
+      "default": "Show my match"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.quiz.settings.add_a_question_then_its_answers_up_to_fo"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "t:sections.quiz.blocks.question.name",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "t:sections.quiz.blocks.question.settings.question.label",
+          "default": "What are you looking for?"
+        }
+      ]
+    },
+    {
+      "type": "answer",
+      "name": "t:sections.quiz.blocks.answer.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:sections.quiz.blocks.answer.settings.label.label",
+          "default": "Answer"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "t:sections.quiz.blocks.answer.settings.product.label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.quiz.blocks.answer.settings.link.label"
+        },
+        {
+          "type": "text",
+          "id": "params",
+          "label": "t:sections.quiz.blocks.answer.settings.params.label",
+          "info": "t:sections.quiz.blocks.answer.settings.params.info"
+        },
+        {
+          "type": "text",
+          "id": "result",
+          "label": "t:sections.quiz.blocks.answer.settings.result.label",
+          "default": "Your match"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.quiz.presets.quiz_finder.name",
+      "blocks": [
+        {
+          "type": "question"
+        },
+        {
+          "type": "answer",
+          "settings": {
+            "label": "Fresh"
+          }
+        },
+        {
+          "type": "answer",
+          "settings": {
+            "label": "Warm"
+          }
+        },
+        {
+          "type": "answer",
+          "settings": {
+            "label": "Floral"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

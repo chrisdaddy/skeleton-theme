@@ -1,0 +1,23 @@
+{% doc %}
+  Prints a whole number with thousands separators (41208 → 41,208). The separator is
+  translatable (general.thousands_separator), because Liquid has no number formatter.
+
+  @param {number} number - A whole number
+{% enddoc %}
+{%- liquid
+  assign digits = number | round | append: ''
+  assign separator = 'general.thousands_separator' | t
+  assign length = digits.size
+  assign head = length | modulo: 3
+  if head == 0
+    assign head = 3
+  endif
+  echo digits | slice: 0, head
+  for start in (head..length)
+    assign offset = start | minus: head | modulo: 3
+    if offset == 0 and start < length
+      echo separator
+      echo digits | slice: start, 3
+    endif
+  endfor
+-%}

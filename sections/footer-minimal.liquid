@@ -1,0 +1,47 @@
+{% comment %}
+  Pre-lander footer: policy links and an optional disclosure line (for example, "This is an advertisement").
+{% endcomment %}
+<footer class="bp-footer" data-surface="{{ section.settings.surface_style }}">
+  <div class="bp-page-width bp-stack bp-stack--tight bp-small">
+    {%- if section.settings.disclosure != blank -%}
+      <div class="bp-rte bp-muted">{{ section.settings.disclosure }}</div>
+    {%- endif -%}
+    {%- assign current_year = 'now' | date: '%Y' -%}
+    <p class="bp-muted">
+      {{ 'general.copyright' | t: year: current_year, shop: shop.name }}
+      {%- for policy in shop.policies -%}
+        <span aria-hidden="true">&nbsp;·&nbsp;</span><a href="{{ policy.url }}">{{ policy.title | escape }}</a>
+      {%- endfor -%}
+    </p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "t:sections.footer_minimal.name",
+  "class": "bp-section-footer",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "disclosure",
+      "label": "t:sections.footer_minimal.settings.disclosure.label",
+      "info": "t:sections.footer_minimal.settings.disclosure.info",
+      "default": "<p>This page is an advertisement. Individual results vary.</p>"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "t:sections.common.settings.surface_style.options.default" },
+        { "value": "surface", "label": "t:sections.common.settings.surface_style.options.surface" },
+        { "value": "inverse", "label": "t:sections.common.settings.surface_style.options.inverse" }
+      ]
+    }
+  ]
+}
+{% endschema %}

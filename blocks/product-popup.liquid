@@ -1,0 +1,47 @@
+{% doc %}
+  A link that opens a page in a dialog, e.g. shipping and returns.
+{% enddoc %}
+{%- liquid
+  assign dialog_id = 'Popup-' | append: block.id
+-%}
+{%- if block.settings.label != blank and block.settings.page != blank -%}
+  <div {{ block.shopify_attributes }}>
+    <button type="button" class="bp-link-button" command="show-modal" commandfor="{{ dialog_id }}" aria-haspopup="dialog">
+      {{- block.settings.label | escape -}}
+    </button>
+    <dialog id="{{ dialog_id }}" class="bp-modal" closedby="any" aria-labelledby="{{ dialog_id }}-title">
+      <div class="bp-modal__header">
+        <h2 id="{{ dialog_id }}-title" class="bp-h4">{{ block.settings.page.title | escape }}</h2>
+        <button type="button" class="bp-icon-button" command="close" commandfor="{{ dialog_id }}">
+          <span class="bp-visually-hidden">{{ 'general.close' | t }}</span>{%- render 'icon', name: 'close' -%}
+        </button>
+      </div>
+      <div class="bp-rte">{{ block.settings.page.content }}</div>
+    </dialog>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_popup.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "t:blocks.product_popup.settings.label.label",
+      "default": "Shipping and returns"
+    },
+    {
+      "type": "page",
+      "id": "page",
+      "label": "t:blocks.product_popup.settings.page.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_popup.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

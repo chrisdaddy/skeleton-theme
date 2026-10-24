@@ -1,0 +1,39 @@
+{% doc %}
+  The product description.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+-%}
+{%- if product.description != blank -%}
+  {%- if block.settings.collapsed -%}
+    <details class="bp-accordion" {{ block.shopify_attributes }}>
+      <summary class="bp-accordion__summary">
+        <span>{{ 'products.description' | t }}</span>
+        {%- render 'icon', name: 'plus', class: 'bp-accordion__toggle' -%}
+      </summary>
+      <div class="bp-accordion__content bp-rte">{{ product.description }}</div>
+    </details>
+  {%- else -%}
+    <div class="bp-rte" {{ block.shopify_attributes }}>{{ product.description }}</div>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_description.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "collapsed",
+      "label": "t:blocks.product_description.settings.collapsed.label",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_description.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

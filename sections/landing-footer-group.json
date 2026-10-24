@@ -1,0 +1,11 @@
+{
+  "type": "footer",
+  "name": "t:section_groups.landing_footer",
+  "sections": {
+    "footer": {
+      "type": "footer-minimal",
+      "settings": {}
+    }
+  },
+  "order": ["footer"]
+}

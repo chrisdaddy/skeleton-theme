@@ -1,0 +1,48 @@
+{% comment %}
+  Quick add: the buy box in a dialog, opened from a product card (assets/bp-quick-add.js).
+  Not part of any template. bp-quick-add.js requests it through the Section Rendering API
+  on the product's own URL (?section_id=quick-add), so `product` is that product.
+  The buy box is the same theme blocks as the product page, rendered as static blocks
+  with their default settings.
+{% endcomment %}
+{{ 'section-product.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign form_id = 'ProductForm-' | append: section.id
+  assign current_variant = product.selected_or_first_available_variant
+-%}
+<div class="bp-quick-add" data-surface="default">
+  <div class="bp-quick-add__media">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 720 | image_tag: widths: '360, 540, 720', sizes: '(min-width: 750px) 320px, 100vw', class: 'bp-media__img', alt: product.featured_media.alt }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'bp-media__img' }}
+    {%- endif -%}
+  </div>
+  <bp-product
+    class="bp-quick-add__info bp-buybox"
+    data-section-id="{{ section.id }}"
+    data-product-url="{{ product.url }}"
+    data-form-id="{{ form_id }}"
+    data-cart-url="{{ routes.cart_url }}"
+    data-error-message="{{ 'products.errors.generic' | t | escape }}"
+    data-bp-module="{{ 'bp-product.js' | asset_url }}"
+    data-bp-load="idle"
+  >
+    <input type="hidden" name="id" value="{{ current_variant.id }}" form="{{ form_id }}">
+    <input type="hidden" name="quantity" value="1" form="{{ form_id }}">
+    {% content_for 'block', type: 'product-title', id: 'quick-add-title' %}
+    {% content_for 'block', type: 'product-price', id: 'quick-add-price' %}
+    {% content_for 'block', type: 'product-variant-picker', id: 'quick-add-variants' %}
+    {% content_for 'block', type: 'product-offer-tiers', id: 'quick-add-tiers' %}
+    {% content_for 'block', type: 'product-purchase-options', id: 'quick-add-plans' %}
+    {% content_for 'block', type: 'product-buy-buttons', id: 'quick-add-buttons' %}
+    <a class="bp-link-arrow bp-small" href="{{ product.url }}">{{ 'products.quick_add.view' | t }}</a>
+  </bp-product>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.quick_add.name",
+  "settings": []
+}
+{% endschema %}

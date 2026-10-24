@@ -1,0 +1,859 @@
+{
+  "id": "goodboy",
+  "brand": "GOODBOY",
+  "preset": "Bold",
+  "listing": "bold",
+  "required": false,
+  "mode": "pack",
+  "notice": "Demo store: sample products, prices and reviews",
+  "files": [
+    {
+      "key": "hero",
+      "filename": "bp-goodboy-hero.png",
+      "label": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents",
+      "alt": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents"
+    },
+    {
+      "key": "hero-2",
+      "filename": "bp-goodboy-hero-2.png",
+      "label": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents · view 2",
+      "alt": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents · view 2"
+    },
+    {
+      "key": "hero-3",
+      "filename": "bp-goodboy-hero-3.png",
+      "label": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents · view 3",
+      "alt": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents · view 3"
+    },
+    {
+      "key": "hero-4",
+      "filename": "bp-goodboy-hero-4.png",
+      "label": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents · view 4",
+      "alt": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents · view 4"
+    },
+    {
+      "key": "hero-5",
+      "filename": "bp-goodboy-hero-5.png",
+      "label": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents · view 5",
+      "alt": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents · view 5"
+    },
+    {
+      "key": "calming-chews",
+      "filename": "bp-goodboy-calming-chews.png",
+      "label": "Calming Chews",
+      "alt": "Calming Chews"
+    },
+    {
+      "key": "hip-and-joint",
+      "filename": "bp-goodboy-hip-and-joint.png",
+      "label": "Hip & Joint",
+      "alt": "Hip & Joint"
+    },
+    {
+      "key": "skin-and-coat",
+      "filename": "bp-goodboy-skin-and-coat.png",
+      "label": "Skin & Coat",
+      "alt": "Skin & Coat"
+    },
+    {
+      "key": "puppy-starter",
+      "filename": "bp-goodboy-puppy-starter.png",
+      "label": "Puppy Starter",
+      "alt": "Puppy Starter"
+    },
+    {
+      "key": "dental-sticks",
+      "filename": "bp-goodboy-dental-sticks.png",
+      "label": "Dental Sticks",
+      "alt": "Dental Sticks"
+    },
+    {
+      "key": "bp-goodboy-photo-home-hero-golden-retriever-mid-catch-warm-cream-studio-orang",
+      "filename": "bp-goodboy-photo-home-hero-golden-retriever-mid-catch-warm-cream-studio-orang.png",
+      "label": "Home hero: golden retriever mid-catch, warm cream studio, orange accents",
+      "alt": ""
+    },
+    {
+      "key": "bp-goodboy-photo-dog-week-0-dull-coat-tired-eyes",
+      "filename": "bp-goodboy-photo-dog-week-0-dull-coat-tired-eyes.png",
+      "label": "Dog, week 0, dull coat, tired eyes",
+      "alt": ""
+    },
+    {
+      "key": "bp-goodboy-photo-same-dog-week-6-glossy-coat-bright-eyes",
+      "filename": "bp-goodboy-photo-same-dog-week-6-glossy-coat-bright-eyes.png",
+      "label": "Same dog, week 6, glossy coat, bright eyes",
+      "alt": ""
+    },
+    {
+      "key": "bp-goodboy-photo-customer-photo-french-bulldog-with-chew-bag",
+      "filename": "bp-goodboy-photo-customer-photo-french-bulldog-with-chew-bag.png",
+      "label": "Customer photo: French bulldog with chew bag",
+      "alt": ""
+    },
+    {
+      "key": "bp-goodboy-photo-customer-photo-golden-retriever-mid-catch",
+      "filename": "bp-goodboy-photo-customer-photo-golden-retriever-mid-catch.png",
+      "label": "Customer photo: golden retriever mid-catch",
+      "alt": ""
+    },
+    {
+      "key": "bp-goodboy-photo-customer-photo-dachshund-on-sofa",
+      "filename": "bp-goodboy-photo-customer-photo-dachshund-on-sofa.png",
+      "label": "Customer photo: dachshund on sofa",
+      "alt": ""
+    },
+    {
+      "key": "bp-goodboy-photo-advertorial-lead-image",
+      "filename": "bp-goodboy-photo-advertorial-lead-image.png",
+      "label": "Advertorial lead image",
+      "alt": ""
+    }
+  ],
+  "products": [
+    {
+      "handle": "goodboy-daily-gut-chews",
+      "title": "Daily Gut Chews",
+      "productType": "Gut",
+      "tags": [
+        "bp-hero"
+      ],
+      "descriptionHtml": "<p>Gut chews your dog will beg for. Vet formulated.</p>",
+      "files": [
+        {
+          "$file": "hero"
+        },
+        {
+          "$file": "hero-2"
+        },
+        {
+          "$file": "hero-3"
+        },
+        {
+          "$file": "hero-4"
+        },
+        {
+          "$file": "hero-5"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "tiers",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_tier/goodboy-tier-1"
+            },
+            {
+              "$metaobject": "blueprint_tier/goodboy-tier-2"
+            },
+            {
+              "$metaobject": "blueprint_tier/goodboy-tier-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "pack_option",
+          "type": "single_line_text_field",
+          "value": "Pack"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "badge",
+          "type": "single_line_text_field",
+          "value": "Vet approved"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "benefits",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_benefit/goodboy-benefit-1"
+            },
+            {
+              "$metaobject": "blueprint_benefit/goodboy-benefit-2"
+            },
+            {
+              "$metaobject": "blueprint_benefit/goodboy-benefit-3"
+            },
+            {
+              "$metaobject": "blueprint_benefit/goodboy-benefit-4"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "faqs",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_faq/goodboy-faq-1"
+            },
+            {
+              "$metaobject": "blueprint_faq/goodboy-faq-2"
+            },
+            {
+              "$metaobject": "blueprint_faq/goodboy-faq-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "guarantee",
+          "type": "metaobject_reference",
+          "value": {
+            "$metaobject": "blueprint_guarantee/goodboy-guarantee"
+          }
+        },
+        {
+          "namespace": "blueprint",
+          "key": "upsell",
+          "type": "product_reference",
+          "value": {
+            "$product": "calming-chews"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating_count",
+          "type": "number_integer",
+          "value": 22410
+        },
+        {
+          "namespace": "descriptors",
+          "key": "subtitle",
+          "type": "single_line_text_field",
+          "value": "Gut chews your dog will beg for. Vet formulated."
+        },
+        {
+          "namespace": "blueprint",
+          "key": "shot_note",
+          "type": "single_line_text_field",
+          "value": "PDP hero: chew bag with golden retriever, warm cream backdrop, orange accents"
+        }
+      ],
+      "options": [
+        {
+          "name": "Dog size",
+          "values": [
+            "Small · under 25 lb",
+            "Medium · 25–60 lb",
+            "Large · 60 lb+"
+          ]
+        },
+        {
+          "name": "Pack",
+          "values": [
+            "1 bag",
+            "3 bags",
+            "6 bags"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "options": [
+            "Small · under 25 lb",
+            "1 bag"
+          ],
+          "price": "36.00",
+          "compareAtPrice": "45.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Small · under 25 lb",
+            "3 bags"
+          ],
+          "price": "92.00",
+          "compareAtPrice": "135.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Small · under 25 lb",
+            "6 bags"
+          ],
+          "price": "168.00",
+          "compareAtPrice": "270.00",
+          "packQuantity": 6
+        },
+        {
+          "options": [
+            "Medium · 25–60 lb",
+            "1 bag"
+          ],
+          "price": "36.00",
+          "compareAtPrice": "45.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Medium · 25–60 lb",
+            "3 bags"
+          ],
+          "price": "92.00",
+          "compareAtPrice": "135.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Medium · 25–60 lb",
+            "6 bags"
+          ],
+          "price": "168.00",
+          "compareAtPrice": "270.00",
+          "packQuantity": 6
+        },
+        {
+          "options": [
+            "Large · 60 lb+",
+            "1 bag"
+          ],
+          "price": "36.00",
+          "compareAtPrice": "45.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Large · 60 lb+",
+            "3 bags"
+          ],
+          "price": "92.00",
+          "compareAtPrice": "135.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Large · 60 lb+",
+            "6 bags"
+          ],
+          "price": "168.00",
+          "compareAtPrice": "270.00",
+          "packQuantity": 6
+        }
+      ]
+    },
+    {
+      "handle": "calming-chews",
+      "title": "Calming Chews",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Calming Chews.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "32.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "calming-chews"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "cart_deal_label",
+          "type": "single_line_text_field",
+          "value": "$26 in cart"
+        }
+      ]
+    },
+    {
+      "handle": "hip-and-joint",
+      "title": "Hip & Joint",
+      "productType": "Gut",
+      "tags": [],
+      "descriptionHtml": "<p>Hip & Joint.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "42.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "hip-and-joint"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "skin-and-coat",
+      "title": "Skin & Coat",
+      "productType": "Calm",
+      "tags": [],
+      "descriptionHtml": "<p>Skin & Coat.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "36.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "skin-and-coat"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "puppy-starter",
+      "title": "Puppy Starter",
+      "productType": "Joints",
+      "tags": [],
+      "descriptionHtml": "<p>Puppy Starter.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "56.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "puppy-starter"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "dental-sticks",
+      "title": "Dental Sticks",
+      "productType": "Gut",
+      "tags": [],
+      "descriptionHtml": "<p>Dental Sticks.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "22.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "dental-sticks"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.7",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "shipping-protection",
+      "title": "Shipping protection",
+      "productType": "",
+      "tags": [
+        "bp-protection"
+      ],
+      "descriptionHtml": "<p>Covers loss, theft and damage in transit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "2.95",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": false
+        }
+      ],
+      "files": [],
+      "metafields": []
+    }
+  ],
+  "metaobjects": [
+    {
+      "type": "blueprint_tier",
+      "handle": "goodboy-tier-1",
+      "fields": {
+        "label": "1 bag",
+        "sublabel": "60 chews · 1 month",
+        "preselected": false,
+        "pack_value": "1 bag"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "goodboy-tier-2",
+      "fields": {
+        "label": "3 bags",
+        "sublabel": "3 months · free shipping",
+        "badge": "Most popular",
+        "preselected": true,
+        "pack_value": "3 bags"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "goodboy-tier-3",
+      "fields": {
+        "label": "6 bags",
+        "sublabel": "6 months · free bandana",
+        "badge": "Best value",
+        "preselected": false,
+        "pack_value": "6 bags"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "goodboy-benefit-1",
+      "fields": {
+        "icon": "paw",
+        "title": "Formulated by 3 vets"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "goodboy-benefit-2",
+      "fields": {
+        "icon": "leaf",
+        "title": "Pumpkin, probiotics, prebiotics"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "goodboy-benefit-3",
+      "fields": {
+        "icon": "heart",
+        "title": "Picky-eater approved or refunded"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "goodboy-benefit-4",
+      "fields": {
+        "icon": "truck",
+        "title": "Free shipping over $50"
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "goodboy-faq-1",
+      "fields": {
+        "question": "What if my dog won't eat it?",
+        "answer": {
+          "rich": "Email us a photo of the refusal. Full refund, keep the bag."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "goodboy-faq-2",
+      "fields": {
+        "question": "Is it OK with their kibble?",
+        "answer": {
+          "rich": "Yes. It is a supplement, not a food replacement."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "goodboy-faq-3",
+      "fields": {
+        "question": "Puppies?",
+        "answer": {
+          "rich": "From 12 weeks. Half dose under 10 lb."
+        }
+      }
+    },
+    {
+      "type": "blueprint_guarantee",
+      "handle": "goodboy-guarantee",
+      "fields": {
+        "title": "Picky-eater guarantee",
+        "body": "If your dog turns it down, email us a photo of the refusal. We refund the bag and you keep it."
+      }
+    }
+  ],
+  "sellingPlanGroups": [],
+  "collections": [
+    {
+      "handle": "best-sellers",
+      "title": "Best sellers",
+      "products": [
+        "goodboy-daily-gut-chews",
+        "calming-chews",
+        "hip-and-joint",
+        "skin-and-coat",
+        "puppy-starter",
+        "dental-sticks"
+      ]
+    },
+    {
+      "handle": "gut",
+      "title": "Gut",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Gut"
+      }
+    },
+    {
+      "handle": "calm",
+      "title": "Calm",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Calm"
+      }
+    },
+    {
+      "handle": "joints",
+      "title": "Joints",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Joints"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "handle": "advertorial",
+      "title": "Our rescue had a sensitive stomach for 3 years. A vet friend told us to try this.",
+      "templateSuffix": "advertorial",
+      "body": "<p>Biscuit is a 6-year-old beagle mix with opinions about everything, especially food. Three vets, four kibbles, one very tired carpet cleaner.</p>"
+    },
+    {
+      "handle": "listicle",
+      "title": "6 reasons 22,000 dog parents switched to Goodboy",
+      "templateSuffix": "listicle",
+      "body": ""
+    },
+    {
+      "handle": "comparison",
+      "title": "How GOODBOY compares",
+      "templateSuffix": "comparison",
+      "body": ""
+    },
+    {
+      "handle": "about",
+      "title": "About GOODBOY",
+      "templateSuffix": "about",
+      "body": "<p>Warm and playful, written in pet-parent voice. Quiz-led.</p>"
+    },
+    {
+      "handle": "contact",
+      "title": "Contact",
+      "templateSuffix": "contact",
+      "body": ""
+    }
+  ],
+  "menus": [
+    {
+      "handle": "main-menu",
+      "title": "Main menu",
+      "items": [
+        {
+          "title": "Shop",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "best-sellers"
+          },
+          "items": [
+            {
+              "title": "Daily Gut Chews",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "goodboy-daily-gut-chews"
+              }
+            },
+            {
+              "title": "Calming Chews",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "calming-chews"
+              }
+            },
+            {
+              "title": "Hip & Joint",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "hip-and-joint"
+              }
+            },
+            {
+              "title": "Skin & Coat",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "skin-and-coat"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Quiz",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Why it works",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Reviews",
+          "type": "PRODUCT",
+          "ref": {
+            "$product": "goodboy-daily-gut-chews"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "footer",
+      "title": "Footer menu",
+      "items": [
+        {
+          "title": "Search",
+          "type": "SEARCH",
+          "url": "/search"
+        },
+        {
+          "title": "Shipping",
+          "type": "HTTP",
+          "url": "/policies/shipping-policy"
+        },
+        {
+          "title": "Returns",
+          "type": "HTTP",
+          "url": "/policies/refund-policy"
+        },
+        {
+          "title": "Contact",
+          "type": "PAGE",
+          "ref": {
+            "$page": "contact"
+          }
+        }
+      ]
+    }
+  ],
+  "discounts": [
+    {
+      "kind": "freeShipping",
+      "title": "Blueprint demo: free shipping over $50",
+      "minimumSubtotal": "50.00"
+    },
+    {
+      "kind": "amountOffProduct",
+      "title": "Blueprint demo: Calming Chews $26 in cart",
+      "products": [
+        {
+          "$product": "calming-chews"
+        }
+      ],
+      "amountEach": "6.00"
+    }
+  ],
+  "theme": {
+    "preset": "Bold",
+    "listing": "bold",
+    "settings": {
+      "color_mode": "light",
+      "accent_color": "#F0611A",
+      "light_bg": "#FFFCF5",
+      "light_surface": "#FFF0D6",
+      "light_ink": "#1F1A14",
+      "light_line": "#F1E2C6",
+      "light_accent_soft": "#FFE4D2",
+      "light_on_accent": "",
+      "dark_on_accent": "",
+      "light_accent_text": "",
+      "dark_accent_text": "",
+      "cart_protection_product": "shipping-protection",
+      "cart_upsell_collection": "best-sellers",
+      "cart_upsell_show_deal": true,
+      "cart_empty_collection": "best-sellers",
+      "social_instagram": "https://instagram.com/goodboy",
+      "social_tiktok": "https://tiktok.com/@goodboy",
+      "cart_reward_1_label": "Free shipping",
+      "cart_reward_1_threshold": 50,
+      "cart_reward_1_gift": "",
+      "cart_reward_2_label": "",
+      "cart_reward_2_threshold": null,
+      "cart_reward_2_gift": "",
+      "cart_reward_3_label": "",
+      "cart_reward_3_threshold": null,
+      "cart_reward_3_gift": ""
+    }
+  }
+}

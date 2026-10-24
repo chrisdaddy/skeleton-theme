@@ -1,0 +1,94 @@
+{% doc %}
+  Option pills (with swatches) for every option except the pack option. Each pill links to its variant, so it works without JavaScript; bp-product.js swaps the buy box in place.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign pack_name = product.metafields.blueprint.pack_option.value | default: 'Pack'
+-%}
+{%- unless product.has_only_default_variant -%}
+  <div class="bp-variant-picker" {{ block.shopify_attributes }}>
+    {%- for option in product.options_with_values -%}
+      {%- if block.settings.hide_pack_option and option.name == pack_name -%}
+        {%- continue -%}
+      {%- endif -%}
+      <fieldset class="bp-variant-option">
+        <legend class="bp-variant-option__legend">
+          <span class="bp-eyebrow">{{ option.name | escape }}</span>
+          <span class="bp-variant-option__selected">{{ option.selected_value | escape }}</span>
+        </legend>
+        <div class="bp-pills">
+          {%- for value in option.values -%}
+            {%- liquid
+              # Combined listings link to the sibling product; otherwise to the matching variant.
+              assign href = value.product_url
+              if href == blank
+                assign href = value.variant.url
+              endif
+              assign show_swatch = false
+              if block.settings.swatches
+                if value.swatch.color != blank or value.swatch.image != blank
+                  assign show_swatch = true
+                endif
+              endif
+            -%}
+            <a
+              class="bp-pill{% if value.selected %} is-selected{% endif %}{% unless value.available %} is-unavailable{% endunless %}"
+              href="{{ href | default: product.url }}"
+              data-bp-option-link
+              {% if value.variant %}
+                data-variant-id="{{ value.variant.id }}"
+              {% endif %}
+              {% if value.selected %}
+                aria-current="true"
+              {% endif %}
+            >
+              {%- if show_swatch -%}
+                <span
+                  class="bp-swatch"
+                  {% if value.swatch.image %}
+                    style="background-image: url({{ value.swatch.image | image_url: width: 48 }});"
+                  {% else %}
+                    style="background: {{ value.swatch.color }};"
+                  {% endif %}
+                  aria-hidden="true"
+                ></span>
+              {%- endif -%}
+              {{- value.name | escape -}}
+              {%- unless value.available -%}
+                <span class="bp-visually-hidden">, {{ 'products.sold_out' | t }}</span>
+              {%- endunless -%}
+            </a>
+          {%- endfor -%}
+        </div>
+      </fieldset>
+    {%- endfor -%}
+  </div>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_variant_picker.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "hide_pack_option",
+      "label": "t:blocks.product_variant_picker.settings.hide_pack_option.label",
+      "default": true,
+      "info": "t:blocks.product_variant_picker.settings.hide_pack_option.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "swatches",
+      "label": "t:blocks.product_variant_picker.settings.swatches.label",
+      "default": true,
+      "info": "t:blocks.product_variant_picker.settings.swatches.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_variant_picker.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

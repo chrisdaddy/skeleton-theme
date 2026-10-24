@@ -1,0 +1,360 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign source = s.product | default: product
+  assign certifications = ''
+  if s.use_metafield
+    assign certifications = source.metafields.blueprint.certifications.value
+  endif
+-%}
+{%- if certifications != blank or section.blocks.size > 0 -%}
+  <section {% render 'section-attributes', section: section, name: 'badges', modifier: s.style %}>
+    <div class="bp-page-width bp-page-width--{{ s.width }}">
+      {%- if s.heading != blank -%}
+        <h2 class="bp-visually-hidden" id="Heading-{{ section.id }}">{{ s.heading }}</h2>
+      {%- endif -%}
+      <ul class="bp-badges__list bp-badges__list--{{ s.alignment }}" role="list">
+        {%- if certifications != blank -%}
+          {%- for text in certifications -%}
+            <li class="bp-badges__item">
+              <span class="bp-badges__icon">{%- render 'icon', name: 'check' -%}</span>
+              {{- text | escape -}}
+            </li>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for block in section.blocks -%}
+            <li class="bp-badges__item" {{ block.shopify_attributes }}>
+              <span class="bp-badges__icon">{%- render 'icon', name: block.settings.icon -%}</span>
+              {{- block.settings.text | escape -}}
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.badges.name",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Why you can trust it",
+      "info": "Read by screen readers only."
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:sections.badges.settings.style.label",
+      "default": "icons",
+      "options": [
+        {
+          "value": "icons",
+          "label": "t:sections.badges.settings.style.options.icons"
+        },
+        {
+          "value": "pills",
+          "label": "t:sections.badges.settings.style.options.pills"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.common.settings.alignment.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.common.settings.alignment.options.start"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.settings.alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.badges.settings.reads_the_product_s_blueprint_certificat"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.common.settings.product.label",
+      "info": "t:sections.common.settings.product.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_metafield",
+      "label": "t:sections.common.settings.use_metafield.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_empty",
+      "label": "t:sections.common.settings.hide_empty.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "t:sections.badges.blocks.badge.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.common.settings.icon.label",
+          "default": "check",
+          "options": [
+            {
+              "value": "check",
+              "label": "t:sections.common.icon_options.check"
+            },
+            {
+              "value": "leaf",
+              "label": "t:sections.common.icon_options.leaf"
+            },
+            {
+              "value": "bolt",
+              "label": "t:sections.common.icon_options.bolt"
+            },
+            {
+              "value": "shield",
+              "label": "t:sections.common.icon_options.shield"
+            },
+            {
+              "value": "sparkle",
+              "label": "t:sections.common.icon_options.sparkle"
+            },
+            {
+              "value": "truck",
+              "label": "t:sections.common.icon_options.truck"
+            },
+            {
+              "value": "refresh",
+              "label": "t:sections.common.icon_options.refresh"
+            },
+            {
+              "value": "heart",
+              "label": "t:sections.common.icon_options.heart"
+            },
+            {
+              "value": "star",
+              "label": "t:sections.common.icon_options.star"
+            },
+            {
+              "value": "drop",
+              "label": "t:sections.common.icon_options.drop"
+            },
+            {
+              "value": "flask",
+              "label": "t:sections.common.icon_options.flask"
+            },
+            {
+              "value": "award",
+              "label": "t:sections.common.icon_options.award"
+            },
+            {
+              "value": "gift",
+              "label": "t:sections.common.icon_options.gift"
+            },
+            {
+              "value": "clock",
+              "label": "t:sections.common.icon_options.clock"
+            },
+            {
+              "value": "lock",
+              "label": "t:sections.common.icon_options.lock"
+            },
+            {
+              "value": "box",
+              "label": "t:sections.common.icon_options.box"
+            },
+            {
+              "value": "users",
+              "label": "t:sections.common.icon_options.users"
+            },
+            {
+              "value": "chat",
+              "label": "t:sections.common.icon_options.chat"
+            },
+            {
+              "value": "moon",
+              "label": "t:sections.common.icon_options.moon"
+            },
+            {
+              "value": "paw",
+              "label": "t:sections.common.icon_options.paw"
+            },
+            {
+              "value": "flame",
+              "label": "t:sections.common.icon_options.flame"
+            },
+            {
+              "value": "coin",
+              "label": "t:sections.common.icon_options.coin"
+            },
+            {
+              "value": "chart",
+              "label": "t:sections.common.icon_options.chart"
+            },
+            {
+              "value": "speed",
+              "label": "t:sections.common.icon_options.speed"
+            },
+            {
+              "value": "calendar",
+              "label": "t:sections.common.icon_options.calendar"
+            },
+            {
+              "value": "eye",
+              "label": "t:sections.common.icon_options.eye"
+            },
+            {
+              "value": "layers",
+              "label": "t:sections.common.icon_options.layers"
+            },
+            {
+              "value": "pin",
+              "label": "t:sections.common.icon_options.pin"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:sections.badges.blocks.badge.settings.text.label",
+          "default": "Third-party tested"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.badges.presets.trust_badges.name",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": {
+            "text": "Third-party tested",
+            "icon": "flask"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "text": "Vegan",
+            "icon": "leaf"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "text": "No added sugar",
+            "icon": "drop"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "text": "Made in a cGMP facility",
+            "icon": "shield"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

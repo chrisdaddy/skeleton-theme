@@ -1,0 +1,269 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'richtext' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }} bp-richtext__inner bp-richtext--{{ s.alignment }}">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'heading' -%}
+          {%- assign tag = block.settings.tag | default: 'h2' -%}
+          <{{ tag }} class="bp-{{ block.settings.size }}" {{ block.shopify_attributes }}>{{ block.settings.text }}</{{ tag }}>
+        {%- when 'eyebrow' -%}
+          <p class="bp-kicker" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</p>
+        {%- when 'text' -%}
+          <div class="bp-rte bp-richtext__text" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+        {%- when 'button' -%}
+          <a class="{% if block.settings.style == 'link' %}bp-link-arrow{% else %}bp-button{% if block.settings.style == 'secondary' %} bp-button--secondary{% endif %}{% endif %}" href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+            {{- block.settings.label | escape -}}
+          </a>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.rich_text.name",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.common.settings.alignment.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.common.settings.alignment.options.start"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.settings.alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "eyebrow",
+      "name": "t:sections.rich_text.blocks.eyebrow.name",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:sections.rich_text.blocks.eyebrow.settings.text.label",
+          "default": "Our story"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "t:sections.rich_text.blocks.heading.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "t:sections.rich_text.blocks.heading.settings.text.label",
+          "default": "Talk about your brand"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "t:sections.rich_text.blocks.heading.settings.size.label",
+          "default": "h2",
+          "options": [
+            {
+              "value": "h1",
+              "label": "t:sections.rich_text.blocks.heading.settings.size.options.h1"
+            },
+            {
+              "value": "h2",
+              "label": "t:sections.rich_text.blocks.heading.settings.size.options.h2"
+            },
+            {
+              "value": "h3",
+              "label": "t:sections.rich_text.blocks.heading.settings.size.options.h3"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "tag",
+          "label": "t:sections.rich_text.blocks.heading.settings.tag.label",
+          "default": "h2",
+          "options": [
+            {
+              "value": "h1",
+              "label": "t:sections.rich_text.blocks.heading.settings.tag.options.h1"
+            },
+            {
+              "value": "h2",
+              "label": "t:sections.rich_text.blocks.heading.settings.tag.options.h2"
+            },
+            {
+              "value": "h3",
+              "label": "t:sections.rich_text.blocks.heading.settings.tag.options.h3"
+            },
+            {
+              "value": "p",
+              "label": "t:sections.rich_text.blocks.heading.settings.tag.options.p"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich_text.blocks.text.name",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.rich_text.blocks.text.settings.text.label",
+          "default": "<p>Share what makes your product worth trying.</p>"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich_text.blocks.button.name",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:sections.rich_text.blocks.button.settings.label.label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.rich_text.blocks.button.settings.link.label"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "t:sections.rich_text.blocks.button.settings.style.label",
+          "default": "primary",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.rich_text.blocks.button.settings.style.options.primary"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.rich_text.blocks.button.settings.style.options.secondary"
+            },
+            {
+              "value": "link",
+              "label": "t:sections.rich_text.blocks.button.settings.style.options.link"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

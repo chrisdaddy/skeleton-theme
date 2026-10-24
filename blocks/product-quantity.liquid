@@ -1,0 +1,55 @@
+{% doc %}
+  Quantity stepper. Respects quantity rules; hidden when bundle tiers set the quantity.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign form_id = 'ProductForm-' | append: section.id
+  assign variant = product.selected_or_first_available_variant
+  assign input_id = 'Quantity-' | append: block.id
+-%}
+{%- capture tiers -%}{%- render 'offer-tier-spans', product: product, field: 'label' -%}{%- endcapture -%}
+{%- if tiers == blank -%}
+  <div class="bp-field bp-quantity" {{ block.shopify_attributes }}>
+    <label class="bp-label" for="{{ input_id }}">{{ 'products.quantity' | t }}</label>
+    <bp-quantity class="bp-quantity__control">
+      <button type="button" class="bp-icon-button" data-step="-1" aria-controls="{{ input_id }}">
+        <span class="bp-visually-hidden">{{ 'products.quantity_decrease' | t }}</span>{%- render 'icon', name: 'minus' -%}
+      </button>
+      <input
+        id="{{ input_id }}"
+        class="bp-input"
+        type="number"
+        name="quantity"
+        form="{{ form_id }}"
+        value="{{ variant.quantity_rule.min | default: 1 }}"
+        min="{{ variant.quantity_rule.min | default: 1 }}"
+        step="{{ variant.quantity_rule.increment | default: 1 }}"
+        {% if variant.quantity_rule.max %}
+          max="{{ variant.quantity_rule.max }}"
+        {% endif %}
+        inputmode="numeric"
+      >
+      <button type="button" class="bp-icon-button" data-step="1" aria-controls="{{ input_id }}">
+        <span class="bp-visually-hidden">{{ 'products.quantity_increase' | t }}</span>{%- render 'icon', name: 'plus' -%}
+      </button>
+    </bp-quantity>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_quantity.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_quantity.settings.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_quantity.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

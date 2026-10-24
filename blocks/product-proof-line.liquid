@@ -1,0 +1,61 @@
+{% doc %}
+  Star rating, review count and a "bought today" line from real order data. Each part hides without data.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign rating = product.metafields.reviews.rating.value
+  assign count = product.metafields.reviews.rating_count.value | default: 0
+  assign sold_today = product.metafields.blueprint.sold_today.value | default: 0
+  assign sold_date = product.metafields.blueprint.sold_today_date.value | date: '%Y-%m-%d'
+  assign today = 'now' | date: '%Y-%m-%d'
+  assign show_sold = false
+  if block.settings.show_sold_today and sold_today >= block.settings.sold_minimum and sold_date == today
+    assign show_sold = true
+  endif
+-%}
+{%- if count > 0 or show_sold -%}
+  <p class="bp-proof-line bp-small" {{ block.shopify_attributes }}>
+    {%- if count > 0 -%}
+      {%- render 'rating-stars', rating: rating.rating, scale_max: rating.scale_max -%}
+      <span>{%- capture count_label %}{% render 'format-number', number: count %}{% endcapture -%}
+      {{ 'products.rating.count' | t: count: count, formatted: count_label }}</span>
+    {%- endif -%}
+    {%- if show_sold -%}
+      {%- if count > 0 %}<span aria-hidden="true">·</span>{% endif -%}
+      <span>{{ 'products.sold_today' | t: count: sold_today }}</span>
+    {%- endif -%}
+  </p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_proof_line.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_proof_line.settings.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sold_today",
+      "label": "t:blocks.product_proof_line.settings.show_sold_today.label",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "sold_minimum",
+      "label": "t:blocks.product_proof_line.settings.sold_minimum.label",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_proof_line.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

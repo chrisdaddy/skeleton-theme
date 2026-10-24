@@ -1,0 +1,99 @@
+{% doc %}
+  Product media gallery: a swipeable track (scroll snap) with thumbnails. The first
+  media item is the LCP image: eager, high fetch priority and preloaded, with sizes
+  that match the layout. Everything else loads lazily. Works without JavaScript;
+  bp-gallery.js adds thumbnail sync and the zoom dialog.
+
+  @param {product} product - The product
+  @param {string} id_prefix - Prefix for element IDs (the section ID)
+  @param {string} [sizes] - Sizes attribute for the main images
+{% enddoc %}
+{%- liquid
+  assign sizes = sizes | default: '(min-width: 990px) 55vw, 100vw'
+  assign featured = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+  assign badge = product.metafields.blueprint.badge.value
+  assign media_count = product.media.size
+-%}
+<bp-gallery
+  class="bp-gallery"
+  data-close-label="{{ 'general.close' | t | escape }}"
+  data-bp-module="{{ 'bp-gallery.js' | asset_url }}"
+  data-bp-load="interaction"
+>
+  <div class="bp-gallery__viewport">
+    {%- if badge != blank -%}
+      <span class="bp-badge bp-gallery__badge">{{ badge | escape }}</span>
+    {%- endif -%}
+    {%- if media_count > 0 -%}
+      <ul class="bp-gallery__track" role="list" tabindex="0" aria-label="{{ 'products.gallery.label' | t }}">
+        {%- assign ordered = product.media | where: 'id', featured.id -%}
+        {%- assign rest = product.media | reject: 'id', featured.id -%}
+        {%- assign ordered = ordered | concat: rest -%}
+        {%- for media in ordered -%}
+          <li class="bp-gallery__slide" id="Media-{{ id_prefix }}-{{ media.id }}" data-media-id="{{ media.id }}">
+            {%- case media.media_type -%}
+              {%- when 'image' -%}
+                {%- if forloop.first -%}
+                  {{
+                    media
+                    | image_url: width: 1600
+                    | image_tag:
+                      widths: '360, 540, 720, 900, 1080, 1300, 1600',
+                      sizes: sizes,
+                      loading: 'eager',
+                      fetchpriority: 'high',
+                      preload: true,
+                      alt: media.alt
+                  }}
+                {%- else -%}
+                  {{
+                    media
+                    | image_url: width: 1600
+                    | image_tag:
+                      widths: '360, 540, 720, 900, 1080, 1300, 1600',
+                      sizes: sizes,
+                      loading: 'lazy',
+                      alt: media.alt
+                  }}
+                {%- endif -%}
+              {%- when 'video' -%}
+                {{ media | video_tag: controls: true, preload: 'none', playsinline: true, image_size: '1100x' }}
+              {%- when 'external_video' -%}
+                {{ media | external_video_tag: loading: 'lazy' }}
+              {%- when 'model' -%}
+                {{ media | model_viewer_tag: loading: 'lazy' }}
+            {%- endcase -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <div class="bp-gallery__placeholder">{{ 'product-1' | placeholder_svg_tag: 'bp-placeholder' }}</div>
+    {%- endif -%}
+  </div>
+
+  {%- if media_count > 1 -%}
+    <ul class="bp-gallery__thumbs" role="list">
+      {%- for media in ordered -%}
+        <li>
+          <a
+            class="bp-gallery__thumb"
+            href="#Media-{{ id_prefix }}-{{ media.id }}"
+            data-media-id="{{ media.id }}"
+            {% if forloop.first %}
+              aria-current="true"
+            {% endif %}
+          >
+            <span class="bp-visually-hidden">
+              {{- 'products.gallery.show_media' | t: index: forloop.index, count: media_count -}}
+            </span>
+            {{
+              media.preview_image
+              | image_url: width: 200
+              | image_tag: widths: '100, 200', sizes: '96px', loading: 'lazy', alt: ''
+            }}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</bp-gallery>

@@ -1,0 +1,46 @@
+{% doc %}
+  A refund statistic with its source. Renders nothing unless both are filled in.
+{% enddoc %}
+{%- if block.settings.statistic != blank and block.settings.source != blank -%}
+  <div class="bp-moneyback" {{ block.shopify_attributes }}>
+    <p class="bp-moneyback__stat">{{ block.settings.statistic | escape }}</p>
+    {%- if block.settings.text != blank -%}<p>{{ block.settings.text | escape }}</p>{%- endif -%}
+    <p class="bp-small bp-muted">{{ block.settings.source | escape }}</p>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_moneyback.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_moneyback.settings.info"
+    },
+    {
+      "type": "text",
+      "id": "statistic",
+      "label": "t:blocks.product_moneyback.settings.statistic.label",
+      "placeholder": "Fewer than 2% ask for a refund"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "t:blocks.product_moneyback.settings.text.label",
+      "default": "Try it properly. If you don't feel it, we send the money back."
+    },
+    {
+      "type": "text",
+      "id": "source",
+      "label": "t:blocks.product_moneyback.settings.source.label",
+      "placeholder": "Refund rate, last 12 months of orders"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_moneyback.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

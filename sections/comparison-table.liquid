@@ -1,0 +1,310 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{{ 'section-landing.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign columns = s.columns | plus: 0
+  assign modifier = 'cols-' | append: columns
+  assign label = s.heading | strip_html
+  if label == blank
+    assign label = 'sections.comparison_table.label' | t
+  endif
+-%}
+<section {% render 'section-attributes', section: section, name: 'comparison', modifier: modifier %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    {%- render 'section-heading', section: section -%}
+    <div class="bp-comparison__scroll{% if s.sticky_first %} bp-comparison--sticky{% endif %}" tabindex="0" role="group" aria-label="{{ label | escape }}">
+      <table class="bp-comparison__table">
+        <thead>
+          <tr>
+            <td></td>
+            {%- for i in (1..columns) -%}
+              {%- assign key = 'column_' | append: i -%}
+              <th scope="col" {% if s.highlight == i %}class="bp-comparison__highlight"{% endif %}>{{ s[key] | escape }}</th>
+            {%- endfor -%}
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <th scope="row">{{ block.settings.label | escape }}</th>
+              {%- for i in (1..columns) -%}
+                {%- assign key = 'cell_' | append: i -%}
+                <td {% if s.highlight == i %}class="bp-comparison__highlight"{% endif %}>{%- render 'compare-cell', value: block.settings[key] -%}</td>
+              {%- endfor -%}
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.comparison_table.name",
+  "max_blocks": 30,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "How it compares"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label"
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "t:sections.comparison_table.settings.columns.label",
+      "default": "2",
+      "options": [
+        {
+          "value": "2",
+          "label": "t:sections.comparison_table.settings.columns.options.2"
+        },
+        {
+          "value": "3",
+          "label": "t:sections.comparison_table.settings.columns.options.3"
+        },
+        {
+          "value": "4",
+          "label": "t:sections.comparison_table.settings.columns.options.4"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "column_1",
+      "label": "t:sections.comparison_table.settings.column_1.label",
+      "default": "Us"
+    },
+    {
+      "type": "text",
+      "id": "column_2",
+      "label": "t:sections.comparison_table.settings.column_2.label",
+      "default": "Typical brand"
+    },
+    {
+      "type": "text",
+      "id": "column_3",
+      "label": "t:sections.comparison_table.settings.column_3.label"
+    },
+    {
+      "type": "text",
+      "id": "column_4",
+      "label": "t:sections.comparison_table.settings.column_4.label"
+    },
+    {
+      "type": "range",
+      "id": "highlight",
+      "label": "t:sections.comparison_table.settings.highlight.label",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "default": 1,
+      "info": "t:sections.comparison_table.settings.highlight.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_first",
+      "label": "t:sections.comparison_table.settings.sticky_first.label",
+      "default": true
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.comparison_table.settings.only_compare_what_you_can_back_up_and_ke"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "t:sections.comparison_table.blocks.row.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:sections.comparison_table.blocks.row.settings.label.label",
+          "default": "Feature"
+        },
+        {
+          "type": "text",
+          "id": "cell_1",
+          "label": "t:sections.comparison_table.blocks.row.settings.cell_1.label",
+          "info": "t:sections.comparison_table.blocks.row.settings.cell_1.info",
+          "default": "yes"
+        },
+        {
+          "type": "text",
+          "id": "cell_2",
+          "label": "t:sections.comparison_table.blocks.row.settings.cell_2.label",
+          "info": "t:sections.comparison_table.blocks.row.settings.cell_2.info",
+          "default": "no"
+        },
+        {
+          "type": "text",
+          "id": "cell_3",
+          "label": "t:sections.comparison_table.blocks.row.settings.cell_3.label",
+          "info": "t:sections.comparison_table.blocks.row.settings.cell_3.info"
+        },
+        {
+          "type": "text",
+          "id": "cell_4",
+          "label": "t:sections.comparison_table.blocks.row.settings.cell_4.label",
+          "info": "t:sections.comparison_table.blocks.row.settings.cell_4.info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.comparison_table.presets.comparison_table.name",
+      "blocks": [
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        },
+        {
+          "type": "row"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.comparison_table.presets.comparison_table_3_columns.name",
+      "settings": {
+        "columns": "3",
+        "column_3": "Another brand"
+      },
+      "blocks": [
+        {
+          "type": "row",
+          "settings": {
+            "cell_3": "no"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "cell_3": "no"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "cell_3": "yes"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

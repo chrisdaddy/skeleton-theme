@@ -1,0 +1,66 @@
+{% doc %}
+  "Goes well with": exactly one product. Source: the first cart item's blueprint.upsell
+  metafield, else the fallback collection. Skips products already in the cart, gifts and
+  shipping protection. The price is the variant's; an in-cart deal label shows only when
+  the merchant turns it on (and bp-cart.js hides it once it has seen the deal not apply).
+
+  @param {string} in_cart_products - Product IDs in the cart, as ",1,2,"
+  @param {number} protection_id - The shipping protection variant ID
+{% enddoc %}
+{%- liquid
+  assign upsell = false
+  for item in cart.items
+    if item.variant_id == protection_id or item.properties._bp_gift != blank
+      continue
+    endif
+    assign candidate = item.product.metafields.blueprint.upsell.value
+    if candidate != blank
+      assign marker = ',' | append: candidate.id | append: ','
+      unless in_cart_products contains marker
+        assign upsell = candidate
+      endunless
+    endif
+    break
+  endfor
+  if upsell == blank and settings.cart_upsell_collection != blank
+    for candidate in settings.cart_upsell_collection.products limit: 12
+      assign marker = ',' | append: candidate.id | append: ','
+      if candidate.available and candidate.id != settings.cart_protection_product.id
+        unless in_cart_products contains marker
+          assign upsell = candidate
+          break
+        endunless
+      endif
+    endfor
+  endif
+  assign variant = upsell.selected_or_first_available_variant
+-%}
+{%- if upsell != blank and variant.available -%}
+  <div class="bp-cart-upsell">
+    <p class="bp-eyebrow">{{ 'cart.upsell.heading' | t }}</p>
+    <div class="bp-cart-upsell__item">
+      <a class="bp-cart-upsell__media" href="{{ upsell.url }}" tabindex="-1" aria-hidden="true">
+        {%- if upsell.featured_media -%}
+          {{ upsell.featured_media | image_url: width: 120 | image_tag: width: 56, height: 56, loading: 'lazy', alt: '' }}
+        {%- endif -%}
+      </a>
+      <span class="bp-cart-upsell__text">
+        <a class="bp-cart-upsell__title" href="{{ upsell.url }}">{{ upsell.title | escape }}</a>
+        <span class="bp-small bp-muted">
+          {{- variant.price | money -}}
+          {%- assign deal = upsell.metafields.blueprint.cart_deal_label.value -%}
+          {%- if settings.cart_upsell_show_deal and deal != blank -%}
+            <span data-bp-deal-for="{{ variant.id }}"> · {{ deal | escape }}</span>
+          {%- endif -%}
+        </span>
+      </span>
+      <form action="{{ routes.cart_add_url }}" method="post" data-bp-cart-add data-bp-upsell="{{ variant.id }}">
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" class="bp-button bp-button--secondary bp-button--small" data-bp-focus="upsell">
+          {{ 'cart.upsell.add' | t }}<span class="bp-visually-hidden"> {{ upsell.title | escape }}</span>
+        </button>
+      </form>
+    </div>
+  </div>
+{%- endif -%}

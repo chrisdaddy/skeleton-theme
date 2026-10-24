@@ -1,0 +1,107 @@
+{
+  "layout": "landing",
+  "sections": {
+    "header": {
+      "type": "article-header",
+      "settings": {
+        "eyebrow": "Health · Sponsored",
+        "heading": "",
+        "lede": "",
+        "show_disclosure": true,
+        "padding_bottom": 0
+      }
+    },
+    "list": {
+      "type": "listicle",
+      "settings": {
+        "heading": "[count] reasons 41,000 people start their morning with Verde",
+        "heading_tag": "h1"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "title": "It replaces seven bottles",
+            "text": "<p>Multivitamin, probiotic, greens, adaptogens, enzymes, antioxidants, electrolytes. One scoop.</p>"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "title": "It is tested like a drug, not a drink",
+            "text": "<p>NSF Certified for Sport. Every batch screened for 280 banned substances.</p>"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "title": "90 days to decide",
+            "text": "<p>Finish three pouches. If you do not feel it, we refund every one.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3"
+      ]
+    },
+    "offer": {
+      "type": "offer",
+      "settings": {
+        "product": "verde-daily",
+        "default_tier": 2,
+        "default_plan": "sub",
+        "heading": "Try it risk-free",
+        "guarantee": "90-day guarantee"
+      },
+      "blocks": {
+        "rating_1": {
+          "type": "product-rating",
+          "settings": {}
+        },
+        "title_2": {
+          "type": "product-title",
+          "settings": {}
+        },
+        "offer-tiers_3": {
+          "type": "product-offer-tiers",
+          "settings": {}
+        },
+        "purchase-options_4": {
+          "type": "product-purchase-options",
+          "settings": {}
+        },
+        "buy-buttons_5": {
+          "type": "product-buy-buttons",
+          "settings": {}
+        },
+        "trust-tiles_6": {
+          "type": "product-trust-tiles",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rating_1",
+        "title_2",
+        "offer-tiers_3",
+        "purchase-options_4",
+        "buy-buttons_5",
+        "trust-tiles_6"
+      ]
+    },
+    "sticky": {
+      "type": "sticky-cta",
+      "settings": {
+        "target": "offer",
+        "cta_label": "Claim 20% off"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "list",
+    "offer",
+    "sticky"
+  ]
+}

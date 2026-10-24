@@ -1,0 +1,71 @@
+{% doc %}
+  Prints a deep link to a product with a bundle tier and plan preselected (docs/PLAN.md §9.3):
+  {{ product.url }}?variant=<tier variant>&selling_plan=<the tier's plan>&tier=<n>&plan=<sub|once>
+
+  variant and selling_plan are applied by Shopify on the server, so the product page renders
+  the right tier and plan without JavaScript; tier and plan are read by bp-product.js (mix tiers,
+  or a tier sold as another product's variant, which ?variant= can't express: those links
+  carry only tier and plan, and open on the default tier without JavaScript). UTM and click IDs on the current page are added
+  when the link is clicked (bp-core.js, for links marked data-bp-cta).
+
+  @param {product} product - The product
+  @param {number} [tier] - Tier number (1–6), 0 or blank for the product's default
+  @param {string} [plan] - 'sub', 'once' or blank for the product's default
+{% enddoc %}
+{%- liquid
+  assign url = product.url
+  assign separator = '?'
+  assign base = product.selected_or_first_available_variant
+  assign tiers = product.metafields.blueprint.tiers.value
+  assign pack_name = product.metafields.blueprint.pack_option.value | default: 'Pack'
+  assign pack_option = product.options_by_name[pack_name]
+  assign pack_position = 0
+  if pack_option
+    assign pack_position = pack_option.position
+  endif
+  if tiers == blank and pack_option
+    assign tiers = pack_option.values | map: 'name'
+  endif
+  assign variant = base
+  assign tier_object = ''
+  if tier > 0 and tiers != blank
+    # A tier that isn't one of this product's variants (a set from another product, or a
+    # mix tier) can't be put in ?variant=; the link then leaves variant and selling_plan out
+    # and bp-product.js applies tier and plan.
+    assign variant = false
+    assign index = tier | minus: 1 | at_most: 5
+    assign tier_object = tiers[index]
+    if tier_object != blank
+      capture variant_id
+        render 'offer-tier-variant', product: product, tier: tier_object, base: base, pack_position: pack_position
+      endcapture
+      assign variant_id = variant_id | strip | plus: 0
+      assign found = product.variants | where: 'id', variant_id | first
+      if found != blank
+        assign variant = found
+      endif
+    endif
+  endif
+  if variant != blank
+    assign url = url | append: separator | append: 'variant=' | append: variant.id
+    assign separator = '&'
+  endif
+  if plan == 'sub' and variant != blank
+    capture plan_id
+      render 'offer-tier-plan', variant: variant, tier: tier_object, selected_plan_id: ''
+    endcapture
+    assign plan_id = plan_id | strip
+    if plan_id != blank
+      assign url = url | append: separator | append: 'selling_plan=' | append: plan_id
+      assign separator = '&'
+    endif
+  endif
+  if tier > 0
+    assign url = url | append: separator | append: 'tier=' | append: tier
+    assign separator = '&'
+  endif
+  if plan == 'sub' or plan == 'once'
+    assign url = url | append: separator | append: 'plan=' | append: plan
+  endif
+  echo url
+-%}

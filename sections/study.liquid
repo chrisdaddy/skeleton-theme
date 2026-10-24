@@ -1,0 +1,268 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign source = s.product | default: product
+  assign studies = ''
+  if s.use_metafield
+    assign studies = source.metafields.blueprint.studies.value
+  endif
+-%}
+{%- if studies != blank or section.blocks.size > 0 or s.hide_empty == false -%}
+  <section {% render 'section-attributes', section: section, name: 'study', modifier: s.style %}>
+    <div class="bp-page-width bp-page-width--{{ s.width }} bp-study__inner">
+      <div class="bp-study__intro">
+        {%- render 'section-heading', section: section, align: 'start' -%}
+        {%- if s.source != blank -%}
+          <p class="bp-study__source bp-small">
+            {%- if s.source_link != blank -%}<a href="{{ s.source_link }}">{{ s.source | escape }}</a>{%- else -%}{{ s.source | escape }}{%- endif -%}
+          </p>
+        {%- endif -%}
+      </div>
+      <ul class="bp-study__stats" role="list">
+        {%- if studies != blank -%}
+          {%- for study in studies -%}
+            {%- render 'study-stat', value: study.stat_value.value, suffix: study.stat_suffix.value, label: study.label.value, style: s.style -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for block in section.blocks -%}
+            {%- render 'study-stat', value: block.settings.value, suffix: block.settings.suffix, label: block.settings.label, style: s.style, attributes: block.shopify_attributes -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.study.name",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.common.settings.eyebrow.label",
+      "default": "Clinical results"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Tested in a clinical trial, not a focus group."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label",
+      "default": "Say who was studied, for how long and by whom."
+    },
+    {
+      "type": "text",
+      "id": "source",
+      "label": "t:sections.study.settings.source.label",
+      "info": "t:sections.study.settings.source.info",
+      "default": "Name the study and where it was published."
+    },
+    {
+      "type": "url",
+      "id": "source_link",
+      "label": "t:sections.study.settings.source_link.label"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:sections.study.settings.style.label",
+      "default": "bars",
+      "options": [
+        {
+          "value": "bars",
+          "label": "t:sections.study.settings.style.options.bars"
+        },
+        {
+          "value": "rings",
+          "label": "t:sections.study.settings.style.options.rings"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.study.settings.reads_the_product_s_blueprint_studies_me"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.common.settings.product.label",
+      "info": "t:sections.common.settings.product.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_metafield",
+      "label": "t:sections.common.settings.use_metafield.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_empty",
+      "label": "t:sections.common.settings.hide_empty.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "t:sections.study.blocks.stat.name",
+      "settings": [
+        {
+          "type": "number",
+          "id": "value",
+          "label": "t:sections.study.blocks.stat.settings.value.label",
+          "default": 90
+        },
+        {
+          "type": "text",
+          "id": "suffix",
+          "label": "t:sections.study.blocks.stat.settings.suffix.label",
+          "default": "%",
+          "info": "t:sections.study.blocks.stat.settings.suffix.info"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:sections.study.blocks.stat.settings.label.label",
+          "default": "reported a measurable result"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.study.presets.clinical_results.name",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "value": 97,
+            "label": "reported more sustained energy"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": 91,
+            "label": "better digestion by week 2"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": 84,
+            "label": "fewer afternoon cravings"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

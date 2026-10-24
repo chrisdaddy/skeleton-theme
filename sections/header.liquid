@@ -1,0 +1,225 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign show_account = false
+  if section.settings.show_account and shop.customer_accounts_enabled
+    assign show_account = true
+  endif
+-%}
+<header
+  class="bp-header{% if section.settings.sticky %} bp-header--sticky{% endif %}{% if section.settings.layout == 'center' %} bp-header--center{% endif %}"
+  data-surface="{{ section.settings.surface_style }}"
+>
+  <div class="bp-header__inner bp-page-width">
+    {%- if menu.links.size > 0 -%}
+      <button
+        type="button"
+        class="bp-icon-button bp-header__menu-toggle"
+        command="show-modal"
+        commandfor="MenuDrawer-{{ section.id }}"
+        aria-haspopup="dialog"
+      >
+        <span class="bp-visually-hidden">{{ 'header.open_menu' | t }}</span>
+        {%- render 'icon', name: 'menu' -%}
+      </button>
+    {%- endif -%}
+
+    <a class="bp-header__logo" href="{{ routes.root_url }}">
+      {%- if section.settings.logo -%}
+        {%- liquid
+          assign logo_alt = section.settings.logo.alt | default: shop.name
+          assign logo_style = '--bp-logo-height: ' | append: section.settings.logo_height | append: 'px'
+        -%}
+        {{
+          section.settings.logo
+          | image_url: width: 600
+          | image_tag:
+            widths: '150, 300, 450, 600',
+            sizes: '300px',
+            alt: logo_alt,
+            loading: 'eager',
+            style: logo_style
+        }}
+      {%- else -%}
+        {{ shop.name }}
+      {%- endif -%}
+    </a>
+
+    {%- if menu.links.size > 0 -%}
+      <nav class="bp-header__nav" aria-label="{{ 'header.main_menu' | t }}">
+        <ul class="bp-nav" role="list">
+          {%- for link in menu.links -%}
+            <li>
+              {%- if link.links.size > 0 -%}
+                <details>
+                  <summary>
+                    {{- link.title | escape -}}
+                    {%- render 'icon', name: 'chevron-down', class: 'bp-icon--chevron' -%}
+                  </summary>
+                  <ul class="bp-nav__dropdown" role="list">
+                    {%- for child in link.links -%}
+                      <li>
+                        <a
+                          href="{{ child.url }}"
+                          {% if child.current %}
+                            aria-current="page"
+                          {% endif %}
+                        >
+                          {{- child.title | escape -}}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </details>
+              {%- else -%}
+                <a
+                  href="{{ link.url }}"
+                  {% if link.current %}
+                    aria-current="page"
+                  {% endif %}
+                >
+                  {{- link.title | escape -}}
+                </a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <div class="bp-header__actions">
+      {%- if section.settings.show_search -%}
+        <a class="bp-icon-button" href="{{ routes.search_url }}">
+          <span class="bp-visually-hidden">{{ 'header.search' | t }}</span>
+          {%- render 'icon', name: 'search' -%}
+        </a>
+      {%- endif -%}
+      {%- if show_account -%}
+        <a class="bp-icon-button" href="{{ routes.account_url }}">
+          <span class="bp-visually-hidden">{{ 'header.account' | t }}</span>
+          {%- render 'icon', name: 'account' -%}
+        </a>
+      {%- endif -%}
+      <a class="bp-cart-link" href="{{ routes.cart_url }}" data-bp-cart-link>
+        <span class="bp-visually-hidden" data-bp-cart-label>
+          {{- 'header.cart' | t }}, {{ 'cart.item_count' | t: count: cart.item_count -}}
+        </span>
+        {%- render 'icon', name: 'cart' -%}
+        <span class="bp-cart-count" data-bp-cart-count aria-hidden="true">
+          {%- if cart.item_count > 0 %}{{ cart.item_count }}{% endif -%}
+        </span>
+      </a>
+    </div>
+  </div>
+</header>
+
+{%- if menu.links.size > 0 -%}
+  <dialog
+    id="MenuDrawer-{{ section.id }}"
+    class="bp-drawer"
+    aria-label="{{ 'header.main_menu' | t }}"
+    closedby="any"
+    data-surface="default"
+  >
+    <div class="bp-drawer__header">
+      <span class="bp-h4">{{ shop.name }}</span>
+      <button type="button" class="bp-icon-button" command="close" commandfor="MenuDrawer-{{ section.id }}">
+        <span class="bp-visually-hidden">{{ 'header.close_menu' | t }}</span>
+        {%- render 'icon', name: 'close' -%}
+      </button>
+    </div>
+    <nav class="bp-drawer__body">
+      <ul class="bp-menu-drawer__list" role="list">
+        {%- for link in menu.links -%}
+          <li>
+            {%- if link.links.size > 0 -%}
+              <details>
+                <summary>
+                  {{- link.title | escape -}}
+                  {%- render 'icon', name: 'chevron-down' -%}
+                </summary>
+                <ul role="list">
+                  {%- for child in link.links -%}
+                    <li>
+                      <a href="{{ child.url }}">{{ child.title | escape }}</a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </details>
+            {%- else -%}
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  </dialog>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "class": "bp-section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 16,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 32,
+      "label": "t:sections.header.settings.logo_height.label"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.header.settings.layout.label",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "t:sections.header.settings.layout.options.left" },
+        { "value": "center", "label": "t:sections.header.settings.layout.options.center" }
+      ]
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "t:sections.header.settings.sticky.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "t:sections.header.settings.show_search.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "t:sections.header.settings.show_account.label",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "t:sections.common.settings.surface_style.options.default" },
+        { "value": "surface", "label": "t:sections.common.settings.surface_style.options.surface" },
+        { "value": "inverse", "label": "t:sections.common.settings.surface_style.options.inverse" }
+      ]
+    }
+  ]
+}
+{% endschema %}

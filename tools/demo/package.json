@@ -1,0 +1,12 @@
+{
+  "name": "blueprint-demo-tools",
+  "private": true,
+  "type": "module",
+  "description": "Demo-store seeding. The seed itself has no dependencies; graphql is only for validate-operations.mjs.",
+  "scripts": {
+    "validate": "node validate-operations.mjs"
+  },
+  "devDependencies": {
+    "graphql": "16.9.0"
+  }
+}

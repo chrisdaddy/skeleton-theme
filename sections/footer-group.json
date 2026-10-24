@@ -1,0 +1,18 @@
+{
+  "type": "footer",
+  "name": "t:section_groups.footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu": { "type": "menu", "settings": {} },
+        "text": { "type": "text", "settings": {} },
+        "newsletter": { "type": "newsletter", "settings": {} },
+        "social": { "type": "social", "settings": {} }
+      },
+      "block_order": ["menu", "text", "newsletter", "social"],
+      "settings": {}
+    }
+  },
+  "order": ["footer"]
+}

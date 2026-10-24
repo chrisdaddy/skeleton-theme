@@ -1,0 +1,33 @@
+{% doc %}
+  A section's eyebrow, heading and subheading. Prints nothing when all three are blank.
+  The heading gets the ID the section's aria-labelledby points at.
+
+  @param {object} section - The section (heading, eyebrow, subheading, heading_tag, alignment settings)
+  @param {string} [heading] - Overrides section.settings.heading
+  @param {string} [subheading] - Overrides section.settings.subheading
+  @param {string} [align] - 'start' or 'center' (default: the alignment setting, else center)
+{% enddoc %}
+{%- liquid
+  assign s = section.settings
+  assign heading = heading | default: s.heading
+  assign subheading = subheading | default: s.subheading
+  assign tag = s.heading_tag | default: 'h2'
+  assign align = align | default: s.alignment | default: 'center'
+  assign size = 'bp-h2'
+  if tag == 'h1'
+    assign size = 'bp-h1'
+  endif
+-%}
+{%- if heading != blank or s.eyebrow != blank or subheading != blank -%}
+  <div class="bp-section-heading bp-section-heading--{{ align }}">
+    {%- if s.eyebrow != blank -%}
+      <p class="bp-eyebrow">{{ s.eyebrow | escape }}</p>
+    {%- endif -%}
+    {%- if heading != blank -%}
+      <{{ tag }} class="{{ size }}" id="Heading-{{ section.id }}">{{ heading }}</{{ tag }}>
+    {%- endif -%}
+    {%- if subheading != blank -%}
+      <p class="bp-section-heading__sub">{{ subheading }}</p>
+    {%- endif -%}
+  </div>
+{%- endif -%}

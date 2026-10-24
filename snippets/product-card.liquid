@@ -1,0 +1,137 @@
+{% doc %}
+  Product card for grids, carousels and search.
+
+  - Badges: the product's blueprint.badge, "Save N%" when a compare-at price is set (rounded
+    down), and "Sold out". Nothing invented.
+  - Rating: from the standard reviews.rating / reviews.rating_count metafields.
+  - A second image shows on hover (pointer devices only).
+  - Quick add: a real add-to-cart form for single-variant products, else a link to the
+    product that bp-quick-add.js opens in a dialog with the full buy box.
+
+  @param {product} product - The product to show
+  @param {boolean} [show_rating] - Show stars (default true)
+  @param {boolean} [show_badges] - Show badges (default true)
+  @param {boolean} [quick_add] - Show quick add (default false)
+  @param {string} [sizes] - Image sizes attribute
+  @param {object} [section] - The section (eager-loads images near the top of the page)
+{% enddoc %}
+{%- liquid
+  assign show_rating = show_rating | default: true
+  assign show_badges = show_badges | default: true
+  assign sizes = sizes | default: '(min-width: 990px) 25vw, 50vw'
+  assign loading = 'lazy'
+  if section.index == 1
+    assign loading = 'eager'
+  endif
+  assign variant = product.selected_or_first_available_variant
+  assign rating = product.metafields.reviews.rating.value
+  assign rating_count = product.metafields.reviews.rating_count.value
+  assign save_pct = 0
+  if product.compare_at_price > product.price
+    assign save_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price
+  endif
+  assign second = product.media[1]
+  assign simple = false
+  if product.has_only_default_variant and product.metafields.blueprint.tiers.value == blank and product.requires_selling_plan == false
+    assign simple = true
+  endif
+-%}
+{%- if product == blank -%}
+  {%- render 'product-card-placeholder' -%}
+{%- else -%}
+<div class="bp-card">
+  <div class="bp-card__media-wrap">
+    <a href="{{ product.url }}" class="bp-media bp-ratio-square bp-card__media{% if second %} bp-card__media--hover{% endif %}" tabindex="-1" aria-hidden="true">
+      {%- if product.featured_media -%}
+        {{
+          product.featured_media
+          | image_url: width: 720
+          | image_tag:
+            widths: '240, 360, 480, 720',
+            sizes: sizes,
+            loading: loading,
+            class: 'bp-media__img',
+            alt: ''
+        }}
+        {%- if second -%}
+          {{
+            second
+            | image_url: width: 720
+            | image_tag: widths: '240, 360, 480, 720', sizes: sizes, loading: 'lazy', class: 'bp-media__img bp-card__hover', alt: ''
+          }}
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'bp-media__img' }}
+      {%- endif -%}
+    </a>
+    {%- if show_badges -%}
+      <span class="bp-card__badges">
+        {%- unless product.available -%}
+          <span class="bp-badge bp-badge--muted">{{ 'products.sold_out' | t }}</span>
+        {%- else -%}
+          {%- if product.metafields.blueprint.badge.value != blank -%}
+            <span class="bp-badge">{{ product.metafields.blueprint.badge.value | escape }}</span>
+          {%- endif -%}
+          {%- if save_pct > 0 -%}
+            <span class="bp-badge bp-badge--sale">{{ 'products.offer.save_pct' | t: pct: save_pct }}</span>
+          {%- endif -%}
+        {%- endunless -%}
+      </span>
+    {%- endif -%}
+  </div>
+  <div class="bp-card__info">
+    <a href="{{ product.url }}" class="bp-card__title">{{ product.title | escape }}</a>
+    {%- if show_rating and rating != blank -%}
+      <span class="bp-card__rating">
+        {%- render 'rating-stars', rating: rating.rating, scale_max: rating.scale_max -%}
+        {%- if rating_count != blank -%}
+          {%- capture formatted -%}{%- render 'format-number', number: rating_count -%}{%- endcapture -%}
+          <span class="bp-muted">({{ formatted }})</span>
+        {%- endif -%}
+      </span>
+    {%- endif -%}
+    <span class="bp-card__price">
+      <span class="bp-price">
+        {%- if product.price_varies -%}
+          {%- assign price_min = product.price_min | money -%}
+          {{ 'products.price_from' | t: price: price_min }}
+        {%- else -%}
+          {{ product.price | money }}
+        {%- endif -%}
+      </span>
+      {%- if product.compare_at_price > product.price -%}
+        <s class="bp-compare-at"><span class="bp-visually-hidden">{{ 'products.price.regular' | t }}</span>{{ product.compare_at_price | money }}</s>
+      {%- endif -%}
+    </span>
+  </div>
+  {%- if quick_add and product.available -%}
+    {%- if simple -%}
+      <form action="{{ routes.cart_add_url }}" method="post" class="bp-card__quick" data-bp-quick-form>
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button
+          type="submit"
+          class="bp-button bp-button--secondary bp-button--small bp-button--block"
+          data-bp-module="{{ 'bp-quick-add.js' | asset_url }}"
+          data-bp-load="interaction"
+        >
+          {{- 'products.quick_add.add' | t -}}
+          <span class="bp-visually-hidden"> {{ product.title | escape }}</span>
+        </button>
+      </form>
+    {%- else -%}
+      <a
+        class="bp-button bp-button--secondary bp-button--small bp-button--block bp-card__quick"
+        href="{{ product.url }}"
+        data-bp-quick-add="{{ product.url }}"
+        data-label-close="{{ 'products.quick_add.close' | t }}"
+        data-bp-module="{{ 'bp-quick-add.js' | asset_url }}"
+        data-bp-load="interaction"
+      >
+        {{- 'products.quick_add.choose' | t -}}
+        <span class="bp-visually-hidden"> {{ product.title | escape }}</span>
+      </a>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+{%- endif -%}

@@ -1,0 +1,154 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'search' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }} bp-search__inner">
+    <h1 class="bp-h1">{{ 'search.title' | t }}</h1>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="bp-search__form">
+      <label for="Search-{{ section.id }}" class="bp-visually-hidden">{{ 'search.label' | t }}</label>
+      <div class="bp-input-group">
+        <input id="Search-{{ section.id }}" class="bp-input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.label' | t }}" autocomplete="off">
+        <button type="submit" class="bp-button">{{ 'search.submit' | t }}</button>
+      </div>
+    </form>
+    {%- if search.performed -%}
+      <p class="bp-muted" role="status">{{ 'search.results_count' | t: count: search.results_count, terms: search.terms }}</p>
+      {%- paginate search.results by s.per_page -%}
+        {%- assign products = search.results | where: 'object_type', 'product' -%}
+        {%- if products.size > 0 -%}
+          <ul class="bp-cols bp-product-grid" role="list" style="--bp-cols: {{ s.columns }}; --bp-cols-mobile: 2;">
+            {%- for product in products -%}
+              <li>{%- render 'product-card', product: product, quick_add: s.quick_add, sizes: '(min-width: 990px) 25vw, 50vw', section: section -%}</li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- assign others = search.results | where: 'object_type', 'article' -%}
+        {%- assign pages = search.results | where: 'object_type', 'page' -%}
+        {%- if others.size > 0 or pages.size > 0 -%}
+          <ul class="bp-search__links" role="list">
+            {%- for item in others -%}<li><a href="{{ item.url }}">{{ item.title | escape }}</a><span class="bp-muted bp-small"> · {{ 'search.article' | t }}</span></li>{%- endfor -%}
+            {%- for item in pages -%}<li><a href="{{ item.url }}">{{ item.title | escape }}</a><span class="bp-muted bp-small"> · {{ 'search.page' | t }}</span></li>{%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- render 'pagination', paginate: paginate -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_search.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "per_page",
+      "label": "t:sections.main_search.settings.per_page.label",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:sections.main_search.settings.columns.label",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "quick_add",
+      "label": "t:sections.main_search.settings.quick_add.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ]
+}
+{% endschema %}

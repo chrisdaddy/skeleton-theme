@@ -1,0 +1,70 @@
+{% comment %}
+  Preview-only page (not part of the theme): shows every token and base component
+  in each surface style, so presets can be compared side by side.
+{% endcomment %}
+<div class="bp-section bp-page-width bp-stack" style="gap: 2.5rem;">
+  <div class="bp-stack">
+    <p class="bp-eyebrow">{{ settings.color_mode }} · {{ settings.heading_style }} headings · {{ settings.corners }} corners</p>
+    <h1>{{ store.product.title }}</h1>
+    <p class="bp-muted" style="max-width: 60ch;">{{ store.home[0].sub }}</p>
+  </div>
+
+  {%- assign styles = 'default,surface,accent,inverse' | split: ',' -%}
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1rem;">
+    {%- for style in styles -%}
+      <div data-surface="{{ style }}" class="bp-stack" style="padding: 1.25rem; border-radius: var(--bp-radius); border: 1px solid var(--bp-line);">
+        <p class="bp-eyebrow">{{ style }}</p>
+        <h2 class="bp-h3">{{ store.home[1].h | default: store.product.name }}</h2>
+        <p>Body text and <a class="bp-link" href="#">a link</a>.</p>
+        <p class="bp-muted bp-small">Secondary text · {{ store.product.reviews }} reviews</p>
+        <p><span style="color: var(--bp-star); letter-spacing: 0.1em;">★★★★★</span> <span class="bp-small">4.8</span></p>
+        <div class="bp-inline-list">
+          <a class="bp-button" href="#">Add to cart</a>
+          <a class="bp-button bp-button--secondary" href="#">Learn more</a>
+        </div>
+        <div class="bp-inline-list">
+          <span class="bp-badge">{{ store.product.tiers[1].tag | default: 'Most popular' }}</span>
+          <span class="bp-badge bp-badge--gift">Free gift · $24 value</span>
+        </div>
+        <label class="bp-field">
+          <span class="bp-label">Email</span>
+          <input class="bp-input" type="email" placeholder="you@example.com">
+        </label>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="bp-stack">
+    <h2>Bundle tiers (selection states)</h2>
+    <div class="bp-stack bp-stack--tight" style="max-width: 460px;">
+      {%- for tier in store.product.tiers -%}
+        {%- assign selected = false -%}
+        {%- if forloop.index == 2 %}{% assign selected = true %}{% endif -%}
+        <div style="position: relative; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 14px 16px; border-radius: var(--bp-radius-sm); border: 2px solid {% if selected %}var(--bp-accent){% else %}var(--bp-input-border){% endif %}; background: {% if selected %}var(--bp-accent-soft){% else %}transparent{% endif %};">
+          <span style="display: flex; gap: 12px; align-items: center;">
+            <span style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid {% if selected %}var(--bp-accent){% else %}var(--bp-input-border){% endif %}; display: inline-grid; place-items: center;">
+              {%- if selected %}<span style="width: 8px; height: 8px; border-radius: 50%; background: var(--bp-accent);"></span>{% endif -%}
+            </span>
+            <span class="bp-stack" style="gap: 0;"><strong>{{ tier.label }}</strong><span class="bp-muted bp-small">{{ tier.sub }}</span></span>
+          </span>
+          <span class="bp-stack" style="gap: 0; align-items: flex-end;">
+            <span class="bp-price">${{ tier.price }}</span>
+            {%- if tier.was %}<span class="bp-compare-at bp-small">${{ tier.was }}</span>{% endif -%}
+          </span>
+          {%- if tier.tag -%}
+            <span class="bp-badge" style="position: absolute; top: -10px; right: 12px;">{{ tier.tag }}</span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="bp-stack">
+    <h2>Type scale</h2>
+    <p class="bp-h1">Heading one</p>
+    <p class="bp-h2">Heading two</p>
+    <p class="bp-h3">Heading three</p>
+    <p class="bp-h4">Heading four</p>
+    <p>Body copy at 16px. {{ store.adv.lede }}</p>
+  </div>
+</div>

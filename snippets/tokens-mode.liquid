@@ -1,0 +1,123 @@
+{% doc %}
+  Outputs the color custom properties for one color mode. Merchant overrides
+  win; otherwise each token is derived to meet its contrast target.
+
+  The derivation must match tools/lib/tokens.mjs, which the CI contrast check
+  runs against every preset. Change both files together.
+
+  color_contrast rounds to one decimal, so text aims for 4.6 and UI for 3.1.
+
+  @param {string} mode - 'light' or 'dark'
+{% enddoc %}
+{%- liquid
+  assign key_bg = mode | append: '_bg'
+  assign key_surface = mode | append: '_surface'
+  assign key_ink = mode | append: '_ink'
+  assign key_line = mode | append: '_line'
+  assign key_star = mode | append: '_star'
+  assign key_soft = mode | append: '_accent_soft'
+  assign key_on_accent = mode | append: '_on_accent'
+  assign key_accent_text = mode | append: '_accent_text'
+  assign key_muted = mode | append: '_muted'
+
+  assign bg = settings[key_bg]
+  assign surface = settings[key_surface]
+  assign ink = settings[key_ink]
+  assign line = settings[key_line]
+  assign accent = settings.accent_color
+  assign success = settings.success_color
+  assign dark_text = settings.light_ink
+
+  assign accent_soft = settings[key_soft]
+  if accent_soft == blank
+    assign accent_soft = accent | color_mix: bg, 16
+  endif
+
+  assign on_accent = settings[key_on_accent]
+  if on_accent == blank
+    assign on_white = accent | color_contrast: '#FFFFFF'
+    assign on_dark = accent | color_contrast: dark_text
+    if on_white >= on_dark
+      assign on_accent = '#FFFFFF'
+    else
+      assign on_accent = dark_text
+    endif
+  endif
+
+  assign accent_text = settings[key_accent_text]
+  if accent_text == blank
+    for i in (0..20)
+      assign step = i | times: 5
+      assign weight = 100 | minus: step
+      assign accent_text = accent | color_mix: ink, weight
+      assign c_bg = accent_text | color_contrast: bg
+      assign c_surface = accent_text | color_contrast: surface
+      assign c_soft = accent_text | color_contrast: accent_soft
+      if c_bg >= 4.6 and c_surface >= 4.6 and c_soft >= 4.6
+        break
+      endif
+    endfor
+  endif
+
+  assign muted = settings[key_muted]
+  if muted == blank
+    for i in (0..9)
+      assign step = i | times: 5
+      assign weight = 55 | plus: step
+      assign muted = ink | color_mix: bg, weight
+      assign c_bg = muted | color_contrast: bg
+      assign c_surface = muted | color_contrast: surface
+      if c_bg >= 4.6 and c_surface >= 4.6
+        break
+      endif
+    endfor
+  endif
+
+  for i in (0..14)
+    assign step = i | times: 5
+    assign weight = 30 | plus: step
+    assign input_border = ink | color_mix: bg, weight
+    assign c_bg = input_border | color_contrast: bg
+    assign c_surface = input_border | color_contrast: surface
+    if c_bg >= 3.1 and c_surface >= 3.1
+      break
+    endif
+  endfor
+
+  assign star = settings[key_star]
+  if star == blank
+    assign c_bg = accent | color_contrast: bg
+    assign c_surface = accent | color_contrast: surface
+    if c_bg >= 3.1 and c_surface >= 3.1
+      assign star = accent
+    else
+      assign star = accent_text
+    endif
+  endif
+
+  assign on_success_white = success | color_contrast: '#FFFFFF'
+  assign on_success_dark = success | color_contrast: dark_text
+  if on_success_white >= on_success_dark
+    assign on_success = '#FFFFFF'
+  else
+    assign on_success = dark_text
+  endif
+-%}
+color-scheme: {{ mode }};
+--bp-mode-bg: {{ bg }};
+--bp-mode-surface: {{ surface }};
+--bp-mode-accent: {{ accent }};
+--bp-mode-on-accent: {{ on_accent }};
+--bp-bg: {{ bg }};
+--bp-surface: {{ surface }};
+--bp-ink: {{ ink }};
+--bp-line: {{ line }};
+--bp-accent: {{ accent }};
+--bp-accent-soft: {{ accent_soft }};
+--bp-on-accent: {{ on_accent }};
+--bp-accent-text: {{ accent_text }};
+--bp-muted: {{ muted }};
+--bp-input-border: {{ input_border }};
+--bp-star: {{ star }};
+--bp-success: {{ success }};
+--bp-on-success: {{ on_success }};

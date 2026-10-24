@@ -1,0 +1,35 @@
+{% doc %}
+  The outer attributes every content section shares: ID, classes (name, visibility, the
+  merchant's custom class), color style, padding and reveal-on-scroll.
+  Use as <section {% render 'section-attributes', section: section, name: 'hero' %}>.
+
+  @param {object} section - The section
+  @param {string} name - The section's class name (bp-<name>)
+  @param {string} [modifier] - An extra class (bp-<name>--<modifier>)
+{% enddoc %}
+{%- liquid
+  assign s = section.settings
+  assign classes = 'bp-section bp-' | append: name
+  if modifier != blank
+    assign classes = classes | append: ' bp-' | append: name | append: '--' | append: modifier
+  endif
+  if s.hide_mobile
+    assign classes = classes | append: ' bp-hide-mobile'
+  endif
+  if s.hide_desktop
+    assign classes = classes | append: ' bp-hide-desktop'
+  endif
+  if s.custom_class != blank
+    assign custom = s.custom_class | escape
+    assign classes = classes | append: ' ' | append: custom
+  endif
+  assign top = s.padding_top | default: 80
+  assign bottom = s.padding_bottom | default: 80
+  if s.padding_top == 0
+    assign top = 0
+  endif
+  if s.padding_bottom == 0
+    assign bottom = 0
+  endif
+-%}
+id="Section-{{ section.id }}" class="{{ classes }}" data-surface="{{ s.surface_style | default: 'default' }}" style="--bp-pt: {{ top }}px; --bp-pb: {{ bottom }}px;" {% if settings.reveal_on_scroll %}data-bp-reveal{% endif %}

@@ -1,0 +1,14 @@
+{
+  "name": "blueprint-portal",
+  "private": true,
+  "type": "module",
+  "description": "Blueprint Portal: licence keys, release downloads and the buyer portal (Cloudflare Worker + D1 + R2).",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "deploy": "npx wrangler deploy",
+    "db:init": "npx wrangler d1 execute blueprint-portal --remote --file=schema.sql"
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}

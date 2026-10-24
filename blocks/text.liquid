@@ -1,0 +1,50 @@
+{% doc %}
+  Rich text.
+{% enddoc %}
+{%- if block.settings.text != blank -%}
+  <div class="bp-rte bp-text bp-text--{{ block.settings.style }}" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.text.name",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "t:blocks.text.settings.text.label",
+      "default": "<p>Add a short note for shoppers.</p>"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:blocks.text.settings.style.label",
+      "default": "body",
+      "options": [
+        {
+          "value": "body",
+          "label": "t:blocks.text.settings.style.body"
+        },
+        {
+          "value": "muted",
+          "label": "t:blocks.text.settings.style.muted"
+        },
+        {
+          "value": "eyebrow",
+          "label": "t:blocks.text.settings.style.eyebrow"
+        },
+        {
+          "value": "heading",
+          "label": "t:blocks.text.settings.style.heading"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.text.name",
+      "category": "t:blocks.categories.content"
+    }
+  ]
+}
+{% endschema %}

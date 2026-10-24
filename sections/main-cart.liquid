@@ -1,0 +1,27 @@
+{% comment %}
+  Cart page: the same components as the drawer (snippets/cart-contents.liquid), laid out
+  as a page. It's also the no-JavaScript cart: every control is a real form.
+{% endcomment %}
+{{ 'component-cart.css' | asset_url | stylesheet_tag }}
+<div class="bp-section bp-page-width">
+  <bp-cart
+    data-section-id="{{ section.id }}"
+    data-section-url="{{ routes.cart_url }}"
+    data-cart-url="{{ routes.cart_url }}"
+    data-error-message="{{ 'cart.error' | t | escape }}"
+    data-status-template="{{ 'cart.status' | t: count: '[count]' | escape }}"
+    data-bp-module="{{ 'bp-cart.js' | asset_url }}"
+    data-bp-load="idle"
+  >
+    {%- render 'cart-contents', context: 'page', section_id: section.id -%}
+    <p class="bp-visually-hidden" aria-live="polite" data-bp-cart-status></p>
+    <p class="bp-form-message bp-cart__error" role="alert" data-bp-cart-error hidden></p>
+  </bp-cart>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_cart.name",
+  "settings": []
+}
+{% endschema %}

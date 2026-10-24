@@ -1,0 +1,214 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign source = s.product | default: product
+-%}
+<section {% render 'section-attributes', section: section, name: 'related' %}>
+  <bp-recommendations
+    class="bp-page-width bp-page-width--{{ s.width }}"
+    {% if source != blank %}
+      data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ source.id }}&limit={{ s.count }}&intent={{ s.intent }}"
+    {% endif %}
+    data-bp-module="{{ 'bp-recommendations.js' | asset_url }}"
+    data-bp-load="near"
+  >
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+      {%- render 'section-heading', section: section, align: 'start' -%}
+      <ul class="bp-cols bp-product-grid" role="list" style="--bp-cols: {{ s.columns }}; --bp-cols-mobile: 2;">
+        {%- for product in recommendations.products -%}
+          <li>{%- render 'product-card', product: product, show_rating: true, show_badges: true, quick_add: s.quick_add, sizes: '(min-width: 990px) 25vw, 50vw' -%}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </bp-recommendations>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.related_products.name",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "You may also like"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.common.settings.alignment.label",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.common.settings.alignment.options.start"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.settings.alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "intent",
+      "label": "t:sections.related_products.settings.intent.label",
+      "default": "related",
+      "options": [
+        {
+          "value": "related",
+          "label": "t:sections.related_products.settings.intent.options.related"
+        },
+        {
+          "value": "complementary",
+          "label": "t:sections.related_products.settings.intent.options.complementary"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.related_products.settings.product.label",
+      "info": "t:sections.related_products.settings.product.info"
+    },
+    {
+      "type": "range",
+      "id": "count",
+      "label": "t:sections.related_products.settings.count.label",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:sections.related_products.settings.columns.label",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "quick_add",
+      "label": "t:sections.related_products.settings.quick_add.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.related_products.presets.related_products.name"
+    },
+    {
+      "name": "t:sections.related_products.presets.complementary_products.name",
+      "settings": {
+        "intent": "complementary",
+        "heading": "Pairs well with"
+      }
+    }
+  ]
+}
+{% endschema %}

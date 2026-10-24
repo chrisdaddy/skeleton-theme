@@ -1,0 +1,81 @@
+{% doc %}
+  Price for the checked bundle tier and plan (or the variant when there are no tiers), with compare-at, savings and unit price.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign variant = product.selected_or_first_available_variant
+-%}
+{%- capture tier_total -%}
+  {%- render 'offer-tier-spans', product: product, field: 'total', plan: 'both' -%}
+{%- endcapture -%}
+<div class="bp-price-block" {{ block.shopify_attributes }}>
+  {%- if tier_total != blank -%}
+    <span class="bp-price bp-price--lg">{{ tier_total }}</span>
+    <s class="bp-compare-at">{%- render 'offer-tier-spans', product: product, field: 'compare', plan: 'both' -%}</s>
+    {%- if block.settings.show_savings -%}
+      <span class="bp-price-block__save">
+        {%- render 'offer-tier-spans', product: product, field: 'save_pct', plan: 'both', prefix: block.settings.save_prefix, suffix: '%' -%}
+      </span>
+    {%- endif -%}
+  {%- else -%}
+    <span class="bp-price bp-price--lg">{{ variant.price | money }}</span>
+    {%- if variant.compare_at_price > variant.price -%}
+      <s class="bp-compare-at"><span class="bp-visually-hidden">{{ 'products.price.regular' | t }}</span>{{ variant.compare_at_price | money }}</s>
+      {%- if block.settings.show_savings -%}
+        {%- assign save = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price | floor -%}
+        <span class="bp-price-block__save">{{ block.settings.save_prefix }}{{ save }}%</span>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- if variant.unit_price_measurement -%}
+    <span class="bp-small bp-muted">
+      {{- variant.unit_price | money }}/
+      {%- if variant.unit_price_measurement.reference_value != 1 -%}
+        {{- variant.unit_price_measurement.reference_value -}}
+      {%- endif -%}
+      {{ variant.unit_price_measurement.reference_unit -}}
+    </span>
+  {%- endif -%}
+  {%- if block.settings.show_tax_note -%}
+    <span class="bp-small bp-muted bp-price-block__note">
+      {%- if cart.taxes_included -%}
+        {{ 'products.price.taxes_included' | t }}
+      {%- else -%}
+        {{ 'products.price.taxes_at_checkout' | t }}
+      {%- endif -%}
+    </span>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:blocks.product_price.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_savings",
+      "label": "t:blocks.product_price.settings.show_savings.label",
+      "default": true,
+      "info": "t:blocks.product_price.settings.show_savings.info"
+    },
+    {
+      "type": "text",
+      "id": "save_prefix",
+      "label": "t:blocks.product_price.settings.save_prefix.label",
+      "default": "Save "
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tax_note",
+      "label": "t:blocks.product_price.settings.show_tax_note.label",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_price.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

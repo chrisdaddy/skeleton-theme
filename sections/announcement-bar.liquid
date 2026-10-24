@@ -1,0 +1,138 @@
+{%- liquid
+  assign messages = section.blocks | where: 'type', 'message'
+  assign count = messages.size
+-%}
+{%- if count > 0 -%}
+  <div class="bp-announcement" data-surface="{{ section.settings.surface_style }}">
+    <bp-announcements
+      class="bp-announcement__inner bp-page-width"
+      role="region"
+      aria-label="{{ 'announcements.label' | t }}"
+      data-autoplay="{{ section.settings.autoplay }}"
+      data-interval="{{ section.settings.interval }}"
+      {% if count > 1 %}
+        data-bp-module="{{ 'bp-announcements.js' | asset_url }}"
+        data-bp-load="idle"
+      {% endif %}
+    >
+      {%- if count > 1 -%}
+        <button type="button" class="bp-icon-button bp-announcement__control" data-action="previous">
+          <span class="bp-visually-hidden">{{ 'announcements.previous' | t }}</span>
+          {%- render 'icon', name: 'chevron-left' -%}
+        </button>
+      {%- endif -%}
+      <div class="bp-announcement__track">
+        {%- for block in messages -%}
+          <p
+            class="bp-announcement__item"
+            {% if forloop.first %}
+              data-active
+            {% else %}
+              aria-hidden="true"
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}">{{ block.settings.text }}</a>
+            {%- else -%}
+              {{ block.settings.text }}
+            {%- endif -%}
+          </p>
+        {%- endfor -%}
+      </div>
+      {%- if count > 1 -%}
+        <button type="button" class="bp-icon-button bp-announcement__control" data-action="next">
+          <span class="bp-visually-hidden">{{ 'announcements.next' | t }}</span>
+          {%- render 'icon', name: 'chevron-right' -%}
+        </button>
+        {%- if section.settings.autoplay -%}
+          <button type="button" class="bp-icon-button bp-announcement__control" data-action="pause" aria-pressed="false">
+            <span class="bp-visually-hidden">{{ 'announcements.pause' | t }}</span>
+            <span data-icon="pause">{%- render 'icon', name: 'pause' -%}</span>
+            <span data-icon="play" hidden>{%- render 'icon', name: 'play' -%}</span>
+          </button>
+        {%- endif -%}
+      {%- endif -%}
+    </bp-announcements>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.announcement_bar.name",
+  "class": "bp-section-announcement",
+  "max_blocks": 6,
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "accent",
+      "options": [
+        { "value": "default", "label": "t:sections.common.settings.surface_style.options.default" },
+        { "value": "surface", "label": "t:sections.common.settings.surface_style.options.surface" },
+        { "value": "accent", "label": "t:sections.common.settings.surface_style.options.accent" },
+        { "value": "inverse", "label": "t:sections.common.settings.surface_style.options.inverse" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "t:sections.announcement_bar.settings.autoplay.label",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "interval",
+      "label": "t:sections.announcement_bar.settings.interval.label",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 5,
+      "visible_if": "{{ section.settings.autoplay }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "t:sections.announcement_bar.blocks.message.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "t:sections.announcement_bar.blocks.message.settings.text.label",
+          "default": "Free shipping on subscriptions"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.announcement_bar.blocks.message.settings.link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.announcement_bar.name",
+      "blocks": [
+        {
+          "type": "message",
+          "settings": {
+            "text": "Free shipping on subscriptions"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "text": "90-day money-back guarantee"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

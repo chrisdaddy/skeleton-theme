@@ -1,0 +1,168 @@
+{
+  "layout": "landing",
+  "sections": {
+    "header": {
+      "type": "article-header",
+      "settings": {
+        "eyebrow": "Health · Sponsored",
+        "heading": "Verde vs. the cabinet",
+        "lede": ""
+      }
+    },
+    "table": {
+      "type": "comparison-table",
+      "settings": {
+        "heading": "",
+        "columns": "2",
+        "column_1": "Verde",
+        "column_2": "Separate supplements",
+        "highlight": 1
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "One scoop, 60 seconds",
+            "cell_1": "yes",
+            "cell_2": "no"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "NSF Certified for Sport",
+            "cell_1": "yes",
+            "cell_2": "no"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Doses on the label, no blends",
+            "cell_1": "yes",
+            "cell_2": "no"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Under $2.70 a day",
+            "cell_1": "yes",
+            "cell_2": "no"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Seven bottles on the counter",
+            "cell_1": "no",
+            "cell_2": "yes"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5"
+      ]
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "heading": "What 41,208 people said",
+        "layout": "grid",
+        "product": "verde-daily"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Replaced my multivitamin, probiotic and the $9 juice. Tastes like pineapple, not grass.</p>",
+            "name": "Marcus T.",
+            "verified": true
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Day 10 and the 3pm slump is just gone. I did not expect to notice anything.</p>",
+            "name": "Priya S.",
+            "verified": true
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Bloodwork at 90 days convinced my doctor. Now she takes it.</p>",
+            "name": "Jen R.",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ]
+    },
+    "offer": {
+      "type": "offer",
+      "settings": {
+        "product": "verde-daily",
+        "default_tier": 2,
+        "heading": "Try it risk-free",
+        "guarantee": "90-day guarantee"
+      },
+      "blocks": {
+        "rating_1": {
+          "type": "product-rating",
+          "settings": {}
+        },
+        "title_2": {
+          "type": "product-title",
+          "settings": {}
+        },
+        "offer-tiers_3": {
+          "type": "product-offer-tiers",
+          "settings": {}
+        },
+        "purchase-options_4": {
+          "type": "product-purchase-options",
+          "settings": {}
+        },
+        "buy-buttons_5": {
+          "type": "product-buy-buttons",
+          "settings": {}
+        },
+        "trust-tiles_6": {
+          "type": "product-trust-tiles",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rating_1",
+        "title_2",
+        "offer-tiers_3",
+        "purchase-options_4",
+        "buy-buttons_5",
+        "trust-tiles_6"
+      ]
+    },
+    "sticky": {
+      "type": "sticky-cta",
+      "settings": {
+        "target": "offer",
+        "cta_label": "Check availability"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "table",
+    "reviews",
+    "offer",
+    "sticky"
+  ]
+}

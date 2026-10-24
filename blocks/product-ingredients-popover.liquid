@@ -1,0 +1,56 @@
+{% doc %}
+  Opens the product's blueprint.ingredients table in a dialog. Renders nothing without ingredients.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign ingredients = product.metafields.blueprint.ingredients.value
+  assign dialog_id = 'Ingredients-' | append: block.id
+-%}
+{%- if ingredients != blank -%}
+  <div {{ block.shopify_attributes }}>
+    <button type="button" class="bp-link-button" command="show-modal" commandfor="{{ dialog_id }}" aria-haspopup="dialog">
+      {%- render 'icon', name: 'flask' -%}
+      {{ block.settings.label | escape }}
+    </button>
+    <dialog id="{{ dialog_id }}" class="bp-modal" closedby="any" aria-labelledby="{{ dialog_id }}-title">
+      <div class="bp-modal__header">
+        <h2 id="{{ dialog_id }}-title" class="bp-h4">{{ block.settings.label | escape }}</h2>
+        <button type="button" class="bp-icon-button" command="close" commandfor="{{ dialog_id }}">
+          <span class="bp-visually-hidden">{{ 'general.close' | t }}</span>{%- render 'icon', name: 'close' -%}
+        </button>
+      </div>
+      <table class="bp-table">
+        <thead><tr><th scope="col">{{ 'products.ingredients.name' | t }}</th><th scope="col">{{ 'products.ingredients.dose' | t }}</th><th scope="col">{{ 'products.ingredients.why' | t }}</th></tr></thead>
+        <tbody>
+          {%- for row in ingredients -%}
+            <tr><th scope="row">{{ row.name.value | escape }}</th><td>{{ row.dose.value | escape }}</td><td>{{ row.why.value | escape }}</td></tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      {%- assign coa = product.metafields.blueprint.coa.value -%}
+      {%- if coa != blank -%}
+        <p><a class="bp-link" href="{{ coa.url }}">{{ 'products.ingredients.coa' | t }}</a></p>
+      {%- endif -%}
+    </dialog>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_ingredients_popover.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "t:blocks.product_ingredients_popover.settings.label.label",
+      "default": "See every ingredient and dose"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_ingredients_popover.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

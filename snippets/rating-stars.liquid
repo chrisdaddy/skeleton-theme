@@ -1,0 +1,15 @@
+{% doc %}
+  Five stars filled to the rating, with the rating as text for screen readers.
+
+  @param {number} rating - The rating
+  @param {number} [scale_max] - The top of the scale (default 5)
+{% enddoc %}
+{%- liquid
+  assign scale_max = scale_max | default: 5
+  assign percent = rating | times: 100.0 | divided_by: scale_max | round: 1
+  assign rounded = rating | round: 1
+-%}
+<span class="bp-stars" style="--bp-rating: {{ percent }}%;">
+  <span aria-hidden="true">★★★★★</span>
+  <span class="bp-visually-hidden">{{ 'products.rating.label' | t: rating: rounded, max: scale_max }}</span>
+</span>

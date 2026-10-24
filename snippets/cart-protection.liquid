@@ -1,0 +1,41 @@
+{% doc %}
+  Shipping protection toggle: a switch that adds or removes the merchant's protection
+  product. Always visible with its real price; never pre-checked unless the merchant
+  turns the default on (bp-cart.js then adds it once per cart, and never again after a
+  shopper removes it).
+
+  @param {variant} variant - The protection variant
+  @param {line_item} [line] - The protection line, when it's in the cart
+{% enddoc %}
+{%- assign price = variant.price | money -%}
+{%- if line != blank -%}
+  {%- assign price = line.final_line_price | money -%}
+{%- endif -%}
+<div class="bp-cart-protection">
+  <span class="bp-cart-protection__text">
+    <span class="bp-cart-protection__title">
+      {%- render 'icon', name: 'shield' -%}
+      {{ 'cart.protection.title' | t }} · {{ price }}
+    </span>
+    {%- if settings.cart_protection_text != blank -%}
+      <span class="bp-small bp-muted">{{ settings.cart_protection_text | escape }}</span>
+    {%- endif -%}
+  </span>
+  {%- if line != blank -%}
+    <form action="{{ routes.cart_change_url }}" method="get" data-bp-cart-change data-bp-protection>
+      <input type="hidden" name="id" value="{{ line.key }}">
+      <input type="hidden" name="quantity" value="0">
+      <button type="submit" class="bp-switch" role="switch" aria-checked="true" data-bp-focus="protection">
+        <span class="bp-visually-hidden">{{ 'cart.protection.label' | t: price: price }}</span>
+      </button>
+    </form>
+  {%- else -%}
+    <form action="{{ routes.cart_add_url }}" method="post" data-bp-cart-add data-bp-protection>
+      <input type="hidden" name="id" value="{{ variant.id }}">
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" class="bp-switch" role="switch" aria-checked="false" data-bp-focus="protection">
+        <span class="bp-visually-hidden">{{ 'cart.protection.label' | t: price: price }}</span>
+      </button>
+    </form>
+  {%- endif -%}
+</div>

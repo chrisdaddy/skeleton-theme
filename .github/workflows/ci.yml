@@ -1,12 +1,54 @@
 name: CI
-on: [push]
+on:
+  push:
+  pull_request:
+  workflow_dispatch: # "Run workflow" in the Actions tab
 jobs:
   theme-check:
     name: Theme Check
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write # the action reports its results as a GitHub check
     steps:
       - uses: actions/checkout@v4
       - name: Theme Check
         uses: shopify/theme-check-action@v2
         with:
           token: ${{ github.token }}
+  unit:
+    name: Unit tests and contrast
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
+  ai-kit:
+    name: AI kit (MCP server)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mcp
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: node scripts/sync.mjs --check
+      - run: npm test
+      - run: npm run validate:manifest
+  portal:
+    name: Blueprint Portal (Worker)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: portal
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test

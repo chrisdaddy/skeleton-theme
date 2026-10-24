@@ -1,0 +1,191 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'comments' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    {%- render 'section-heading', section: section, align: 'start' -%}
+    <ul class="bp-comments__list" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'comment' -%}
+          <li class="bp-comment" {{ block.shopify_attributes }}>
+            <span class="bp-comment__avatar" aria-hidden="true">{{ block.settings.name | slice: 0 | upcase }}</span>
+            <div class="bp-comment__body">
+              <p class="bp-comment__bubble"><span class="bp-comment__name">{{ block.settings.name | escape }}</span> {{ block.settings.text | escape }}</p>
+              {%- if block.settings.likes != blank -%}
+                <span class="bp-comment__meta">{{ 'sections.comments.likes' | t: count: block.settings.likes }}</span>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}{% render block %}{%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.comments.name",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "What people are saying"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.comments.settings.copy_real_customer_comments_word_for_wor"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comment",
+      "name": "t:sections.comments.blocks.comment.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "t:sections.comments.blocks.comment.settings.name.label",
+          "default": "Customer"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "t:sections.comments.blocks.comment.settings.text.label",
+          "default": "Paste a real comment here."
+        },
+        {
+          "type": "text",
+          "id": "likes",
+          "label": "t:sections.comments.blocks.comment.settings.likes.label",
+          "info": "t:sections.comments.blocks.comment.settings.likes.info"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.comments.presets.comments.name",
+      "blocks": [
+        {
+          "type": "comment"
+        },
+        {
+          "type": "comment"
+        },
+        {
+          "type": "comment"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

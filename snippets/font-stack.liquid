@@ -1,0 +1,14 @@
+{% doc %}
+  Outputs a font-family stack: the font, its metric-matched fallbacks when the
+  theme has them (snippets/font-fallbacks.liquid), then the generic fallbacks.
+
+  @param {object} font - A font setting
+{% enddoc %}
+{%- case font.family -%}
+  {%- when 'DM Sans' -%}
+    {{ font.family }}, 'DM Sans Fallback Arial', 'DM Sans Fallback Roboto', {{ font.fallback_families }}
+  {%- when 'Instrument Serif' -%}
+    {{ font.family }}, 'Instrument Serif Fallback Times', 'Instrument Serif Fallback Noto', {{ font.fallback_families }}
+  {%- else -%}
+    {{ font.family }}, {{ font.fallback_families }}
+{%- endcase -%}

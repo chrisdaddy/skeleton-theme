@@ -1,0 +1,106 @@
+{% doc %}
+  Prints one figure for a tier, from Shopify's own prices (cents). Never stores money.
+
+  Fields:
+  - total: the price for this tier and plan
+  - per_serving: total ÷ (servings per unit × units), rounded to the cent
+  - per_month: total ÷ months of supply; blank unless the tier covers more than one month
+  - compare: the reference price the saving is measured against (blank when there is none)
+  - save_pct: whole-percent saving against the reference, rounded down so it is never overstated
+  - save_amount: money saved against the reference
+  - plan_save_pct: whole-percent subscription saving against the one-time price
+
+  Reference price (theme setting savings_reference):
+  - compare_at: the variant's compare-at price
+  - singles: the single-unit price × units, i.e. what buying singles would cost
+  - auto: compare-at when set, else singles
+  A subscription with no other reference is measured against the one-time price.
+
+  @param {variant} variant - The tier's variant
+  @param {number} quantity - Units in the tier
+  @param {string} [plan_id] - Selling plan ID; blank for one-time
+  @param {string} field - Which figure to print
+  @param {number} [single_price] - One-time price of a single unit (cents)
+  @param {number} [servings] - Servings per unit
+  @param {number} [days] - Days of supply per unit (default 30)
+{% enddoc %}
+{%- liquid
+  assign price = variant.price
+  assign one_time = variant.price
+  assign plan_key = plan_id | append: ''
+  if plan_key != blank
+    for allocation in variant.selling_plan_allocations
+      assign allocation_key = allocation.selling_plan.id | append: ''
+      if allocation_key == plan_key
+        assign price = allocation.price
+        break
+      endif
+    endfor
+  endif
+
+  case field
+    when 'total'
+      echo price | money
+
+    # Integer arithmetic throughout (cents × 100, floored, then rounded half up to the cent),
+    # so every engine and currency gets the same result.
+    when 'per_serving'
+      if servings > 0
+        assign total_servings = servings | times: quantity
+        assign per = price | times: 100 | divided_by: total_servings | plus: 50 | divided_by: 100
+        echo per | money
+      endif
+
+    when 'per_month'
+      assign supply_days = days | default: 30 | times: quantity
+      if supply_days > 30
+        assign per = price | times: 3000 | divided_by: supply_days | plus: 50 | divided_by: 100
+        echo per | money
+      endif
+
+    when 'plan_save_pct'
+      if one_time > price
+        assign diff = one_time | minus: price
+        echo diff | times: 100 | divided_by: one_time | floor
+      endif
+
+    else
+      assign compare_at = variant.compare_at_price | default: 0
+      assign singles = 0
+      if single_price != blank
+        assign singles = single_price | times: quantity
+      endif
+      assign reference = 0
+      case settings.savings_reference
+        when 'compare_at'
+          if compare_at > price
+            assign reference = compare_at
+          endif
+        when 'singles'
+          if singles > price
+            assign reference = singles
+          endif
+        else
+          if compare_at > price
+            assign reference = compare_at
+          elsif singles > price
+            assign reference = singles
+          endif
+      endcase
+      if reference == 0 and one_time > price
+        assign reference = one_time
+      endif
+
+      if reference > price
+        assign diff = reference | minus: price
+        case field
+          when 'compare'
+            echo reference | money
+          when 'save_pct'
+            echo diff | times: 100 | divided_by: reference | floor
+          when 'save_amount'
+            echo diff | money
+        endcase
+      endif
+  endcase
+-%}

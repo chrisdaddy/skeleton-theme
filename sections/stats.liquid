@@ -1,0 +1,254 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'stats', modifier: s.style %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    {%- render 'section-heading', section: section -%}
+    <dl class="bp-stats__list" style="--bp-cols: {{ s.columns }};">
+      {%- for block in section.blocks -%}
+        <div class="bp-stat" {{ block.shopify_attributes }}>
+          <dt class="bp-stat__label">{{ block.settings.label | escape }}</dt>
+          <dd class="bp-stat__value">
+            {%- if s.animate -%}
+              <bp-counter data-bp-module="{{ 'bp-counter.js' | asset_url }}" data-bp-load="visible">{{ block.settings.value | escape }}</bp-counter>
+            {%- else -%}
+              {{ block.settings.value | escape }}
+            {%- endif -%}
+          </dd>
+        </div>
+      {%- endfor -%}
+    </dl>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.stats.name",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:sections.stats.settings.style.label",
+      "default": "cards",
+      "options": [
+        {
+          "value": "cards",
+          "label": "t:sections.stats.settings.style.options.cards"
+        },
+        {
+          "value": "bar",
+          "label": "t:sections.stats.settings.style.options.bar"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:sections.stats.settings.columns.label",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "animate",
+      "label": "t:sections.stats.settings.animate.label",
+      "info": "t:sections.stats.settings.animate.info",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "t:sections.stats.blocks.stat.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "t:sections.stats.blocks.stat.settings.value.label",
+          "info": "t:sections.stats.blocks.stat.settings.value.info",
+          "default": "92"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:sections.stats.blocks.stat.settings.label.label",
+          "default": "ingredients, all disclosed"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.stats.presets.statistics.name",
+      "blocks": [
+        {
+          "type": "stat"
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "0",
+            "label": "proprietary blends"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "11",
+            "label": "scientists on the formula"
+          }
+        }
+      ]
+    },
+    {
+      "name": "t:sections.stats.presets.statistics_bar.name",
+      "settings": {
+        "style": "bar",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "width": "full"
+      },
+      "blocks": [
+        {
+          "type": "stat"
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "0",
+            "label": "proprietary blends"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "11",
+            "label": "scientists on the formula"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "4.9",
+            "label": "average rating"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

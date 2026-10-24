@@ -1,0 +1,59 @@
+{% doc %}
+  The product title, with the optional Shopify subtitle. It is the page's h1 on the product
+  page's own buy box, and an h2 anywhere else (featured product, quick add).
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign subtitle = product.metafields.descriptors.subtitle.value
+  assign tag = 'h2'
+  if template.name == 'product' and section.settings.product == blank and section.id != 'quick-add'
+    assign tag = 'h1'
+  endif
+-%}
+<div class="bp-product-title" {{ block.shopify_attributes }}>
+  <{{ tag }} class="bp-{{ block.settings.size }}">{{ product.title | escape }}</{{ tag }}>
+  {%- if block.settings.show_subtitle and subtitle != blank -%}
+    <p class="bp-muted">{{ subtitle | escape }}</p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:blocks.product_title.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "size",
+      "label": "t:blocks.product_title.settings.size.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:blocks.common.sizes.large"
+        },
+        {
+          "value": "h2",
+          "label": "t:blocks.common.sizes.medium"
+        },
+        {
+          "value": "h3",
+          "label": "t:blocks.common.sizes.small"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subtitle",
+      "label": "t:blocks.product_title.settings.show_subtitle.label",
+      "default": true,
+      "info": "t:blocks.product_title.settings.show_subtitle.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_title.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

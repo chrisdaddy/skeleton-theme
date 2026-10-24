@@ -1,0 +1,366 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'steps', modifier: s.marker %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    {%- render 'section-heading', section: section -%}
+    <ol class="bp-cols bp-steps__list" role="list" style="--bp-cols: {{ section.blocks.size | at_most: 4 }};">
+      {%- for block in section.blocks -%}
+        <li class="bp-step" {{ block.shopify_attributes }}>
+          <span class="bp-step__marker" aria-hidden="true">
+            {%- if s.marker == 'icons' -%}{%- render 'icon', name: block.settings.icon -%}{%- else -%}{{ forloop.index }}{%- endif -%}
+          </span>
+          <h3 class="bp-step__title"><span class="bp-visually-hidden">{{ forloop.index }}. </span>{{ block.settings.title | escape }}</h3>
+          <p class="bp-step__text">{{ block.settings.text | escape }}</p>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.steps.name",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "How it works"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.common.settings.alignment.label",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.common.settings.alignment.options.start"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.settings.alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "marker",
+      "label": "t:sections.steps.settings.marker.label",
+      "default": "numbers",
+      "options": [
+        {
+          "value": "numbers",
+          "label": "t:sections.steps.settings.marker.options.numbers"
+        },
+        {
+          "value": "icons",
+          "label": "t:sections.steps.settings.marker.options.icons"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "surface",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "t:sections.steps.blocks.step.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.common.settings.icon.label",
+          "default": "check",
+          "options": [
+            {
+              "value": "check",
+              "label": "t:sections.common.icon_options.check"
+            },
+            {
+              "value": "leaf",
+              "label": "t:sections.common.icon_options.leaf"
+            },
+            {
+              "value": "bolt",
+              "label": "t:sections.common.icon_options.bolt"
+            },
+            {
+              "value": "shield",
+              "label": "t:sections.common.icon_options.shield"
+            },
+            {
+              "value": "sparkle",
+              "label": "t:sections.common.icon_options.sparkle"
+            },
+            {
+              "value": "truck",
+              "label": "t:sections.common.icon_options.truck"
+            },
+            {
+              "value": "refresh",
+              "label": "t:sections.common.icon_options.refresh"
+            },
+            {
+              "value": "heart",
+              "label": "t:sections.common.icon_options.heart"
+            },
+            {
+              "value": "star",
+              "label": "t:sections.common.icon_options.star"
+            },
+            {
+              "value": "drop",
+              "label": "t:sections.common.icon_options.drop"
+            },
+            {
+              "value": "flask",
+              "label": "t:sections.common.icon_options.flask"
+            },
+            {
+              "value": "award",
+              "label": "t:sections.common.icon_options.award"
+            },
+            {
+              "value": "gift",
+              "label": "t:sections.common.icon_options.gift"
+            },
+            {
+              "value": "clock",
+              "label": "t:sections.common.icon_options.clock"
+            },
+            {
+              "value": "lock",
+              "label": "t:sections.common.icon_options.lock"
+            },
+            {
+              "value": "box",
+              "label": "t:sections.common.icon_options.box"
+            },
+            {
+              "value": "users",
+              "label": "t:sections.common.icon_options.users"
+            },
+            {
+              "value": "chat",
+              "label": "t:sections.common.icon_options.chat"
+            },
+            {
+              "value": "moon",
+              "label": "t:sections.common.icon_options.moon"
+            },
+            {
+              "value": "paw",
+              "label": "t:sections.common.icon_options.paw"
+            },
+            {
+              "value": "flame",
+              "label": "t:sections.common.icon_options.flame"
+            },
+            {
+              "value": "coin",
+              "label": "t:sections.common.icon_options.coin"
+            },
+            {
+              "value": "chart",
+              "label": "t:sections.common.icon_options.chart"
+            },
+            {
+              "value": "speed",
+              "label": "t:sections.common.icon_options.speed"
+            },
+            {
+              "value": "calendar",
+              "label": "t:sections.common.icon_options.calendar"
+            },
+            {
+              "value": "eye",
+              "label": "t:sections.common.icon_options.eye"
+            },
+            {
+              "value": "layers",
+              "label": "t:sections.common.icon_options.layers"
+            },
+            {
+              "value": "pin",
+              "label": "t:sections.common.icon_options.pin"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.steps.blocks.step.settings.title.label",
+          "default": "Step"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "t:sections.steps.blocks.step.settings.text.label",
+          "default": "One sentence about this step."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.steps.presets.how_it_works.name",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Choose"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Use"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Feel it"
+          }
+        }
+      ]
+    },
+    {
+      "name": "t:sections.steps.presets.how_it_works_icons.name",
+      "settings": {
+        "marker": "icons"
+      },
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Choose",
+            "icon": "box"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Use",
+            "icon": "drop"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Feel it",
+            "icon": "sparkle"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

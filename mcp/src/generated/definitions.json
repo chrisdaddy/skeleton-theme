@@ -1,0 +1,412 @@
+{
+ "namespace": "blueprint",
+ "metaobjects": [
+  {
+   "type": "blueprint_tier",
+   "name": "Blueprint: offer tier",
+   "displayNameKey": "label",
+   "fields": [
+    {
+     "key": "label",
+     "name": "Label",
+     "type": "single_line_text_field",
+     "required": true
+    },
+    {
+     "key": "sublabel",
+     "name": "Sublabel",
+     "type": "single_line_text_field"
+    },
+    {
+     "key": "pack_value",
+     "name": "Pack option value",
+     "type": "single_line_text_field",
+     "description": "Matches a value of the pack option, e.g. \"2 pouches\"."
+    },
+    {
+     "key": "variant",
+     "name": "Fixed variant",
+     "type": "variant_reference",
+     "description": "Overrides the pack value; may belong to another product (a set)."
+    },
+    {
+     "key": "quantity",
+     "name": "Mix quantity",
+     "type": "number_integer",
+     "description": "Mix mode: pick any N variants."
+    },
+    {
+     "key": "discount_label",
+     "name": "Discount label",
+     "type": "single_line_text_field",
+     "description": "Mix mode: names the automatic discount."
+    },
+    {
+     "key": "badge",
+     "name": "Badge",
+     "type": "single_line_text_field"
+    },
+    {
+     "key": "preselected",
+     "name": "Preselected",
+     "type": "boolean"
+    },
+    {
+     "key": "gift_variant",
+     "name": "Gift variant",
+     "type": "variant_reference"
+    },
+    {
+     "key": "gift_value_label",
+     "name": "Gift value label",
+     "type": "single_line_text_field"
+    },
+    {
+     "key": "subscription_plan_hint",
+     "name": "Subscription plan hint",
+     "type": "single_line_text_field",
+     "description": "Part of a selling plan name to prefer, e.g. \"3 months\"."
+    }
+   ]
+  },
+  {
+   "type": "blueprint_benefit",
+   "name": "Blueprint: benefit",
+   "displayNameKey": "title",
+   "fields": [
+    {
+     "key": "icon",
+     "name": "Icon",
+     "type": "single_line_text_field"
+    },
+    {
+     "key": "title",
+     "name": "Title",
+     "type": "single_line_text_field",
+     "required": true
+    },
+    {
+     "key": "text",
+     "name": "Text",
+     "type": "multi_line_text_field"
+    },
+    {
+     "key": "image",
+     "name": "Image",
+     "type": "file_reference"
+    }
+   ]
+  },
+  {
+   "type": "blueprint_ingredient",
+   "name": "Blueprint: ingredient",
+   "displayNameKey": "name",
+   "fields": [
+    {
+     "key": "name",
+     "name": "Name",
+     "type": "single_line_text_field",
+     "required": true
+    },
+    {
+     "key": "dose",
+     "name": "Dose",
+     "type": "single_line_text_field"
+    },
+    {
+     "key": "why",
+     "name": "Why",
+     "type": "single_line_text_field"
+    },
+    {
+     "key": "image",
+     "name": "Image",
+     "type": "file_reference"
+    },
+    {
+     "key": "source_url",
+     "name": "Source URL",
+     "type": "url"
+    }
+   ]
+  },
+  {
+   "type": "blueprint_study",
+   "name": "Blueprint: study result",
+   "displayNameKey": "label",
+   "fields": [
+    {
+     "key": "stat_value",
+     "name": "Value",
+     "type": "number_integer",
+     "required": true
+    },
+    {
+     "key": "stat_suffix",
+     "name": "Suffix",
+     "type": "single_line_text_field"
+    },
+    {
+     "key": "label",
+     "name": "Label",
+     "type": "single_line_text_field",
+     "required": true
+    },
+    {
+     "key": "source",
+     "name": "Source",
+     "type": "single_line_text_field"
+    },
+    {
+     "key": "source_url",
+     "name": "Source URL",
+     "type": "url"
+    }
+   ]
+  },
+  {
+   "type": "blueprint_comparison_row",
+   "name": "Blueprint: comparison row",
+   "displayNameKey": "feature",
+   "fields": [
+    {
+     "key": "feature",
+     "name": "Feature",
+     "type": "single_line_text_field",
+     "required": true
+    },
+    {
+     "key": "us",
+     "name": "Us",
+     "type": "single_line_text_field",
+     "description": "\"yes\", \"no\" or short text."
+    },
+    {
+     "key": "them",
+     "name": "Them",
+     "type": "single_line_text_field",
+     "description": "\"yes\", \"no\" or short text."
+    }
+   ]
+  },
+  {
+   "type": "blueprint_faq",
+   "name": "Blueprint: FAQ",
+   "displayNameKey": "question",
+   "fields": [
+    {
+     "key": "question",
+     "name": "Question",
+     "type": "single_line_text_field",
+     "required": true
+    },
+    {
+     "key": "answer",
+     "name": "Answer",
+     "type": "rich_text_field"
+    }
+   ]
+  },
+  {
+   "type": "blueprint_guarantee",
+   "name": "Blueprint: guarantee",
+   "displayNameKey": "title",
+   "fields": [
+    {
+     "key": "title",
+     "name": "Title",
+     "type": "single_line_text_field",
+     "required": true
+    },
+    {
+     "key": "days",
+     "name": "Days",
+     "type": "number_integer"
+    },
+    {
+     "key": "body",
+     "name": "Body",
+     "type": "multi_line_text_field"
+    },
+    {
+     "key": "icon",
+     "name": "Icon",
+     "type": "single_line_text_field"
+    }
+   ]
+  }
+ ],
+ "metafields": [
+  {
+   "ownerType": "PRODUCT",
+   "key": "tiers",
+   "name": "Offer tiers",
+   "type": "list.metaobject_reference",
+   "metaobject": "blueprint_tier"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "pack_option",
+   "name": "Pack option name",
+   "type": "single_line_text_field"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "servings_per_unit",
+   "name": "Servings per unit",
+   "type": "number_integer"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "serving_label",
+   "name": "Serving label",
+   "type": "single_line_text_field"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "days_per_unit",
+   "name": "Days per unit",
+   "type": "number_integer"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "benefits",
+   "name": "Benefits",
+   "type": "list.metaobject_reference",
+   "metaobject": "blueprint_benefit"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "ingredients",
+   "name": "Ingredients",
+   "type": "list.metaobject_reference",
+   "metaobject": "blueprint_ingredient"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "coa",
+   "name": "Certificate of analysis",
+   "type": "file_reference"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "studies",
+   "name": "Study results",
+   "type": "list.metaobject_reference",
+   "metaobject": "blueprint_study"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "comparison",
+   "name": "Comparison rows",
+   "type": "list.metaobject_reference",
+   "metaobject": "blueprint_comparison_row"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "comparison_competitor_label",
+   "name": "Comparison competitor label",
+   "type": "single_line_text_field"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "faqs",
+   "name": "FAQs",
+   "type": "list.metaobject_reference",
+   "metaobject": "blueprint_faq"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "guarantee",
+   "name": "Guarantee",
+   "type": "metaobject_reference",
+   "metaobject": "blueprint_guarantee"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "badge",
+   "name": "Gallery badge",
+   "type": "single_line_text_field"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "certifications",
+   "name": "Certifications",
+   "type": "list.single_line_text_field"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "upsell",
+   "name": "Cart upsell",
+   "type": "product_reference"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "cart_deal_label",
+   "name": "In-cart deal label",
+   "type": "single_line_text_field"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "sold_today",
+   "name": "Sold today (Flow)",
+   "type": "number_integer"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "sold_today_date",
+   "name": "Sold today date (Flow)",
+   "type": "date"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "key": "shot_note",
+   "name": "Shot note (demo)",
+   "type": "single_line_text_field"
+  },
+  {
+   "ownerType": "PRODUCTVARIANT",
+   "key": "pack_quantity",
+   "name": "Pack quantity",
+   "type": "number_integer"
+  },
+  {
+   "ownerType": "PAGE",
+   "key": "header",
+   "name": "Header style",
+   "type": "single_line_text_field",
+   "choices": [
+    "full",
+    "minimal",
+    "hidden"
+   ]
+  },
+  {
+   "ownerType": "PAGE",
+   "key": "robots",
+   "name": "Search engines",
+   "type": "single_line_text_field",
+   "choices": [
+    "index",
+    "noindex_follow"
+   ]
+  }
+ ],
+ "standard": [
+  {
+   "ownerType": "PRODUCT",
+   "namespace": "reviews",
+   "key": "rating"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "namespace": "reviews",
+   "key": "rating_count"
+  },
+  {
+   "ownerType": "PRODUCT",
+   "namespace": "descriptors",
+   "key": "subtitle"
+  }
+ ]
+}

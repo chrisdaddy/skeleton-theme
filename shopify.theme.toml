@@ -1,0 +1,12 @@
+# Development stores (demo content for each preset). Passwords come from Theme Access,
+# one environment variable per store: never commit them. Run through tools/store.mjs,
+# which passes the right password to Shopify CLI.
+
+[environments.verde]
+store = "verde-yhnern1q.myshopify.com"
+
+[environments.ode]
+store = "odel-zrfdxbxc.myshopify.com"
+
+[environments.rawform]
+store = "rawform-t0oqfonb.myshopify.com"

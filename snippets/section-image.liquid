@@ -1,0 +1,41 @@
+{% doc %}
+  An image from an image setting, or the matching Shopify placeholder when none is chosen.
+  Images near the top of the page load eagerly; the first section's image is the LCP
+  candidate and gets fetchpriority="high".
+
+  @param {image} image - The image (may be blank)
+  @param {string} sizes - The sizes attribute
+  @param {object} section - The section (for its position on the page)
+  @param {string} [placeholder] - Placeholder name (default 'lifestyle-1')
+  @param {string} [class] - Class for the img
+  @param {string} [alt] - Alt text (default: the image's own)
+  @param {number} [width] - Largest width to request (default 2000)
+{% enddoc %}
+{%- liquid
+  assign max = width | default: 2000
+  assign css = class | default: 'bp-media__img'
+  assign loading = 'lazy'
+  assign priority = 'auto'
+  if section.index <= 2
+    assign loading = 'eager'
+  endif
+  if section.index == 1
+    assign priority = 'high'
+  endif
+-%}
+{%- if image != blank -%}
+  {%- assign alt_text = alt | default: image.alt | escape -%}
+  {{
+    image
+    | image_url: width: max
+    | image_tag:
+      widths: '360, 540, 720, 900, 1080, 1440, 1800, 2000',
+      sizes: sizes,
+      loading: loading,
+      fetchpriority: priority,
+      class: css,
+      alt: alt_text
+  }}
+{%- else -%}
+  {{ placeholder | default: 'lifestyle-1' | placeholder_svg_tag: css }}
+{%- endif -%}

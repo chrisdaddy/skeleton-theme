@@ -1,0 +1,910 @@
+{
+  "id": "omni",
+  "brand": "OMNI",
+  "preset": "Clinical",
+  "listing": "clinical",
+  "required": false,
+  "mode": "pack",
+  "notice": "Demo store: sample products, prices and reviews",
+  "files": [
+    {
+      "key": "hero",
+      "filename": "bp-omni-hero.png",
+      "label": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light",
+      "alt": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light"
+    },
+    {
+      "key": "hero-2",
+      "filename": "bp-omni-hero-2.png",
+      "label": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light · view 2",
+      "alt": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light · view 2"
+    },
+    {
+      "key": "hero-3",
+      "filename": "bp-omni-hero-3.png",
+      "label": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light · view 3",
+      "alt": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light · view 3"
+    },
+    {
+      "key": "hero-4",
+      "filename": "bp-omni-hero-4.png",
+      "label": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light · view 4",
+      "alt": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light · view 4"
+    },
+    {
+      "key": "hero-5",
+      "filename": "bp-omni-hero-5.png",
+      "label": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light · view 5",
+      "alt": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light · view 5"
+    },
+    {
+      "key": "travel-sachets",
+      "filename": "bp-omni-travel-sachets.png",
+      "label": "Travel sachets",
+      "alt": "Travel sachets"
+    },
+    {
+      "key": "night-formula",
+      "filename": "bp-omni-night-formula.png",
+      "label": "Night Formula",
+      "alt": "Night Formula"
+    },
+    {
+      "key": "steel-shaker-set",
+      "filename": "bp-omni-steel-shaker-set.png",
+      "label": "Steel shaker set",
+      "alt": "Steel shaker set"
+    },
+    {
+      "key": "day-night-set",
+      "filename": "bp-omni-day-night-set.png",
+      "label": "Day + Night set",
+      "alt": "Day + Night set"
+    },
+    {
+      "key": "gift-card",
+      "filename": "bp-omni-gift-card.png",
+      "label": "Gift card",
+      "alt": "Gift card"
+    },
+    {
+      "key": "bp-omni-photo-home-hero-canister-glass-and-scoop-on-dark-stone-cinematic-r",
+      "filename": "bp-omni-photo-home-hero-canister-glass-and-scoop-on-dark-stone-cinematic-r.png",
+      "label": "Home hero: canister, glass and scoop on dark stone, cinematic rim light",
+      "alt": ""
+    },
+    {
+      "key": "bp-omni-photo-macro-powder-and-capsules-side-by-side-navy-backdrop",
+      "filename": "bp-omni-photo-macro-powder-and-capsules-side-by-side-navy-backdrop.png",
+      "label": "Macro: powder and capsules side by side, navy backdrop",
+      "alt": ""
+    },
+    {
+      "key": "bp-omni-photo-macro-scoop-with-powder-lab-light",
+      "filename": "bp-omni-photo-macro-scoop-with-powder-lab-light.png",
+      "label": "Macro: scoop with powder, lab light",
+      "alt": ""
+    },
+    {
+      "key": "bp-omni-photo-glass-of-omni-being-stirred-slow-shutter",
+      "filename": "bp-omni-photo-glass-of-omni-being-stirred-slow-shutter.png",
+      "label": "Glass of Omni being stirred, slow shutter",
+      "alt": ""
+    },
+    {
+      "key": "bp-omni-photo-video-still-doctor-in-clinic-navy-scrubs",
+      "filename": "bp-omni-photo-video-still-doctor-in-clinic-navy-scrubs.png",
+      "label": "Video still: doctor in clinic, navy scrubs",
+      "alt": ""
+    },
+    {
+      "key": "bp-omni-photo-video-still-athlete-post-training",
+      "filename": "bp-omni-photo-video-still-athlete-post-training.png",
+      "label": "Video still: athlete post-training",
+      "alt": ""
+    },
+    {
+      "key": "bp-omni-photo-video-still-customer-in-garden",
+      "filename": "bp-omni-photo-video-still-customer-in-garden.png",
+      "label": "Video still: customer in garden",
+      "alt": ""
+    },
+    {
+      "key": "bp-omni-photo-advertorial-lead-image",
+      "filename": "bp-omni-photo-advertorial-lead-image.png",
+      "label": "Advertorial lead image",
+      "alt": ""
+    }
+  ],
+  "products": [
+    {
+      "handle": "omni-daily-ultimate-essentials",
+      "title": "Daily Ultimate Essentials",
+      "productType": "Daily",
+      "tags": [
+        "bp-hero"
+      ],
+      "descriptionHtml": "<p>92 ingredients. 16 products replaced. One glass a day.</p>",
+      "files": [
+        {
+          "$file": "hero"
+        },
+        {
+          "$file": "hero-2"
+        },
+        {
+          "$file": "hero-3"
+        },
+        {
+          "$file": "hero-4"
+        },
+        {
+          "$file": "hero-5"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "tiers",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_tier/omni-tier-1"
+            },
+            {
+              "$metaobject": "blueprint_tier/omni-tier-2"
+            },
+            {
+              "$metaobject": "blueprint_tier/omni-tier-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "pack_option",
+          "type": "single_line_text_field",
+          "value": "Pack"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "badge",
+          "type": "single_line_text_field",
+          "value": "Doctor formulated"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "benefits",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_benefit/omni-benefit-1"
+            },
+            {
+              "$metaobject": "blueprint_benefit/omni-benefit-2"
+            },
+            {
+              "$metaobject": "blueprint_benefit/omni-benefit-3"
+            },
+            {
+              "$metaobject": "blueprint_benefit/omni-benefit-4"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "studies",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_study/omni-study-1"
+            },
+            {
+              "$metaobject": "blueprint_study/omni-study-2"
+            },
+            {
+              "$metaobject": "blueprint_study/omni-study-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "faqs",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_faq/omni-faq-1"
+            },
+            {
+              "$metaobject": "blueprint_faq/omni-faq-2"
+            },
+            {
+              "$metaobject": "blueprint_faq/omni-faq-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "guarantee",
+          "type": "metaobject_reference",
+          "value": {
+            "$metaobject": "blueprint_guarantee/omni-guarantee"
+          }
+        },
+        {
+          "namespace": "blueprint",
+          "key": "upsell",
+          "type": "product_reference",
+          "value": {
+            "$product": "travel-sachets"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating_count",
+          "type": "number_integer",
+          "value": 12540
+        },
+        {
+          "namespace": "descriptors",
+          "key": "subtitle",
+          "type": "single_line_text_field",
+          "value": "92 ingredients. 16 products replaced. One glass a day."
+        },
+        {
+          "namespace": "blueprint",
+          "key": "shot_note",
+          "type": "single_line_text_field",
+          "value": "PDP hero: navy canister with steel lid, glass of vanilla Omni, hard rim light"
+        }
+      ],
+      "options": [
+        {
+          "name": "Flavour",
+          "values": [
+            "Vanilla",
+            "Chocolate",
+            "Unflavoured"
+          ]
+        },
+        {
+          "name": "Pack",
+          "values": [
+            "1 canister",
+            "2 canisters",
+            "3 canisters"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "options": [
+            "Vanilla",
+            "1 canister"
+          ],
+          "price": "99.00",
+          "compareAtPrice": "129.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Vanilla",
+            "2 canisters"
+          ],
+          "price": "178.00",
+          "compareAtPrice": "258.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Vanilla",
+            "3 canisters"
+          ],
+          "price": "249.00",
+          "compareAtPrice": "387.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Chocolate",
+            "1 canister"
+          ],
+          "price": "99.00",
+          "compareAtPrice": "129.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Chocolate",
+            "2 canisters"
+          ],
+          "price": "178.00",
+          "compareAtPrice": "258.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Chocolate",
+            "3 canisters"
+          ],
+          "price": "249.00",
+          "compareAtPrice": "387.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Unflavoured",
+            "1 canister"
+          ],
+          "price": "99.00",
+          "compareAtPrice": "129.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Unflavoured",
+            "2 canisters"
+          ],
+          "price": "178.00",
+          "compareAtPrice": "258.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Unflavoured",
+            "3 canisters"
+          ],
+          "price": "249.00",
+          "compareAtPrice": "387.00",
+          "packQuantity": 3
+        }
+      ]
+    },
+    {
+      "handle": "travel-sachets",
+      "title": "Travel sachets",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Travel sachets.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "54.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "travel-sachets"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "cart_deal_label",
+          "type": "single_line_text_field",
+          "value": "$44 in cart"
+        }
+      ]
+    },
+    {
+      "handle": "night-formula",
+      "title": "Night Formula",
+      "productType": "Daily",
+      "tags": [],
+      "descriptionHtml": "<p>Night Formula.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "69.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "night-formula"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "steel-shaker-set",
+      "title": "Steel shaker set",
+      "productType": "Travel",
+      "tags": [],
+      "descriptionHtml": "<p>Steel shaker set.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "29.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "steel-shaker-set"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "day-night-set",
+      "title": "Day + Night set",
+      "productType": "Sets",
+      "tags": [],
+      "descriptionHtml": "<p>Day + Night set.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "149.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "day-night-set"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "gift-card",
+      "title": "Gift card",
+      "productType": "Daily",
+      "tags": [],
+      "descriptionHtml": "<p>Gift card.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "100.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "gift-card"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "5.0",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "shipping-protection",
+      "title": "Shipping protection",
+      "productType": "",
+      "tags": [
+        "bp-protection"
+      ],
+      "descriptionHtml": "<p>Covers loss, theft and damage in transit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "2.95",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": false
+        }
+      ],
+      "files": [],
+      "metafields": []
+    }
+  ],
+  "metaobjects": [
+    {
+      "type": "blueprint_tier",
+      "handle": "omni-tier-1",
+      "fields": {
+        "label": "1 canister",
+        "sublabel": "30 servings",
+        "preselected": false,
+        "pack_value": "1 canister"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "omni-tier-2",
+      "fields": {
+        "label": "2 canisters",
+        "sublabel": "One for a partner · free shipping",
+        "badge": "Most popular",
+        "preselected": true,
+        "pack_value": "2 canisters"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "omni-tier-3",
+      "fields": {
+        "label": "3 canisters",
+        "sublabel": "Quarter supply · free shaker set",
+        "badge": "Best value",
+        "preselected": false,
+        "pack_value": "3 canisters"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "omni-benefit-1",
+      "fields": {
+        "icon": "layers",
+        "title": "92 ingredients, 16 products replaced"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "omni-benefit-2",
+      "fields": {
+        "icon": "flask",
+        "title": "Clinically trialled, results published"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "omni-benefit-3",
+      "fields": {
+        "icon": "users",
+        "title": "Formulated by 11 doctors"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "omni-benefit-4",
+      "fields": {
+        "icon": "shield",
+        "title": "No proprietary blends, every dose shown"
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "omni-study-1",
+      "fields": {
+        "stat_value": 95,
+        "stat_suffix": "%",
+        "label": "felt more energised by week 4",
+        "source": "Trial run by a third-party CRO. Protocol and results on the Research page."
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "omni-study-2",
+      "fields": {
+        "stat_value": 89,
+        "stat_suffix": "%",
+        "label": "improved gut comfort",
+        "source": "Trial run by a third-party CRO. Protocol and results on the Research page."
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "omni-study-3",
+      "fields": {
+        "stat_value": 31,
+        "stat_suffix": "%",
+        "label": "drop in hs-CRP, an inflammation marker",
+        "source": "Trial run by a third-party CRO. Protocol and results on the Research page."
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "omni-faq-1",
+      "fields": {
+        "question": "Is one scoop really enough?",
+        "answer": {
+          "rich": "Yes. 92 ingredients at full doses; the scoop is 26 g, about three times a typical greens powder."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "omni-faq-2",
+      "fields": {
+        "question": "Can I take it with medication?",
+        "answer": {
+          "rich": "Most people can. The full label is public so your doctor can check it in a minute."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "omni-faq-3",
+      "fields": {
+        "question": "Why is it $99?",
+        "answer": {
+          "rich": "Because it replaces about $240 of separate products. Per day it is $3.30 with subscription."
+        }
+      }
+    },
+    {
+      "type": "blueprint_guarantee",
+      "handle": "omni-guarantee",
+      "fields": {
+        "title": "60-day guarantee"
+      }
+    }
+  ],
+  "sellingPlanGroups": [],
+  "collections": [
+    {
+      "handle": "best-sellers",
+      "title": "Best sellers",
+      "products": [
+        "omni-daily-ultimate-essentials",
+        "travel-sachets",
+        "night-formula",
+        "steel-shaker-set",
+        "day-night-set",
+        "gift-card"
+      ]
+    },
+    {
+      "handle": "daily",
+      "title": "Daily",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Daily"
+      }
+    },
+    {
+      "handle": "travel",
+      "title": "Travel",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Travel"
+      }
+    },
+    {
+      "handle": "sets",
+      "title": "Sets",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Sets"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "handle": "advertorial",
+      "title": "A cardiologist audited every all-in-one on the market. Only one passed.",
+      "templateSuffix": "advertorial",
+      "body": "<p>Dr. Lena Park does not take supplements. She reads labels for a living and most of them, she says, are marketing with a scoop.</p>"
+    },
+    {
+      "handle": "listicle",
+      "title": "6 things every all-in-one should prove before you buy it",
+      "templateSuffix": "listicle",
+      "body": ""
+    },
+    {
+      "handle": "comparison",
+      "title": "How OMNI compares",
+      "templateSuffix": "comparison",
+      "body": ""
+    },
+    {
+      "handle": "about",
+      "title": "About OMNI",
+      "templateSuffix": "about",
+      "body": "<p>IM8 archetype. Premium, doctor-backed, one product replaces sixteen.</p>"
+    },
+    {
+      "handle": "contact",
+      "title": "Contact",
+      "templateSuffix": "contact",
+      "body": ""
+    }
+  ],
+  "menus": [
+    {
+      "handle": "main-menu",
+      "title": "Main menu",
+      "items": [
+        {
+          "title": "Shop",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "best-sellers"
+          },
+          "items": [
+            {
+              "title": "Daily Ultimate Essentials",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "omni-daily-ultimate-essentials"
+              }
+            },
+            {
+              "title": "Travel sachets",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "travel-sachets"
+              }
+            },
+            {
+              "title": "Night Formula",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "night-formula"
+              }
+            },
+            {
+              "title": "Steel shaker set",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "steel-shaker-set"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Research",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Ingredients",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Our team",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "footer",
+      "title": "Footer menu",
+      "items": [
+        {
+          "title": "Search",
+          "type": "SEARCH",
+          "url": "/search"
+        },
+        {
+          "title": "Shipping",
+          "type": "HTTP",
+          "url": "/policies/shipping-policy"
+        },
+        {
+          "title": "Returns",
+          "type": "HTTP",
+          "url": "/policies/refund-policy"
+        },
+        {
+          "title": "Contact",
+          "type": "PAGE",
+          "ref": {
+            "$page": "contact"
+          }
+        }
+      ]
+    }
+  ],
+  "discounts": [
+    {
+      "kind": "freeShipping",
+      "title": "Blueprint demo: free shipping over $50",
+      "minimumSubtotal": "50.00"
+    },
+    {
+      "kind": "amountOffProduct",
+      "title": "Blueprint demo: Travel sachets · 15 $44 in cart",
+      "products": [
+        {
+          "$product": "travel-sachets"
+        }
+      ],
+      "amountEach": "10.00"
+    }
+  ],
+  "theme": {
+    "preset": "Clinical",
+    "listing": "clinical",
+    "settings": {
+      "color_mode": "dark",
+      "accent_color": "#F3F0E8",
+      "dark_bg": "#0B1526",
+      "dark_surface": "#15223A",
+      "dark_ink": "#F3F0E8",
+      "dark_line": "#243350",
+      "dark_accent_soft": "#1C2A45",
+      "light_on_accent": "",
+      "dark_on_accent": "",
+      "light_accent_text": "",
+      "dark_accent_text": "",
+      "cart_protection_product": "shipping-protection",
+      "cart_upsell_collection": "best-sellers",
+      "cart_upsell_show_deal": true,
+      "cart_empty_collection": "best-sellers",
+      "social_instagram": "https://instagram.com/omni",
+      "social_tiktok": "https://tiktok.com/@omni",
+      "cart_reward_1_label": "Free shipping",
+      "cart_reward_1_threshold": 50,
+      "cart_reward_1_gift": "",
+      "cart_reward_2_label": "",
+      "cart_reward_2_threshold": null,
+      "cart_reward_2_gift": "",
+      "cart_reward_3_label": "",
+      "cart_reward_3_threshold": null,
+      "cart_reward_3_gift": ""
+    }
+  }
+}

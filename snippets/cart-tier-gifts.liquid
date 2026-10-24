@@ -1,0 +1,51 @@
+{% doc %}
+  Claim forms for bundle-tier gifts missing from the cart: a tier with a gift added
+  without JavaScript posts only the tier's variant, so the cart offers the gift here.
+
+  @param {string} gift_keys - Gift lines in the cart, as ",reward-1,tier-123,"
+  @param {number} protection_id - The shipping protection variant ID (skipped)
+{% enddoc %}
+{%- for item in cart.items -%}
+  {%- liquid
+    if item.variant_id == protection_id or item.properties._bp_gift != blank
+      continue
+    endif
+    assign tiers = item.product.metafields.blueprint.tiers.value
+    if tiers == blank
+      continue
+    endif
+    assign pack_name = item.product.metafields.blueprint.pack_option.value | default: 'Pack'
+    assign pack_position = 0
+    for option in item.product.options_with_values
+      if option.name == pack_name
+        assign pack_position = option.position
+      endif
+    endfor
+    assign marker = ',tier-' | append: item.variant_id | append: ','
+  -%}
+  {%- for tier in tiers -%}
+    {%- liquid
+      assign gift = tier.gift_variant.value
+      if gift == blank or gift.available == false or gift_keys contains marker
+        continue
+      endif
+      capture tier_variant_id
+        render 'offer-tier-variant', product: item.product, tier: tier, base: item.variant, pack_position: pack_position
+      endcapture
+      assign tier_variant_id = tier_variant_id | strip | plus: 0
+    -%}
+    {%- if tier_variant_id == item.variant_id -%}
+      <form action="{{ routes.cart_add_url }}" method="post" class="bp-cart-gift-claim" data-bp-cart-add>
+        <input type="hidden" name="id" value="{{ gift.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <input type="hidden" name="properties[_bp_gift]" value="tier">
+        <input type="hidden" name="properties[_bp_gift_for]" value="{{ item.variant_id }}">
+        <button type="submit" class="bp-button bp-button--secondary bp-button--small">
+          {%- render 'icon', name: 'gift' -%}
+          {{ 'cart.add_gift' | t: title: gift.product.title }}
+        </button>
+      </form>
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}

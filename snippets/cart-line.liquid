@@ -1,0 +1,100 @@
+{% doc %}
+  One cart line: image, title, options, plan, properties, discounts, quantity stepper,
+  remove and price. The stepper and remove are GET forms to routes.cart_change_url
+  (Shopify's own url_to_remove pattern), so they work without JavaScript.
+
+  @param {line_item} item - The line
+{% enddoc %}
+{%- liquid
+  assign gift_kind = item.properties._bp_gift
+  assign step = item.variant.quantity_rule.increment | default: 1
+  assign less = item.quantity | minus: step | at_least: 0
+  assign more = item.quantity | plus: step
+  assign max = item.variant.quantity_rule.max
+  assign title = item.product.title | escape
+  assign compare_line = item.variant.compare_at_price | times: item.quantity
+  assign struck = item.original_line_price
+  if compare_line > struck
+    assign struck = compare_line
+  endif
+-%}
+<li class="bp-cart-line" data-bp-line="{{ item.key }}" {% if gift_kind != blank %}data-bp-gift="{{ gift_kind }}"{% endif %}>
+  <a class="bp-cart-line__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+    {%- if item.image -%}
+      {{ item.image | image_url: width: 160 | image_tag: width: 80, height: 80, loading: 'lazy', alt: '' }}
+    {%- endif -%}
+  </a>
+  <div class="bp-cart-line__info">
+    <a class="bp-cart-line__title" href="{{ item.url }}">{{ title }}</a>
+    {%- unless item.product.has_only_default_variant -%}
+      <span class="bp-small bp-muted">{{ item.variant.title | escape }}</span>
+    {%- endunless -%}
+    {%- if item.selling_plan_allocation -%}
+      <span class="bp-small bp-muted">{{ item.selling_plan_allocation.selling_plan.name | escape }}</span>
+    {%- endif -%}
+    {%- for property in item.properties -%}
+      {%- assign property_name = property.first -%}
+      {%- assign first_char = property_name | slice: 0 -%}
+      {%- if property.last != blank and first_char != '_' -%}
+        <span class="bp-small bp-muted">{{ property_name | escape }}: {{ property.last | escape }}</span>
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if gift_kind != blank -%}
+      <span class="bp-badge bp-badge--gift bp-cart-line__gift">
+        {%- render 'icon', name: 'gift' -%}
+        {%- if item.final_line_price == 0 %}{{ 'cart.free_gift' | t }}{% else %}{{ 'cart.gift' | t }}{% endif -%}
+      </span>
+    {%- endif -%}
+    {%- for allocation in item.line_level_discount_allocations -%}
+      {%- assign amount = allocation.amount | money -%}
+      <span class="bp-small bp-accent-text">{{ 'cart.line_discount' | t: title: allocation.discount_application.title, amount: amount }}</span>
+    {%- endfor -%}
+
+    <div class="bp-cart-line__controls">
+      {%- if gift_kind == blank -%}
+        <div class="bp-stepper" role="group" aria-label="{{ 'cart.quantity' | t }}, {{ title }}">
+          <form action="{{ routes.cart_change_url }}" method="get" data-bp-cart-change>
+            <input type="hidden" name="id" value="{{ item.key }}">
+            <input type="hidden" name="quantity" value="{{ less }}">
+            <button type="submit" class="bp-stepper__button" data-bp-step="-{{ step }}" data-bp-focus="less-{{ item.key }}">
+              <span class="bp-visually-hidden">{{ 'cart.decrease' | t: title: title }}</span>
+              {%- render 'icon', name: 'minus' -%}
+            </button>
+          </form>
+          <span class="bp-stepper__value" data-bp-qty>{{ item.quantity }}</span>
+          <form action="{{ routes.cart_change_url }}" method="get" data-bp-cart-change>
+            <input type="hidden" name="id" value="{{ item.key }}">
+            <input type="hidden" name="quantity" value="{{ more }}">
+            <button
+              type="submit"
+              class="bp-stepper__button"
+              data-bp-step="{{ step }}"
+              data-bp-focus="more-{{ item.key }}"
+              {% if max != blank and more > max %}
+                disabled
+              {% endif %}
+            >
+              <span class="bp-visually-hidden">{{ 'cart.increase' | t: title: title }}</span>
+              {%- render 'icon', name: 'plus' -%}
+            </button>
+          </form>
+        </div>
+      {%- endif -%}
+      <form action="{{ routes.cart_change_url }}" method="get" data-bp-cart-change>
+        <input type="hidden" name="id" value="{{ item.key }}">
+        <input type="hidden" name="quantity" value="0">
+        <button type="submit" class="bp-link bp-small bp-cart-line__remove" data-bp-focus="remove-{{ item.key }}">
+          {{ 'cart.remove' | t }}<span class="bp-visually-hidden"> {{ title }}</span>
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="bp-cart-line__price bp-price">
+    {%- if struck > item.final_line_price -%}
+      <s class="bp-compare-at"
+        ><span class="bp-visually-hidden">{{ 'products.price.regular' | t }}</span>{{ struck | money }}</s
+      >
+    {%- endif -%}
+    <span>{{ item.final_line_price | money }}</span>
+  </div>
+</li>

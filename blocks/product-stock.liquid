@@ -1,0 +1,55 @@
+{% doc %}
+  Low-stock count from real Shopify inventory. Renders nothing for untracked variants.
+{% enddoc %}
+{%- liquid
+  assign product = closest.product
+  assign variant = product.selected_or_first_available_variant
+  assign tracked = false
+  if variant.inventory_management == 'shopify' and variant.inventory_policy == 'deny'
+    assign tracked = true
+  endif
+-%}
+{%- if tracked and variant.inventory_quantity > 0 and variant.inventory_quantity <= block.settings.threshold -%}
+  <p class="bp-inline-note bp-stock" {{ block.shopify_attributes }}>
+    <span class="bp-stock__dot" aria-hidden="true"></span>
+    {{ 'products.stock.low' | t: count: variant.inventory_quantity }}
+  </p>
+{%- elsif block.settings.show_in_stock and variant.available -%}
+  <p class="bp-inline-note bp-stock bp-stock--ok" {{ block.shopify_attributes }}>
+    <span class="bp-stock__dot" aria-hidden="true"></span>
+    {{ 'products.stock.in_stock' | t }}
+  </p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.product_stock.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:blocks.product_stock.settings.info"
+    },
+    {
+      "type": "range",
+      "id": "threshold",
+      "label": "t:blocks.product_stock.settings.threshold.label",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "show_in_stock",
+      "label": "t:blocks.product_stock.settings.show_in_stock.label",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.product_stock.name",
+      "category": "t:blocks.categories.buy_box"
+    }
+  ]
+}
+{% endschema %}

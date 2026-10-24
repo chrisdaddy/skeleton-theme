@@ -1,0 +1,861 @@
+{
+  "id": "ode",
+  "brand": "ODE",
+  "preset": "Editorial",
+  "listing": "editorial",
+  "required": true,
+  "mode": "size",
+  "notice": "Demo store: sample products, prices and reviews",
+  "files": [
+    {
+      "key": "hero",
+      "filename": "bp-ode-hero.png",
+      "label": "PDP hero: heavy glass bottle on bone linen, window light, long shadow",
+      "alt": "PDP hero: heavy glass bottle on bone linen, window light, long shadow"
+    },
+    {
+      "key": "hero-2",
+      "filename": "bp-ode-hero-2.png",
+      "label": "PDP hero: heavy glass bottle on bone linen, window light, long shadow · view 2",
+      "alt": "PDP hero: heavy glass bottle on bone linen, window light, long shadow · view 2"
+    },
+    {
+      "key": "hero-3",
+      "filename": "bp-ode-hero-3.png",
+      "label": "PDP hero: heavy glass bottle on bone linen, window light, long shadow · view 3",
+      "alt": "PDP hero: heavy glass bottle on bone linen, window light, long shadow · view 3"
+    },
+    {
+      "key": "hero-4",
+      "filename": "bp-ode-hero-4.png",
+      "label": "PDP hero: heavy glass bottle on bone linen, window light, long shadow · view 4",
+      "alt": "PDP hero: heavy glass bottle on bone linen, window light, long shadow · view 4"
+    },
+    {
+      "key": "hero-5",
+      "filename": "bp-ode-hero-5.png",
+      "label": "PDP hero: heavy glass bottle on bone linen, window light, long shadow · view 5",
+      "alt": "PDP hero: heavy glass bottle on bone linen, window light, long shadow · view 5"
+    },
+    {
+      "key": "discovery-set",
+      "filename": "bp-ode-discovery-set.png",
+      "label": "Discovery set",
+      "alt": "Discovery set"
+    },
+    {
+      "key": "travel-atomiser",
+      "filename": "bp-ode-travel-atomiser.png",
+      "label": "Travel atomiser",
+      "alt": "Travel atomiser"
+    },
+    {
+      "key": "no-01-fig",
+      "filename": "bp-ode-no-01-fig.png",
+      "label": "No. 01 Fig",
+      "alt": "No. 01 Fig"
+    },
+    {
+      "key": "no-02-neroli",
+      "filename": "bp-ode-no-02-neroli.png",
+      "label": "No. 02 Neroli",
+      "alt": "No. 02 Neroli"
+    },
+    {
+      "key": "no-03-oud",
+      "filename": "bp-ode-no-03-oud.png",
+      "label": "No. 03 Oud",
+      "alt": "No. 03 Oud"
+    },
+    {
+      "key": "samples-2",
+      "filename": "bp-ode-samples-2.png",
+      "label": "Samples (2)",
+      "alt": "Samples (2)"
+    },
+    {
+      "key": "bp-ode-photo-home-hero-model-in-linen-side-lit-bottle-in-hand-bone-and-bl",
+      "filename": "bp-ode-photo-home-hero-model-in-linen-side-lit-bottle-in-hand-bone-and-bl.png",
+      "label": "Home hero: model in linen, side-lit, bottle in hand, bone and black",
+      "alt": ""
+    },
+    {
+      "key": "bp-ode-photo-macro-fig-leaf-with-water-droplets-bone-backdrop",
+      "filename": "bp-ode-photo-macro-fig-leaf-with-water-droplets-bone-backdrop.png",
+      "label": "Macro: fig leaf with water droplets, bone backdrop",
+      "alt": ""
+    },
+    {
+      "key": "bp-ode-photo-macro-orris-root-dusty-violet-tones",
+      "filename": "bp-ode-photo-macro-orris-root-dusty-violet-tones.png",
+      "label": "Macro: orris root, dusty violet tones",
+      "alt": ""
+    },
+    {
+      "key": "bp-ode-photo-skin-texture-warm-side-light",
+      "filename": "bp-ode-photo-skin-texture-warm-side-light.png",
+      "label": "Skin texture, warm side light",
+      "alt": ""
+    },
+    {
+      "key": "bp-ode-photo-founder-portrait-studio-natural-light-black-turtleneck",
+      "filename": "bp-ode-photo-founder-portrait-studio-natural-light-black-turtleneck.png",
+      "label": "Founder portrait, studio, natural light, black turtleneck",
+      "alt": ""
+    },
+    {
+      "key": "bp-ode-photo-discovery-set-six-glass-vials-in-a-linen-wrapped-box-soft-wi",
+      "filename": "bp-ode-photo-discovery-set-six-glass-vials-in-a-linen-wrapped-box-soft-wi.png",
+      "label": "Discovery set: six glass vials in a linen-wrapped box, soft window light",
+      "alt": ""
+    },
+    {
+      "key": "bp-ode-photo-editorial-ugc-still-film-grain-bone-tones-claire-wears",
+      "filename": "bp-ode-photo-editorial-ugc-still-film-grain-bone-tones-claire-wears.png",
+      "label": "Editorial UGC still, film grain, bone tones · @claire.wears",
+      "alt": ""
+    },
+    {
+      "key": "bp-ode-photo-editorial-ugc-still-film-grain-bone-tones-theorrisdiaries",
+      "filename": "bp-ode-photo-editorial-ugc-still-film-grain-bone-tones-theorrisdiaries.png",
+      "label": "Editorial UGC still, film grain, bone tones · @theorrisdiaries",
+      "alt": ""
+    },
+    {
+      "key": "bp-ode-photo-editorial-ugc-still-film-grain-bone-tones-noteworthy-fm",
+      "filename": "bp-ode-photo-editorial-ugc-still-film-grain-bone-tones-noteworthy-fm.png",
+      "label": "Editorial UGC still, film grain, bone tones · @noteworthy.fm",
+      "alt": ""
+    },
+    {
+      "key": "bp-ode-photo-editorial-ugc-still-film-grain-bone-tones-sundayscent",
+      "filename": "bp-ode-photo-editorial-ugc-still-film-grain-bone-tones-sundayscent.png",
+      "label": "Editorial UGC still, film grain, bone tones · @sundayscent",
+      "alt": ""
+    },
+    {
+      "key": "bp-ode-photo-customer-photo-bottle-on-a-marble-sink",
+      "filename": "bp-ode-photo-customer-photo-bottle-on-a-marble-sink.png",
+      "label": "Customer photo: bottle on a marble sink",
+      "alt": ""
+    },
+    {
+      "key": "bp-ode-photo-advertorial-lead-image",
+      "filename": "bp-ode-photo-advertorial-lead-image.png",
+      "label": "Advertorial lead image",
+      "alt": ""
+    }
+  ],
+  "products": [
+    {
+      "handle": "ode-no-04",
+      "title": "No. 04 Iris",
+      "productType": "Eau de parfum",
+      "tags": [
+        "bp-hero"
+      ],
+      "descriptionHtml": "<p>No. 04. Iris, fig leaf and a warm skin musk.</p>",
+      "files": [
+        {
+          "$file": "hero"
+        },
+        {
+          "$file": "hero-2"
+        },
+        {
+          "$file": "hero-3"
+        },
+        {
+          "$file": "hero-4"
+        },
+        {
+          "$file": "hero-5"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "tiers",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_tier/ode-tier-1"
+            },
+            {
+              "$metaobject": "blueprint_tier/ode-tier-2"
+            },
+            {
+              "$metaobject": "blueprint_tier/ode-tier-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "pack_option",
+          "type": "single_line_text_field",
+          "value": "Size"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "badge",
+          "type": "single_line_text_field",
+          "value": "Bestseller"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "benefits",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_benefit/ode-benefit-1"
+            },
+            {
+              "$metaobject": "blueprint_benefit/ode-benefit-2"
+            },
+            {
+              "$metaobject": "blueprint_benefit/ode-benefit-3"
+            },
+            {
+              "$metaobject": "blueprint_benefit/ode-benefit-4"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "faqs",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_faq/ode-faq-1"
+            },
+            {
+              "$metaobject": "blueprint_faq/ode-faq-2"
+            },
+            {
+              "$metaobject": "blueprint_faq/ode-faq-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "guarantee",
+          "type": "metaobject_reference",
+          "value": {
+            "$metaobject": "blueprint_guarantee/ode-guarantee"
+          }
+        },
+        {
+          "namespace": "blueprint",
+          "key": "upsell",
+          "type": "product_reference",
+          "value": {
+            "$product": "travel-atomiser"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating_count",
+          "type": "number_integer",
+          "value": 3204
+        },
+        {
+          "namespace": "descriptors",
+          "key": "subtitle",
+          "type": "single_line_text_field",
+          "value": "No. 04. Iris, fig leaf and a warm skin musk."
+        },
+        {
+          "namespace": "blueprint",
+          "key": "shot_note",
+          "type": "single_line_text_field",
+          "value": "PDP hero: heavy glass bottle on bone linen, window light, long shadow"
+        }
+      ],
+      "options": [
+        {
+          "name": "Size",
+          "values": [
+            "10 ml travel",
+            "50 ml",
+            "100 ml"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "options": [
+            "10 ml travel"
+          ],
+          "price": "34.00",
+          "compareAtPrice": null,
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "50 ml"
+          ],
+          "price": "120.00",
+          "compareAtPrice": null,
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "100 ml"
+          ],
+          "price": "180.00",
+          "compareAtPrice": null,
+          "packQuantity": 1
+        }
+      ]
+    },
+    {
+      "handle": "discovery-set",
+      "title": "Discovery set",
+      "productType": "Discovery",
+      "tags": [],
+      "descriptionHtml": "<p>Discovery set.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "28.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "discovery-set"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "travel-atomiser",
+      "title": "Travel atomiser",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Travel atomiser.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "38.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "travel-atomiser"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "no-01-fig",
+      "title": "No. 01 Fig",
+      "productType": "Discovery",
+      "tags": [],
+      "descriptionHtml": "<p>No. 01 Fig.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "120.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "no-01-fig"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "no-02-neroli",
+      "title": "No. 02 Neroli",
+      "productType": "Travel",
+      "tags": [],
+      "descriptionHtml": "<p>No. 02 Neroli.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "120.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "no-02-neroli"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "no-03-oud",
+      "title": "No. 03 Oud",
+      "productType": "Eau de parfum",
+      "tags": [],
+      "descriptionHtml": "<p>No. 03 Oud.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "140.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "no-03-oud"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "samples-2",
+      "title": "Samples (2)",
+      "productType": "",
+      "tags": [
+        "bp-gift"
+      ],
+      "descriptionHtml": "<p>Samples (2).</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "12.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "samples-2"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "shipping-protection",
+      "title": "Shipping protection",
+      "productType": "",
+      "tags": [
+        "bp-protection"
+      ],
+      "descriptionHtml": "<p>Covers loss, theft and damage in transit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "2.95",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": false
+        }
+      ],
+      "files": [],
+      "metafields": []
+    }
+  ],
+  "metaobjects": [
+    {
+      "type": "blueprint_tier",
+      "handle": "ode-tier-1",
+      "fields": {
+        "label": "Discovery set",
+        "sublabel": "6 × 1.5 ml · credited toward a bottle",
+        "preselected": false,
+        "variant": {
+          "$variant": [
+            "discovery-set",
+            []
+          ]
+        }
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "ode-tier-2",
+      "fields": {
+        "label": "50 ml",
+        "sublabel": "Eau de parfum · two samples",
+        "badge": "Most loved",
+        "preselected": true,
+        "pack_value": "50 ml"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "ode-tier-3",
+      "fields": {
+        "label": "100 ml",
+        "sublabel": "Best per ml · engraving included",
+        "badge": "Best value",
+        "preselected": false,
+        "pack_value": "100 ml"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "ode-benefit-1",
+      "fields": {
+        "icon": "sparkle",
+        "title": "Extrait strength, 8-hour wear"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "ode-benefit-2",
+      "fields": {
+        "icon": "leaf",
+        "title": "Vegan, no phthalates"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "ode-benefit-3",
+      "fields": {
+        "icon": "heart",
+        "title": "Composed and bottled in Grasse"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "ode-benefit-4",
+      "fields": {
+        "icon": "refresh",
+        "title": "30-day returns, even opened"
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "ode-faq-1",
+      "fields": {
+        "question": "How long does it last?",
+        "answer": {
+          "rich": "6 to 8 hours on skin, longer on fabric. It is an extrait-strength eau de parfum."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "ode-faq-2",
+      "fields": {
+        "question": "Can I return an opened bottle?",
+        "answer": {
+          "rich": "Yes, within 30 days. Scent is personal."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "ode-faq-3",
+      "fields": {
+        "question": "Is it unisex?",
+        "answer": {
+          "rich": "Everything we make is. No. 04 skews soft; No. 03 skews smoky."
+        }
+      }
+    },
+    {
+      "type": "blueprint_guarantee",
+      "handle": "ode-guarantee",
+      "fields": {
+        "title": "Free returns within 30 days, even opened",
+        "days": 30
+      }
+    }
+  ],
+  "sellingPlanGroups": [],
+  "collections": [
+    {
+      "handle": "best-sellers",
+      "title": "Best sellers",
+      "products": [
+        "ode-no-04",
+        "no-01-fig",
+        "no-02-neroli",
+        "no-03-oud",
+        "discovery-set",
+        "travel-atomiser"
+      ]
+    },
+    {
+      "handle": "eau-de-parfum",
+      "title": "Eau de parfum",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Eau de parfum"
+      }
+    },
+    {
+      "handle": "discovery",
+      "title": "Discovery",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Discovery"
+      }
+    },
+    {
+      "handle": "travel",
+      "title": "Travel",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Travel"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "handle": "advertorial",
+      "title": "The $120 perfume people keep mistaking for a $400 one.",
+      "templateSuffix": "advertorial",
+      "body": "<p>I review fragrance for a living, which means I own too much of it. Last month a sample of No. 04 ended up in my bag by accident.</p>"
+    },
+    {
+      "handle": "listicle",
+      "title": "5 reasons No. 04 sold out twice this spring",
+      "templateSuffix": "listicle",
+      "body": ""
+    },
+    {
+      "handle": "comparison",
+      "title": "How ODE compares",
+      "templateSuffix": "comparison",
+      "body": ""
+    },
+    {
+      "handle": "about",
+      "title": "About ODE",
+      "templateSuffix": "about",
+      "body": "<p>Quiet luxury. Image-led, serif, black on bone. No discounts, ever.</p>"
+    },
+    {
+      "handle": "contact",
+      "title": "Contact",
+      "templateSuffix": "contact",
+      "body": ""
+    }
+  ],
+  "menus": [
+    {
+      "handle": "main-menu",
+      "title": "Main menu",
+      "items": [
+        {
+          "title": "Fragrance",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "best-sellers"
+          },
+          "items": [
+            {
+              "title": "No. 04 Iris",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "ode-no-04"
+              }
+            },
+            {
+              "title": "Discovery set",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "discovery-set"
+              }
+            },
+            {
+              "title": "Travel atomiser",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "travel-atomiser"
+              }
+            },
+            {
+              "title": "No. 01 Fig",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "no-01-fig"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Discovery",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "discovery"
+          }
+        },
+        {
+          "title": "Journal",
+          "type": "HTTP",
+          "url": "/blogs/news"
+        },
+        {
+          "title": "Maison",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "footer",
+      "title": "Footer menu",
+      "items": [
+        {
+          "title": "Search",
+          "type": "SEARCH",
+          "url": "/search"
+        },
+        {
+          "title": "Shipping",
+          "type": "HTTP",
+          "url": "/policies/shipping-policy"
+        },
+        {
+          "title": "Returns",
+          "type": "HTTP",
+          "url": "/policies/refund-policy"
+        },
+        {
+          "title": "Contact",
+          "type": "PAGE",
+          "ref": {
+            "$page": "contact"
+          }
+        }
+      ]
+    }
+  ],
+  "discounts": [
+    {
+      "kind": "freeShipping",
+      "title": "Blueprint demo: free shipping over $80",
+      "minimumSubtotal": "80.00"
+    },
+    {
+      "kind": "giftOverAmount",
+      "title": "Blueprint demo: free samples over $150",
+      "buysProducts": [
+        {
+          "$product": "ode-no-04"
+        },
+        {
+          "$product": "discovery-set"
+        },
+        {
+          "$product": "travel-atomiser"
+        },
+        {
+          "$product": "no-01-fig"
+        },
+        {
+          "$product": "no-02-neroli"
+        },
+        {
+          "$product": "no-03-oud"
+        }
+      ],
+      "minimumAmount": "150.00",
+      "gift": {
+        "$variant": [
+          "samples-2",
+          []
+        ]
+      }
+    }
+  ],
+  "theme": {
+    "preset": "Editorial",
+    "listing": "editorial",
+    "settings": {
+      "color_mode": "light",
+      "accent_color": "#1A1815",
+      "light_bg": "#F4F1EB",
+      "light_surface": "#E8E3DA",
+      "light_ink": "#1A1815",
+      "light_line": "#DAD4C9",
+      "light_accent_soft": "#E4DFD5",
+      "light_on_accent": "",
+      "dark_on_accent": "",
+      "light_accent_text": "",
+      "dark_accent_text": "",
+      "cart_protection_product": "shipping-protection",
+      "cart_upsell_collection": "best-sellers",
+      "cart_upsell_show_deal": false,
+      "cart_empty_collection": "best-sellers",
+      "social_instagram": "https://instagram.com/ode",
+      "social_tiktok": "https://tiktok.com/@ode",
+      "cart_reward_1_label": "Free shipping",
+      "cart_reward_1_threshold": 80,
+      "cart_reward_1_gift": "",
+      "cart_reward_2_label": "Free samples",
+      "cart_reward_2_threshold": 150,
+      "cart_reward_2_gift": "samples-2",
+      "cart_reward_3_label": "",
+      "cart_reward_3_threshold": null,
+      "cart_reward_3_gift": ""
+    }
+  }
+}

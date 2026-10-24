@@ -1,0 +1,137 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{{ 'section-landing.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'pullquote-section' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    <figure class="bp-pullquote bp-pullquote--{{ s.style }}">
+      <blockquote class="bp-pullquote__quote">{{ s.quote }}</blockquote>
+      {%- if s.attribution != blank -%}<figcaption class="bp-pullquote__by">{{ s.attribution | escape }}</figcaption>{%- endif -%}
+    </figure>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.pull_quote.name",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "quote",
+      "label": "t:sections.pull_quote.settings.quote.label",
+      "default": "<p>The one line readers should remember.</p>"
+    },
+    {
+      "type": "text",
+      "id": "attribution",
+      "label": "t:sections.pull_quote.settings.attribution.label"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:sections.pull_quote.settings.style.label",
+      "default": "rule",
+      "options": [
+        {
+          "value": "rule",
+          "label": "t:sections.pull_quote.settings.style.options.rule"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.pull_quote.settings.style.options.large"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.pull_quote.presets.pull_quote.name"
+    }
+  ]
+}
+{% endschema %}

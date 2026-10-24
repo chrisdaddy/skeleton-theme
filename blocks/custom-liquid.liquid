@@ -1,0 +1,24 @@
+{% doc %}
+  Merchant-supplied Liquid.
+{% enddoc %}
+<div class="bp-custom-liquid" {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
+
+{% schema %}
+{
+  "name": "t:blocks.custom_liquid.name",
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "custom_liquid",
+      "label": "t:blocks.custom_liquid.settings.custom_liquid.label",
+      "info": "t:blocks.custom_liquid.settings.custom_liquid.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.custom_liquid.name",
+      "category": "t:blocks.categories.content"
+    }
+  ]
+}
+{% endschema %}

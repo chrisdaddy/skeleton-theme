@@ -1,0 +1,187 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'beforeafter' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    {%- render 'section-heading', section: section -%}
+    <figure class="bp-beforeafter__figure">
+      <bp-compare
+        class="bp-beforeafter__pair"
+        style="--bp-position: {{ s.start }}%;"
+        data-label="{{ 'sections.before_after.slider' | t }}"
+        data-start="{{ s.start }}"
+        data-bp-module="{{ 'bp-compare.js' | asset_url }}"
+        data-bp-load="visible"
+      >
+        <div class="bp-media bp-ratio-landscape bp-beforeafter__side bp-beforeafter__before">
+          {%- render 'section-image', image: s.before_image, sizes: '(min-width: 990px) 50vw, 100vw', section: section, placeholder: 'image' -%}
+          <span class="bp-beforeafter__label">{{ s.before_label | escape }}</span>
+        </div>
+        <div class="bp-media bp-ratio-landscape bp-beforeafter__side bp-beforeafter__after">
+          {%- render 'section-image', image: s.after_image, sizes: '(min-width: 990px) 50vw, 100vw', section: section, placeholder: 'image' -%}
+          <span class="bp-beforeafter__label bp-beforeafter__label--after">{{ s.after_label | escape }}</span>
+        </div>
+      </bp-compare>
+      {%- if s.caption != blank -%}<figcaption class="bp-beforeafter__caption">{{ s.caption | escape }}</figcaption>{%- endif -%}
+    </figure>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.before_after.name",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Before and after"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image",
+      "label": "t:sections.before_after.settings.before_image.label"
+    },
+    {
+      "type": "text",
+      "id": "before_label",
+      "label": "t:sections.before_after.settings.before_label.label",
+      "default": "Before"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image",
+      "label": "t:sections.before_after.settings.after_image.label"
+    },
+    {
+      "type": "text",
+      "id": "after_label",
+      "label": "t:sections.before_after.settings.after_label.label",
+      "default": "After"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "t:sections.before_after.settings.caption.label",
+      "info": "t:sections.before_after.settings.caption.info",
+      "default": "Customer photos, unedited."
+    },
+    {
+      "type": "range",
+      "id": "start",
+      "label": "t:sections.before_after.settings.start.label",
+      "min": 10,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.before_after.presets.before_after.name"
+    }
+  ]
+}
+{% endschema %}

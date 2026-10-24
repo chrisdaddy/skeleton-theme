@@ -1,0 +1,271 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'ugc', modifier: s.layout %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    {%- render 'section-heading', section: section, align: 'start' -%}
+    {%- capture tiles -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'item' -%}
+          <li class="bp-ugc__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.link != blank -%}<a class="bp-ugc__link" href="{{ block.settings.link }}">{%- endif -%}
+            <span class="bp-media bp-ratio-tall bp-ugc__media">
+              {%- if block.settings.video != blank -%}
+                {{ block.settings.video | video_tag: image_size: '540x', muted: true, loop: true, playsinline: true, preload: 'none', controls: true, class: 'bp-media__img' }}
+              {%- else -%}
+                {%- render 'section-image', image: block.settings.image, sizes: '(min-width: 990px) 25vw, 50vw', section: section, width: 800, placeholder: 'image' -%}
+              {%- endif -%}
+              {%- if block.settings.handle != blank -%}<span class="bp-ugc__handle">{{ block.settings.handle | escape }}</span>{%- endif -%}
+            </span>
+            {%- if block.settings.link != blank -%}</a>{%- endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if s.layout == 'row' -%}
+      <bp-slider class="bp-slider" data-bp-module="{{ 'bp-slider.js' | asset_url }}" data-bp-load="visible" data-label-previous="{{ 'general.previous' | t }}" data-label-next="{{ 'general.next' | t }}">
+        <ul class="bp-scroller" role="list" tabindex="0" aria-label="{{ s.heading | strip_html | escape }}" style="--bp-cols: {{ s.columns }}; --bp-slide-mobile: 46%;">{{ tiles }}</ul>
+      </bp-slider>
+    {%- else -%}
+      <ul class="bp-cols" role="list" style="--bp-cols: {{ s.columns }}; --bp-cols-mobile: 2;">{{ tiles }}</ul>
+    {%- endif -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}<div class="bp-ugc__app">{% render block %}</div>{%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.ugc.name",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Not ads. Customers."
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.common.settings.alignment.label",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.common.settings.alignment.options.start"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.settings.alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.ugc.settings.layout.label",
+      "default": "grid",
+      "options": [
+        {
+          "value": "grid",
+          "label": "t:sections.ugc.settings.layout.options.grid"
+        },
+        {
+          "value": "row",
+          "label": "t:sections.ugc.settings.layout.options.row"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:sections.ugc.settings.columns.label",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.ugc.settings.only_post_customer_content_you_have_perm"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "t:sections.ugc.blocks.item.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.common.settings.image.label"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "t:sections.ugc.blocks.item.settings.video.label"
+        },
+        {
+          "type": "text",
+          "id": "handle",
+          "label": "t:sections.ugc.blocks.item.settings.handle.label",
+          "default": "@customer"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.ugc.blocks.item.settings.link.label"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.ugc.presets.ugc_grid.name",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.ugc.presets.ugc_carousel.name",
+      "settings": {
+        "layout": "row"
+      },
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

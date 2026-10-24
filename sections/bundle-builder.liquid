@@ -1,0 +1,251 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign items = section.blocks | where: 'type', 'item'
+  assign use_collection = false
+  if items.size == 0 and s.collection != blank
+    assign use_collection = true
+  endif
+-%}
+<section {% render 'section-attributes', section: section, name: 'bundle' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    {%- render 'section-heading', section: section, align: 'start' -%}
+    <bp-bundle
+      class="bp-bundle__builder"
+      data-min="{{ s.min_items }}"
+      data-cart-url="{{ routes.cart_url }}"
+      data-percent="{{ s.discount_percent }}"
+      data-money-format="{{ shop.money_format | strip_html | escape }}"
+      data-label-progress="{{ 'sections.bundle.progress' | t: count: '[count]', min: s.min_items }}"
+      data-label-ready="{{ 'sections.bundle.ready' | t }}"
+      data-bp-module="{{ 'bp-bundle.js' | asset_url }}"
+      data-bp-load="visible"
+    >
+      <form action="{{ routes.cart_add_url }}" method="post" class="bp-bundle__form">
+        <fieldset class="bp-bundle__items">
+          <legend class="bp-visually-hidden">{{ s.heading | strip_html | escape }}</legend>
+          {%- if items.size == 0 and use_collection == false -%}
+            <p class="bp-muted">{{ 'sections.bundle.empty' | t }}</p>
+          {%- elsif use_collection -%}
+            {%- for product in s.collection.products limit: 12 -%}
+              {%- render 'bundle-item', product: product, index: forloop.index0 -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for block in items -%}
+              {%- render 'bundle-item', product: block.settings.product, index: forloop.index0, attributes: block.shopify_attributes, preselected: block.settings.preselected -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </fieldset>
+        <div class="bp-bundle__summary">
+          <p class="bp-bundle__progress" data-bp-progress aria-live="polite">{{ 'sections.bundle.pick' | t: min: s.min_items }}</p>
+          <p class="bp-bundle__totals" data-bp-totals hidden>
+            <s class="bp-compare-at" data-bp-before></s>
+            <span class="bp-price" data-bp-after></span>
+          </p>
+          {%- if s.note != blank -%}<p class="bp-small bp-muted">{{ s.note | escape }}</p>{%- endif -%}
+          <button type="submit" class="bp-button bp-button--block" data-bp-submit>{{ s.button_label | escape }}</button>
+          <p class="bp-form-message" role="alert" data-bp-error hidden></p>
+        </div>
+      </form>
+    </bp-bundle>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.bundle_builder.name",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Build your bundle"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label",
+      "default": "Mix any three. Save on all of them."
+    },
+    {
+      "type": "range",
+      "id": "min_items",
+      "label": "t:sections.bundle_builder.settings.min_items.label",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "discount_percent",
+      "label": "t:sections.bundle_builder.settings.discount_percent.label",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 20,
+      "info": "t:sections.bundle_builder.settings.discount_percent.info"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "t:sections.bundle_builder.settings.note.label",
+      "default": "Free shipping on bundles · swap anytime"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.bundle_builder.settings.button_label.label",
+      "default": "Add bundle to cart"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:sections.bundle_builder.settings.collection.label",
+      "info": "t:sections.bundle_builder.settings.collection.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "t:sections.bundle_builder.blocks.item.name",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "t:sections.bundle_builder.blocks.item.settings.product.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "preselected",
+          "label": "t:sections.bundle_builder.blocks.item.settings.preselected.label",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.bundle_builder.presets.bundle_builder.name",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

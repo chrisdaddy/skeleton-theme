@@ -1,71 +1,329 @@
 {
-  "404": {
-    "title": "404",
-    "not_found": "Page not found.",
-    "back_to_shopping": "Back to shopping"
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "pagination": "Pagination"
   },
-  "blog": {
-    "article_comments": "Comments",
-    "article_metadata_html": "{{ date }} by {{ author }}",
-    "comment_form_body": "Comment",
-    "comment_form_email": "Email",
-    "comment_form_name": "Name",
-    "comment_form_submit": "Post",
-    "comment_form_title": "Add a comment"
+  "announcements": {
+    "label": "Announcements",
+    "previous": "Previous announcement",
+    "next": "Next announcement",
+    "pause": "Pause announcements"
   },
-  "cart": {
-    "checkout": "Checkout",
-    "title": "Cart",
-    "update": "Update",
-    "remove": "Remove"
+  "header": {
+    "main_menu": "Main menu",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu",
+    "search": "Search",
+    "account": "Account",
+    "cart": "Cart"
   },
-  "customers": {
-    "login": {
-      "email": "Email",
-      "password": "Password",
-      "submit": "Sign in",
-      "title": "Login"
+  "footer": {
+    "payment_methods": "Payment methods"
+  },
+  "newsletter": {
+    "email": "Email address",
+    "submit": "Subscribe",
+    "success": "Thanks for subscribing."
+  },
+  "social": {
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "x": "X",
+    "pinterest": "Pinterest"
+  },
+  "general": {
+    "page": "Page {{ number }}",
+    "page_of": "Page {{ current }} of {{ total }}",
+    "previous": "Previous",
+    "next": "Next",
+    "copyright": "© {{ year }} {{ shop }}",
+    "close": "Close",
+    "thousands_separator": ","
+  },
+  "products": {
+    "variant": "Option",
+    "quantity": "Quantity",
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "price_from": "From {{ price }}",
+    "description": "Description",
+    "quantity_decrease": "Decrease quantity",
+    "quantity_increase": "Increase quantity",
+    "price": {
+      "regular": "Regular price",
+      "taxes_included": "Taxes included.",
+      "taxes_at_checkout": "Taxes and shipping calculated at checkout."
+    },
+    "rating": {
+      "count": {
+        "one": "{{ formatted }} review",
+        "other": "{{ formatted }} reviews"
+      },
+      "label": "Rated {{ rating }} out of {{ max }}"
+    },
+    "sold_today": {
+      "one": "{{ count }} bought today",
+      "other": "{{ count }} bought today"
+    },
+    "viewers": {
+      "one": "{{ count }} person is viewing this right now",
+      "other": "{{ count }} people are viewing this right now"
+    },
+    "stock": {
+      "low": {
+        "one": "Only {{ count }} left",
+        "other": "Only {{ count }} left"
+      },
+      "in_stock": "In stock, ready to ship"
+    },
+    "offer": {
+      "free_gift": "Free gift",
+      "per_month": "{{ price }}/mo",
+      "total": "{{ price }} total",
+      "per_unit": "{{ price }} / {{ unit }}",
+      "save_pct": "Save {{ pct }}%",
+      "mix_price": "{{ quantity }} × {{ price }}",
+      "mix_item": "Item"
+    },
+    "plans": {
+      "legend": "Purchase options",
+      "one_time": "One-time purchase",
+      "subscribe": "Subscribe & save",
+      "frequency": "Delivery frequency"
+    },
+    "shipping_countdown": {
+      "static": "Order before {{ time }} for same-day dispatch",
+      "live": "Order in [time] for delivery by [date]"
+    },
+    "delivery_estimate": "Estimated delivery {{ earliest }} – {{ latest }}",
+    "ingredients": {
+      "name": "Ingredient",
+      "dose": "Dose",
+      "why": "Why it's there",
+      "coa": "See the full label and batch certificate of analysis"
+    },
+    "pickup": {
+      "available": "Pickup available at {{ location }}",
+      "unavailable": "Pickup currently unavailable at {{ location }}",
+      "more": {
+        "one": "{{ count }} location",
+        "other": "{{ count }} locations"
+      }
+    },
+    "upsell": {
+      "add": "Add"
+    },
+    "share": {
+      "label": "Share",
+      "copied": "Link copied"
+    },
+    "gift_card": {
+      "send_as_gift": "Send as a gift",
+      "email": "Recipient email",
+      "name": "Recipient name (optional)",
+      "message": "Message (optional)",
+      "send_on": "Send on (optional)"
+    },
+    "gallery": {
+      "label": "Product media",
+      "show_media": "Show media {{ index }} of {{ count }}"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again."
+    },
+    "added": "Added to your cart",
+    "quick_add": {
+      "add": "Add to cart",
+      "choose": "Choose options",
+      "close": "Close",
+      "loading": "Loading product",
+      "added": "{{ title }} added to your cart",
+      "view": "View full details"
     }
   },
+  "cart": {
+    "title": "Your cart",
+    "item_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    },
+    "subtotal": "Subtotal",
+    "update": "Update",
+    "checkout": "Checkout",
+    "remove": "Remove",
+    "empty": "Your cart is empty.",
+    "continue_shopping": "Continue shopping",
+    "drawer_heading": "Your cart ({{ count }})",
+    "close": "Close cart",
+    "quantity": "Quantity",
+    "increase": "Increase quantity of {{ title }}",
+    "decrease": "Decrease quantity of {{ title }}",
+    "remove_item": "Remove {{ title }}",
+    "free_gift": "Free gift",
+    "gift": "Gift",
+    "add_gift": "Add your free gift: {{ title }}",
+    "line_discount": "{{ title }} (−{{ amount }})",
+    "rewards": {
+      "away": "You're {{ amount }} away from {{ reward }}",
+      "all_unlocked": "You've unlocked {{ reward }}",
+      "label": "Rewards"
+    },
+    "protection": {
+      "title": "Shipping protection",
+      "label": "Shipping protection, {{ price }}"
+    },
+    "upsell": {
+      "heading": "Goes well with",
+      "add": "Add",
+      "add_label": "Add {{ title }} to cart"
+    },
+    "total": "Total",
+    "saving": "You're saving {{ amount }}",
+    "taxes_note": "Taxes and shipping calculated at checkout",
+    "checkout_total": "Checkout · {{ total }}",
+    "best_sellers": "Best sellers",
+    "status": "Cart updated: {{ count }}",
+    "error": "That didn't work, so your cart has been refreshed. Please try again.",
+    "loading": "Updating cart"
+  },
   "collections": {
-    "title": "Collections"
-  },
-  "gift_card": {
-    "add_to_apple_wallet": "Add to Apple Wallet",
-    "card": "Gift card",
-    "expired": "This gift card has expired",
-    "expires_on": "Expires on {{ expires_on }}",
-    "use_at_checkout": "Use this gift card at checkout"
-  },
-  "hello_world": {
-    "title": "Hello, World!",
-    "intro": "The Skeleton theme is a minimal, carefully structured Shopify theme designed to help you quickly get started. Designed with modularity, maintainability, and Shopify's best practices in mind.",
-    "description": "Themes shape the online store experience for merchants and their customers. Build fast, flexible themes at scale using Liquid, Shopify's theme templating language, along with HTML, CSS, JavaScript, and JSON.",
-    "key_concepts_title": "Key Concepts",
-    "key_concepts_body": "Shopify themes are a package of template files, building blocks, and supporting assets. Use these building blocks to create modular, customizable themes.",
-    "key_concepts_link": "Learn more about key concepts",
-    "liquid_title": "Liquid",
-    "liquid_body": "The Liquid templating language is the backbone of Shopify themes, and is used to load dynamic content on storefronts. Extend Liquid objects to store and present custom data using metafields.",
-    "liquid_link": "View the Liquid reference",
-    "best_practices_title": "Best Practices",
-    "best_practices_body": "To optimize your theme development experience, Shopify has established a set of best practices that you can refer to when developing your theme and setting up your toolchains and processes.",
-    "best_practices_link": "Follow best practices",
-    "liquid_tips_title": "Liquid tips",
-    "liquid_tips_refresh": "Show another tip",
-    "liquid_tips_1": "Prefer whitespace control with {%- -%} to keep rendered markup clean",
-    "liquid_tips_2": "Reach for the render tag instead of include so each snippet gets its own scope",
-    "liquid_tips_3": "Assign expensive lookups to a variable once and reuse it across the template"
-  },
-  "password": {
-    "title": "This shop is private",
-    "password": "Password",
-    "enter": "Enter"
+    "title": "Collections",
+    "empty": "No products match these filters.",
+    "all": "All",
+    "product_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "filters": "Filter",
+    "price_from": "From",
+    "price_to": "To",
+    "apply": "Apply",
+    "clear": "Clear all",
+    "sort": "Sort by",
+    "active": "Active filters",
+    "remove_filter": "Remove filter"
   },
   "search": {
     "title": "Search",
-    "placeholder": "Search articles, pages, or products",
+    "label": "Search the store",
     "submit": "Search",
-    "no_results_html": "No results found for {{ terms }}",
-    "results_for_html": "{{ count }} results found for {{ terms }}"
+    "results_count": {
+      "one": "{{ count }} result for “{{ terms }}”",
+      "other": "{{ count }} results for “{{ terms }}”"
+    },
+    "article": "Article",
+    "page": "Page"
+  },
+  "blog": {
+    "byline": "By {{ author }} · {{ date }}"
+  },
+  "contact": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Send",
+    "success": "Thanks for getting in touch. We'll reply as soon as we can."
+  },
+  "not_found": {
+    "title": "Page not found",
+    "text": "The page you were looking for doesn't exist."
+  },
+  "password": {
+    "label": "Password",
+    "submit": "Enter",
+    "owner": "Store owner? Enter the password"
+  },
+  "gift_card": {
+    "title": "Your {{ shop }} gift card",
+    "code": "Code",
+    "expired": "This gift card has expired.",
+    "expires_on": "Expires on {{ date }}",
+    "add_to_apple_wallet": "Add to Apple Wallet",
+    "shop_link": "Start shopping"
+  },
+  "sections": {
+    "ingredients": {
+      "name": "Ingredient",
+      "dose": "Dose",
+      "why": "What it's for"
+    },
+    "usvsthem": {
+      "feature": "Feature",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "subscription": {
+      "from": "from {{ price }}"
+    },
+    "reviews": {
+      "verified": "{{ name }} · Verified buyer"
+    },
+    "guarantee": {
+      "days": "days"
+    },
+    "videos": {
+      "play": "Play video from {{ name }}",
+      "watch": "Watch the video",
+      "unmute": "Turn sound on",
+      "mute": "Turn sound off"
+    },
+    "comments": {
+      "likes": "{{ count }} likes"
+    },
+    "before_after": {
+      "slider": "Drag to compare before and after"
+    },
+    "countdown": {
+      "ends": "Ends {{ date }}",
+      "set_end": "Set the end date and time in the section settings.",
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    },
+    "quiz": {
+      "step": "Question [current] of {{ total }}",
+      "restart": "Start again"
+    },
+    "bundle": {
+      "pick": "Pick {{ min }} or more",
+      "progress": "[count] of {{ min }} picked",
+      "ready": "Bundle ready",
+      "select": "Add {{ title }} to the bundle",
+      "unavailable": "Sold out",
+      "empty": "Add products to this bundle in the section settings."
+    },
+    "featured_collection": {
+      "view_all": "View all",
+      "placeholder": "Product name"
+    },
+    "slideshow": {
+      "pause": "Pause slideshow",
+      "play": "Play slideshow",
+      "slide": "Slide {{ current }} of {{ total }}"
+    },
+    "featured_blog": {
+      "view_all": "View all posts",
+      "placeholder": "Blog post title"
+    },
+    "featured_product": {
+      "placeholder": "Your product",
+      "choose": "Pick a product in this section's settings."
+    },
+    "article_header": {
+      "disclosure_warning": "Disclosure hidden: paid or affiliate content needs a clear \"Advertisement\" or \"Sponsored\" label."
+    },
+    "author_byline": {
+      "by": "By {{ name }}",
+      "read_time": {
+        "one": "{{ count }} min read",
+        "other": "{{ count }} min read"
+      }
+    },
+    "comparison_table": {
+      "label": "Comparison"
+    }
   }
 }

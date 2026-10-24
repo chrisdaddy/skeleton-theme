@@ -1,0 +1,29 @@
+{% doc %}
+  Empty cart: a message, a link to keep shopping and up to three best sellers.
+{% enddoc %}
+<div class="bp-cart-empty">
+  <p>{{ 'cart.empty' | t }}</p>
+  <a class="bp-button" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue_shopping' | t }}</a>
+  {%- if settings.cart_empty_collection.products.size > 0 -%}
+    <p class="bp-eyebrow">{{ 'cart.best_sellers' | t }}</p>
+    <ul class="bp-cart-empty__products" role="list">
+      {%- for product in settings.cart_empty_collection.products limit: 3 -%}
+        <li class="bp-cart-upsell__item">
+          <a class="bp-cart-upsell__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+            {%- if product.featured_media -%}
+              {{ product.featured_media | image_url: width: 120 | image_tag: width: 56, height: 56, loading: 'lazy', alt: '' }}
+            {%- endif -%}
+          </a>
+          <span class="bp-cart-upsell__text">
+            <a class="bp-cart-upsell__title" href="{{ product.url }}">{{ product.title | escape }}</a>
+            {%- assign rating = product.metafields.reviews.rating.value -%}
+            {%- if rating != blank -%}
+              {%- render 'rating-stars', rating: rating.rating, scale_max: rating.scale_max -%}
+            {%- endif -%}
+            <span class="bp-small bp-muted">{{ product.price | money }}</span>
+          </span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div>

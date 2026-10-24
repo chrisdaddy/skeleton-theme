@@ -1,0 +1,161 @@
+{{ 'section-landing.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign item = s.cta_product
+-%}
+<bp-sticky-cta
+  class="bp-sticky-cta"
+  data-surface="{{ s.surface_style }}"
+  data-after="{{ s.show_after }}"
+  {% if s.hide_over_offer %}data-hide-over-offer{% endif %}
+  data-bp-module="{{ 'bp-sticky-cta.js' | asset_url }}"
+  data-bp-load="idle"
+>
+  <div class="bp-page-width bp-sticky-cta__inner">
+    {%- if item != blank -%}
+      <span class="bp-sticky-cta__text">
+        <span class="bp-sticky-cta__title">{{ s.text | default: item.title | escape }}</span>
+        {%- if s.show_rating and item.metafields.reviews.rating.value != blank -%}
+          {%- assign rating = item.metafields.reviews.rating.value -%}
+          {%- render 'rating-stars', rating: rating.rating, scale_max: rating.scale_max -%}
+        {%- endif -%}
+      </span>
+    {%- elsif s.text != blank -%}
+      <span class="bp-sticky-cta__text"><span class="bp-sticky-cta__title">{{ s.text | escape }}</span></span>
+    {%- endif -%}
+    {%- if s.target == 'offer' -%}
+      <a class="bp-button" href="#Offer">{{ s.cta_label | escape }}</a>
+    {%- else -%}
+      {%- render 'cta-button', label: s.cta_label, product: s.cta_product, tier: s.cta_tier, plan: s.cta_plan, link: s.cta_link, class: 'bp-button' -%}
+    {%- endif -%}
+  </div>
+</bp-sticky-cta>
+
+{% schema %}
+{
+  "name": "t:sections.sticky_cta.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "target",
+      "label": "t:sections.sticky_cta.settings.target.label",
+      "default": "offer",
+      "options": [
+        {
+          "value": "offer",
+          "label": "t:sections.sticky_cta.settings.target.options.offer"
+        },
+        {
+          "value": "product",
+          "label": "t:sections.sticky_cta.settings.target.options.product"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "t:sections.sticky_cta.settings.text.label",
+      "info": "t:sections.sticky_cta.settings.text.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "t:sections.sticky_cta.settings.show_rating.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "t:sections.sticky_cta.settings.cta_label.label",
+      "default": "Check availability"
+    },
+    {
+      "type": "product",
+      "id": "cta_product",
+      "label": "t:sections.sticky_cta.settings.cta_product.label",
+      "info": "t:sections.sticky_cta.settings.cta_product.info"
+    },
+    {
+      "type": "range",
+      "id": "cta_tier",
+      "label": "t:sections.sticky_cta.settings.cta_tier.label",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "default": 0,
+      "info": "t:sections.sticky_cta.settings.cta_tier.info"
+    },
+    {
+      "type": "select",
+      "id": "cta_plan",
+      "label": "t:sections.sticky_cta.settings.cta_plan.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.sticky_cta.settings.cta_plan.options.default"
+        },
+        {
+          "value": "once",
+          "label": "t:sections.sticky_cta.settings.cta_plan.options.once"
+        },
+        {
+          "value": "sub",
+          "label": "t:sections.sticky_cta.settings.cta_plan.options.sub"
+        }
+      ]
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "t:sections.sticky_cta.settings.cta_link.label",
+      "info": "t:sections.sticky_cta.settings.cta_link.info"
+    },
+    {
+      "type": "range",
+      "id": "show_after",
+      "label": "t:sections.sticky_cta.settings.show_after.label",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_over_offer",
+      "label": "t:sections.sticky_cta.settings.hide_over_offer.label",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "inverse",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.sticky_cta.presets.sticky_cta_bar.name"
+    }
+  ]
+}
+{% endschema %}

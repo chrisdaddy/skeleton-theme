@@ -1,0 +1,198 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{{ 'section-landing.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'article-header' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }} bp-article-header__inner">
+    {%- if s.show_disclosure and s.disclosure != blank -%}
+      <p class="bp-disclosure">{{ s.disclosure | escape }}</p>
+    {%- elsif request.design_mode -%}
+      <p class="bp-editor-warning" role="note">{{ 'sections.article_header.disclosure_warning' | t }}</p>
+    {%- endif -%}
+    {%- if s.eyebrow != blank -%}<p class="bp-kicker">{{ s.eyebrow | escape }}</p>{%- endif -%}
+    {%- assign tag = s.heading_tag | default: 'h1' -%}
+    {%- if s.heading != blank -%}
+      <{{ tag }} class="bp-h1 bp-article-header__title">{{ s.heading }}</{{ tag }}>
+    {%- endif -%}
+    {%- if s.lede != blank -%}<p class="bp-article-header__lede">{{ s.lede }}</p>{%- endif -%}
+  </div>
+  {%- if s.image != blank or request.design_mode -%}
+    <figure class="bp-page-width bp-page-width--{{ s.image_width }} bp-article-header__figure">
+      <div class="bp-media bp-ratio-wide">
+        {%- render 'section-image', image: s.image, sizes: '(min-width: 990px) 1100px, 100vw', section: section -%}
+      </div>
+      {%- if s.caption != blank -%}<figcaption class="bp-small bp-muted">{{ s.caption | escape }}</figcaption>{%- endif -%}
+    </figure>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.article_header.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_disclosure",
+      "label": "t:sections.article_header.settings.show_disclosure.label",
+      "default": true,
+      "info": "t:sections.article_header.settings.show_disclosure.info"
+    },
+    {
+      "type": "text",
+      "id": "disclosure",
+      "label": "t:sections.article_header.settings.disclosure.label",
+      "default": "Advertisement"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.common.settings.eyebrow.label",
+      "default": "Health · Sponsored"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "A headline that tells the story in one line"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "lede",
+      "label": "t:sections.article_header.settings.lede.label",
+      "default": "The first two sentences decide whether anyone reads the third."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.common.settings.image.label"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "t:sections.article_header.settings.caption.label"
+    },
+    {
+      "type": "select",
+      "id": "image_width",
+      "label": "t:sections.article_header.settings.image_width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "t:sections.article_header.settings.image_width.options.narrow"
+        },
+        {
+          "value": "page",
+          "label": "t:sections.article_header.settings.image_width.options.page"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h1",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.common.settings.heading_tag.options.h1"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.article_header.presets.advertorial_header.name"
+    }
+  ]
+}
+{% endschema %}
