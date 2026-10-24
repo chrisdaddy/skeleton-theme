@@ -2,7 +2,7 @@
 //
 // - (The "no-js" → "js" class swap happens inline in layout-head.liquid, before first paint.)
 // - Loads feature modules on demand. An element marks the module it needs and when:
-//     <div data-bp-module="{{ 'bp-x.js' | asset_url }}" data-bp-load="visible|interaction|idle">
+//     <div data-bp-module="{{ 'bp-x.js' | asset_url }}" data-bp-load="visible|near|interaction|idle">
 //   Liquid supplies the asset URL, so module URLs stay versioned and cache-safe.
 // - Keeps cart counts current when the cart changes (event "bp:cart:changed"), and opens
 //   the cart drawer from the header's cart link (loading bp-cart.js first if needed).
@@ -24,6 +24,9 @@ function schedule(el) {
   } else if (when === 'interaction') {
     const go = () => loadModule(url);
     for (const type of ['pointerenter', 'focusin', 'touchstart']) el.addEventListener(type, go, { once: true, passive: true });
+  } else if (when === 'near') {
+    // Well before it scrolls into view, so content it adds is there before the reader is.
+    nearby.observe(el);
   } else {
     visibility.observe(el);
   }
@@ -38,6 +41,16 @@ const visibility = new IntersectionObserver(
     }
   },
   { rootMargin: '200px' },
+);
+const nearby = new IntersectionObserver(
+  (entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      nearby.unobserve(entry.target);
+      loadModule(entry.target.dataset.bpModule);
+    }
+  },
+  { rootMargin: '150% 0px' },
 );
 
 function scan(scope = document) {
@@ -102,6 +115,19 @@ document.addEventListener('click', (event) => {
   if (!link || event.metaKey || event.ctrlKey || event.shiftKey || !document.querySelector('bp-cart-drawer')) return;
   event.preventDefault();
   document.dispatchEvent(new CustomEvent('bp:cart:open', { cancelable: true }));
+});
+
+// Pre-lander CTAs ([data-bp-cta]) carry the page's campaign parameters on to the product page,
+// so attribution survives the click. Added at click time; existing parameters are kept.
+const CAMPAIGN = /^(utm_\w+|fbclid|ttclid|gclid|msclkid|wbraid|gbraid)$/;
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('a[data-bp-cta]');
+  if (!link) return;
+  const url = new URL(link.href, window.location.href);
+  for (const [key, value] of new URLSearchParams(window.location.search)) {
+    if (CAMPAIGN.test(key) && !url.searchParams.has(key)) url.searchParams.set(key, value);
+  }
+  link.href = url.href;
 });
 
 // Invoker commands fallback (command="show-modal" | "close" with commandfor="dialog-id").

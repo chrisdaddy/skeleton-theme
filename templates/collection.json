@@ -1,9 +1,13 @@
 {
   "sections": {
-    "main": {
-      "type": "main-collection",
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {}
+    },
+    "grid": {
+      "type": "main-collection-grid",
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": ["banner", "grid"]
 }

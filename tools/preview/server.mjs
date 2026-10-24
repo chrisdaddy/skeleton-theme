@@ -4,6 +4,9 @@
 //     /<Preset>/<page>.html             home, product, cart, styleguide
 //     /products/<handle>[?variant=&selling_plan=&tier=&plan=]
 //     /cart                             the cart page (for the store last looked at)
+//     /pages/<handle>?preset=&robots=&header=   pre-landers and pages (listing templates)
+//     /collections/<handle>[?filter.*=&sort_by=]  the collection page with mocked filters
+//     /listing/<Preset>/(index|product) the listing's own home and product templates
 //   Any page also answers the Section Rendering API: ?section_id=<id> (HTML) or
 //   ?sections=a,b (JSON map).
 // - Mocks the cart like Shopify's Ajax API (tools/preview/mock-cart.mjs):
@@ -16,7 +19,7 @@ import { createServer } from 'node:http';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PAGES, PRESET_PRODUCTS, cart, presetForHandle, renderPage, renderStoreSections, session } from './render.mjs';
+import { PAGES, PAGE_HANDLES, PRESET_PRODUCTS, cart, listingTemplate, pageDef, presetForHandle, renderPage, renderStoreSections, session } from './render.mjs';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
 const theme = join(here, '..', '..');
@@ -182,6 +185,32 @@ export function startServer() {
         if (!preset) return send(404, 'not found', 'text/plain');
         session.preset = preset;
         return respond(preset, page('product'));
+      }
+
+      // Pages: ?preset= picks the listing (default: the store last looked at); ?robots= and
+      // ?header= stand in for the page's blueprint.robots and blueprint.header metafields.
+      const pagePath = /^\/pages\/([\w-]+)$/.exec(url.pathname);
+      if (pagePath) {
+        const preset = url.searchParams.get('preset') || session.preset;
+        if (!PRESET_PRODUCTS[preset] || !PAGE_HANDLES[pagePath[1]]) return send(404, 'not found', 'text/plain');
+        session.preset = preset;
+        const def = pageDef(preset, pagePath[1], { robots: url.searchParams.get('robots'), header: url.searchParams.get('header') });
+        const overrides = { template: listingTemplate(preset, def.template) };
+        if (sectionsParam) return send(200, JSON.stringify(await renderPage(preset, def, url.searchParams, sectionsParam.split(','), overrides)), 'application/json');
+        return send(200, await renderPage(preset, def, url.searchParams, sectionId, overrides));
+      }
+      if (/^\/collections\/[\w-]+$/.test(url.pathname)) {
+        const preset = url.searchParams.get('preset') || session.preset;
+        if (!PRESET_PRODUCTS[preset]) return send(404, 'not found', 'text/plain');
+        session.preset = preset;
+        return respond(preset, page('collection'));
+      }
+      // The listing's own home and product templates (listings/<preset>/templates).
+      const listing = /^\/listing\/(\w+)\/(index|product)$/.exec(url.pathname);
+      if (listing && PRESET_PRODUCTS[listing[1]]) {
+        session.preset = listing[1];
+        const def = page(listing[2] === 'index' ? 'home' : 'product');
+        return send(200, await renderPage(listing[1], def, url.searchParams, sectionId, { template: listingTemplate(listing[1], listing[2]) }));
       }
 
       const storeSections = /^\/stores\/(\w+)\/sections\.html$/.exec(url.pathname);

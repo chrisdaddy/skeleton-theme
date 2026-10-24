@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url';
 import { Hash, Liquid, Tag } from 'liquidjs';
 import { contrast, mix } from '../lib/color.mjs';
 import { createCart } from './mock-cart.mjs';
+import { buildCollection } from './mock-collection.mjs';
 import { buildCartFixtures, buildDemoProducts, productForRequest, simpleProduct } from './mock-products.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -33,6 +34,8 @@ export const PRESET_PRODUCTS = { Clinical: PRODUCTS.verde, Editorial: PRODUCTS.o
 export const presetForHandle = (handle) => Object.keys(PRESET_PRODUCTS).find((p) => PRESET_PRODUCTS[p].handle === handle);
 
 // ---------- Cart ----------
+
+const mockProducts = new Map();
 
 const CART = buildCartFixtures(demo, PRODUCTS);
 const upsells = Object.values(PRESET_PRODUCTS).map((p) => p.metafields.blueprint.upsell.value);
@@ -319,9 +322,17 @@ const filters = {
   asset_url: (name) => `../assets/${name}`,
   stylesheet_tag: (url) => `<link rel="stylesheet" href="${url}">`,
   font_face: () => '',
-  font_url: () => '',
+  // The local @fontsource file for a font, so the theme's font preloads work as on Shopify.
+  font_url: (f) => {
+    const dir = String(f?.family || '').toLowerCase().replace(/\s+/g, '-');
+    return dir ? `/fonts/${dir}/files/${dir}-latin-${f.weight || 400}-normal.woff2` : '';
+  },
   font_modify: (f) => f,
-  preload_tag: () => '',
+  preload_tag: (url, ...args) => {
+    if (!url) return '';
+    const opts = Object.fromEntries(args.filter(Array.isArray));
+    return `<link rel="preload" href="${url}" as="${opts.as ?? 'font'}"${opts.type ? ` type="${opts.type}"` : ''}${opts.crossorigin ? ` crossorigin="${opts.crossorigin}"` : ''}>`;
+  },
   color_mix: (a, b, weight) => liquidMix(a, b, weight),
   color_contrast: (a, b) => Math.round(contrast(String(a), String(b)) * 10) / 10,
   money: (cents) => `$${(Number(cents) / 100).toFixed(2)}`,
@@ -384,6 +395,9 @@ function strftime(value, format = '%Y-%m-%d') {
   };
   return String(format).replace(/%(\w)/g, (m, k) => (k in map ? map[k] : m));
 }
+// A minimal schema.org Product, as Shopify's structured_data filter produces for a product.
+filters.structured_data = (product) =>
+  JSON.stringify({ '@context': 'http://schema.org/', '@type': 'Product', name: product?.title, url: product?.url, offers: (product?.variants || []).map((v) => ({ '@type': 'Offer', price: (v.price / 100).toFixed(2), priceCurrency: 'USD', availability: `http://schema.org/${v.available ? 'InStock' : 'OutOfStock'}` })) });
 for (const [name, fn] of Object.entries(filters)) engine.registerFilter(name, fn);
 
 // ---------- Sections ----------
@@ -399,7 +413,6 @@ const mockImage = (alt) => ({ alt, width: 1600, height: 1600, aspect_ratio: 1, s
 
 // Demo-only products named in the reference copy (bundle items, collection grids). Cached by
 // title so the same product keeps its IDs, and registered so the mock cart can add them.
-const mockProducts = new Map();
 function mockProduct({ title, price, rating, badge }) {
   if (!mockProducts.has(title)) {
     const product = simpleProduct(title, price);
@@ -410,13 +423,28 @@ function mockProduct({ title, price, rating, badge }) {
   return mockProducts.get(title);
 }
 
+// Products the demo copy names (bundle builders, collection grids) exist under their handles,
+// as demo seeding will create them.
+for (const store of Object.values(demo.stores)) {
+  for (const s of [...store.home, ...store.pdp]) {
+    if (s.type === 'bundle') s.items.forEach(([title, price]) => mockProduct({ title, price: Math.round(price * 100) }));
+    if (s.type === 'collection') s.items.forEach(([title, price, rating, badge]) => mockProduct({ title, price: Math.round(Number(price.replace(/[^\d.]/g, '')) * 100), rating: Number(rating), badge }));
+  }
+}
+
 function resolveSettings(definitions = [], values = {}, scope) {
   const resolved = { ...defaults(definitions), ...values };
   for (const def of definitions) {
     const value = resolved[def.id];
     if (def.type === 'link_list') resolved[def.id] = scope.linklists[value] ?? { links: [] };
-    if (def.type === 'product' && typeof value === 'string') resolved[def.id] = ALL_PRODUCTS.find((p) => p.handle === value) ?? null;
-    if (def.type === 'collection' && typeof value === 'string') resolved[def.id] = Object.values(CART.fixtures).map((f) => f.collection).find((c) => c.handle === value) ?? null;
+    // A product setting gives the full product object (options_by_name and the rest), as on Shopify.
+    if (def.type === 'product' && typeof value === 'string') {
+      const found = ALL_PRODUCTS.find((p) => p.handle === value);
+      resolved[def.id] = found?.options ? productForRequest(found) : (found ?? null);
+    }
+    if (def.type === 'collection' && typeof value === 'string') {
+      resolved[def.id] = value === 'best-sellers' ? (CART.fixtures[scope.__storeId]?.collection ?? null) : (Object.values(CART.fixtures).map((f) => f.collection).find((c) => c.handle === value) ?? null);
+    }
     if (def.type === 'image_picker' && value && typeof value === 'object' && value.mock_image) resolved[def.id] = mockImage(value.mock_image);
     if (def.type === 'product' && value && typeof value === 'object' && value.mock_product) resolved[def.id] = mockProduct(value.mock_product);
     if (def.type === 'collection' && value && typeof value === 'object' && value.handles) {
@@ -472,7 +500,12 @@ export async function renderPage(preset, page, query = new URLSearchParams(), on
   const settings = themeSettings(preset, store);
   const baseProduct = overrides.product ?? PRESET_PRODUCTS[preset];
   const product = page.type === 'product' && baseProduct ? productForRequest(baseProduct, query) : null;
+  const templateJson = overrides.template ?? (page.template && page.template !== 'presets' && existsSync(join(theme, 'templates', `${page.template}.json`)) ? readJson(join(theme, 'templates', `${page.template}.json`)) : null);
   const scope = {
+    __storeId: store.id,
+    page: page.page ?? null,
+    collection: page.type === 'collection' ? collectionFor(store, preset, query) : null,
+    collections: [CART.fixtures[store.id]?.collection].filter(Boolean),
     cart: cart.view(preset),
     additional_checkout_buttons: true,
     content_for_additional_checkout_buttons: '<div class="shopify-cleanslate"><button type="button" disabled>Express checkout (mocked)</button></div>',
@@ -525,7 +558,7 @@ export async function renderPage(preset, page, query = new URLSearchParams(), on
     ? await renderSections(overrides.template ?? readJson(join(theme, 'templates', `${page.template}.json`)), scope)
     : await engine.parseAndRender(readFileSync(join(here, page.file), "utf8"), { store }, { globals: scope });
 
-  const layoutSource = fs.readFileSync(join(theme, 'layout', `${page.layout ?? 'theme'}.liquid`));
+  const layoutSource = fs.readFileSync(join(theme, 'layout', `${templateJson?.layout ?? page.layout ?? 'theme'}.liquid`));
   let html = await engine.parseAndRender(layoutSource, {}, { globals: scope });
   html = html.replace('</head>', `${fontLinks(settings)}</head>`).replaceAll('"../assets/', '"/assets/').replaceAll("'../assets/", "'/assets/");
   return html;
@@ -535,6 +568,48 @@ export async function renderPage(preset, page, query = new URLSearchParams(), on
 export const STORE_PRESET = Object.fromEntries(Object.entries(demo.stores).map(([id]) => [id, demo.presets[id].name]));
 export const STORE_PRODUCT = { verde: PRODUCTS.verde, ode: PRODUCTS.ode, rawform: PRODUCTS.rawform };
 export const DEMO_STORES = demo.storeOrder;
+
+// The store's catalogue for the collection page: its best sellers plus its hero product, each
+// with a product type from the store's filter pills (data/demo-content.json "filters").
+function collectionFor(store, preset, query) {
+  const fixture = CART.fixtures[store.id] ?? CART.fixtures.verde;
+  const hero = PRESET_PRODUCTS[preset];
+  const products = [hero, ...fixture.collection.products];
+  products.forEach((p, i) => (p.type = p.type || store.filters[i % store.filters.length]));
+  return buildCollection({ handle: 'all', title: 'Shop all', description: `<p>${store.vibe}</p>`, products, query });
+}
+
+// Listing templates (listings/<preset>/templates) for the pre-lander and listing checks.
+const LISTING_DIR = { Clinical: 'clinical', Editorial: 'editorial', Bold: 'bold' };
+export function listingTemplate(preset, name) {
+  const path = join(theme, 'listings', LISTING_DIR[preset], 'templates', `${name}.json`);
+  return existsSync(path) ? readJson(path) : readJson(join(theme, 'templates', `${name}.json`));
+}
+export const PAGE_HANDLES = { advertorial: 'page.advertorial', listicle: 'page.listicle', comparison: 'page.comparison', about: 'page.about', contact: 'page.contact' };
+
+// A page (/pages/<handle>) as Shopify gives it to Liquid. meta holds the blueprint.robots and
+// blueprint.header metafield values the merchant may set on the page.
+export function pageDef(preset, handle, meta = {}) {
+  const store = demo.stores[PRESET_STORES[preset]];
+  const field = (value) => (value ? { value } : null);
+  const title = { advertorial: store.adv.h, listicle: store.list.h, comparison: `How ${store.brand} compares`, about: `About ${store.brand}`, contact: 'Contact' }[handle] ?? handle;
+  return {
+    name: handle,
+    type: 'page',
+    title,
+    template: PAGE_HANDLES[handle] ?? 'page',
+    page: {
+      id: 1,
+      title,
+      handle,
+      url: `/pages/${handle}`,
+      content: `<p>${store.adv.lede}</p>`.repeat(6),
+      published_at: '2026-09-01T09:00:00Z',
+      template_suffix: handle,
+      metafields: { blueprint: { robots: field(meta.robots), header: field(meta.header) } },
+    },
+  };
+}
 export async function renderStoreSections(storeId, include = 'all') {
   const { demoTemplate } = await import('./demo-sections.mjs');
   const product = STORE_PRODUCT[storeId];
@@ -582,6 +657,7 @@ export const PAGES = [
   { name: 'product', type: 'product', title: 'Product', template: 'product' },
   { name: 'cart', type: 'cart', title: 'Cart', template: 'cart' },
   { name: 'presets', type: 'product', title: 'Section presets', template: 'presets' },
+  { name: 'collection', type: 'collection', title: 'Shop all', template: 'collection' },
   { name: 'styleguide', type: 'page', title: 'Style guide', file: 'styleguide.liquid-preview' },
 ];
 

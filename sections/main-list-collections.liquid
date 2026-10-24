@@ -1,24 +1,122 @@
-<div class="bp-section bp-page-width bp-stack">
-  <h1>{{ 'collections.title' | t }}</h1>
-  <ul class="bp-grid" role="list">
-    {%- for collection in collections -%}
-      <li class="bp-stack">
-        {%- if collection.featured_image -%}
-          {{
-            collection.featured_image
-            | image_url: width: 720
-            | image_tag: widths: '360, 540, 720', sizes: '(min-width: 990px) 33vw, 50vw', loading: 'lazy'
-          }}
-        {%- endif -%}
-        <a href="{{ collection.url }}">{{ collection.title | escape }}</a>
-      </li>
-    {%- endfor -%}
-  </ul>
-</div>
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'collections' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }}">
+    <div class="bp-section-heading bp-section-heading--start"><h1 class="bp-h1">{{ 'collections.title' | t }}</h1></div>
+    <ul class="bp-cols" role="list" style="--bp-cols: {{ s.columns }}; --bp-cols-mobile: 2;">
+      {%- for collection in collections -%}
+        <li>
+          <a class="bp-collection-card" href="{{ collection.url }}">
+            <span class="bp-media bp-ratio-square">
+              {%- render 'section-image', image: collection.featured_image, sizes: '(min-width: 990px) 25vw, 50vw', section: section, width: 900, placeholder: 'collection-1', alt: '' -%}
+            </span>
+            <span class="bp-collection-card__title">{{ collection.title | escape }}</span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
 
 {% schema %}
 {
   "name": "t:sections.main_list_collections.name",
-  "settings": []
+  "settings": [
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:sections.main_list_collections.settings.columns.label",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ]
 }
 {% endschema %}

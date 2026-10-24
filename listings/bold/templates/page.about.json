@@ -1,0 +1,76 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "layout": "bleed",
+        "eyebrow": "About RAWFORM",
+        "heading": "RAWFORM",
+        "subheading": "Transparent Labs meets Ghost. Loud, lab-tested, stack-driven."
+      }
+    },
+    "founder": {
+      "type": "founder",
+      "settings": {}
+    },
+    "text": {
+      "type": "image-with-text",
+      "settings": {
+        "eyebrow": "How we make it",
+        "heading": "Tell the story behind the product",
+        "image_side": "right"
+      }
+    },
+    "stats": {
+      "type": "stats",
+      "settings": {},
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "28 g",
+            "label": "protein per scoop"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "1 g",
+            "label": "sugar"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "0",
+            "label": "artificial sweeteners"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "of batches third-party tested"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "founder",
+    "text",
+    "stats",
+    "newsletter"
+  ]
+}

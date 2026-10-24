@@ -520,13 +520,32 @@
       "name": "Cart"
     },
     "main_search": {
-      "name": "Search results"
+      "name": "Search results",
+      "settings": {
+        "per_page": {
+          "label": "Results per page"
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "quick_add": {
+          "label": "Show quick add"
+        }
+      }
     },
     "main_404": {
-      "name": "Page not found"
+      "name": "404 page"
     },
     "main_blog": {
-      "name": "Blog posts"
+      "name": "Blog",
+      "settings": {
+        "per_page": {
+          "label": "Posts per page"
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        }
+      }
     },
     "main_article": {
       "name": "Blog post"
@@ -535,10 +554,15 @@
       "name": "Page"
     },
     "main_list_collections": {
-      "name": "Collections list"
+      "name": "Collections list page",
+      "settings": {
+        "columns": {
+          "label": "Columns on desktop"
+        }
+      }
     },
     "main_password": {
-      "name": "Password"
+      "name": "Password page"
     },
     "contact_form": {
       "name": "Contact form",
@@ -2105,6 +2129,472 @@
         },
         "product_spotlight": {
           "name": "Product spotlight"
+        }
+      }
+    },
+    "article_header": {
+      "name": "Article header",
+      "settings": {
+        "show_disclosure": {
+          "label": "Show the advertising disclosure",
+          "info": "Paid or affiliate content needs a clear disclosure (FTC native-advertising guidance). Turning it off shows a warning in the editor."
+        },
+        "disclosure": {
+          "label": "Disclosure"
+        },
+        "lede": {
+          "label": "Lede"
+        },
+        "caption": {
+          "label": "Image caption"
+        },
+        "image_width": {
+          "label": "Image width",
+          "options": {
+            "narrow": "Text width",
+            "page": "Page width"
+          }
+        }
+      },
+      "presets": {
+        "advertorial_header": {
+          "name": "Advertorial header"
+        }
+      }
+    },
+    "author_byline": {
+      "name": "Author byline",
+      "settings": {
+        "author": {
+          "label": "Author"
+        },
+        "role": {
+          "label": "Role",
+          "info": "For example \"Nutritionist\" or \"Customer since 2024\". Say if the author was paid."
+        },
+        "avatar": {
+          "label": "Photo"
+        },
+        "date": {
+          "label": "Date",
+          "info": "Leave blank for the page's publish date."
+        },
+        "read_time": {
+          "label": "Minutes to read",
+          "info": "Leave blank to estimate from the page content."
+        }
+      },
+      "presets": {
+        "author_byline": {
+          "name": "Author byline"
+        }
+      }
+    },
+    "article_body": {
+      "name": "Article body",
+      "settings": {
+        "drop_cap": {
+          "label": "Large first letter"
+        }
+      },
+      "blocks": {
+        "text": {
+          "name": "Text",
+          "settings": {
+            "text": {
+              "label": "Text"
+            }
+          }
+        },
+        "heading": {
+          "name": "Heading",
+          "settings": {
+            "text": {
+              "label": "Heading"
+            }
+          }
+        },
+        "image": {
+          "name": "Image",
+          "settings": {
+            "caption": {
+              "label": "Caption"
+            },
+            "ratio": {
+              "label": "Shape",
+              "options": {
+                "landscape": "Landscape",
+                "square": "Square",
+                "wide": "Wide"
+              }
+            }
+          }
+        },
+        "quote": {
+          "name": "Pull quote",
+          "settings": {
+            "quote": {
+              "label": "Quote"
+            },
+            "attribution": {
+              "label": "Attribution"
+            }
+          }
+        },
+        "product": {
+          "name": "Product card",
+          "settings": {
+            "cta_label": {
+              "label": "Button label"
+            },
+            "cta_product": {
+              "label": "Product",
+              "info": "The button opens this product with the tier and plan below already chosen."
+            },
+            "cta_tier": {
+              "label": "Tier",
+              "info": "0 keeps the product's own default tier."
+            },
+            "cta_plan": {
+              "label": "Plan",
+              "options": {
+                "default": "Product default",
+                "once": "One-time",
+                "sub": "Subscribe"
+              }
+            },
+            "cta_link": {
+              "label": "Or a link",
+              "info": "Used when no product is chosen."
+            }
+          }
+        },
+        "button": {
+          "name": "Button",
+          "settings": {
+            "cta_label": {
+              "label": "Button label"
+            },
+            "cta_product": {
+              "label": "Product",
+              "info": "The button opens this product with the tier and plan below already chosen."
+            },
+            "cta_tier": {
+              "label": "Tier",
+              "info": "0 keeps the product's own default tier."
+            },
+            "cta_plan": {
+              "label": "Plan",
+              "options": {
+                "default": "Product default",
+                "once": "One-time",
+                "sub": "Subscribe"
+              }
+            },
+            "cta_link": {
+              "label": "Or a link",
+              "info": "Used when no product is chosen."
+            }
+          }
+        }
+      },
+      "presets": {
+        "article_body": {
+          "name": "Article body"
+        }
+      }
+    },
+    "pull_quote": {
+      "name": "Pull quote",
+      "settings": {
+        "quote": {
+          "label": "Quote"
+        },
+        "attribution": {
+          "label": "Attribution"
+        },
+        "style": {
+          "label": "Style",
+          "options": {
+            "rule": "Line beside the quote",
+            "large": "Large, centered"
+          }
+        }
+      },
+      "presets": {
+        "pull_quote": {
+          "name": "Pull quote"
+        }
+      }
+    },
+    "listicle": {
+      "name": "Listicle",
+      "settings": {
+        "numbering": {
+          "label": "Number the items"
+        },
+        "image_side": {
+          "label": "Image side",
+          "options": {
+            "left": "Left",
+            "right": "Right",
+            "alternate": "Alternate"
+          }
+        }
+      },
+      "blocks": {
+        "item": {
+          "name": "Item",
+          "settings": {
+            "title": {
+              "label": "Title"
+            },
+            "cta_label": {
+              "label": "Button label"
+            },
+            "cta_product": {
+              "label": "Product",
+              "info": "The button opens this product with the tier and plan below already chosen."
+            },
+            "cta_tier": {
+              "label": "Tier",
+              "info": "0 keeps the product's own default tier."
+            },
+            "cta_plan": {
+              "label": "Plan",
+              "options": {
+                "default": "Product default",
+                "once": "One-time",
+                "sub": "Subscribe"
+              }
+            },
+            "cta_link": {
+              "label": "Or a link",
+              "info": "Used when no product is chosen."
+            }
+          }
+        }
+      },
+      "presets": {
+        "listicle": {
+          "name": "Listicle"
+        }
+      }
+    },
+    "comparison_table": {
+      "name": "Comparison table",
+      "settings": {
+        "columns": {
+          "label": "Columns",
+          "options": {
+            "2": "2",
+            "3": "3",
+            "4": "4"
+          }
+        },
+        "column_1": {
+          "label": "Column 1"
+        },
+        "column_2": {
+          "label": "Column 2"
+        },
+        "column_3": {
+          "label": "Column 3"
+        },
+        "column_4": {
+          "label": "Column 4"
+        },
+        "highlight": {
+          "label": "Highlight column",
+          "info": "0 for none."
+        },
+        "sticky_first": {
+          "label": "Keep the first column in view while scrolling on mobile"
+        },
+        "only_compare_what_you_can_back_up_and_ke": "Only compare what you can back up, and keep competitor facts current."
+      },
+      "blocks": {
+        "row": {
+          "name": "Row",
+          "settings": {
+            "label": {
+              "label": "Feature"
+            },
+            "cell_1": {
+              "label": "Column 1",
+              "info": "yes or no for a check or a cross, or short text."
+            },
+            "cell_2": {
+              "label": "Column 2",
+              "info": "yes or no for a check or a cross, or short text."
+            },
+            "cell_3": {
+              "label": "Column 3",
+              "info": "yes or no for a check or a cross, or short text."
+            },
+            "cell_4": {
+              "label": "Column 4",
+              "info": "yes or no for a check or a cross, or short text."
+            }
+          }
+        }
+      },
+      "presets": {
+        "comparison_table": {
+          "name": "Comparison table"
+        },
+        "comparison_table_3_columns": {
+          "name": "Comparison table (3 columns)"
+        }
+      }
+    },
+    "offer": {
+      "name": "Offer",
+      "settings": {
+        "product": {
+          "label": "Product"
+        },
+        "default_tier": {
+          "label": "Start on tier",
+          "info": "0 keeps the product's own default. A link with ?variant= still wins."
+        },
+        "default_plan": {
+          "label": "Start on plan",
+          "options": {
+            "product": "Product default",
+            "once": "One-time",
+            "sub": "Subscribe"
+          }
+        },
+        "guarantee": {
+          "label": "Guarantee line"
+        },
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "full": "With product photos",
+            "compact": "Compact card"
+          }
+        }
+      },
+      "presets": {
+        "final_offer": {
+          "name": "Final offer"
+        },
+        "offer_card_compact": {
+          "name": "Offer card (compact)"
+        }
+      }
+    },
+    "sticky_cta": {
+      "name": "Sticky CTA bar",
+      "settings": {
+        "target": {
+          "label": "Button goes to",
+          "options": {
+            "offer": "The offer section on this page",
+            "product": "The product page"
+          }
+        },
+        "text": {
+          "label": "Text",
+          "info": "Leave blank for the product's title."
+        },
+        "show_rating": {
+          "label": "Show the product's rating"
+        },
+        "cta_label": {
+          "label": "Button label"
+        },
+        "cta_product": {
+          "label": "Product",
+          "info": "The button opens this product with the tier and plan below already chosen."
+        },
+        "cta_tier": {
+          "label": "Tier",
+          "info": "0 keeps the product's own default tier."
+        },
+        "cta_plan": {
+          "label": "Plan",
+          "options": {
+            "default": "Product default",
+            "once": "One-time",
+            "sub": "Subscribe"
+          }
+        },
+        "cta_link": {
+          "label": "Or a link",
+          "info": "Used when no product is chosen."
+        },
+        "show_after": {
+          "label": "Show after scrolling"
+        },
+        "hide_over_offer": {
+          "label": "Hide while the offer is on screen"
+        }
+      },
+      "presets": {
+        "sticky_cta_bar": {
+          "name": "Sticky CTA bar"
+        }
+      }
+    },
+    "main_collection_banner": {
+      "name": "Collection banner",
+      "settings": {
+        "show_description": {
+          "label": "Show the collection description"
+        },
+        "show_image": {
+          "label": "Show the collection image"
+        },
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "stacked": "Text only",
+            "split": "Text beside the image"
+          }
+        }
+      }
+    },
+    "main_collection_grid": {
+      "name": "Product grid",
+      "settings": {
+        "per_page": {
+          "label": "Products per page"
+        },
+        "columns": {
+          "label": "Columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Columns on mobile",
+          "options": {
+            "1": "1",
+            "2": "2"
+          }
+        },
+        "show_filters": {
+          "label": "Show filters",
+          "info": "Set filters up in the Search & Discovery app."
+        },
+        "show_pills": {
+          "label": "Show quick filter pills"
+        },
+        "pill_filter_label": {
+          "label": "Quick filter",
+          "info": "The filter shown as pills, by its name (for example \"Product type\"). Leave blank for the first list filter."
+        },
+        "show_sort": {
+          "label": "Show sorting"
+        },
+        "show_rating": {
+          "label": "Show ratings"
+        },
+        "show_badges": {
+          "label": "Show badges"
+        },
+        "quick_add": {
+          "label": "Show quick add"
         }
       }
     }

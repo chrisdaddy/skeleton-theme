@@ -1,0 +1,160 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{{ 'section-landing.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign minutes = s.read_time
+  if minutes == blank and page.content != blank
+    assign words = page.content | strip_html | split: ' ' | size
+    assign minutes = words | divided_by: 220 | at_least: 1
+  endif
+  assign date = s.date
+  if date == blank and page.published_at != blank
+    assign date = page.published_at | date: format: 'date'
+  endif
+-%}
+<section {% render 'section-attributes', section: section, name: 'byline' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }} bp-byline__inner">
+    {%- if s.avatar != blank -%}
+      {{ s.avatar | image_url: width: 112 | image_tag: width: 48, height: 48, class: 'bp-byline__avatar', alt: '', loading: 'lazy' }}
+    {%- endif -%}
+    <p class="bp-byline__text">
+      <span class="bp-byline__name">{{ 'sections.author_byline.by' | t: name: s.author }}</span>
+      {%- if s.role != blank -%}<span class="bp-muted">{{ s.role | escape }}</span>{%- endif -%}
+      {%- if date != blank or minutes != blank -%}
+        <span class="bp-muted bp-small">
+          {%- if date != blank -%}{{ date | escape }}{%- endif -%}
+          {%- if date != blank and minutes != blank %} · {% endif -%}
+          {%- if minutes != blank -%}{{ 'sections.author_byline.read_time' | t: count: minutes }}{%- endif -%}
+        </span>
+      {%- endif -%}
+    </p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.author_byline.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "author",
+      "label": "t:sections.author_byline.settings.author.label",
+      "default": "Author name"
+    },
+    {
+      "type": "text",
+      "id": "role",
+      "label": "t:sections.author_byline.settings.role.label",
+      "info": "t:sections.author_byline.settings.role.info"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar",
+      "label": "t:sections.author_byline.settings.avatar.label"
+    },
+    {
+      "type": "text",
+      "id": "date",
+      "label": "t:sections.author_byline.settings.date.label",
+      "info": "t:sections.author_byline.settings.date.info"
+    },
+    {
+      "type": "number",
+      "id": "read_time",
+      "label": "t:sections.author_byline.settings.read_time.label",
+      "info": "t:sections.author_byline.settings.read_time.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.author_byline.presets.author_byline.name"
+    }
+  ]
+}
+{% endschema %}

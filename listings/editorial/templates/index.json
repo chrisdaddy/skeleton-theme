@@ -1,0 +1,269 @@
+{
+  "sections": {
+    "hero_1": {
+      "type": "hero",
+      "settings": {
+        "layout": "bleed",
+        "eyebrow": "No. 04 · Now in 100 ml",
+        "heading": "Worn close. Noticed anyway.",
+        "subheading": "Iris, fig leaf and a warm skin musk. Our quietest scent and the one people ask about.",
+        "product": "ode-no-04",
+        "show_rating": false,
+        "note": ""
+      },
+      "blocks": {
+        "button_1": {
+          "type": "button",
+          "settings": {
+            "label": "Discover No. 04",
+            "show_price": false
+          }
+        }
+      },
+      "block_order": [
+        "button_1"
+      ]
+    },
+    "ticker_2": {
+      "type": "ticker",
+      "settings": {},
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "text": "Iris pallida",
+            "icon": "none"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "text": "Fig leaf",
+            "icon": "none"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "text": "Pink pepper",
+            "icon": "none"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "text": "Skin musk",
+            "icon": "none"
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "text": "Ambrette",
+            "icon": "none"
+          }
+        },
+        "item_6": {
+          "type": "item",
+          "settings": {
+            "text": "Composed in Grasse",
+            "icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5",
+        "item_6"
+      ]
+    },
+    "features_3": {
+      "type": "features",
+      "settings": {
+        "heading": "The notes"
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "kicker": "Top · 0–20 min",
+            "title": "Fig leaf and pink pepper",
+            "text": "<p>Green and a little sharp, like a garden in June.</p>"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "kicker": "Heart · 1–4 h",
+            "title": "Iris pallida",
+            "text": "<p>Powdery, cool, expensive. The reason it exists.</p>"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "kicker": "Base · all day",
+            "title": "Skin musk and ambrette",
+            "text": "<p>Warm and close. Smells like you, on a good day.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ]
+    },
+    "founder_4": {
+      "type": "founder",
+      "settings": {
+        "quote": "<p>\"I wanted a perfume that disappears into you rather than announcing you. It took four years and 212 trials.\"</p>",
+        "name": "Hélène Marchand",
+        "role": "Founder and nose, Ode"
+      }
+    },
+    "imagetext_5": {
+      "type": "image-with-text",
+      "settings": {
+        "eyebrow": "Discovery set",
+        "heading": "Try all six. We credit the set toward your bottle.",
+        "text": "<p>Six 1.5 ml vials, enough for three wears each. Find the one, and the $28 comes off your 50 ml. Nearly everyone who tries the set buys a bottle; the rest keep the vials.</p>",
+        "button_label": "Order the discovery set",
+        "button_style": "link"
+      }
+    },
+    "collection_6": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "The collection",
+        "collection": "best-sellers",
+        "count": 4
+      }
+    },
+    "ugc_7": {
+      "type": "ugc",
+      "settings": {
+        "heading": "Worn by"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "handle": "@claire.wears"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "handle": "@theorrisdiaries"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "handle": "@noteworthy.fm"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "handle": "@sundayscent"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ]
+    },
+    "reviews_8": {
+      "type": "reviews",
+      "settings": {
+        "heading": "In their words",
+        "product": "ode-no-04"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Lasts from my 8am train to dinner. On me it's mostly the musk and I'm not complaining.</p>",
+            "name": "Anaïs L.",
+            "verified": true
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Got the discovery set, bought No. 04 full size the same week.</p>",
+            "name": "Tom W.",
+            "verified": true
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Finally an iris that doesn't smell like my grandmother's compact.</p>",
+            "name": "Rosa P.",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ]
+    },
+    "faq_9": {
+      "type": "faq",
+      "settings": {
+        "heading": "Questions",
+        "use_metafield": false
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "How long does it last?",
+            "answer": "<p>6 to 8 hours on skin, longer on fabric. It is an extrait-strength eau de parfum.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return an opened bottle?",
+            "answer": "<p>Yes, within 30 days. Scent is personal.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Is it unisex?",
+            "answer": "<p>Everything we make is. No. 04 skews soft; No. 03 skews smoky.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3"
+      ]
+    }
+  },
+  "order": [
+    "hero_1",
+    "ticker_2",
+    "features_3",
+    "founder_4",
+    "imagetext_5",
+    "collection_6",
+    "ugc_7",
+    "reviews_8",
+    "faq_9"
+  ]
+}

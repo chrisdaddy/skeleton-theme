@@ -1,0 +1,309 @@
+{%- comment -%}
+  The final offer on a pre-lander: the real buy box (the product theme blocks) for the product
+  picked here, starting on the chosen tier and plan. Sticky CTAs scroll here (id "Offer").
+{%- endcomment -%}
+{{ 'section-product.css' | asset_url | stylesheet_tag }}
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{{ 'section-landing.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign s = section.settings
+  assign featured = s.product
+  assign current_variant = featured.selected_or_first_available_variant
+  assign form_id = 'ProductForm-' | append: section.id
+-%}
+<section {% render 'section-attributes', section: section, name: 'offer', modifier: s.layout %} data-bp-offer>
+  <div class="bp-page-width bp-page-width--{{ s.width }}" id="Offer">
+    <div class="bp-offer-card">
+      {%- render 'section-heading', section: section -%}
+      <div class="bp-product bp-offer-card__grid">
+        {%- if s.layout == 'full' -%}
+          <div class="bp-product__media">
+            {%- if featured != blank -%}
+              {%- render 'product-gallery', product: featured, id_prefix: section.id -%}
+            {%- else -%}
+              <div class="bp-media bp-ratio-square">{{ 'product-1' | placeholder_svg_tag: 'bp-media__img' }}</div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+        {%- if featured != blank -%}
+          <bp-product
+            class="bp-product__info bp-buybox"
+            data-section-id="{{ section.id }}"
+            data-product-url="{{ featured.url }}"
+            data-form-id="{{ form_id }}"
+            data-cart-url="{{ routes.cart_url }}"
+            data-error-message="{{ 'products.errors.generic' | t | escape }}"
+            data-bp-module="{{ 'bp-product.js' | asset_url }}"
+            data-bp-load="visible"
+          >
+            <input type="hidden" name="id" value="{{ current_variant.id }}" form="{{ form_id }}">
+            <input type="hidden" name="quantity" value="1" form="{{ form_id }}">
+            {% content_for 'blocks' %}
+            {%- if s.guarantee != blank -%}
+              <p class="bp-offer-card__guarantee">{%- render 'icon', name: 'shield' -%}{{ s.guarantee | escape }}</p>
+            {%- endif -%}
+          </bp-product>
+        {%- else -%}
+          <div class="bp-product__info bp-stack">
+            <p class="bp-h3">{{ 'sections.featured_product.placeholder' | t }}</p>
+            <p class="bp-muted">{{ 'sections.featured_product.choose' | t }}</p>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.offer.name",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.offer.settings.product.label"
+    },
+    {
+      "type": "range",
+      "id": "default_tier",
+      "label": "t:sections.offer.settings.default_tier.label",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "default": 0,
+      "info": "t:sections.offer.settings.default_tier.info"
+    },
+    {
+      "type": "select",
+      "id": "default_plan",
+      "label": "t:sections.offer.settings.default_plan.label",
+      "default": "product",
+      "options": [
+        {
+          "value": "product",
+          "label": "t:sections.offer.settings.default_plan.options.product"
+        },
+        {
+          "value": "once",
+          "label": "t:sections.offer.settings.default_plan.options.once"
+        },
+        {
+          "value": "sub",
+          "label": "t:sections.offer.settings.default_plan.options.sub"
+        }
+      ]
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.common.settings.heading.label",
+      "default": "Try it risk-free"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:sections.common.settings.subheading.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.common.settings.alignment.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.common.settings.alignment.options.start"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.common.settings.alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "guarantee",
+      "label": "t:sections.offer.settings.guarantee.label",
+      "default": "90-day money-back guarantee"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.offer.settings.layout.label",
+      "default": "full",
+      "options": [
+        {
+          "value": "full",
+          "label": "t:sections.offer.settings.layout.options.full"
+        },
+        {
+          "value": "compact",
+          "label": "t:sections.offer.settings.layout.options.compact"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "surface",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.common.settings.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.common.settings.heading_tag.options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.common.settings.heading_tag.options.h3"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.offer.presets.final_offer.name",
+      "blocks": [
+        {
+          "type": "product-rating"
+        },
+        {
+          "type": "product-title"
+        },
+        {
+          "type": "product-price"
+        },
+        {
+          "type": "product-variant-picker"
+        },
+        {
+          "type": "product-offer-tiers"
+        },
+        {
+          "type": "product-purchase-options"
+        },
+        {
+          "type": "product-buy-buttons"
+        },
+        {
+          "type": "product-trust-tiles"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.offer.presets.offer_card_compact.name",
+      "settings": {
+        "layout": "compact",
+        "width": "narrow"
+      },
+      "blocks": [
+        {
+          "type": "product-title"
+        },
+        {
+          "type": "product-offer-tiers"
+        },
+        {
+          "type": "product-purchase-options"
+        },
+        {
+          "type": "product-buy-buttons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

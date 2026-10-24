@@ -14,6 +14,14 @@
   if product.requires_selling_plan or selected_plan_id != blank or block.settings.default_plan == 'sub'
     assign subscribe_checked = true
   endif
+  # A section can choose the starting plan (the offer section on pre-landers).
+  if selected_plan_id == blank and product.requires_selling_plan == false
+    if section.settings.default_plan == 'sub'
+      assign subscribe_checked = true
+    elsif section.settings.default_plan == 'once'
+      assign subscribe_checked = false
+    endif
+  endif
   assign group = product.selling_plan_groups.first
 -%}
 {%- if plan_id != blank -%}

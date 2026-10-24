@@ -3,7 +3,15 @@
     "main": {
       "type": "main-404",
       "settings": {}
+    },
+    "best_sellers": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Best sellers",
+        "collection": "best-sellers",
+        "count": 4
+      }
     }
   },
-  "order": ["main"]
+  "order": ["main", "best_sellers"]
 }

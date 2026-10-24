@@ -31,6 +31,7 @@ cd tools/preview && npm install && npm run shots   # writes out/<preset>/*.html 
 npm run check:buybox                               # buy box checklist (docs/PLAN.md §16) in Chromium
 npm run check:cart                                 # cart drawer and cart page checklist in Chromium
 npm run check:sections                             # every content section, preset and demo store in Chromium
+npm run check:landing                              # pre-landers, URL contract, collection page and templates in Chromium
 ```
 
 The checklists run from the repository root once `tools/preview` has its dependencies.

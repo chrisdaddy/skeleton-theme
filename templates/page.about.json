@@ -1,0 +1,35 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "layout": "bleed",
+        "eyebrow": "About VERDE",
+        "heading": "VERDE",
+        "subheading": "AG1 archetype. Clinical trust, one hero SKU, subscription first."
+      }
+    },
+    "founder": {
+      "type": "founder",
+      "settings": {}
+    },
+    "text": {
+      "type": "image-with-text",
+      "settings": {
+        "eyebrow": "How we make it",
+        "heading": "Tell the story behind the product",
+        "image_side": "right"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "founder",
+    "text",
+    "newsletter"
+  ]
+}

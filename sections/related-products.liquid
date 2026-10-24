@@ -10,7 +10,7 @@
       data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ source.id }}&limit={{ s.count }}&intent={{ s.intent }}"
     {% endif %}
     data-bp-module="{{ 'bp-recommendations.js' | asset_url }}"
-    data-bp-load="visible"
+    data-bp-load="near"
   >
     {%- if recommendations.performed and recommendations.products_count > 0 -%}
       {%- render 'section-heading', section: section, align: 'start' -%}

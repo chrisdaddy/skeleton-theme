@@ -1,0 +1,139 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'collection-banner', modifier: s.layout %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }} bp-collection-banner__inner">
+    <div class="bp-collection-banner__text">
+      <h1 class="bp-h1">{{ collection.title | escape }}</h1>
+      {%- if s.show_description and collection.description != blank -%}
+        <div class="bp-rte bp-muted-rte">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+    {%- if s.show_image and collection.image != blank -%}
+      <div class="bp-media bp-ratio-landscape bp-collection-banner__media">
+        {%- render 'section-image', image: collection.image, sizes: '(min-width: 990px) 50vw, 100vw', section: section -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_collection_banner.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "t:sections.main_collection_banner.settings.show_description.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "t:sections.main_collection_banner.settings.show_image.label",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.main_collection_banner.settings.layout.label",
+      "default": "stacked",
+      "options": [
+        {
+          "value": "stacked",
+          "label": "t:sections.main_collection_banner.settings.layout.options.stacked"
+        },
+        {
+          "value": "split",
+          "label": "t:sections.main_collection_banner.settings.layout.options.split"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "page",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ]
+}
+{% endschema %}

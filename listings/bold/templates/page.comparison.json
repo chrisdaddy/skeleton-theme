@@ -1,0 +1,168 @@
+{
+  "layout": "landing",
+  "sections": {
+    "header": {
+      "type": "article-header",
+      "settings": {
+        "eyebrow": "Fitness · Sponsored",
+        "heading": "Rawform vs. big-box whey",
+        "lede": ""
+      }
+    },
+    "table": {
+      "type": "comparison-table",
+      "settings": {
+        "heading": "",
+        "columns": "2",
+        "column_1": "Rawform",
+        "column_2": "Big-box whey",
+        "highlight": 1
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Grass-fed isolate, cold-filtered",
+            "cell_1": "yes",
+            "cell_2": "no"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Informed Sport certified",
+            "cell_1": "yes",
+            "cell_2": "no"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "No artificial sweeteners",
+            "cell_1": "yes",
+            "cell_2": "no"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "COA published per batch",
+            "cell_1": "yes",
+            "cell_2": "no"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Amino spiking",
+            "cell_1": "no",
+            "cell_2": "yes"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5"
+      ]
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "heading": "15,882 reviews",
+        "layout": "grid",
+        "product": "rawform-whey"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Zero bloat for the first time in ten years of whey. That alone.</p>",
+            "name": "Tom R.",
+            "verified": true
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Chocolate tastes like a milkshake, not a chemistry set.</p>",
+            "name": "Priya N.",
+            "verified": true
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>The COA is on the tub. That is why I switched my whole team.</p>",
+            "name": "Coach Sam L.",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ]
+    },
+    "offer": {
+      "type": "offer",
+      "settings": {
+        "product": "rawform-whey",
+        "default_tier": 2,
+        "heading": "Try it risk-free",
+        "guarantee": "60-day guarantee"
+      },
+      "blocks": {
+        "rating_1": {
+          "type": "product-rating",
+          "settings": {}
+        },
+        "title_2": {
+          "type": "product-title",
+          "settings": {}
+        },
+        "offer-tiers_3": {
+          "type": "product-offer-tiers",
+          "settings": {}
+        },
+        "purchase-options_4": {
+          "type": "product-purchase-options",
+          "settings": {}
+        },
+        "buy-buttons_5": {
+          "type": "product-buy-buttons",
+          "settings": {}
+        },
+        "trust-tiles_6": {
+          "type": "product-trust-tiles",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rating_1",
+        "title_2",
+        "offer-tiers_3",
+        "purchase-options_4",
+        "buy-buttons_5",
+        "trust-tiles_6"
+      ]
+    },
+    "sticky": {
+      "type": "sticky-cta",
+      "settings": {
+        "target": "offer",
+        "cta_label": "See the lab results"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "table",
+    "reviews",
+    "offer",
+    "sticky"
+  ]
+}

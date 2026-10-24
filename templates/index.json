@@ -1,24 +1,474 @@
 {
   "sections": {
-    "intro": {
-      "type": "rich-text",
+    "hero_1": {
+      "type": "hero",
+      "settings": {
+        "layout": "split",
+        "eyebrow": "Daily foundational nutrition",
+        "heading": "Your whole supplement shelf. One scoop.",
+        "subheading": "75 vitamins, minerals, probiotics and adaptogens in a single morning drink. Replaces your multi, probiotic and greens.",
+        "product": "verde-daily",
+        "show_rating": true,
+        "note": ""
+      },
       "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {}
-        },
-        "text": {
-          "type": "text",
-          "settings": {}
-        },
-        "button": {
+        "button_1": {
           "type": "button",
-          "settings": {}
+          "settings": {
+            "label": "Shop Verde",
+            "show_price": true
+          }
         }
       },
-      "block_order": ["heading", "text", "button"],
-      "settings": {}
+      "block_order": [
+        "button_1"
+      ]
+    },
+    "press_2": {
+      "type": "press",
+      "settings": {
+        "heading": "As seen in"
+      },
+      "blocks": {
+        "logo_1": {
+          "type": "logo",
+          "settings": {
+            "name": "Forbes"
+          }
+        },
+        "logo_2": {
+          "type": "logo",
+          "settings": {
+            "name": "Men's Health"
+          }
+        },
+        "logo_3": {
+          "type": "logo",
+          "settings": {
+            "name": "Vogue"
+          }
+        },
+        "logo_4": {
+          "type": "logo",
+          "settings": {
+            "name": "The New York Times"
+          }
+        },
+        "logo_5": {
+          "type": "logo",
+          "settings": {
+            "name": "Well+Good"
+          }
+        }
+      },
+      "block_order": [
+        "logo_1",
+        "logo_2",
+        "logo_3",
+        "logo_4",
+        "logo_5"
+      ]
+    },
+    "badges_3": {
+      "type": "badges",
+      "settings": {
+        "use_metafield": false
+      },
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "text": "NSF Certified for Sport",
+            "icon": "check"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "text": "Vegan",
+            "icon": "check"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "text": "Gluten-free",
+            "icon": "check"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "text": "No added sugar",
+            "icon": "check"
+          }
+        },
+        "badge_5": {
+          "type": "badge",
+          "settings": {
+            "text": "Made in a cGMP facility",
+            "icon": "check"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4",
+        "badge_5"
+      ]
+    },
+    "benefits_4": {
+      "type": "benefits",
+      "settings": {
+        "heading": "Seven supplements. One habit.",
+        "use_metafield": false,
+        "columns": 4
+      },
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "leaf",
+            "title": "Gut",
+            "text": "7.2B CFU, prebiotics, enzymes"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "bolt",
+            "title": "Energy",
+            "text": "B-complex and rhodiola, no caffeine"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "shield",
+            "title": "Immunity",
+            "text": "Vitamin C, D3 and zinc at real doses"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Focus",
+            "text": "Ashwagandha, L-theanine, magnesium"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ]
+    },
+    "study_5": {
+      "type": "study",
+      "settings": {
+        "heading": "Tested in a clinical trial, not a focus group.",
+        "subheading": "Double-blind, placebo-controlled. 4 weeks, 102 adults, independent lab.",
+        "source": "Published in Nutrients, March 2025. Full paper on the Science page.",
+        "use_metafield": false
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": 97,
+            "suffix": "%",
+            "label": "reported more sustained energy"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": 91,
+            "suffix": "%",
+            "label": "better digestion by week 2"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": 84,
+            "suffix": "%",
+            "label": "fewer afternoon cravings"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ]
+    },
+    "ingredients_6": {
+      "type": "ingredients",
+      "settings": {
+        "heading": "What one scoop contains",
+        "subheading": "75 ingredients. Every dose on the label.",
+        "footer_label": "See the full label and batch COA",
+        "footer_link": "#",
+        "use_metafield": false
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "name": "Spirulina + chlorella",
+            "dose": "2,400 mg",
+            "why": "Protein, iron, chlorophyll"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "name": "Probiotic blend",
+            "dose": "7.2B CFU",
+            "why": "L. acidophilus, B. bifidum"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "name": "Ashwagandha KSM-66",
+            "dose": "300 mg",
+            "why": "Stress response"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "name": "Vitamin C",
+            "dose": "420 mg",
+            "why": "467% DV, immune support"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "name": "Digestive enzymes",
+            "dose": "154 mg",
+            "why": "Bloat after meals"
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "name": "Rhodiola rosea",
+            "dose": "50 mg",
+            "why": "Mental stamina"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6"
+      ]
+    },
+    "usvsthem_7": {
+      "type": "usvsthem",
+      "settings": {
+        "heading": "Verde vs. the cabinet",
+        "us_label": "Verde",
+        "them_label": "Separate supplements",
+        "use_metafield": false
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "feature": "One scoop, 60 seconds",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "feature": "NSF Certified for Sport",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "feature": "Doses on the label, no blends",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "feature": "Under $2.70 a day",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "feature": "Seven bottles on the counter",
+            "us": "no",
+            "them": "yes"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5"
+      ]
+    },
+    "subscription_8": {
+      "type": "subscription",
+      "settings": {
+        "heading": "Subscribe, save [percent]%, never think about it again.",
+        "subheading": "Most members stay 14+ months. Here is why.",
+        "button_label": "Start subscription",
+        "product": "verde-daily"
+      },
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "icon": "truck",
+            "title": "Lands before you run out",
+            "text": "30 servings every 30 days, shipping on us."
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "icon": "refresh",
+            "title": "Skip or cancel in two taps",
+            "text": "No calls, no retention scripts, no guilt."
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Welcome kit on us",
+            "text": "Steel shaker, canister and five travel packs with your first order."
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3"
+      ]
+    },
+    "reviews_9": {
+      "type": "reviews",
+      "settings": {
+        "heading": "What 41,208 people said",
+        "product": "verde-daily"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Replaced my multivitamin, probiotic and the $9 juice. Tastes like pineapple, not grass.</p>",
+            "name": "Marcus T.",
+            "verified": true
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Day 10 and the 3pm slump is just gone. I did not expect to notice anything.</p>",
+            "name": "Priya S.",
+            "verified": true
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Bloodwork at 90 days convinced my doctor. Now she takes it.</p>",
+            "name": "Jen R.",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ]
+    },
+    "faq_10": {
+      "type": "faq",
+      "settings": {
+        "heading": "Questions",
+        "use_metafield": false
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "When will I notice something?",
+            "answer": "<p>Energy and digestion within 7 to 14 days for most people. Give it 60 days; the trial ran 4 weeks.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "Does it replace my multivitamin?",
+            "answer": "<p>Yes. And your probiotic, greens and adaptogens. Keep your omega-3.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I pause my subscription?",
+            "answer": "<p>Skip, pause, swap flavour or cancel from your account. Two taps, no calls.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3"
+      ]
+    },
+    "guarantee_11": {
+      "type": "guarantee",
+      "settings": {
+        "heading": "90 days. Finish the pouch.",
+        "text": "<p>If you do not feel a difference, email us and we refund it. Fewer than 2% ask.</p>",
+        "days": 90,
+        "button_label": "Start today",
+        "use_metafield": false,
+        "product": "verde-daily"
+      }
     }
   },
-  "order": ["intro"]
+  "order": [
+    "hero_1",
+    "press_2",
+    "badges_3",
+    "benefits_4",
+    "study_5",
+    "ingredients_6",
+    "usvsthem_7",
+    "subscription_8",
+    "reviews_9",
+    "faq_10",
+    "guarantee_11"
+  ]
 }

@@ -1,6 +1,7 @@
 # Repository folders and files that are not part of the theme.
 # Shopify CLI skips these on push, pull and dev.
 data/
+listings/
 docs/
 mcp/
 migrations/

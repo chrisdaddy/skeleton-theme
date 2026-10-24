@@ -8,7 +8,8 @@
     "shots": "node render.mjs && node shoot.mjs",
     "check:buybox": "node checklist.mjs",
     "check:cart": "node cart-checklist.mjs",
-    "check:sections": "node sections-checklist.mjs"
+    "check:sections": "node sections-checklist.mjs",
+    "check:landing": "node landing-checklist.mjs"
   },
   "devDependencies": {
     "@fontsource/dm-sans": "5.3.0",

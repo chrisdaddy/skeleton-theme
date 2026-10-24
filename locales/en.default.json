@@ -190,7 +190,20 @@
   },
   "collections": {
     "title": "Collections",
-    "empty": "No products found."
+    "empty": "No products match these filters.",
+    "all": "All",
+    "product_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "filters": "Filter",
+    "price_from": "From",
+    "price_to": "To",
+    "apply": "Apply",
+    "clear": "Clear all",
+    "sort": "Sort by",
+    "active": "Active filters",
+    "remove_filter": "Remove filter"
   },
   "search": {
     "title": "Search",
@@ -199,7 +212,9 @@
     "results_count": {
       "one": "{{ count }} result for “{{ terms }}”",
       "other": "{{ count }} results for “{{ terms }}”"
-    }
+    },
+    "article": "Article",
+    "page": "Page"
   },
   "blog": {
     "byline": "By {{ author }} · {{ date }}"
@@ -217,7 +232,8 @@
   },
   "password": {
     "label": "Password",
-    "submit": "Enter"
+    "submit": "Enter",
+    "owner": "Store owner? Enter the password"
   },
   "gift_card": {
     "title": "Your {{ shop }} gift card",
@@ -295,6 +311,19 @@
     "featured_product": {
       "placeholder": "Your product",
       "choose": "Pick a product in this section's settings."
+    },
+    "article_header": {
+      "disclosure_warning": "Disclosure hidden: paid or affiliate content needs a clear \"Advertisement\" or \"Sponsored\" label."
+    },
+    "author_byline": {
+      "by": "By {{ name }}",
+      "read_time": {
+        "one": "{{ count }} min read",
+        "other": "{{ count }} min read"
+      }
+    },
+    "comparison_table": {
+      "label": "Comparison"
     }
   }
 }

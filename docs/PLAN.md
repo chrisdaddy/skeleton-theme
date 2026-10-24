@@ -22,6 +22,7 @@
 | 2. Product page | Done offline, pending store verification | See "Phase 2 delivered" below. Quick-add sheet moved to Phase 4 (it belongs with product cards) |
 | 3. Cart drawer | Done offline, pending store verification | See "Phase 3 delivered" below |
 | 4. Content sections | Done offline, pending store verification | See "Phase 4 delivered" below. Includes the quick add moved from Phase 2 |
+| 5. Templates and pre-landers | Done offline, pending store verification | See "Phase 5 delivered" below. Includes the collection page moved from Phase 4 |
 
 #### Phase 1 delivered
 
@@ -117,6 +118,41 @@
   - that `request.design_mode` hides the unset countdown;
   - that `product_recommendations_url` returns the section with `intent=complementary`.
 
+#### Phase 5 delivered
+
+- **Pre-lander sections** (all with presets, on `layout/landing.liquid`):
+  - `article-header` (eyebrow, headline, lede, an "Advertisement" disclosure that is on by default and warns in the editor when hidden), `author-byline` (read time from the page content when blank), `article-body` (text, heading, image, quote, product and button blocks, `@app`), `pull-quote`, `listicle` (a `[count]` token keeps the headline's number honest), `comparison-table` (2–4 columns, highlight, sticky first column on phones).
+  - `offer`: the real buy box (the product theme blocks, `@app`) for a picked product, starting on a chosen tier and plan, with a guarantee line. It is the sticky CTA's `#Offer` target.
+  - `sticky-cta`: shows after a scroll depth, hides while the offer is on screen, and is `inert` while hidden. Without JS it sits at the end of the page.
+- **Landing layout:** `noindex, follow` by default (theme setting), overridable by the page's `blueprint.robots` metafield; `blueprint.header` = `full` swaps in the store header. The cart drawer is included.
+- **URL contract (§9.3):** `snippets/cta-url.liquid` builds every CTA link: `variant` (the tier's variant), `selling_plan` (the tier's plan when the CTA is set to subscribe), `tier` and `plan`. `bp-core.js` adds `utm_*`, `fbclid`, `ttclid`, `gclid`, `msclkid`, `wbraid` and `gbraid` from the page's URL when a CTA is clicked, keeping the link's own parameters.
+- **Templates:** `tools/templates-from-demo.mjs` builds each listing's `index`, `product`, `page.advertorial`, `page.listicle`, `page.comparison` and `page.about` from the reference copy into `listings/{clinical,editorial,bold}/templates/`, and copies Clinical into `templates/`. A CTA links to the tier its words name ("Try the discovery set") and to the subscription when it promises a discount. `cart.json` and `404.json` add best sellers.
+- **Collection page:** `main-collection-banner` and `main-collection-grid` with filter pills (the first list filter), a GET filter form (checkboxes and price range), sort, active-filter chips, pagination, quick add and an empty state. `bp-facets.js` swaps results through the Section Rendering API with history support; without JS everything is links and a form. Search, blog, article, page, list-collections, 404 and password were rebuilt on the shared section settings.
+- **Fixes found by the checks:**
+  - Product settings now resolve to the full product object in the preview (as on Shopify), which exposed CTA links that always pointed at the base variant.
+  - The filter panel no longer opens itself on desktop after load (it shifted the page).
+  - Recommendations load from 1.5 screens away (`data-bp-load="near"`), so they arrive before the reader and don't push the footer.
+  - The comparison table's hidden yes/no labels caused sideways scrolling on phones.
+  - Listicle item titles sit one level below the list's heading.
+- **Checklist:** `npm run check:landing` (`tools/preview/landing-checklist.mjs`), 567 checks, all pass:
+  - every listing's pre-landers, about, contact, collection, home and product templates at 390 and 1440: no console errors, no sideways scrolling, every section renders, one h1, no axe violations, no layout shift on load and CLS under 0.1 while scrolling (the preview now preloads fonts as the theme does on Shopify);
+  - robots default and override, landing header and the `full` override;
+  - CTA deep links for tiers 1–3 × subscribe / one-time / default: the product page preselects the tier and plan with and without JS and posts that variant and selling plan;
+  - campaign parameters carried on click (others not);
+  - the offer starts on its tier and adds to cart (drawer with JS, cart page without);
+  - sticky CTA hidden at the top, shown mid-article, hidden over the offer;
+  - collection pills, chips, checkbox filters, price range, sort, back button and empty state, with and without JS.
+  - The buy-box (451), cart (280) and sections (135) checklists still pass.
+- **Screenshots:** `docs/screenshots/phase-5/` (`tools/preview/shoot-landing.mjs`).
+- **Plan changes:**
+  - A tier sold as another product's variant (Ode's discovery set) can't be a `?variant=`. Its CTA links carry only `tier` and `plan`; with JS the page opens on that tier, without JS on the default tier.
+  - No inline pre-paint script for JS-only `tier`: switching the checked tier doesn't change any heights, so there's nothing to shift.
+- **Still to verify on a store:**
+  - that `"layout": "landing"` page templates and the landing section groups render as in the preview;
+  - that `page.metafields.blueprint.robots` and `.header` read as expected once the definitions exist (Phase 6 seeding);
+  - that Shopify's `filter.url_to_add` / `url_to_remove` and `price_range` values match the mock, and that filters return the section through `?section_id=`;
+  - that `?variant=&selling_plan=` preselects the plan server-side.
+
 #### Phase 3 delivered
 
 - **One cart, two places:** `snippets/cart-contents.liquid` (and its `cart-*` snippets) renders the drawer (`sections/cart-drawer.liquid`) and the cart page (`sections/main-cart.liquid`).
@@ -162,7 +198,7 @@
 - **Not done:**
   - **Express checkout:** the buttons are behind a setting. Re-initialising them after a drawer swap needs a store to verify.
   - **Discount-mismatch warning:** the plan's editor-preview warning when thresholds don't match a discount isn't possible from Liquid, so it moves to the setup docs (Phase 8).
-  - **Pre-lander drawer:** pre-landers (`layout/landing.liquid`) don't include the drawer yet; Phase 5 decides with the offer section.
+  - **Pre-lander drawer:** done in Phase 5; `layout/landing.liquid` renders the drawer, so the offer section adds in place.
 - **Still to verify on a store:**
   - that `/cart/change` with a GET `id` (line key) and `quantity` redirects to the cart for any quantity, not only 0;
   - that `/cart/add.js` and `/cart/change.js` return `sections` with a static section ID;

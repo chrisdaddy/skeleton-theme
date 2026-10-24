@@ -43,6 +43,8 @@ export function simpleProduct(title, price, extra = {}) {
   product.variants = [variant];
   product.selected_or_first_available_variant = variant;
   product.price = price;
+  product.price_min = price;
+  product.price_max = price;
   product.price_varies = false;
   product.options_with_values = [];
   product.has_only_default_variant = true;
@@ -94,6 +96,8 @@ function buildProduct({ title, handle, options, priceFor, compareFor, packOption
 
   product.selected_or_first_available_variant = product.variants.find((v) => v.available) || product.variants[0];
   product.price = Math.min(...product.variants.map((v) => v.price));
+  product.price_min = product.price;
+  product.price_max = Math.max(...product.variants.map((v) => v.price));
   product.price_varies = new Set(product.variants.map((v) => v.price)).size > 1;
   product.options = options.map((o) => o.name);
   product.has_only_default_variant = false;

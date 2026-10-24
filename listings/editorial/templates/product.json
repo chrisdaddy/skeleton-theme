@@ -1,0 +1,244 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "rating": {
+          "type": "product-rating",
+          "settings": {}
+        },
+        "viewers": {
+          "type": "product-viewers",
+          "settings": {},
+          "disabled": true
+        },
+        "award": {
+          "type": "product-award",
+          "settings": {},
+          "disabled": true
+        },
+        "title": {
+          "type": "product-title",
+          "settings": {}
+        },
+        "price": {
+          "type": "product-price",
+          "settings": {}
+        },
+        "benefits": {
+          "type": "product-benefits",
+          "settings": {}
+        },
+        "stock": {
+          "type": "product-stock",
+          "settings": {},
+          "disabled": true
+        },
+        "variants": {
+          "type": "product-variant-picker",
+          "settings": {}
+        },
+        "bundle": {
+          "type": "product-offer-tiers",
+          "settings": {}
+        },
+        "plans": {
+          "type": "product-purchase-options",
+          "settings": {}
+        },
+        "shipping": {
+          "type": "product-shipping-countdown",
+          "settings": {},
+          "disabled": true
+        },
+        "buttons": {
+          "type": "product-buy-buttons",
+          "settings": {}
+        },
+        "proof": {
+          "type": "product-proof-line",
+          "settings": {}
+        },
+        "trust": {
+          "type": "product-trust-tiles",
+          "settings": {}
+        },
+        "payment": {
+          "type": "product-payment-icons",
+          "settings": {}
+        },
+        "guarantee": {
+          "type": "product-guarantee",
+          "settings": {}
+        },
+        "moneyback": {
+          "type": "product-moneyback",
+          "settings": {},
+          "disabled": true
+        },
+        "faq": {
+          "type": "product-faq",
+          "settings": {}
+        },
+        "sticky": {
+          "type": "product-sticky-atc",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rating",
+        "viewers",
+        "award",
+        "title",
+        "price",
+        "benefits",
+        "stock",
+        "variants",
+        "bundle",
+        "plans",
+        "shipping",
+        "buttons",
+        "proof",
+        "trust",
+        "payment",
+        "guarantee",
+        "moneyback",
+        "faq",
+        "sticky"
+      ],
+      "settings": {}
+    },
+    "features_1": {
+      "type": "features",
+      "settings": {
+        "heading": "The notes"
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "kicker": "Top · 0–20 min",
+            "title": "Fig leaf and pink pepper",
+            "text": "<p>Green and a little sharp, like a garden in June.</p>"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "kicker": "Heart · 1–4 h",
+            "title": "Iris pallida",
+            "text": "<p>Powdery, cool, expensive. The reason it exists.</p>"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "kicker": "Base · all day",
+            "title": "Skin musk and ambrette",
+            "text": "<p>Warm and close. Smells like you, on a good day.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ]
+    },
+    "imagetext_2": {
+      "type": "image-with-text",
+      "settings": {
+        "eyebrow": "Discovery set",
+        "heading": "Try all six. We credit the set toward your bottle.",
+        "text": "<p>Six 1.5 ml vials, enough for three wears each. Find the one, and the $28 comes off your 50 ml. Nearly everyone who tries the set buys a bottle; the rest keep the vials.</p>",
+        "button_label": "Order the discovery set",
+        "button_style": "link"
+      }
+    },
+    "reviews_3": {
+      "type": "reviews",
+      "settings": {
+        "heading": "In their words"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Lasts from my 8am train to dinner. On me it's mostly the musk and I'm not complaining.</p>",
+            "name": "Anaïs L.",
+            "verified": true
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Got the discovery set, bought No. 04 full size the same week.</p>",
+            "name": "Tom W.",
+            "verified": true
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Finally an iris that doesn't smell like my grandmother's compact.</p>",
+            "name": "Rosa P.",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ]
+    },
+    "faq_4": {
+      "type": "faq",
+      "settings": {
+        "heading": "Questions"
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "How long does it last?",
+            "answer": "<p>6 to 8 hours on skin, longer on fabric. It is an extrait-strength eau de parfum.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return an opened bottle?",
+            "answer": "<p>Yes, within 30 days. Scent is personal.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Is it unisex?",
+            "answer": "<p>Everything we make is. No. 04 skews soft; No. 03 skews smoky.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3"
+      ]
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "heading": "Pairs well with"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "features_1",
+    "imagetext_2",
+    "reviews_3",
+    "faq_4",
+    "related"
+  ]
+}

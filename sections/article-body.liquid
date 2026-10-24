@@ -1,0 +1,364 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+{{ 'section-landing.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section {% render 'section-attributes', section: section, name: 'article-body' %}>
+  <div class="bp-page-width bp-page-width--{{ s.width }} bp-article-body__inner{% if s.drop_cap %} bp-article-body--dropcap{% endif %}">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'heading' -%}
+          <h2 class="bp-h3" {{ block.shopify_attributes }}>{{ block.settings.text }}</h2>
+        {%- when 'text' -%}
+          <div class="bp-rte bp-article-body__text" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+        {%- when 'image' -%}
+          <figure class="bp-article-body__figure" {{ block.shopify_attributes }}>
+            <div class="bp-media bp-ratio-{{ block.settings.ratio }}">{%- render 'section-image', image: block.settings.image, sizes: '(min-width: 990px) 760px, 100vw', section: section, width: 1600 -%}</div>
+            {%- if block.settings.caption != blank -%}<figcaption class="bp-small bp-muted">{{ block.settings.caption | escape }}</figcaption>{%- endif -%}
+          </figure>
+        {%- when 'quote' -%}
+          <figure class="bp-pullquote bp-pullquote--inline" {{ block.shopify_attributes }}>
+            <blockquote class="bp-pullquote__quote">{{ block.settings.quote }}</blockquote>
+            {%- if block.settings.attribution != blank -%}<figcaption class="bp-pullquote__by">{{ block.settings.attribution | escape }}</figcaption>{%- endif -%}
+          </figure>
+        {%- when 'product' -%}
+          {%- assign item = block.settings.cta_product -%}
+          <div class="bp-article-product" {{ block.shopify_attributes }}>
+            <span class="bp-media bp-ratio-square bp-article-product__media">
+              {%- if item.featured_media -%}
+                {{ item.featured_media | image_url: width: 300 | image_tag: loading: 'lazy', class: 'bp-media__img', alt: '' }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'bp-media__img' }}
+              {%- endif -%}
+            </span>
+            <span class="bp-article-product__text">
+              <span class="bp-article-product__title">{{ item.title | default: block.settings.cta_label | escape }}</span>
+              {%- if item != blank -%}
+                {%- assign price = item.price | money -%}
+                <span class="bp-small bp-muted">{% if item.price_varies %}{{ 'products.price_from' | t: price: price }}{% else %}{{ price }}{% endif %}</span>
+              {%- endif -%}
+              {%- render 'cta-button', label: block.settings.cta_label, product: block.settings.cta_product, tier: block.settings.cta_tier, plan: block.settings.cta_plan, link: block.settings.cta_link, class: 'bp-button bp-button--small' -%}
+            </span>
+          </div>
+        {%- when 'button' -%}
+          <p class="bp-article-body__cta" {{ block.shopify_attributes }}>{%- render 'cta-button', label: block.settings.cta_label, product: block.settings.cta_product, tier: block.settings.cta_tier, plan: block.settings.cta_plan, link: block.settings.cta_link, class: 'bp-button' -%}</p>
+        {%- when '@app' -%}
+          {% render block %}
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.article_body.name",
+  "max_blocks": 40,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "drop_cap",
+      "label": "t:sections.article_body.settings.drop_cap.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.settings.layout_header"
+    },
+    {
+      "type": "select",
+      "id": "surface_style",
+      "label": "t:sections.common.settings.surface_style.label",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.common.settings.surface_style.options.default"
+        },
+        {
+          "value": "surface",
+          "label": "t:sections.common.settings.surface_style.options.surface"
+        },
+        {
+          "value": "accent",
+          "label": "t:sections.common.settings.surface_style.options.accent"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.common.settings.surface_style.options.inverse"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.common.settings.width.label",
+      "default": "narrow",
+      "options": [
+        {
+          "value": "page",
+          "label": "t:sections.common.settings.width.options.page"
+        },
+        {
+          "value": "narrow",
+          "label": "t:sections.common.settings.width.options.narrow"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.common.settings.width.options.full"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.settings.padding_top.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.settings.padding_bottom.label",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.common.settings.hide_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.common.settings.hide_desktop.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.settings.custom_class.label",
+      "info": "t:sections.common.settings.custom_class.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "t:sections.article_body.blocks.text.name",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.article_body.blocks.text.settings.text.label",
+          "default": "<p>Tell the story the way a friend would: what happened, what changed and what it cost.</p>"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "t:sections.article_body.blocks.heading.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "t:sections.article_body.blocks.heading.settings.text.label",
+          "default": "What happened next"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "t:sections.article_body.blocks.image.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.common.settings.image.label"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "t:sections.article_body.blocks.image.settings.caption.label"
+        },
+        {
+          "type": "select",
+          "id": "ratio",
+          "label": "t:sections.article_body.blocks.image.settings.ratio.label",
+          "default": "landscape",
+          "options": [
+            {
+              "value": "landscape",
+              "label": "t:sections.article_body.blocks.image.settings.ratio.options.landscape"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.article_body.blocks.image.settings.ratio.options.square"
+            },
+            {
+              "value": "wide",
+              "label": "t:sections.article_body.blocks.image.settings.ratio.options.wide"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quote",
+      "name": "t:sections.article_body.blocks.quote.name",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "t:sections.article_body.blocks.quote.settings.quote.label",
+          "default": "<p>The one line readers should remember.</p>"
+        },
+        {
+          "type": "text",
+          "id": "attribution",
+          "label": "t:sections.article_body.blocks.quote.settings.attribution.label"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "t:sections.article_body.blocks.product.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "t:sections.article_body.blocks.product.settings.cta_label.label",
+          "default": "Check availability"
+        },
+        {
+          "type": "product",
+          "id": "cta_product",
+          "label": "t:sections.article_body.blocks.product.settings.cta_product.label",
+          "info": "t:sections.article_body.blocks.product.settings.cta_product.info"
+        },
+        {
+          "type": "range",
+          "id": "cta_tier",
+          "label": "t:sections.article_body.blocks.product.settings.cta_tier.label",
+          "min": 0,
+          "max": 6,
+          "step": 1,
+          "default": 0,
+          "info": "t:sections.article_body.blocks.product.settings.cta_tier.info"
+        },
+        {
+          "type": "select",
+          "id": "cta_plan",
+          "label": "t:sections.article_body.blocks.product.settings.cta_plan.label",
+          "default": "default",
+          "options": [
+            {
+              "value": "default",
+              "label": "t:sections.article_body.blocks.product.settings.cta_plan.options.default"
+            },
+            {
+              "value": "once",
+              "label": "t:sections.article_body.blocks.product.settings.cta_plan.options.once"
+            },
+            {
+              "value": "sub",
+              "label": "t:sections.article_body.blocks.product.settings.cta_plan.options.sub"
+            }
+          ]
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "t:sections.article_body.blocks.product.settings.cta_link.label",
+          "info": "t:sections.article_body.blocks.product.settings.cta_link.info"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.article_body.blocks.button.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "t:sections.article_body.blocks.button.settings.cta_label.label",
+          "default": "Check availability"
+        },
+        {
+          "type": "product",
+          "id": "cta_product",
+          "label": "t:sections.article_body.blocks.button.settings.cta_product.label",
+          "info": "t:sections.article_body.blocks.button.settings.cta_product.info"
+        },
+        {
+          "type": "range",
+          "id": "cta_tier",
+          "label": "t:sections.article_body.blocks.button.settings.cta_tier.label",
+          "min": 0,
+          "max": 6,
+          "step": 1,
+          "default": 0,
+          "info": "t:sections.article_body.blocks.button.settings.cta_tier.info"
+        },
+        {
+          "type": "select",
+          "id": "cta_plan",
+          "label": "t:sections.article_body.blocks.button.settings.cta_plan.label",
+          "default": "default",
+          "options": [
+            {
+              "value": "default",
+              "label": "t:sections.article_body.blocks.button.settings.cta_plan.options.default"
+            },
+            {
+              "value": "once",
+              "label": "t:sections.article_body.blocks.button.settings.cta_plan.options.once"
+            },
+            {
+              "value": "sub",
+              "label": "t:sections.article_body.blocks.button.settings.cta_plan.options.sub"
+            }
+          ]
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "t:sections.article_body.blocks.button.settings.cta_link.label",
+          "info": "t:sections.article_body.blocks.button.settings.cta_link.info"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.article_body.presets.article_body.name",
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "quote"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

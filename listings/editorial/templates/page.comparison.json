@@ -1,0 +1,108 @@
+{
+  "layout": "landing",
+  "sections": {
+    "header": {
+      "type": "article-header",
+      "settings": {
+        "eyebrow": "Beauty · Partner",
+        "heading": "How ODE compares",
+        "lede": ""
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "heading": "In their words",
+        "layout": "grid",
+        "product": "ode-no-04"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Lasts from my 8am train to dinner. On me it's mostly the musk and I'm not complaining.</p>",
+            "name": "Anaïs L.",
+            "verified": true
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Got the discovery set, bought No. 04 full size the same week.</p>",
+            "name": "Tom W.",
+            "verified": true
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Finally an iris that doesn't smell like my grandmother's compact.</p>",
+            "name": "Rosa P.",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ]
+    },
+    "offer": {
+      "type": "offer",
+      "settings": {
+        "product": "ode-no-04",
+        "default_tier": 1,
+        "heading": "Try it risk-free",
+        "guarantee": "Free returns, 30 days"
+      },
+      "blocks": {
+        "rating_1": {
+          "type": "product-rating",
+          "settings": {}
+        },
+        "title_2": {
+          "type": "product-title",
+          "settings": {}
+        },
+        "offer-tiers_3": {
+          "type": "product-offer-tiers",
+          "settings": {}
+        },
+        "purchase-options_4": {
+          "type": "product-purchase-options",
+          "settings": {}
+        },
+        "buy-buttons_5": {
+          "type": "product-buy-buttons",
+          "settings": {}
+        },
+        "trust-tiles_6": {
+          "type": "product-trust-tiles",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rating_1",
+        "title_2",
+        "offer-tiers_3",
+        "purchase-options_4",
+        "buy-buttons_5",
+        "trust-tiles_6"
+      ]
+    },
+    "sticky": {
+      "type": "sticky-cta",
+      "settings": {
+        "target": "offer",
+        "cta_label": "Try the discovery set"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "reviews",
+    "offer",
+    "sticky"
+  ]
+}

@@ -74,6 +74,10 @@
       assign preselected_index = forloop.index
     endif
   endfor
+  # A section can choose the starting tier (the offer section on pre-landers).
+  if checked_index == 0 and section.settings.default_tier > 0
+    assign checked_index = section.settings.default_tier | at_most: tiers.size
+  endif
   if checked_index == 0
     assign checked_index = preselected_index | at_least: 1
   endif

@@ -1,0 +1,473 @@
+{
+  "sections": {
+    "hero_1": {
+      "type": "hero",
+      "settings": {
+        "layout": "split",
+        "eyebrow": "Grass-fed · Informed Sport certified",
+        "heading": "Protein for people who read the label.",
+        "subheading": "28 g per scoop, 1 g sugar, zero artificial sweeteners. Third-party tested, every single batch.",
+        "product": "rawform-whey",
+        "show_rating": true,
+        "note": ""
+      },
+      "blocks": {
+        "button_1": {
+          "type": "button",
+          "settings": {
+            "label": "Shop Whey Isolate",
+            "show_price": true
+          }
+        }
+      },
+      "block_order": [
+        "button_1"
+      ]
+    },
+    "press_2": {
+      "type": "press",
+      "settings": {
+        "heading": "As seen in"
+      },
+      "blocks": {
+        "logo_1": {
+          "type": "logo",
+          "settings": {
+            "name": "Men's Health"
+          }
+        },
+        "logo_2": {
+          "type": "logo",
+          "settings": {
+            "name": "GQ"
+          }
+        },
+        "logo_3": {
+          "type": "logo",
+          "settings": {
+            "name": "BarBend"
+          }
+        },
+        "logo_4": {
+          "type": "logo",
+          "settings": {
+            "name": "Muscle & Fitness"
+          }
+        },
+        "logo_5": {
+          "type": "logo",
+          "settings": {
+            "name": "Runner's World"
+          }
+        }
+      },
+      "block_order": [
+        "logo_1",
+        "logo_2",
+        "logo_3",
+        "logo_4",
+        "logo_5"
+      ]
+    },
+    "stats_3": {
+      "type": "stats",
+      "settings": {
+        "columns": 4
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "28 g",
+            "label": "protein per scoop"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "1 g",
+            "label": "sugar"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "0",
+            "label": "artificial sweeteners"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "of batches third-party tested"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ]
+    },
+    "ingredients_4": {
+      "type": "ingredients",
+      "settings": {
+        "heading": "Per scoop",
+        "subheading": "32 g scoop · Chocolate. Full panel on every tub.",
+        "footer_label": "Download the batch COA",
+        "footer_link": "#",
+        "use_metafield": false
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "name": "Protein",
+            "dose": "28 g",
+            "why": "Grass-fed whey isolate, cold-filtered"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "name": "Sugar",
+            "dose": "1 g",
+            "why": "From cocoa. No sucralose, no ace-K"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "name": "Carbohydrates",
+            "dose": "3 g",
+            "why": "Net 2 g"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "name": "Leucine",
+            "dose": "3.1 g",
+            "why": "The amino that triggers synthesis"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "name": "Digestive enzymes",
+            "dose": "100 mg",
+            "why": "ProHydrolase, no bloat"
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "name": "Artificial anything",
+            "dose": "0 mg",
+            "why": "Monk fruit and sea salt, that is it"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6"
+      ]
+    },
+    "usvsthem_5": {
+      "type": "usvsthem",
+      "settings": {
+        "heading": "Rawform vs. big-box whey",
+        "us_label": "Rawform",
+        "them_label": "Big-box whey",
+        "use_metafield": false
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "feature": "Grass-fed isolate, cold-filtered",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "feature": "Informed Sport certified",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "feature": "No artificial sweeteners",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "feature": "COA published per batch",
+            "us": "yes",
+            "them": "no"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "feature": "Amino spiking",
+            "us": "no",
+            "them": "yes"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5"
+      ]
+    },
+    "badges_6": {
+      "type": "badges",
+      "settings": {
+        "use_metafield": false
+      },
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "text": "Informed Sport",
+            "icon": "check"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "text": "Grass-fed",
+            "icon": "check"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "text": "Non-GMO",
+            "icon": "check"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "text": "Gluten-free",
+            "icon": "check"
+          }
+        },
+        "badge_5": {
+          "type": "badge",
+          "settings": {
+            "text": "Made in the USA",
+            "icon": "check"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4",
+        "badge_5"
+      ]
+    },
+    "videos_7": {
+      "type": "videos",
+      "settings": {
+        "heading": "Athletes who read labels"
+      },
+      "blocks": {
+        "video_1": {
+          "type": "video",
+          "settings": {
+            "quote": "I get drug-tested. Informed Sport or it does not go in my bag.",
+            "name": "Jade Okafor · 400 m hurdles"
+          }
+        },
+        "video_2": {
+          "type": "video",
+          "settings": {
+            "quote": "Switched from a tub that gave me bloat for a decade. Gone in a week.",
+            "name": "Tom Reyes · Powerlifter"
+          }
+        },
+        "video_3": {
+          "type": "video",
+          "settings": {
+            "quote": "28 g, 1 g sugar, tastes like a milkshake. I stopped looking.",
+            "name": "Sam Lee · CrossFit coach"
+          }
+        }
+      },
+      "block_order": [
+        "video_1",
+        "video_2",
+        "video_3"
+      ]
+    },
+    "bundle_8": {
+      "type": "bundle-builder",
+      "settings": {
+        "heading": "Build your stack",
+        "subheading": "Pick three or more. Save 15% and ship free.",
+        "min_items": 3,
+        "discount_percent": 15,
+        "note": "Free shipping · free shaker over $100",
+        "button_label": "Add stack"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "product": "whey-isolate",
+            "preselected": true
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "product": "creatine-monohydrate",
+            "preselected": true
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "product": "pre-workout",
+            "preselected": true
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "product": "electrolytes",
+            "preselected": false
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "product": "collagen-peptides",
+            "preselected": false
+          }
+        },
+        "item_6": {
+          "type": "item",
+          "settings": {
+            "product": "shaker",
+            "preselected": false
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5",
+        "item_6"
+      ]
+    },
+    "reviews_9": {
+      "type": "reviews",
+      "settings": {
+        "heading": "15,882 reviews",
+        "product": "rawform-whey"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Zero bloat for the first time in ten years of whey. That alone.</p>",
+            "name": "Tom R.",
+            "verified": true
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>Chocolate tastes like a milkshake, not a chemistry set.</p>",
+            "name": "Priya N.",
+            "verified": true
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "quote": "<p>The COA is on the tub. That is why I switched my whole team.</p>",
+            "name": "Coach Sam L.",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ]
+    },
+    "faq_10": {
+      "type": "faq",
+      "settings": {
+        "heading": "Questions",
+        "use_metafield": false
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "Why isolate over concentrate?",
+            "answer": "<p>Higher protein per gram, almost no lactose, cold-filtered to keep the fractions intact.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "Is it third-party tested?",
+            "answer": "<p>Informed Sport, every batch. The certificate number is printed on the tub.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Which flavour?",
+            "answer": "<p>Chocolate outsells everything. Unflavoured if you blend it into oats or coffee.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3"
+      ]
+    }
+  },
+  "order": [
+    "hero_1",
+    "press_2",
+    "stats_3",
+    "ingredients_4",
+    "usvsthem_5",
+    "badges_6",
+    "videos_7",
+    "bundle_8",
+    "reviews_9",
+    "faq_10"
+  ]
+}

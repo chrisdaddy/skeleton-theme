@@ -1,0 +1,106 @@
+{
+  "layout": "landing",
+  "sections": {
+    "header": {
+      "type": "article-header",
+      "settings": {
+        "eyebrow": "Beauty · Partner",
+        "heading": "",
+        "lede": "",
+        "show_disclosure": true,
+        "padding_bottom": 0
+      }
+    },
+    "list": {
+      "type": "listicle",
+      "settings": {
+        "heading": "[count] reasons No. 04 sold out twice this spring",
+        "heading_tag": "h1"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "title": "It wears like an extrait",
+            "text": "<p>Concentration most houses save for the $400 bottle, at $120.</p>"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "title": "The iris is real",
+            "text": "<p>Orris butter from Tuscany, not the synthetic that smells like lipstick.</p>"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "title": "It changes on skin",
+            "text": "<p>Fig leaf in the first hour, a warm musk by lunch.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3"
+      ]
+    },
+    "offer": {
+      "type": "offer",
+      "settings": {
+        "product": "ode-no-04",
+        "default_tier": 1,
+        "heading": "Try it risk-free",
+        "guarantee": "Free returns, 30 days"
+      },
+      "blocks": {
+        "rating_1": {
+          "type": "product-rating",
+          "settings": {}
+        },
+        "title_2": {
+          "type": "product-title",
+          "settings": {}
+        },
+        "offer-tiers_3": {
+          "type": "product-offer-tiers",
+          "settings": {}
+        },
+        "purchase-options_4": {
+          "type": "product-purchase-options",
+          "settings": {}
+        },
+        "buy-buttons_5": {
+          "type": "product-buy-buttons",
+          "settings": {}
+        },
+        "trust-tiles_6": {
+          "type": "product-trust-tiles",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rating_1",
+        "title_2",
+        "offer-tiers_3",
+        "purchase-options_4",
+        "buy-buttons_5",
+        "trust-tiles_6"
+      ]
+    },
+    "sticky": {
+      "type": "sticky-cta",
+      "settings": {
+        "target": "offer",
+        "cta_label": "Order the discovery set"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "list",
+    "offer",
+    "sticky"
+  ]
+}

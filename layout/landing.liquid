@@ -24,10 +24,16 @@
   </head>
   <body class="bp-landing">
     <a class="bp-skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
-    {% sections 'landing-header-group' %}
+    {%- comment -%} A page's blueprint.header metafield can ask for the store's full header. {%- endcomment -%}
+    {%- if page.metafields.blueprint.header.value == 'full' -%}
+      {% sections 'header-group' %}
+    {%- else -%}
+      {% sections 'landing-header-group' %}
+    {%- endif -%}
     <main id="MainContent" class="bp-main" tabindex="-1" data-template="{{ template.name }}">
       {{ content_for_layout }}
     </main>
     {% sections 'landing-footer-group' %}
+    {% section 'cart-drawer' %}
   </body>
 </html>

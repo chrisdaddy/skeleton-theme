@@ -1,0 +1,123 @@
+{
+  "layout": "landing",
+  "sections": {
+    "header": {
+      "type": "article-header",
+      "settings": {
+        "eyebrow": "Fitness · Sponsored",
+        "heading": "A powerlifter sent 12 protein powders to a lab. Only 3 matched their label.",
+        "lede": "I have taken whey for twelve years and I had never read a certificate of analysis. Then a lifter at my gym failed a drug test off a clean-labelled pre-workout."
+      }
+    },
+    "byline": {
+      "type": "author-byline",
+      "settings": {
+        "author": "Tom Reyes",
+        "read_time": 5
+      }
+    },
+    "body": {
+      "type": "article-body",
+      "settings": {},
+      "blocks": {
+        "text_1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Tell the story in your customer's words: what they tried before, what changed and when.</p>"
+          }
+        },
+        "heading_2": {
+          "type": "heading",
+          "settings": {
+            "text": "What happened next"
+          }
+        },
+        "text_3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Keep every claim specific and true. Link the study, show the label, say what it costs.</p>"
+          }
+        },
+        "quote_4": {
+          "type": "quote",
+          "settings": {
+            "quote": "<p>Nine of twelve under-delivered on protein. One was spiked with cheap aminos. Rawform matched to the gram.</p>"
+          }
+        },
+        "product_5": {
+          "type": "product",
+          "settings": {
+            "cta_label": "See the lab results",
+            "cta_product": "rawform-whey",
+            "cta_tier": 2,
+            "cta_plan": "default"
+          }
+        }
+      },
+      "block_order": [
+        "text_1",
+        "heading_2",
+        "text_3",
+        "quote_4",
+        "product_5"
+      ]
+    },
+    "offer": {
+      "type": "offer",
+      "settings": {
+        "product": "rawform-whey",
+        "default_tier": 2,
+        "heading": "Try it risk-free",
+        "guarantee": "60-day guarantee"
+      },
+      "blocks": {
+        "rating_1": {
+          "type": "product-rating",
+          "settings": {}
+        },
+        "title_2": {
+          "type": "product-title",
+          "settings": {}
+        },
+        "offer-tiers_3": {
+          "type": "product-offer-tiers",
+          "settings": {}
+        },
+        "purchase-options_4": {
+          "type": "product-purchase-options",
+          "settings": {}
+        },
+        "buy-buttons_5": {
+          "type": "product-buy-buttons",
+          "settings": {}
+        },
+        "trust-tiles_6": {
+          "type": "product-trust-tiles",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rating_1",
+        "title_2",
+        "offer-tiers_3",
+        "purchase-options_4",
+        "buy-buttons_5",
+        "trust-tiles_6"
+      ]
+    },
+    "sticky": {
+      "type": "sticky-cta",
+      "settings": {
+        "target": "offer",
+        "cta_label": "See the lab results"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "byline",
+    "body",
+    "offer",
+    "sticky"
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "layout": "landing",
+  "sections": {
+    "header": {
+      "type": "article-header",
+      "settings": {
+        "eyebrow": "Fitness · Sponsored",
+        "heading": "",
+        "lede": "",
+        "show_disclosure": true,
+        "padding_bottom": 0
+      }
+    },
+    "list": {
+      "type": "listicle",
+      "settings": {
+        "heading": "[count] things to check before you buy any protein",
+        "heading_tag": "h1"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "title": "Protein per scoop, not per serving",
+            "text": "<p>Some labels count two scoops. Ours is 28 g in one.</p>"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "title": "Third-party certification",
+            "text": "<p>Informed Sport tests the batch you are holding, not a sample from last year.</p>"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "title": "The sweetener",
+            "text": "<p>Sucralose and ace-K are cheap. Monk fruit is not. Check which one you are drinking.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3"
+      ]
+    },
+    "offer": {
+      "type": "offer",
+      "settings": {
+        "product": "rawform-whey",
+        "default_tier": 2,
+        "heading": "Try it risk-free",
+        "guarantee": "60-day guarantee"
+      },
+      "blocks": {
+        "rating_1": {
+          "type": "product-rating",
+          "settings": {}
+        },
+        "title_2": {
+          "type": "product-title",
+          "settings": {}
+        },
+        "offer-tiers_3": {
+          "type": "product-offer-tiers",
+          "settings": {}
+        },
+        "purchase-options_4": {
+          "type": "product-purchase-options",
+          "settings": {}
+        },
+        "buy-buttons_5": {
+          "type": "product-buy-buttons",
+          "settings": {}
+        },
+        "trust-tiles_6": {
+          "type": "product-trust-tiles",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rating_1",
+        "title_2",
+        "offer-tiers_3",
+        "purchase-options_4",
+        "buy-buttons_5",
+        "trust-tiles_6"
+      ]
+    },
+    "sticky": {
+      "type": "sticky-cta",
+      "settings": {
+        "target": "offer",
+        "cta_label": "Compare Rawform"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "list",
+    "offer",
+    "sticky"
+  ]
+}
