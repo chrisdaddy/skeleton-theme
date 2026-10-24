@@ -24,6 +24,7 @@
 | 4. Content sections | Done offline, pending store verification | See "Phase 4 delivered" below. Includes the quick add moved from Phase 2 |
 | 5. Templates and pre-landers | Done offline, pending store verification | See "Phase 5 delivered" below. Includes the collection page moved from Phase 4 |
 | 6. Demo stores | Built and verified offline; seeding waits on store credentials | See "Phase 6 delivered" below. One Dev Dashboard app's credentials, plus Theme Access passwords, in the environment settings |
+| 7. AI kit | Built and tested offline (in-memory store); store end-to-end waits on credentials | See "Phase 7 delivered" below. The `write_themes` launch blocker is still to verify on a real store |
 
 #### Phase 1 delivered
 
@@ -118,6 +119,45 @@
   - that `/cart/add` accepts `items[n][id]` form posts;
   - that `request.design_mode` hides the unset countdown;
   - that `product_recommendations_url` returns the section with `intent=complementary`.
+
+#### Phase 7 delivered
+
+- **Package** `mcp/` (`@blueprint/mcp` 0.1.0):
+  - TypeScript compiled to `dist/`, stdio transport, MCP SDK 1.32.1.
+  - Runs with `npx -y @blueprint/mcp`, or as a Claude Desktop bundle: `npm run pack:mcpb`. The manifest passes `mcpb validate`, and the unpacked bundle was run.
+  - Auth: the client credentials grant with a Dev Dashboard app, with tokens refreshed before their 24 hours run out, or an `shpat_` token.
+- **Tools:** all 17 from §12, with read tools marked `readOnlyHint`. Output is capped at 50k characters; long reads page with `offset`.
+  - **Plan, then apply.** Every draft write is two calls. Without `change_token` the tool returns the diff and a token. The same call with the token applies the change.
+  - **`diff_draft`** shows the pending plan with its token, or the draft against the live theme.
+- **Rails** (`src/rails.ts`, `src/operations.ts`):
+  - **Draft check before every write:** the theme must be in the draft registry, and its role is re-read (UNPUBLISHED or DEVELOPMENT, not processing). Tested: a draft the merchant has published is refused.
+  - **File allowlist:** `templates/*.json`, `sections/*-group.json`, `config/settings_data.json`.
+  - **Schema validation:** against a generated index of every section, theme block and setting (`src/generated/theme-index.json`, from `npm run sync`). All 39 templates, groups and settings files Blueprint ships pass it, and the negative cases fail.
+  - **Optimistic concurrency** on `checksumMd5`.
+  - **Allow-listed operations:** the server sends only the documents in `src/operations.ts`. A test fails the build if `themePublish` or `themeDelete` appears in `src/` or `dist/`. Every operation validates against the 2026-07 Admin schema.
+  - **Live-store writes:** `create_page_from_template` makes unpublished pages only and never touches existing ones. `setup_metafields` only adds what's missing. Both need `confirm: true`.
+- **Reviews:**
+  - Sources in order: Judge.me, Okendo, Yotpo, Stamped, then CSV (Loox and other exports).
+  - Text is stripped of markup, control and bidi characters, and returned as data with a note. Names become first name and initial; "verified" only when the app says so.
+  - **Honesty rule in code:** the drafting tools reject any quote that isn't a verbatim excerpt of a fetched review (whitespace, case and curly quotes aside). Advertorials keep their disclosure on, and listicle headlines use `[count]`.
+- **Prompts:** the 22 from §12 in `prompts/*.md`, with front-matter. They're served as MCP prompts with arguments, and work as plain text elsewhere.
+- **Tests** (`cd mcp && npm test`, also a new CI job), 22 in all:
+  - Rails: refusing the live theme, published drafts, non-draft themes, non-allowlisted files, invalid content, stale tokens and concurrent edits.
+  - End to end: a real MCP client and the server over the in-memory transport, against an in-memory store whose live theme is this repository's theme files. This is the Phase 7 acceptance flow, offline: create a draft → read reviews → a fabricated quote is refused → a listicle from real quotes is planned, applied, and validates → the live theme is unchanged and writing to it is refused → diff and revert work.
+  - Review providers, using canned responses in each API's documented shape.
+  - Prompt parsing.
+- **Docs:**
+  - `docs/ai-kit.md`: app scopes, Claude Desktop, Claude Code and Cursor setup, review keys, what the kit will and won't do, troubleshooting.
+  - `mcp/README.md`.
+  - ChatGPT is documented as "not in v1"; the v1.1 remote template is not built.
+- **Changes from the plan:**
+  - **Scopes:** `read_metaobject_definitions` is added, and `setup_metafields` needs `write_metaobject_definitions` and `write_products`.
+  - **Tier field:** the definition field is `discount_label` (what the Liquid reads), as in Phase 6.
+- **Still to verify on a real store:**
+  - **The launch blocker:** do `themeDuplicate` and `themeFilesUpsert` work from a merchant's Dev Dashboard app without a `write_themes` exemption? If not, the fallback is the Theme Access password plus Shopify CLI, which isn't built.
+  - The review apps' live response fields; the mappings follow their documented shapes.
+  - The acceptance run on a store with real reviews.
+  - The `.mcpb` publisher signing, and publishing the npm package (the `@blueprint` scope has to be ours).
 
 #### Phase 6 delivered
 

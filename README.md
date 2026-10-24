@@ -36,6 +36,14 @@ npm run check:landing                              # pre-landers, URL contract, 
 
 The checklists run from the repository root once `tools/preview` has its dependencies.
 
+### AI kit
+
+`mcp/` is the Blueprint AI kit: an MCP server that edits draft copies of the theme (never the live one) and serves the 22 prompts in `prompts/`. Setup for merchants is in [`docs/ai-kit.md`](docs/ai-kit.md).
+
+```sh
+cd mcp && npm install && npm test                  # rails, end-to-end and review tests
+```
+
 ### Demo stores
 
 Verde, Ode and Rawform are seeded from the reference copy through the Admin API. Setup (one Dev Dashboard app, environment variables) and the manual steps are in [`docs/demo-stores.md`](docs/demo-stores.md).

@@ -25,3 +25,6 @@ tools/preview/out/
 
 # Demo tools: cached Admin schema
 tools/demo/.cache/
+mcp/dist/
+mcp/*.mcpb
+mcp/prompts/
