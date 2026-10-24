@@ -4,6 +4,9 @@
 //
 //   node tools/contrast-check.mjs          check config/settings_data.json (current + every preset)
 //   node tools/contrast-check.mjs --demo   report on the reference presets in data/demo-content.json, as given
+//
+// The demo stores' theme settings (tools/demo/stores/*.json, applied over their preset) are
+// checked too: they must pass like any merchant's settings.
 import { readFileSync } from 'node:fs';
 import { contrast, overlay } from './lib/color.mjs';
 import { deriveMode, failures } from './lib/tokens.mjs';
@@ -39,6 +42,24 @@ export function settingsSets() {
   return sets;
 }
 
+// The demo stores' settings (tools/demo/stores/*.json) over their preset, as the seeded theme has them.
+export function demoStoreSets() {
+  const defaults = schemaDefaults(readJson('config/settings_schema.json'));
+  const data = readJson('config/settings_data.json');
+  const sets = [];
+  for (const id of readJson('data/demo-content.json').storeOrder) {
+    let store;
+    try {
+      store = readJson(`tools/demo/stores/${id}.json`);
+    } catch {
+      continue;
+    }
+    const own = Object.fromEntries(Object.entries(store.theme.settings).filter(([, v]) => v !== null));
+    sets.push([`demo store ${id}`, { ...defaults, ...data.presets[store.theme.preset], ...own }]);
+  }
+  return sets;
+}
+
 // The reference demo's presets as given, including its opacity-faded text, for the plan's audit.
 const DEMO_PAIRS = [
   ['text on background', 'ink', 'bg', 4.5],
@@ -62,13 +83,14 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const found = Object.entries(readJson('data/demo-content.json').presets).flatMap(([n, p]) => demoFailures(n, p));
     console.log(found.join('\n') + `\n\n${found.length} contrast failure(s) in the reference presets as given (report only).`);
   } else {
-    const found = settingsSets().flatMap(([name, settings]) =>
+    const sets = [...settingsSets(), ...demoStoreSets()];
+    const found = sets.flatMap(([name, settings]) =>
       Object.entries(themeTokens(settings)).flatMap(([mode, tokens]) => failures(`${name} (${mode})`, tokens)),
     );
     if (found.length) {
       console.error(found.join('\n') + `\n\n${found.length} contrast failure(s).`);
       process.exit(1);
     }
-    console.log(`Contrast check passed: ${settingsSets().length} setting sets × 2 modes.`);
+    console.log(`Contrast check passed: ${sets.length} setting sets × 2 modes (presets and demo stores).`);
   }
 }

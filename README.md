@@ -36,6 +36,17 @@ npm run check:landing                              # pre-landers, URL contract, 
 
 The checklists run from the repository root once `tools/preview` has its dependencies.
 
+### Demo stores
+
+Verde, Ode and Rawform are seeded from the reference copy through the Admin API. Setup (one Dev Dashboard app, environment variables) and the manual steps are in [`docs/demo-stores.md`](docs/demo-stores.md).
+
+```sh
+npm run seed -- verde --dry-run                    # what a first seed would create (no network)
+npm run seed -- verde                              # seed the store (idempotent)
+node tools/demo/theme.mjs verde --push             # push the demo theme, unpublished
+node tools/demo/compare.mjs verde ode rawform      # reference vs Blueprint, side by side at 390 and 1440
+```
+
 Read [`AGENTS.md`](AGENTS.md) before changing code. It lists the conventions every change must follow.
 
 ## Repository layout

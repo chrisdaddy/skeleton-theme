@@ -13,21 +13,33 @@
 // in the editor or seeded in Phase 6), and products named in the copy become handles that
 // demo seeding creates. Prices are never copied into text.
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { handleize, heroHandle, productHandle } from './demo/catalog.mjs';
 import { demoTemplate } from './preview/demo-sections.mjs';
 
 const root = new URL('../', import.meta.url);
 const demo = JSON.parse(readFileSync(new URL('data/demo-content.json', root), 'utf8'));
 const LISTINGS = { clinical: 'verde', editorial: 'ode', bold: 'rawform' };
-const HERO_PRODUCT = { verde: 'verde-daily', ode: 'ode-no-04', rawform: 'rawform-whey' };
-const handleize = (text) => String(text).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 const ARROW = /\s*→\s*$/;
+let HERO_PRODUCT = {};
 
-// Replace preview-only values with what a store template can hold.
+// The uploaded placeholder for a photo description (tools/demo/images.mjs names the files).
+export const photoFilename = (storeId, description) => `bp-${storeId}-photo-${handleize(description).slice(0, 60)}.png`;
+
+// Replace preview-only values with what a store template can hold. Photos are dropped for
+// the listing templates, or point at the demo store's uploaded placeholders.
+let images = 'strip';
+let currentStore = null;
+export const photos = new Set();
 function storeReady(value) {
   if (Array.isArray(value)) return value.map(storeReady);
   if (value && typeof value === 'object') {
-    if (value.mock_image) return undefined;
-    if (value.mock_product) return handleize(value.mock_product.title);
+    if (value.mock_image) {
+      if (images === 'strip') return undefined;
+      photos.add(value.mock_image);
+      return `shopify://shop_images/${photoFilename(currentStore.id, value.mock_image)}`;
+    }
+    if (value.mock_product) return productHandle(currentStore, value.mock_product.title);
     if (value.mock_collection) return 'best-sellers';
     const out = {};
     for (const [k, v] of Object.entries(value)) {
@@ -102,16 +114,24 @@ function advertorialTemplate(store) {
   const adv = store.adv;
   const [, author = '', minutes = ''] = /^By (.+?) · (\d+) min/.exec(adv.by) || [];
   const comments = [...store.home, ...store.pdp].find((s) => s.type === 'comments');
+  // The reference's order: headline and byline, lead image, the lede, the pull quote, a closing
+  // paragraph, then the call to action. The listing templates close with guidance for the
+  // merchant; the demo stores close with the reference's line, naming the store's own guarantee.
+  const guarantee = store.product.trust.find((t) => /guarantee|returns/i.test(t));
+  const closing =
+    images === 'shop' && guarantee
+      ? `<p>I am not paid to say this, and I was ready to write the opposite. The ${guarantee.toLowerCase()} is the only reason I tried it. The results are the only reason I kept it.</p>`
+      : '<p>Keep every claim specific and true: what they tried before, what changed and when. Link the study, show the label, say what it costs.</p>';
   const pairs = [
-    ['header', section('article-header', { eyebrow: adv.eyebrow, heading: adv.h, lede: adv.lede })],
+    ['header', section('article-header', { eyebrow: adv.eyebrow, heading: adv.h, lede: '' })],
     ['byline', section('author-byline', { author, read_time: Number(minutes) || undefined })],
     [
       'body',
       section('article-body', {}, [
-        ['text', { text: '<p>Tell the story in your customer\'s words: what they tried before, what changed and when.</p>' }],
-        ['heading', { text: 'What happened next' }],
-        ['text', { text: '<p>Keep every claim specific and true. Link the study, show the label, say what it costs.</p>' }],
+        ['image', { image: storeReady({ mock_image: 'Advertorial lead image' }), ratio: 'landscape' }],
+        ['text', { text: `<p>${adv.lede}</p>` }],
         ['quote', { quote: `<p>${adv.pull}</p>` }],
+        ['text', { text: closing }],
         ['product', { cta_label: adv.cta.replace(ARROW, ''), cta_product: HERO_PRODUCT[store.id], cta_tier: ctaChoice(store, adv.cta).tier, cta_plan: ctaChoice(store, adv.cta).plan }],
       ]),
     ],
@@ -168,7 +188,7 @@ const write = (path, data) => {
   writeFileSync(new URL(path, root), `${JSON.stringify(data, null, 2)}\n`);
 };
 
-const builders = {
+export const builders = {
   index: indexTemplate,
   product: productTemplate,
   'page.advertorial': advertorialTemplate,
@@ -177,12 +197,24 @@ const builders = {
   'page.about': aboutTemplate,
 };
 
-for (const [listing, storeId] of Object.entries(LISTINGS)) {
+// Every template for one demo store. images: 'strip' (listing templates) or 'shop' (the demo
+// store's own copy, with section photos pointing at its uploaded placeholders).
+export function buildTemplates(storeId, options = {}) {
   const store = demo.stores[storeId];
-  for (const [name, build] of Object.entries(builders)) {
-    const data = JSON.parse(JSON.stringify(build(store), (k, v) => (v === undefined ? undefined : v)));
-    write(`listings/${listing}/templates/${name}.json`, data);
-    if (listing === 'clinical') write(`templates/${name}.json`, data);
+  images = options.images ?? 'strip';
+  currentStore = store;
+  HERO_PRODUCT = { [storeId]: heroHandle(store) };
+  const out = {};
+  for (const [name, build] of Object.entries(builders)) out[name] = JSON.parse(JSON.stringify(build(store)));
+  return out;
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  for (const [listing, storeId] of Object.entries(LISTINGS)) {
+    for (const [name, data] of Object.entries(buildTemplates(storeId))) {
+      write(`listings/${listing}/templates/${name}.json`, data);
+      if (listing === 'clinical') write(`templates/${name}.json`, data);
+    }
+    console.log(`listings/${listing}: ${Object.keys(builders).join(', ')}`);
   }
-  console.log(`listings/${listing}: ${Object.keys(builders).join(', ')}`);
 }

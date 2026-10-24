@@ -1,0 +1,831 @@
+{
+  "id": "dreamr",
+  "brand": "DREAMR",
+  "preset": "Bold",
+  "listing": "bold",
+  "required": false,
+  "mode": "pack",
+  "notice": "Demo store: sample products, prices and reviews",
+  "files": [
+    {
+      "key": "hero",
+      "filename": "bp-dreamr-hero.png",
+      "label": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling",
+      "alt": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling"
+    },
+    {
+      "key": "hero-2",
+      "filename": "bp-dreamr-hero-2.png",
+      "label": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling · view 2",
+      "alt": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling · view 2"
+    },
+    {
+      "key": "hero-3",
+      "filename": "bp-dreamr-hero-3.png",
+      "label": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling · view 3",
+      "alt": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling · view 3"
+    },
+    {
+      "key": "hero-4",
+      "filename": "bp-dreamr-hero-4.png",
+      "label": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling · view 4",
+      "alt": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling · view 4"
+    },
+    {
+      "key": "hero-5",
+      "filename": "bp-dreamr-hero-5.png",
+      "label": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling · view 5",
+      "alt": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling · view 5"
+    },
+    {
+      "key": "silk-sleep-mask",
+      "filename": "bp-dreamr-silk-sleep-mask.png",
+      "label": "Silk sleep mask",
+      "alt": "Silk sleep mask"
+    },
+    {
+      "key": "calm-gummies",
+      "filename": "bp-dreamr-calm-gummies.png",
+      "label": "Calm Gummies",
+      "alt": "Calm Gummies"
+    },
+    {
+      "key": "focus-gummies",
+      "filename": "bp-dreamr-focus-gummies.png",
+      "label": "Focus Gummies",
+      "alt": "Focus Gummies"
+    },
+    {
+      "key": "night-stack",
+      "filename": "bp-dreamr-night-stack.png",
+      "label": "Night Stack",
+      "alt": "Night Stack"
+    },
+    {
+      "key": "magnesium-spray",
+      "filename": "bp-dreamr-magnesium-spray.png",
+      "label": "Magnesium spray",
+      "alt": "Magnesium spray"
+    },
+    {
+      "key": "bp-dreamr-photo-home-hero-person-in-bed-violet-jar-on-nightstand-flash-photo",
+      "filename": "bp-dreamr-photo-home-hero-person-in-bed-violet-jar-on-nightstand-flash-photo.png",
+      "label": "Home hero: person in bed, violet jar on nightstand, flash photography",
+      "alt": ""
+    },
+    {
+      "key": "bp-dreamr-photo-ugc-vertical-video-still-phone-shot-violet-jar-in-frame-slee",
+      "filename": "bp-dreamr-photo-ugc-vertical-video-still-phone-shot-violet-jar-in-frame-slee.png",
+      "label": "UGC vertical video still, phone-shot, violet jar in frame · @sleepyari",
+      "alt": ""
+    },
+    {
+      "key": "bp-dreamr-photo-ugc-vertical-video-still-phone-shot-violet-jar-in-frame-nigh",
+      "filename": "bp-dreamr-photo-ugc-vertical-video-still-phone-shot-violet-jar-in-frame-nigh.png",
+      "label": "UGC vertical video still, phone-shot, violet jar in frame · @nightshiftnurse",
+      "alt": ""
+    },
+    {
+      "key": "bp-dreamr-photo-ugc-vertical-video-still-phone-shot-violet-jar-in-frame-momb",
+      "filename": "bp-dreamr-photo-ugc-vertical-video-still-phone-shot-violet-jar-in-frame-momb.png",
+      "label": "UGC vertical video still, phone-shot, violet jar in frame · @mombrain.co",
+      "alt": ""
+    },
+    {
+      "key": "bp-dreamr-photo-ugc-vertical-video-still-phone-shot-violet-jar-in-frame-gymr",
+      "filename": "bp-dreamr-photo-ugc-vertical-video-still-phone-shot-violet-jar-in-frame-gymr.png",
+      "label": "UGC vertical video still, phone-shot, violet jar in frame · @gymratgreg",
+      "alt": ""
+    },
+    {
+      "key": "bp-dreamr-photo-customer-photo-jar-on-nightstand-phone-flash",
+      "filename": "bp-dreamr-photo-customer-photo-jar-on-nightstand-phone-flash.png",
+      "label": "Customer photo: jar on nightstand, phone flash",
+      "alt": ""
+    },
+    {
+      "key": "bp-dreamr-photo-advertorial-lead-image",
+      "filename": "bp-dreamr-photo-advertorial-lead-image.png",
+      "label": "Advertorial lead image",
+      "alt": ""
+    }
+  ],
+  "products": [
+    {
+      "handle": "dreamr-sleep-gummies",
+      "title": "Sleep Gummies",
+      "productType": "Sleep",
+      "tags": [
+        "bp-hero"
+      ],
+      "descriptionHtml": "<p>Asleep in 20 minutes. Or your money back.</p>",
+      "files": [
+        {
+          "$file": "hero"
+        },
+        {
+          "$file": "hero-2"
+        },
+        {
+          "$file": "hero-3"
+        },
+        {
+          "$file": "hero-4"
+        },
+        {
+          "$file": "hero-5"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "tiers",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_tier/dreamr-tier-1"
+            },
+            {
+              "$metaobject": "blueprint_tier/dreamr-tier-2"
+            },
+            {
+              "$metaobject": "blueprint_tier/dreamr-tier-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "pack_option",
+          "type": "single_line_text_field",
+          "value": "Pack"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "badge",
+          "type": "single_line_text_field",
+          "value": "TikTok famous"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "benefits",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_benefit/dreamr-benefit-1"
+            },
+            {
+              "$metaobject": "blueprint_benefit/dreamr-benefit-2"
+            },
+            {
+              "$metaobject": "blueprint_benefit/dreamr-benefit-3"
+            },
+            {
+              "$metaobject": "blueprint_benefit/dreamr-benefit-4"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "studies",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_study/dreamr-study-1"
+            },
+            {
+              "$metaobject": "blueprint_study/dreamr-study-2"
+            },
+            {
+              "$metaobject": "blueprint_study/dreamr-study-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "guarantee",
+          "type": "metaobject_reference",
+          "value": {
+            "$metaobject": "blueprint_guarantee/dreamr-guarantee"
+          }
+        },
+        {
+          "namespace": "blueprint",
+          "key": "upsell",
+          "type": "product_reference",
+          "value": {
+            "$product": "silk-sleep-mask"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating_count",
+          "type": "number_integer",
+          "value": 8221
+        },
+        {
+          "namespace": "descriptors",
+          "key": "subtitle",
+          "type": "single_line_text_field",
+          "value": "Asleep in 20 minutes. Or your money back."
+        },
+        {
+          "namespace": "blueprint",
+          "key": "shot_note",
+          "type": "single_line_text_field",
+          "value": "PDP hero: violet gummy jar on glossy black, hard flash, cherry gummies spilling"
+        }
+      ],
+      "options": [
+        {
+          "name": "Flavour",
+          "values": [
+            "Black cherry",
+            "Blueberry lavender"
+          ]
+        },
+        {
+          "name": "Pack",
+          "values": [
+            "1 bottle",
+            "2 bottles",
+            "3 bottles"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "options": [
+            "Black cherry",
+            "1 bottle"
+          ],
+          "price": "34.00",
+          "compareAtPrice": "44.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Black cherry",
+            "2 bottles"
+          ],
+          "price": "58.00",
+          "compareAtPrice": "88.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Black cherry",
+            "3 bottles"
+          ],
+          "price": "78.00",
+          "compareAtPrice": "132.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Blueberry lavender",
+            "1 bottle"
+          ],
+          "price": "34.00",
+          "compareAtPrice": "44.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Blueberry lavender",
+            "2 bottles"
+          ],
+          "price": "58.00",
+          "compareAtPrice": "88.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Blueberry lavender",
+            "3 bottles"
+          ],
+          "price": "78.00",
+          "compareAtPrice": "132.00",
+          "packQuantity": 3
+        }
+      ]
+    },
+    {
+      "handle": "silk-sleep-mask",
+      "title": "Silk sleep mask",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Silk sleep mask.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "18.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "silk-sleep-mask"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "cart_deal_label",
+          "type": "single_line_text_field",
+          "value": "$12 in cart"
+        }
+      ]
+    },
+    {
+      "handle": "calm-gummies",
+      "title": "Calm Gummies",
+      "productType": "Bundles",
+      "tags": [],
+      "descriptionHtml": "<p>Calm Gummies.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "29.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "calm-gummies"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "focus-gummies",
+      "title": "Focus Gummies",
+      "productType": "Sleep",
+      "tags": [],
+      "descriptionHtml": "<p>Focus Gummies.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "29.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "focus-gummies"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.7",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "night-stack",
+      "title": "Night Stack",
+      "productType": "Calm",
+      "tags": [],
+      "descriptionHtml": "<p>Night Stack.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "59.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "night-stack"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "magnesium-spray",
+      "title": "Magnesium spray",
+      "productType": "Sleep",
+      "tags": [],
+      "descriptionHtml": "<p>Magnesium spray.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "22.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "magnesium-spray"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.6",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "shipping-protection",
+      "title": "Shipping protection",
+      "productType": "",
+      "tags": [
+        "bp-protection"
+      ],
+      "descriptionHtml": "<p>Covers loss, theft and damage in transit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "2.95",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": false
+        }
+      ],
+      "files": [],
+      "metafields": []
+    }
+  ],
+  "metaobjects": [
+    {
+      "type": "blueprint_tier",
+      "handle": "dreamr-tier-1",
+      "fields": {
+        "label": "1 bottle",
+        "sublabel": "30 nights",
+        "preselected": false,
+        "pack_value": "1 bottle"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "dreamr-tier-2",
+      "fields": {
+        "label": "2 bottles",
+        "sublabel": "60 nights · free shipping",
+        "badge": "TikTok bundle",
+        "preselected": true,
+        "pack_value": "2 bottles"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "dreamr-tier-3",
+      "fields": {
+        "label": "3 bottles",
+        "sublabel": "90 nights · free silk mask",
+        "badge": "Best value",
+        "preselected": false,
+        "pack_value": "3 bottles"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "dreamr-benefit-1",
+      "fields": {
+        "icon": "moon",
+        "title": "Melatonin-free formula"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "dreamr-benefit-2",
+      "fields": {
+        "icon": "bolt",
+        "title": "Works in about 20 minutes"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "dreamr-benefit-3",
+      "fields": {
+        "icon": "heart",
+        "title": "No groggy morning"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "dreamr-benefit-4",
+      "fields": {
+        "icon": "star",
+        "title": "8,221 five-star reviews"
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "dreamr-study-1",
+      "fields": {
+        "stat_value": 91,
+        "stat_suffix": "%",
+        "label": "asleep within 30 minutes",
+        "source": "Full methodology on the Reviews page. Individual results vary."
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "dreamr-study-2",
+      "fields": {
+        "stat_value": 88,
+        "stat_suffix": "%",
+        "label": "woke up without grogginess",
+        "source": "Full methodology on the Reviews page. Individual results vary."
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "dreamr-study-3",
+      "fields": {
+        "stat_value": 79,
+        "stat_suffix": "%",
+        "label": "stopped using melatonin entirely",
+        "source": "Full methodology on the Reviews page. Individual results vary."
+      }
+    },
+    {
+      "type": "blueprint_guarantee",
+      "handle": "dreamr-guarantee",
+      "fields": {
+        "title": "Money-back guarantee",
+        "body": "Try a bottle. If it does not work for you, we refund it and you keep the bottle."
+      }
+    }
+  ],
+  "sellingPlanGroups": [],
+  "collections": [
+    {
+      "handle": "best-sellers",
+      "title": "Best sellers",
+      "products": [
+        "dreamr-sleep-gummies",
+        "calm-gummies",
+        "focus-gummies",
+        "night-stack",
+        "silk-sleep-mask",
+        "magnesium-spray"
+      ]
+    },
+    {
+      "handle": "sleep",
+      "title": "Sleep",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Sleep"
+      }
+    },
+    {
+      "handle": "calm",
+      "title": "Calm",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Calm"
+      }
+    },
+    {
+      "handle": "bundles",
+      "title": "Bundles",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Bundles"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "handle": "advertorial",
+      "title": "I'm a nurse on nights. This is the only gummy that got me to sleep at 9am.",
+      "templateSuffix": "advertorial",
+      "body": "<p>Blackout curtains, white noise, melatonin that left me hungover for my next shift. Then a coworker handed me two of these.</p>"
+    },
+    {
+      "handle": "listicle",
+      "title": "7 reasons 8,221 people gave Dreamr five stars",
+      "templateSuffix": "listicle",
+      "body": ""
+    },
+    {
+      "handle": "comparison",
+      "title": "How DREAMR compares",
+      "templateSuffix": "comparison",
+      "body": ""
+    },
+    {
+      "handle": "about",
+      "title": "About DREAMR",
+      "templateSuffix": "about",
+      "body": "<p>TikTok-native in violet. Social proof everywhere, urgency on top.</p>"
+    },
+    {
+      "handle": "contact",
+      "title": "Contact",
+      "templateSuffix": "contact",
+      "body": ""
+    }
+  ],
+  "menus": [
+    {
+      "handle": "main-menu",
+      "title": "Main menu",
+      "items": [
+        {
+          "title": "Shop",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "best-sellers"
+          },
+          "items": [
+            {
+              "title": "Sleep Gummies",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "dreamr-sleep-gummies"
+              }
+            },
+            {
+              "title": "Silk sleep mask",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "silk-sleep-mask"
+              }
+            },
+            {
+              "title": "Calm Gummies",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "calm-gummies"
+              }
+            },
+            {
+              "title": "Focus Gummies",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "focus-gummies"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Reviews",
+          "type": "PRODUCT",
+          "ref": {
+            "$product": "dreamr-sleep-gummies"
+          }
+        },
+        {
+          "title": "TikTok",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Bundle",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "footer",
+      "title": "Footer menu",
+      "items": [
+        {
+          "title": "Search",
+          "type": "SEARCH",
+          "url": "/search"
+        },
+        {
+          "title": "Shipping",
+          "type": "HTTP",
+          "url": "/policies/shipping-policy"
+        },
+        {
+          "title": "Returns",
+          "type": "HTTP",
+          "url": "/policies/refund-policy"
+        },
+        {
+          "title": "Contact",
+          "type": "PAGE",
+          "ref": {
+            "$page": "contact"
+          }
+        }
+      ]
+    }
+  ],
+  "discounts": [
+    {
+      "kind": "freeShipping",
+      "title": "Blueprint demo: free shipping over $40",
+      "minimumSubtotal": "40.00"
+    },
+    {
+      "kind": "amountOffProduct",
+      "title": "Blueprint demo: Silk sleep mask $12 in cart",
+      "products": [
+        {
+          "$product": "silk-sleep-mask"
+        }
+      ],
+      "amountEach": "6.00"
+    }
+  ],
+  "theme": {
+    "preset": "Bold",
+    "listing": "bold",
+    "settings": {
+      "color_mode": "dark",
+      "accent_color": "#7C3AED",
+      "dark_bg": "#0E0A1C",
+      "dark_surface": "#1A1332",
+      "dark_ink": "#FFFFFF",
+      "dark_line": "#2C2450",
+      "dark_accent_soft": "#2A1C4F",
+      "light_on_accent": "",
+      "dark_on_accent": "",
+      "light_accent_text": "",
+      "dark_accent_text": "",
+      "cart_protection_product": "shipping-protection",
+      "cart_upsell_collection": "best-sellers",
+      "cart_upsell_show_deal": true,
+      "cart_empty_collection": "best-sellers",
+      "social_instagram": "https://instagram.com/dreamr",
+      "social_tiktok": "https://tiktok.com/@dreamr",
+      "cart_reward_1_label": "Free shipping",
+      "cart_reward_1_threshold": 40,
+      "cart_reward_1_gift": "",
+      "cart_reward_2_label": "",
+      "cart_reward_2_threshold": null,
+      "cart_reward_2_gift": "",
+      "cart_reward_3_label": "",
+      "cart_reward_3_threshold": null,
+      "cart_reward_3_gift": ""
+    }
+  }
+}

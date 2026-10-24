@@ -6,7 +6,7 @@
 
 | # | Question | Owner's answer | What the plan does |
 |---|---|---|---|
-| Q1 | Development stores | Not created yet | **Before stores exist:** Phase 0 and Phase 1 code proceeds; Theme Check and unit tests run offline. **To create them:** three free Plus-plan dev stores via the Dev Dashboard or `shopify store create dev --plan plus --demo-data` (Plus gives Flow and custom-app Functions). Needed by the end of Phase 1. **Blocker:** this cloud environment's network policy currently blocks every Shopify host (`*.myshopify.com`, `cdn.shopify.com`, `accounts.shopify.com`, `shopify.dev`). Theme preview, push, seeding and Lighthouse need those hosts allowed, plus a Theme Access password per store as an environment secret. |
+| Q1 | Development stores | Not created yet | **Before stores exist:** Phase 0 and Phase 1 code proceeds; Theme Check and unit tests run offline. **To create them:** three free Plus-plan dev stores via the Dev Dashboard or `shopify store create dev --plan plus --demo-data` (Plus gives Flow and custom-app Functions). Needed by the end of Phase 1. **Network:** Shopify hosts were blocked in earlier sessions; on 2026-10-24 the stores and shopify.dev were reachable. **Still needed:** a Theme Access password per store and the seed app's client credentials as environment secrets (docs/demo-stores.md). |
 | Q2 | Channel | **Direct first**, Theme Store rules later | D2 as recommended |
 | Q3 | Base and repo | **Yes**: original code, replace Skeleton and `AGENTS.md`, keep this repo | D1 + D3 as recommended |
 | Q4/Q5 | Subscription and reviews apps | "Whatever you suggest; give merchants options" | Default and first-tested: **Shopify Subscriptions** and **Judge.me**. **Subscriptions:** works with any selling-plan app (Recharge, Skio, Loop, Appstle); the theme toggle steps aside when an app's own widget is present. **Reviews:** a provider setting (`auto`, standard metafields, Judge.me, Okendo, Yotpo, Loox, Stamped, none) plus `@app` slots everywhere stars or reviews appear. |
@@ -23,6 +23,7 @@
 | 3. Cart drawer | Done offline, pending store verification | See "Phase 3 delivered" below |
 | 4. Content sections | Done offline, pending store verification | See "Phase 4 delivered" below. Includes the quick add moved from Phase 2 |
 | 5. Templates and pre-landers | Done offline, pending store verification | See "Phase 5 delivered" below. Includes the collection page moved from Phase 4 |
+| 6. Demo stores | Built and verified offline; seeding waits on store credentials | See "Phase 6 delivered" below. One Dev Dashboard app's credentials, plus Theme Access passwords, in the environment settings |
 
 #### Phase 1 delivered
 
@@ -117,6 +118,56 @@
   - that `/cart/add` accepts `items[n][id]` form posts;
   - that `request.design_mode` hides the unset countdown;
   - that `product_recommendations_url` returns the section with `intent=complementary`.
+
+#### Phase 6 delivered
+
+- **Store configs** (`tools/demo/catalog.mjs` → `tools/demo/stores/<id>.json`, all ten reference stores; Verde, Ode and Rawform are required):
+  - **Products:**
+    - Products and variants with prices in cents from the reference tiers; Rawform has 24 variants (Flavour × Size × Pack).
+    - Gift, reward and protection products; inventory.
+    - Where the reference is silent, the values match the preview's mock data so the two agree. The hero prices are unit-tested variant by variant against `tools/preview/mock-products.mjs`.
+  - **Content:** metaobjects for tiers, benefits, ingredients, studies, comparison rows, FAQs and the guarantee; product metafields, `reviews.*` and `descriptors.subtitle`.
+  - **Selling plans:** one subscribe-and-save group (1, 2 and 3 months) when the reference states the saving.
+  - **Collections:** best sellers, plus one smart collection per product type.
+  - **Pages and menus:** five pages and two menus.
+  - **Automatic discounts** for everything the theme promises:
+    - free shipping at reward 1;
+    - gifts at the reward thresholds;
+    - the tier gift;
+    - the upsell deal;
+    - mix-tier quantity discounts.
+
+    Tests check that each "$N value" or "$N in cart" label equals the real price or discount.
+  - **Theme settings:** the reference colours go into the set for their own mode (Rawform, Omni and Dreamr are dark). Button text and accent text are left to the theme's contrast-safe derivation. The demo stores' settings now run through `tools/contrast-check.mjs` in CI, and all ten pass in both modes.
+- **Definitions** (`tools/demo/definitions.mjs`):
+  - The §6 metaobject and metafield definitions, with field keys matching the Liquid (the tier's `discount_label`, not `discount_title`).
+  - The AI kit's `setup-metafields` will reuse them in Phase 7.
+- **Seed** (`tools/seed-demo.mjs`, logic in `tools/demo/seed.mjs`):
+  - Admin GraphQL, 2026-07, through one Dev Dashboard app with the client credentials grant. No tokens are stored or copied.
+  - Every step looks up before it writes, so re-running only changes what differs. A second run against the in-memory admin creates nothing (unit-tested).
+  - Product media and section photos are labelled placeholder PNGs (`tools/demo/images.mjs`), uploaded once under fixed names.
+  - `--dry-run` seeds `tools/demo/fake-admin.mjs`.
+- **Schema validation:** `tools/demo/validate-operations.mjs` downloads the published 2026-07 Admin schema from shopify.dev's public proxy. It checks the seed's 25 operations, and the actual variables of all 1,694 calls a seed of the ten stores makes, with graphql-js. All are valid.
+- **Demo theme** (`tools/demo/theme.mjs <store> [--push]`):
+  - The release theme plus the store's templates (photos as `shopify://shop_images/…`), colours and cart settings.
+  - An announcement-bar notice that products, prices and reviews are samples.
+  - Theme Check passes on the build. It pushes as an unpublished theme through `tools/store.mjs`.
+- **Template changes:**
+  - Listing templates name products through the catalog: the Bold bundle builder's "Whey Isolate" is now the hero, `rawform-whey`.
+  - The advertorial follows the reference's order: lead image, lede, pull quote, closing paragraph, CTA. The listing templates close with guidance for the merchant; the demo stores close with the reference's line, naming the store's real guarantee.
+- **Side by side** (`tools/demo/compare.mjs`):
+  - It drives the reference to a store and page and expands its scrolling frame, then captures Blueprint: the offline preview with the store's colours (`?demo=1`), or the live store with `--target=store`.
+  - `docs/screenshots/phase-6/` has 30 offline comparisons: three stores × home, product, advertorial, listicle and collection × 390 and 1440.
+  - **Visible gaps, all by design:**
+    - Pre-landers use the minimal landing header where the reference shows the store header (§9.1).
+    - Product pages lead with the product name and its subtitle, where the reference's headline is the tagline.
+    - The default tier is the preselected one (2 pouches), so the price block shows its price.
+- **Shot list:** `docs/SHOT_LIST.md`, 192 shots across ten stores, generated from every `photo` field (`node tools/demo/shot-list.mjs`).
+- **Docs:** `docs/demo-stores.md` covers the app's scopes, environment variables, run order and the manual steps (the Search & Discovery product-type filter; a subscription app to check out subscriptions).
+- **Not done (needs credentials):**
+  - seeding the three stores and pushing their themes;
+  - the store-side comparisons, which are Phase 6's acceptance;
+  - the store verifications listed for Phases 1–5.
 
 #### Phase 5 delivered
 
@@ -1132,7 +1183,7 @@ Sources: [product page](https://ecomelixir.com/products/elixir-shopify-theme), [
 | Ode | Editorial | `listings/editorial` |
 | Rawform | Bold | `listings/bold` |
 
-**Seeding** with `tools/seed-demo.mjs <store> <storeId>`, via the Admin GraphQL API and the merchant-app token:
+**Seeding** with `tools/seed-demo.mjs <store>`, via the Admin GraphQL API and one Dev Dashboard app (client credentials grant; see `docs/demo-stores.md`):
 - **Products and variants:** `productSet`, with Pack option values priced from the tiers. Rawform: Flavour × Size × Pack = 24 variants.
 - **Content:** metaobjects and metafields from the store's `product`, `home` and `pdp` blocks.
 - **Collections:** from `collection` and `filters`.

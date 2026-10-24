@@ -22,3 +22,6 @@ mcp/node_modules/
 ## Preview harness
 tools/preview/node_modules/
 tools/preview/out/
+
+# Demo tools: cached Admin schema
+tools/demo/.cache/

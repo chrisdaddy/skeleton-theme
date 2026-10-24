@@ -1,0 +1,968 @@
+{
+  "id": "allele",
+  "brand": "ALLELE",
+  "preset": "Clinical",
+  "listing": "clinical",
+  "required": false,
+  "mode": "pack",
+  "notice": "Demo store: sample products, prices and reviews",
+  "files": [
+    {
+      "key": "hero",
+      "filename": "bp-allele-hero.png",
+      "label": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light",
+      "alt": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light"
+    },
+    {
+      "key": "hero-2",
+      "filename": "bp-allele-hero-2.png",
+      "label": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light · view 2",
+      "alt": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light · view 2"
+    },
+    {
+      "key": "hero-3",
+      "filename": "bp-allele-hero-3.png",
+      "label": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light · view 3",
+      "alt": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light · view 3"
+    },
+    {
+      "key": "hero-4",
+      "filename": "bp-allele-hero-4.png",
+      "label": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light · view 4",
+      "alt": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light · view 4"
+    },
+    {
+      "key": "hero-5",
+      "filename": "bp-allele-hero-5.png",
+      "label": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light · view 5",
+      "alt": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light · view 5"
+    },
+    {
+      "key": "routine-set",
+      "filename": "bp-allele-routine-set.png",
+      "label": "Routine set",
+      "alt": "Routine set"
+    },
+    {
+      "key": "spf-50-mineral",
+      "filename": "bp-allele-spf-50-mineral.png",
+      "label": "SPF 50 Mineral",
+      "alt": "SPF 50 Mineral"
+    },
+    {
+      "key": "gel-cleanser",
+      "filename": "bp-allele-gel-cleanser.png",
+      "label": "Gel Cleanser",
+      "alt": "Gel Cleanser"
+    },
+    {
+      "key": "barrier-cream",
+      "filename": "bp-allele-barrier-cream.png",
+      "label": "Barrier Cream",
+      "alt": "Barrier Cream"
+    },
+    {
+      "key": "bakuchiol-serum",
+      "filename": "bp-allele-bakuchiol-serum.png",
+      "label": "Bakuchiol Serum",
+      "alt": "Bakuchiol Serum"
+    },
+    {
+      "key": "bp-allele-photo-home-hero-dropper-bottle-on-white-stone-single-shadow-clinic",
+      "filename": "bp-allele-photo-home-hero-dropper-bottle-on-white-stone-single-shadow-clinic.png",
+      "label": "Home hero: dropper bottle on white stone, single shadow, clinical minimal",
+      "alt": ""
+    },
+    {
+      "key": "bp-allele-photo-clinical-close-up-cheek-week-0-flat-light",
+      "filename": "bp-allele-photo-clinical-close-up-cheek-week-0-flat-light.png",
+      "label": "Clinical close-up, cheek, week 0, flat light",
+      "alt": ""
+    },
+    {
+      "key": "bp-allele-photo-same-subject-week-8-same-light",
+      "filename": "bp-allele-photo-same-subject-week-8-same-light.png",
+      "label": "Same subject, week 8, same light",
+      "alt": ""
+    },
+    {
+      "key": "bp-allele-photo-customer-photo-forehead-close-up-week-6",
+      "filename": "bp-allele-photo-customer-photo-forehead-close-up-week-6.png",
+      "label": "Customer photo: forehead close-up, week 6",
+      "alt": ""
+    },
+    {
+      "key": "bp-allele-photo-customer-photo-bottle-on-bathroom-shelf",
+      "filename": "bp-allele-photo-customer-photo-bottle-on-bathroom-shelf.png",
+      "label": "Customer photo: bottle on bathroom shelf",
+      "alt": ""
+    },
+    {
+      "key": "bp-allele-photo-customer-photo-product-box",
+      "filename": "bp-allele-photo-customer-photo-product-box.png",
+      "label": "Customer photo: product box",
+      "alt": ""
+    },
+    {
+      "key": "bp-allele-photo-advertorial-lead-image",
+      "filename": "bp-allele-photo-advertorial-lead-image.png",
+      "label": "Advertorial lead image",
+      "alt": ""
+    }
+  ],
+  "products": [
+    {
+      "handle": "allele-retinal-0-1-serum",
+      "title": "Retinal 0.1% Serum",
+      "productType": "Treat",
+      "tags": [
+        "bp-hero"
+      ],
+      "descriptionHtml": "<p>Retinal 0.1%. Eleven times faster than retinol. Shown in 8 weeks.</p>",
+      "files": [
+        {
+          "$file": "hero"
+        },
+        {
+          "$file": "hero-2"
+        },
+        {
+          "$file": "hero-3"
+        },
+        {
+          "$file": "hero-4"
+        },
+        {
+          "$file": "hero-5"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "tiers",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_tier/allele-tier-1"
+            },
+            {
+              "$metaobject": "blueprint_tier/allele-tier-2"
+            },
+            {
+              "$metaobject": "blueprint_tier/allele-tier-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "pack_option",
+          "type": "single_line_text_field",
+          "value": "Pack"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "badge",
+          "type": "single_line_text_field",
+          "value": "Dermatologist developed"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "benefits",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_benefit/allele-benefit-1"
+            },
+            {
+              "$metaobject": "blueprint_benefit/allele-benefit-2"
+            },
+            {
+              "$metaobject": "blueprint_benefit/allele-benefit-3"
+            },
+            {
+              "$metaobject": "blueprint_benefit/allele-benefit-4"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "ingredients",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_ingredient/allele-ingredient-1"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/allele-ingredient-2"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/allele-ingredient-3"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/allele-ingredient-4"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/allele-ingredient-5"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "studies",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_study/allele-study-1"
+            },
+            {
+              "$metaobject": "blueprint_study/allele-study-2"
+            },
+            {
+              "$metaobject": "blueprint_study/allele-study-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "faqs",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_faq/allele-faq-1"
+            },
+            {
+              "$metaobject": "blueprint_faq/allele-faq-2"
+            },
+            {
+              "$metaobject": "blueprint_faq/allele-faq-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "guarantee",
+          "type": "metaobject_reference",
+          "value": {
+            "$metaobject": "blueprint_guarantee/allele-guarantee"
+          }
+        },
+        {
+          "namespace": "blueprint",
+          "key": "upsell",
+          "type": "product_reference",
+          "value": {
+            "$product": "spf-50-mineral"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating_count",
+          "type": "number_integer",
+          "value": 7402
+        },
+        {
+          "namespace": "descriptors",
+          "key": "subtitle",
+          "type": "single_line_text_field",
+          "value": "Retinal 0.1%. Eleven times faster than retinol. Shown in 8 weeks."
+        },
+        {
+          "namespace": "blueprint",
+          "key": "shot_note",
+          "type": "single_line_text_field",
+          "value": "PDP hero: frosted glass dropper bottle, white acrylic block, clinical light"
+        }
+      ],
+      "options": [
+        {
+          "name": "Strength",
+          "values": [
+            "0.05% · Starter",
+            "0.1% · Standard",
+            "0.2% · Advanced"
+          ]
+        },
+        {
+          "name": "Pack",
+          "values": [
+            "1 bottle",
+            "2 bottles"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "options": [
+            "0.05% · Starter",
+            "1 bottle"
+          ],
+          "price": "68.00",
+          "compareAtPrice": "80.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "0.05% · Starter",
+            "2 bottles"
+          ],
+          "price": "122.00",
+          "compareAtPrice": "160.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "0.1% · Standard",
+            "1 bottle"
+          ],
+          "price": "68.00",
+          "compareAtPrice": "80.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "0.1% · Standard",
+            "2 bottles"
+          ],
+          "price": "122.00",
+          "compareAtPrice": "160.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "0.2% · Advanced",
+            "1 bottle"
+          ],
+          "price": "68.00",
+          "compareAtPrice": "80.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "0.2% · Advanced",
+            "2 bottles"
+          ],
+          "price": "122.00",
+          "compareAtPrice": "160.00",
+          "packQuantity": 2
+        }
+      ]
+    },
+    {
+      "handle": "routine-set",
+      "title": "Routine set",
+      "productType": "Cleanse",
+      "tags": [],
+      "descriptionHtml": "<p>Routine set.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "148.00",
+          "compareAtPrice": "196.00",
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "routine-set"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "spf-50-mineral",
+      "title": "SPF 50 Mineral",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>SPF 50 Mineral.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "36.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "spf-50-mineral"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "cart_deal_label",
+          "type": "single_line_text_field",
+          "value": "$29 in cart"
+        }
+      ]
+    },
+    {
+      "handle": "gel-cleanser",
+      "title": "Gel Cleanser",
+      "productType": "Protect",
+      "tags": [],
+      "descriptionHtml": "<p>Gel Cleanser.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "28.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "gel-cleanser"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "barrier-cream",
+      "title": "Barrier Cream",
+      "productType": "Cleanse",
+      "tags": [],
+      "descriptionHtml": "<p>Barrier Cream.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "42.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "barrier-cream"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "bakuchiol-serum",
+      "title": "Bakuchiol Serum",
+      "productType": "Protect",
+      "tags": [],
+      "descriptionHtml": "<p>Bakuchiol Serum.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "58.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "bakuchiol-serum"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.7",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "shipping-protection",
+      "title": "Shipping protection",
+      "productType": "",
+      "tags": [
+        "bp-protection"
+      ],
+      "descriptionHtml": "<p>Covers loss, theft and damage in transit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "2.95",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": false
+        }
+      ],
+      "files": [],
+      "metafields": []
+    }
+  ],
+  "metaobjects": [
+    {
+      "type": "blueprint_tier",
+      "handle": "allele-tier-1",
+      "fields": {
+        "label": "1 bottle",
+        "sublabel": "30 ml · about 2 months",
+        "preselected": false,
+        "pack_value": "1 bottle"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "allele-tier-2",
+      "fields": {
+        "label": "2 bottles",
+        "sublabel": "Four-month supply · free shipping",
+        "badge": "Most popular",
+        "preselected": true,
+        "pack_value": "2 bottles",
+        "subscription_plan_hint": "2 months"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "allele-tier-3",
+      "fields": {
+        "label": "Routine set",
+        "sublabel": "Serum + cleanser + SPF 50",
+        "badge": "Best value",
+        "preselected": false,
+        "variant": {
+          "$variant": [
+            "routine-set",
+            []
+          ]
+        },
+        "subscription_plan_hint": "3 months"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "allele-benefit-1",
+      "fields": {
+        "icon": "flask",
+        "title": "Clinically tested, 112 participants"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "allele-benefit-2",
+      "fields": {
+        "icon": "sparkle",
+        "title": "Encapsulated retinal, low irritation"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "allele-benefit-3",
+      "fields": {
+        "icon": "x",
+        "title": "Fragrance-free, non-comedogenic"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "allele-benefit-4",
+      "fields": {
+        "icon": "users",
+        "title": "Developed with 4 dermatologists"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "allele-ingredient-1",
+      "fields": {
+        "name": "Retinaldehyde",
+        "dose": "0.1%",
+        "why": "Encapsulated. 11× faster than retinol"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "allele-ingredient-2",
+      "fields": {
+        "name": "Niacinamide",
+        "dose": "4%",
+        "why": "Barrier, pores, redness"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "allele-ingredient-3",
+      "fields": {
+        "name": "Bakuchiol",
+        "dose": "1%",
+        "why": "Softens the retinoid curve"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "allele-ingredient-4",
+      "fields": {
+        "name": "Ceramides NP, AP, EOP",
+        "dose": "1.5%",
+        "why": "Barrier repair"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "allele-ingredient-5",
+      "fields": {
+        "name": "Squalane",
+        "dose": "5%",
+        "why": "Slip without clogging"
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "allele-study-1",
+      "fields": {
+        "stat_value": 92,
+        "stat_suffix": "%",
+        "label": "smoother texture at 8 weeks",
+        "source": "Run by a third-party clinical lab, 2026. Summary on the Science page."
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "allele-study-2",
+      "fields": {
+        "stat_value": 87,
+        "stat_suffix": "%",
+        "label": "visibly reduced fine lines",
+        "source": "Run by a third-party clinical lab, 2026. Summary on the Science page."
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "allele-study-3",
+      "fields": {
+        "stat_value": 96,
+        "stat_suffix": "%",
+        "label": "would repurchase",
+        "source": "Run by a third-party clinical lab, 2026. Summary on the Science page."
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "allele-faq-1",
+      "fields": {
+        "question": "Retinal vs retinol?",
+        "answer": {
+          "rich": "Retinal (retinaldehyde) is one conversion step from retinoic acid; retinol is two. Faster results, similar tolerance when encapsulated."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "allele-faq-2",
+      "fields": {
+        "question": "Will I peel?",
+        "answer": {
+          "rich": "The Starter strength is designed not to. Start three nights a week and build."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "allele-faq-3",
+      "fields": {
+        "question": "Pregnancy?",
+        "answer": {
+          "rich": "No retinoids during pregnancy or breastfeeding. Our Bakuchiol Serum is the alternative."
+        }
+      }
+    },
+    {
+      "type": "blueprint_guarantee",
+      "handle": "allele-guarantee",
+      "fields": {
+        "title": "60-day results guarantee"
+      }
+    }
+  ],
+  "sellingPlanGroups": [
+    {
+      "merchantCode": "bp-allele-subscribe",
+      "name": "Subscribe & save 15%",
+      "options": [
+        "Delivery every"
+      ],
+      "percentage": 15,
+      "plans": [
+        {
+          "name": "Delivery every month",
+          "option": "month",
+          "months": 1
+        },
+        {
+          "name": "Delivery every 2 months",
+          "option": "2 months",
+          "months": 2
+        },
+        {
+          "name": "Delivery every 3 months",
+          "option": "3 months",
+          "months": 3
+        }
+      ],
+      "products": [
+        "allele-retinal-0-1-serum"
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "handle": "best-sellers",
+      "title": "Best sellers",
+      "products": [
+        "allele-retinal-0-1-serum",
+        "gel-cleanser",
+        "spf-50-mineral",
+        "barrier-cream",
+        "bakuchiol-serum",
+        "routine-set"
+      ]
+    },
+    {
+      "handle": "treat",
+      "title": "Treat",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Treat"
+      }
+    },
+    {
+      "handle": "cleanse",
+      "title": "Cleanse",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Cleanse"
+      }
+    },
+    {
+      "handle": "protect",
+      "title": "Protect",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Protect"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "handle": "advertorial",
+      "title": "A dermatologist explains why your retinol stopped working, and what she uses instead.",
+      "templateSuffix": "advertorial",
+      "body": "<p>Most people buy retinol, peel for a week, quit, and conclude retinoids are not for them. The problem is almost never the retinoid. It is the strength and the schedule.</p>"
+    },
+    {
+      "handle": "listicle",
+      "title": "5 things the percentage on the box tells you",
+      "templateSuffix": "listicle",
+      "body": ""
+    },
+    {
+      "handle": "comparison",
+      "title": "How ALLELE compares",
+      "templateSuffix": "comparison",
+      "body": ""
+    },
+    {
+      "handle": "about",
+      "title": "About ALLELE",
+      "templateSuffix": "about",
+      "body": "<p>Dermatologist-led, numbers on everything, Jones Road restraint.</p>"
+    },
+    {
+      "handle": "contact",
+      "title": "Contact",
+      "templateSuffix": "contact",
+      "body": ""
+    }
+  ],
+  "menus": [
+    {
+      "handle": "main-menu",
+      "title": "Main menu",
+      "items": [
+        {
+          "title": "Shop",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "best-sellers"
+          },
+          "items": [
+            {
+              "title": "Retinal 0.1% Serum",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "allele-retinal-0-1-serum"
+              }
+            },
+            {
+              "title": "Routine set",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "routine-set"
+              }
+            },
+            {
+              "title": "SPF 50 Mineral",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "spf-50-mineral"
+              }
+            },
+            {
+              "title": "Gel Cleanser",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "gel-cleanser"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Science",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Routine",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Skin quiz",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "footer",
+      "title": "Footer menu",
+      "items": [
+        {
+          "title": "Search",
+          "type": "SEARCH",
+          "url": "/search"
+        },
+        {
+          "title": "Shipping",
+          "type": "HTTP",
+          "url": "/policies/shipping-policy"
+        },
+        {
+          "title": "Returns",
+          "type": "HTTP",
+          "url": "/policies/refund-policy"
+        },
+        {
+          "title": "Contact",
+          "type": "PAGE",
+          "ref": {
+            "$page": "contact"
+          }
+        }
+      ]
+    }
+  ],
+  "discounts": [
+    {
+      "kind": "freeShipping",
+      "title": "Blueprint demo: free shipping over $50",
+      "minimumSubtotal": "50.00"
+    },
+    {
+      "kind": "amountOffProduct",
+      "title": "Blueprint demo: SPF 50 Mineral $29 in cart",
+      "products": [
+        {
+          "$product": "spf-50-mineral"
+        }
+      ],
+      "amountEach": "7.00"
+    }
+  ],
+  "theme": {
+    "preset": "Clinical",
+    "listing": "clinical",
+    "settings": {
+      "color_mode": "light",
+      "accent_color": "#27496D",
+      "light_bg": "#FFFFFF",
+      "light_surface": "#F1F3F4",
+      "light_ink": "#121417",
+      "light_line": "#E1E5E8",
+      "light_accent_soft": "#E4EBF2",
+      "light_on_accent": "",
+      "dark_on_accent": "",
+      "light_accent_text": "",
+      "dark_accent_text": "",
+      "cart_protection_product": "shipping-protection",
+      "cart_upsell_collection": "best-sellers",
+      "cart_upsell_show_deal": true,
+      "cart_empty_collection": "best-sellers",
+      "social_instagram": "https://instagram.com/allele",
+      "social_tiktok": "https://tiktok.com/@allele",
+      "cart_reward_1_label": "Free shipping",
+      "cart_reward_1_threshold": 50,
+      "cart_reward_1_gift": "",
+      "cart_reward_2_label": "",
+      "cart_reward_2_threshold": null,
+      "cart_reward_2_gift": "",
+      "cart_reward_3_label": "",
+      "cart_reward_3_threshold": null,
+      "cart_reward_3_gift": ""
+    }
+  }
+}

@@ -498,6 +498,11 @@ export async function renderPage(preset, page, query = new URLSearchParams(), on
   const store = demo.stores[overrides.store ?? PRESET_STORES[preset]];
   const mock = mockStore(store);
   const settings = themeSettings(preset, store);
+  // ?demo=1: the demo store's own colours (tools/demo/stores/<id>.json), as the seeded theme has them.
+  if (query.get?.('demo') && existsSync(join(theme, 'tools/demo/stores', `${store.id}.json`))) {
+    const own = readJson(join(theme, 'tools/demo/stores', `${store.id}.json`)).theme.settings;
+    for (const [key, value] of Object.entries(own)) if (/^(accent_color|color_mode|light_|dark_)/.test(key) && value !== null) settings[key] = value;
+  }
   const baseProduct = overrides.product ?? PRESET_PRODUCTS[preset];
   const product = page.type === 'product' && baseProduct ? productForRequest(baseProduct, query) : null;
   const templateJson = overrides.template ?? (page.template && page.template !== 'presets' && existsSync(join(theme, 'templates', `${page.template}.json`)) ? readJson(join(theme, 'templates', `${page.template}.json`)) : null);

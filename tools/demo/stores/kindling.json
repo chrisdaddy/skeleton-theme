@@ -1,0 +1,981 @@
+{
+  "id": "kindling",
+  "brand": "Kindling",
+  "preset": "Editorial",
+  "listing": "editorial",
+  "required": false,
+  "mode": "pack",
+  "notice": "Demo store: sample products, prices and reviews",
+  "files": [
+    {
+      "key": "hero",
+      "filename": "bp-kindling-hero.png",
+      "label": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light",
+      "alt": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light"
+    },
+    {
+      "key": "hero-2",
+      "filename": "bp-kindling-hero-2.png",
+      "label": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light · view 2",
+      "alt": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light · view 2"
+    },
+    {
+      "key": "hero-3",
+      "filename": "bp-kindling-hero-3.png",
+      "label": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light · view 3",
+      "alt": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light · view 3"
+    },
+    {
+      "key": "hero-4",
+      "filename": "bp-kindling-hero-4.png",
+      "label": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light · view 4",
+      "alt": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light · view 4"
+    },
+    {
+      "key": "hero-5",
+      "filename": "bp-kindling-hero-5.png",
+      "label": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light · view 5",
+      "alt": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light · view 5"
+    },
+    {
+      "key": "oat-creamer",
+      "filename": "bp-kindling-oat-creamer.png",
+      "label": "Oat creamer",
+      "alt": "Oat creamer"
+    },
+    {
+      "key": "evening-cacao",
+      "filename": "bp-kindling-evening-cacao.png",
+      "label": "Evening Cacao",
+      "alt": "Evening Cacao"
+    },
+    {
+      "key": "starter-kit",
+      "filename": "bp-kindling-starter-kit.png",
+      "label": "Starter kit",
+      "alt": "Starter kit"
+    },
+    {
+      "key": "ceramic-mug",
+      "filename": "bp-kindling-ceramic-mug.png",
+      "label": "Ceramic mug",
+      "alt": "Ceramic mug"
+    },
+    {
+      "key": "bp-kindling-photo-home-hero-pour-over-into-ceramic-mug-kraft-bag-warm-window-l",
+      "filename": "bp-kindling-photo-home-hero-pour-over-into-ceramic-mug-kraft-bag-warm-window-l.png",
+      "label": "Home hero: pour-over into ceramic mug, kraft bag, warm window light",
+      "alt": ""
+    },
+    {
+      "key": "bp-kindling-photo-founder-portrait-at-the-roaster-warm-overcast-light",
+      "filename": "bp-kindling-photo-founder-portrait-at-the-roaster-warm-overcast-light.png",
+      "label": "Founder portrait at the roaster, warm overcast light",
+      "alt": ""
+    },
+    {
+      "key": "bp-kindling-photo-customer-photo-mug-on-a-desk",
+      "filename": "bp-kindling-photo-customer-photo-mug-on-a-desk.png",
+      "label": "Customer photo: mug on a desk",
+      "alt": ""
+    },
+    {
+      "key": "bp-kindling-photo-advertorial-lead-image",
+      "filename": "bp-kindling-photo-advertorial-lead-image.png",
+      "label": "Advertorial lead image",
+      "alt": ""
+    }
+  ],
+  "products": [
+    {
+      "handle": "kindling-mushroom-coffee",
+      "title": "Mushroom Coffee",
+      "productType": "Coffee",
+      "tags": [
+        "bp-hero"
+      ],
+      "descriptionHtml": "<p>Half the caffeine. None of the crash. All of the ritual.</p>",
+      "files": [
+        {
+          "$file": "hero"
+        },
+        {
+          "$file": "hero-2"
+        },
+        {
+          "$file": "hero-3"
+        },
+        {
+          "$file": "hero-4"
+        },
+        {
+          "$file": "hero-5"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "tiers",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_tier/kindling-tier-1"
+            },
+            {
+              "$metaobject": "blueprint_tier/kindling-tier-2"
+            },
+            {
+              "$metaobject": "blueprint_tier/kindling-tier-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "pack_option",
+          "type": "single_line_text_field",
+          "value": "Pack"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "badge",
+          "type": "single_line_text_field",
+          "value": "Organic"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "benefits",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_benefit/kindling-benefit-1"
+            },
+            {
+              "$metaobject": "blueprint_benefit/kindling-benefit-2"
+            },
+            {
+              "$metaobject": "blueprint_benefit/kindling-benefit-3"
+            },
+            {
+              "$metaobject": "blueprint_benefit/kindling-benefit-4"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "ingredients",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_ingredient/kindling-ingredient-1"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/kindling-ingredient-2"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/kindling-ingredient-3"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/kindling-ingredient-4"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/kindling-ingredient-5"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/kindling-ingredient-6"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "comparison",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_comparison_row/kindling-comparison-1"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/kindling-comparison-2"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/kindling-comparison-3"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/kindling-comparison-4"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/kindling-comparison-5"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "comparison_competitor_label",
+          "type": "single_line_text_field",
+          "value": "Regular coffee"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "faqs",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_faq/kindling-faq-1"
+            },
+            {
+              "$metaobject": "blueprint_faq/kindling-faq-2"
+            },
+            {
+              "$metaobject": "blueprint_faq/kindling-faq-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "guarantee",
+          "type": "metaobject_reference",
+          "value": {
+            "$metaobject": "blueprint_guarantee/kindling-guarantee"
+          }
+        },
+        {
+          "namespace": "blueprint",
+          "key": "upsell",
+          "type": "product_reference",
+          "value": {
+            "$product": "oat-creamer"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating_count",
+          "type": "number_integer",
+          "value": 9316
+        },
+        {
+          "namespace": "descriptors",
+          "key": "subtitle",
+          "type": "single_line_text_field",
+          "value": "Half the caffeine. None of the crash. All of the ritual."
+        },
+        {
+          "namespace": "blueprint",
+          "key": "shot_note",
+          "type": "single_line_text_field",
+          "value": "PDP hero: kraft bag with ochre label, ceramic mug, steam, warm morning light"
+        }
+      ],
+      "options": [
+        {
+          "name": "Grind",
+          "values": [
+            "Whole bean",
+            "Ground",
+            "Single-serve sachets"
+          ]
+        },
+        {
+          "name": "Pack",
+          "values": [
+            "1 bag",
+            "2 bags",
+            "3 bags"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "options": [
+            "Whole bean",
+            "1 bag"
+          ],
+          "price": "38.00",
+          "compareAtPrice": "45.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Whole bean",
+            "2 bags"
+          ],
+          "price": "70.00",
+          "compareAtPrice": "90.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Whole bean",
+            "3 bags"
+          ],
+          "price": "99.00",
+          "compareAtPrice": "135.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Ground",
+            "1 bag"
+          ],
+          "price": "38.00",
+          "compareAtPrice": "45.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Ground",
+            "2 bags"
+          ],
+          "price": "70.00",
+          "compareAtPrice": "90.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Ground",
+            "3 bags"
+          ],
+          "price": "99.00",
+          "compareAtPrice": "135.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Single-serve sachets",
+            "1 bag"
+          ],
+          "price": "38.00",
+          "compareAtPrice": "45.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Single-serve sachets",
+            "2 bags"
+          ],
+          "price": "70.00",
+          "compareAtPrice": "90.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Single-serve sachets",
+            "3 bags"
+          ],
+          "price": "99.00",
+          "compareAtPrice": "135.00",
+          "packQuantity": 3
+        }
+      ]
+    },
+    {
+      "handle": "oat-creamer",
+      "title": "Oat creamer",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Oat creamer.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "14.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "oat-creamer"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "cart_deal_label",
+          "type": "single_line_text_field",
+          "value": "$11 in cart"
+        }
+      ]
+    },
+    {
+      "handle": "evening-cacao",
+      "title": "Evening Cacao",
+      "productType": "Coffee",
+      "tags": [],
+      "descriptionHtml": "<p>Evening Cacao.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "34.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "evening-cacao"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "starter-kit",
+      "title": "Starter kit",
+      "productType": "Gear",
+      "tags": [],
+      "descriptionHtml": "<p>Starter kit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "64.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "starter-kit"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "ceramic-mug",
+      "title": "Ceramic mug",
+      "productType": "Coffee",
+      "tags": [],
+      "descriptionHtml": "<p>Ceramic mug.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "24.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "ceramic-mug"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "shipping-protection",
+      "title": "Shipping protection",
+      "productType": "",
+      "tags": [
+        "bp-protection"
+      ],
+      "descriptionHtml": "<p>Covers loss, theft and damage in transit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "2.95",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": false
+        }
+      ],
+      "files": [],
+      "metafields": []
+    }
+  ],
+  "metaobjects": [
+    {
+      "type": "blueprint_tier",
+      "handle": "kindling-tier-1",
+      "fields": {
+        "label": "1 bag",
+        "sublabel": "30 cups",
+        "preselected": false,
+        "pack_value": "1 bag"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "kindling-tier-2",
+      "fields": {
+        "label": "2 bags",
+        "sublabel": "60 cups · free shipping",
+        "badge": "Most popular",
+        "preselected": true,
+        "pack_value": "2 bags",
+        "subscription_plan_hint": "2 months"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "kindling-tier-3",
+      "fields": {
+        "label": "3 bags",
+        "sublabel": "90 cups · free ceramic mug",
+        "badge": "Best value",
+        "preselected": false,
+        "pack_value": "3 bags",
+        "subscription_plan_hint": "3 months"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "kindling-benefit-1",
+      "fields": {
+        "icon": "sparkle",
+        "title": "1,000 mg lion's mane per cup"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "kindling-benefit-2",
+      "fields": {
+        "icon": "bolt",
+        "title": "50 mg caffeine, no crash"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "kindling-benefit-3",
+      "fields": {
+        "icon": "leaf",
+        "title": "Certified organic"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "kindling-benefit-4",
+      "fields": {
+        "icon": "heart",
+        "title": "Gentle on the stomach"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "kindling-ingredient-1",
+      "fields": {
+        "name": "Organic arabica",
+        "dose": "6 g",
+        "why": "Peru, medium roast, 50 mg caffeine"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "kindling-ingredient-2",
+      "fields": {
+        "name": "Lion's mane",
+        "dose": "1,000 mg",
+        "why": "Fruiting body, focus"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "kindling-ingredient-3",
+      "fields": {
+        "name": "Chaga",
+        "dose": "500 mg",
+        "why": "Antioxidants"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "kindling-ingredient-4",
+      "fields": {
+        "name": "Cordyceps",
+        "dose": "500 mg",
+        "why": "Endurance"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "kindling-ingredient-5",
+      "fields": {
+        "name": "L-theanine",
+        "dose": "100 mg",
+        "why": "Calm with the caffeine"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "kindling-ingredient-6",
+      "fields": {
+        "name": "Ceylon cinnamon",
+        "dose": "200 mg",
+        "why": "Taste, blood sugar"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "kindling-comparison-1",
+      "fields": {
+        "feature": "Steady focus for 5 to 6 hours",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "kindling-comparison-2",
+      "fields": {
+        "feature": "No 2pm crash",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "kindling-comparison-3",
+      "fields": {
+        "feature": "Gentle on the stomach",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "kindling-comparison-4",
+      "fields": {
+        "feature": "Functional mushrooms, dosed",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "kindling-comparison-5",
+      "fields": {
+        "feature": "Jitters and the 3pm slump",
+        "us": "no",
+        "them": "yes"
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "kindling-faq-1",
+      "fields": {
+        "question": "Does it taste like mushrooms?",
+        "answer": {
+          "rich": "No. It tastes like a smooth medium roast with a little cinnamon. The mushrooms are extracts, not ground caps."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "kindling-faq-2",
+      "fields": {
+        "question": "How much caffeine?",
+        "answer": {
+          "rich": "50 mg a cup, about half a regular coffee. Enough to feel, not enough to crash."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "kindling-faq-3",
+      "fields": {
+        "question": "Can I use it in my machine?",
+        "answer": {
+          "rich": "Whole bean and ground work in any brewer. Sachets dissolve in hot water or milk."
+        }
+      }
+    },
+    {
+      "type": "blueprint_guarantee",
+      "handle": "kindling-guarantee",
+      "fields": {
+        "title": "Money-back guarantee",
+        "body": "Finish the bag. If you want your old coffee back, we refund it and you keep the mug."
+      }
+    }
+  ],
+  "sellingPlanGroups": [
+    {
+      "merchantCode": "bp-kindling-subscribe",
+      "name": "Subscribe & save 20%",
+      "options": [
+        "Delivery every"
+      ],
+      "percentage": 20,
+      "plans": [
+        {
+          "name": "Delivery every month",
+          "option": "month",
+          "months": 1
+        },
+        {
+          "name": "Delivery every 2 months",
+          "option": "2 months",
+          "months": 2
+        },
+        {
+          "name": "Delivery every 3 months",
+          "option": "3 months",
+          "months": 3
+        }
+      ],
+      "products": [
+        "kindling-mushroom-coffee"
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "handle": "best-sellers",
+      "title": "Best sellers",
+      "products": [
+        "kindling-mushroom-coffee",
+        "evening-cacao",
+        "oat-creamer",
+        "starter-kit",
+        "ceramic-mug"
+      ]
+    },
+    {
+      "handle": "coffee",
+      "title": "Coffee",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Coffee"
+      }
+    },
+    {
+      "handle": "sachets",
+      "title": "Sachets",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Sachets"
+      }
+    },
+    {
+      "handle": "gear",
+      "title": "Gear",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Gear"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "handle": "advertorial",
+      "title": "I swapped my 7am coffee for this for 30 days. My 3pm self wrote this.",
+      "templateSuffix": "advertorial",
+      "body": "<p>I am not a mushroom person. I am a two-cups-before-nine person with a 2pm crash I had accepted as weather.</p>"
+    },
+    {
+      "handle": "listicle",
+      "title": "5 reasons 9,000 people switched their morning cup",
+      "templateSuffix": "listicle",
+      "body": ""
+    },
+    {
+      "handle": "comparison",
+      "title": "How Kindling compares",
+      "templateSuffix": "comparison",
+      "body": ""
+    },
+    {
+      "handle": "about",
+      "title": "About Kindling",
+      "templateSuffix": "about",
+      "body": "<p>Mud/Wtr meets Everyday Dose. Warm, ritual-led, a little literary.</p>"
+    },
+    {
+      "handle": "contact",
+      "title": "Contact",
+      "templateSuffix": "contact",
+      "body": ""
+    }
+  ],
+  "menus": [
+    {
+      "handle": "main-menu",
+      "title": "Main menu",
+      "items": [
+        {
+          "title": "Shop",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "best-sellers"
+          },
+          "items": [
+            {
+              "title": "Mushroom Coffee",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "kindling-mushroom-coffee"
+              }
+            },
+            {
+              "title": "Oat creamer",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "oat-creamer"
+              }
+            },
+            {
+              "title": "Evening Cacao",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "evening-cacao"
+              }
+            },
+            {
+              "title": "Starter kit",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "starter-kit"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Why mushrooms",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Brew guide",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Journal",
+          "type": "HTTP",
+          "url": "/blogs/news"
+        }
+      ]
+    },
+    {
+      "handle": "footer",
+      "title": "Footer menu",
+      "items": [
+        {
+          "title": "Search",
+          "type": "SEARCH",
+          "url": "/search"
+        },
+        {
+          "title": "Shipping",
+          "type": "HTTP",
+          "url": "/policies/shipping-policy"
+        },
+        {
+          "title": "Returns",
+          "type": "HTTP",
+          "url": "/policies/refund-policy"
+        },
+        {
+          "title": "Contact",
+          "type": "PAGE",
+          "ref": {
+            "$page": "contact"
+          }
+        }
+      ]
+    }
+  ],
+  "discounts": [
+    {
+      "kind": "freeShipping",
+      "title": "Blueprint demo: free shipping over $50",
+      "minimumSubtotal": "50.00"
+    },
+    {
+      "kind": "amountOffProduct",
+      "title": "Blueprint demo: Oat creamer · Vanilla $11 in cart",
+      "products": [
+        {
+          "$product": "oat-creamer"
+        }
+      ],
+      "amountEach": "3.00"
+    }
+  ],
+  "theme": {
+    "preset": "Editorial",
+    "listing": "editorial",
+    "settings": {
+      "color_mode": "light",
+      "accent_color": "#B4581E",
+      "light_bg": "#F6F0E4",
+      "light_surface": "#EBE1CF",
+      "light_ink": "#2A1F17",
+      "light_line": "#DDD1BC",
+      "light_accent_soft": "#F1DFCB",
+      "light_on_accent": "",
+      "dark_on_accent": "",
+      "light_accent_text": "",
+      "dark_accent_text": "",
+      "cart_protection_product": "shipping-protection",
+      "cart_upsell_collection": "best-sellers",
+      "cart_upsell_show_deal": true,
+      "cart_empty_collection": "best-sellers",
+      "social_instagram": "https://instagram.com/kindling",
+      "social_tiktok": "https://tiktok.com/@kindling",
+      "cart_reward_1_label": "Free shipping",
+      "cart_reward_1_threshold": 50,
+      "cart_reward_1_gift": "",
+      "cart_reward_2_label": "",
+      "cart_reward_2_threshold": null,
+      "cart_reward_2_gift": "",
+      "cart_reward_3_label": "",
+      "cart_reward_3_threshold": null,
+      "cart_reward_3_gift": ""
+    }
+  }
+}

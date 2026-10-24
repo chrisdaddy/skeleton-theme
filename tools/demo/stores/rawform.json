@@ -1,0 +1,1491 @@
+{
+  "id": "rawform",
+  "brand": "RAWFORM",
+  "preset": "Bold",
+  "listing": "bold",
+  "required": true,
+  "mode": "pack",
+  "notice": "Demo store: sample products, prices and reviews",
+  "files": [
+    {
+      "key": "hero",
+      "filename": "bp-rawform-hero.png",
+      "label": "PDP hero: black tub with lime label, scoop and powder spill, hard flash",
+      "alt": "PDP hero: black tub with lime label, scoop and powder spill, hard flash"
+    },
+    {
+      "key": "hero-2",
+      "filename": "bp-rawform-hero-2.png",
+      "label": "PDP hero: black tub with lime label, scoop and powder spill, hard flash · view 2",
+      "alt": "PDP hero: black tub with lime label, scoop and powder spill, hard flash · view 2"
+    },
+    {
+      "key": "hero-3",
+      "filename": "bp-rawform-hero-3.png",
+      "label": "PDP hero: black tub with lime label, scoop and powder spill, hard flash · view 3",
+      "alt": "PDP hero: black tub with lime label, scoop and powder spill, hard flash · view 3"
+    },
+    {
+      "key": "hero-4",
+      "filename": "bp-rawform-hero-4.png",
+      "label": "PDP hero: black tub with lime label, scoop and powder spill, hard flash · view 4",
+      "alt": "PDP hero: black tub with lime label, scoop and powder spill, hard flash · view 4"
+    },
+    {
+      "key": "hero-5",
+      "filename": "bp-rawform-hero-5.png",
+      "label": "PDP hero: black tub with lime label, scoop and powder spill, hard flash · view 5",
+      "alt": "PDP hero: black tub with lime label, scoop and powder spill, hard flash · view 5"
+    },
+    {
+      "key": "steel-shaker",
+      "filename": "bp-rawform-steel-shaker.png",
+      "label": "Steel shaker",
+      "alt": "Steel shaker"
+    },
+    {
+      "key": "creatine-monohydrate",
+      "filename": "bp-rawform-creatine-monohydrate.png",
+      "label": "Creatine Monohydrate",
+      "alt": "Creatine Monohydrate"
+    },
+    {
+      "key": "pre-workout",
+      "filename": "bp-rawform-pre-workout.png",
+      "label": "Pre-Workout",
+      "alt": "Pre-Workout"
+    },
+    {
+      "key": "electrolytes",
+      "filename": "bp-rawform-electrolytes.png",
+      "label": "Electrolytes",
+      "alt": "Electrolytes"
+    },
+    {
+      "key": "starter-stack",
+      "filename": "bp-rawform-starter-stack.png",
+      "label": "Starter stack",
+      "alt": "Starter stack"
+    },
+    {
+      "key": "collagen-peptides",
+      "filename": "bp-rawform-collagen-peptides.png",
+      "label": "Collagen Peptides",
+      "alt": "Collagen Peptides"
+    },
+    {
+      "key": "shaker",
+      "filename": "bp-rawform-shaker.png",
+      "label": "Shaker",
+      "alt": "Shaker"
+    },
+    {
+      "key": "sample-sachets-6",
+      "filename": "bp-rawform-sample-sachets-6.png",
+      "label": "Sample sachets (6)",
+      "alt": "Sample sachets (6)"
+    },
+    {
+      "key": "bp-rawform-photo-home-hero-athlete-mid-shake-black-and-lime-gym-flash",
+      "filename": "bp-rawform-photo-home-hero-athlete-mid-shake-black-and-lime-gym-flash.png",
+      "label": "Home hero: athlete mid-shake, black and lime, gym flash",
+      "alt": ""
+    },
+    {
+      "key": "bp-rawform-photo-video-still-track-athlete-stadium",
+      "filename": "bp-rawform-photo-video-still-track-athlete-stadium.png",
+      "label": "Video still: track athlete, stadium",
+      "alt": ""
+    },
+    {
+      "key": "bp-rawform-photo-video-still-lifter-in-gym",
+      "filename": "bp-rawform-photo-video-still-lifter-in-gym.png",
+      "label": "Video still: lifter in gym",
+      "alt": ""
+    },
+    {
+      "key": "bp-rawform-photo-video-still-coach-at-the-box",
+      "filename": "bp-rawform-photo-video-still-coach-at-the-box.png",
+      "label": "Video still: coach at the box",
+      "alt": ""
+    },
+    {
+      "key": "bp-rawform-photo-customer-photo-tub-on-a-squat-rack",
+      "filename": "bp-rawform-photo-customer-photo-tub-on-a-squat-rack.png",
+      "label": "Customer photo: tub on a squat rack",
+      "alt": ""
+    },
+    {
+      "key": "bp-rawform-photo-advertorial-lead-image",
+      "filename": "bp-rawform-photo-advertorial-lead-image.png",
+      "label": "Advertorial lead image",
+      "alt": ""
+    }
+  ],
+  "products": [
+    {
+      "handle": "rawform-whey",
+      "title": "Grass-fed Whey Isolate",
+      "productType": "Protein",
+      "tags": [
+        "bp-hero"
+      ],
+      "descriptionHtml": "<p>28 g protein. 1 g sugar. Nothing to hide.</p>",
+      "files": [
+        {
+          "$file": "hero"
+        },
+        {
+          "$file": "hero-2"
+        },
+        {
+          "$file": "hero-3"
+        },
+        {
+          "$file": "hero-4"
+        },
+        {
+          "$file": "hero-5"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "tiers",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_tier/rawform-tier-1"
+            },
+            {
+              "$metaobject": "blueprint_tier/rawform-tier-2"
+            },
+            {
+              "$metaobject": "blueprint_tier/rawform-tier-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "pack_option",
+          "type": "single_line_text_field",
+          "value": "Pack"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "servings_per_unit",
+          "type": "number_integer",
+          "value": 28
+        },
+        {
+          "namespace": "blueprint",
+          "key": "serving_label",
+          "type": "single_line_text_field",
+          "value": "serving"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "days_per_unit",
+          "type": "number_integer",
+          "value": 28
+        },
+        {
+          "namespace": "blueprint",
+          "key": "badge",
+          "type": "single_line_text_field",
+          "value": "Informed Sport"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "benefits",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_benefit/rawform-benefit-1"
+            },
+            {
+              "$metaobject": "blueprint_benefit/rawform-benefit-2"
+            },
+            {
+              "$metaobject": "blueprint_benefit/rawform-benefit-3"
+            },
+            {
+              "$metaobject": "blueprint_benefit/rawform-benefit-4"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "ingredients",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_ingredient/rawform-ingredient-1"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/rawform-ingredient-2"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/rawform-ingredient-3"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/rawform-ingredient-4"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/rawform-ingredient-5"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/rawform-ingredient-6"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "comparison",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_comparison_row/rawform-comparison-1"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/rawform-comparison-2"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/rawform-comparison-3"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/rawform-comparison-4"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/rawform-comparison-5"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "comparison_competitor_label",
+          "type": "single_line_text_field",
+          "value": "Big-box whey"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "faqs",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_faq/rawform-faq-1"
+            },
+            {
+              "$metaobject": "blueprint_faq/rawform-faq-2"
+            },
+            {
+              "$metaobject": "blueprint_faq/rawform-faq-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "guarantee",
+          "type": "metaobject_reference",
+          "value": {
+            "$metaobject": "blueprint_guarantee/rawform-guarantee"
+          }
+        },
+        {
+          "namespace": "blueprint",
+          "key": "certifications",
+          "type": "list.single_line_text_field",
+          "value": [
+            "Informed Sport",
+            "Grass-fed",
+            "Non-GMO",
+            "Gluten-free",
+            "Made in the USA"
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "upsell",
+          "type": "product_reference",
+          "value": {
+            "$product": "creatine-monohydrate"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating_count",
+          "type": "number_integer",
+          "value": 15882
+        },
+        {
+          "namespace": "descriptors",
+          "key": "subtitle",
+          "type": "single_line_text_field",
+          "value": "28 g protein. 1 g sugar. Nothing to hide."
+        },
+        {
+          "namespace": "blueprint",
+          "key": "shot_note",
+          "type": "single_line_text_field",
+          "value": "PDP hero: black tub with lime label, scoop and powder spill, hard flash"
+        }
+      ],
+      "options": [
+        {
+          "name": "Flavour",
+          "values": [
+            "Chocolate",
+            "Vanilla",
+            "Cookies & cream",
+            "Unflavoured"
+          ]
+        },
+        {
+          "name": "Size",
+          "values": [
+            "2 lb · 28 servings",
+            "5 lb · 70 servings"
+          ]
+        },
+        {
+          "name": "Pack",
+          "values": [
+            "1 tub",
+            "2 tubs",
+            "3 tubs"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "options": [
+            "Chocolate",
+            "2 lb · 28 servings",
+            "1 tub"
+          ],
+          "price": "54.00",
+          "compareAtPrice": "64.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Chocolate",
+            "2 lb · 28 servings",
+            "2 tubs"
+          ],
+          "price": "98.00",
+          "compareAtPrice": "128.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Chocolate",
+            "2 lb · 28 servings",
+            "3 tubs"
+          ],
+          "price": "138.00",
+          "compareAtPrice": "192.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Chocolate",
+            "5 lb · 70 servings",
+            "1 tub"
+          ],
+          "price": "124.20",
+          "compareAtPrice": "147.20",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Chocolate",
+            "5 lb · 70 servings",
+            "2 tubs"
+          ],
+          "price": "225.40",
+          "compareAtPrice": "294.40",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Chocolate",
+            "5 lb · 70 servings",
+            "3 tubs"
+          ],
+          "price": "317.40",
+          "compareAtPrice": "441.60",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Vanilla",
+            "2 lb · 28 servings",
+            "1 tub"
+          ],
+          "price": "54.00",
+          "compareAtPrice": "64.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Vanilla",
+            "2 lb · 28 servings",
+            "2 tubs"
+          ],
+          "price": "98.00",
+          "compareAtPrice": "128.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Vanilla",
+            "2 lb · 28 servings",
+            "3 tubs"
+          ],
+          "price": "138.00",
+          "compareAtPrice": "192.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Vanilla",
+            "5 lb · 70 servings",
+            "1 tub"
+          ],
+          "price": "124.20",
+          "compareAtPrice": "147.20",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Vanilla",
+            "5 lb · 70 servings",
+            "2 tubs"
+          ],
+          "price": "225.40",
+          "compareAtPrice": "294.40",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Vanilla",
+            "5 lb · 70 servings",
+            "3 tubs"
+          ],
+          "price": "317.40",
+          "compareAtPrice": "441.60",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Cookies & cream",
+            "2 lb · 28 servings",
+            "1 tub"
+          ],
+          "price": "54.00",
+          "compareAtPrice": "64.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Cookies & cream",
+            "2 lb · 28 servings",
+            "2 tubs"
+          ],
+          "price": "98.00",
+          "compareAtPrice": "128.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Cookies & cream",
+            "2 lb · 28 servings",
+            "3 tubs"
+          ],
+          "price": "138.00",
+          "compareAtPrice": "192.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Cookies & cream",
+            "5 lb · 70 servings",
+            "1 tub"
+          ],
+          "price": "124.20",
+          "compareAtPrice": "147.20",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Cookies & cream",
+            "5 lb · 70 servings",
+            "2 tubs"
+          ],
+          "price": "225.40",
+          "compareAtPrice": "294.40",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Cookies & cream",
+            "5 lb · 70 servings",
+            "3 tubs"
+          ],
+          "price": "317.40",
+          "compareAtPrice": "441.60",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Unflavoured",
+            "2 lb · 28 servings",
+            "1 tub"
+          ],
+          "price": "54.00",
+          "compareAtPrice": "64.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Unflavoured",
+            "2 lb · 28 servings",
+            "2 tubs"
+          ],
+          "price": "98.00",
+          "compareAtPrice": "128.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Unflavoured",
+            "2 lb · 28 servings",
+            "3 tubs"
+          ],
+          "price": "138.00",
+          "compareAtPrice": "192.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "Unflavoured",
+            "5 lb · 70 servings",
+            "1 tub"
+          ],
+          "price": "124.20",
+          "compareAtPrice": "147.20",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "Unflavoured",
+            "5 lb · 70 servings",
+            "2 tubs"
+          ],
+          "price": "225.40",
+          "compareAtPrice": "294.40",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "Unflavoured",
+            "5 lb · 70 servings",
+            "3 tubs"
+          ],
+          "price": "317.40",
+          "compareAtPrice": "441.60",
+          "packQuantity": 3
+        }
+      ]
+    },
+    {
+      "handle": "steel-shaker",
+      "title": "Steel shaker",
+      "productType": "",
+      "tags": [
+        "bp-gift"
+      ],
+      "descriptionHtml": "<p>Steel shaker.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "18.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "steel-shaker"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "creatine-monohydrate",
+      "title": "Creatine Monohydrate",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Creatine Monohydrate.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "29.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "creatine-monohydrate"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "cart_deal_label",
+          "type": "single_line_text_field",
+          "value": "$24 in cart"
+        }
+      ]
+    },
+    {
+      "handle": "pre-workout",
+      "title": "Pre-Workout",
+      "productType": "Protein",
+      "tags": [],
+      "descriptionHtml": "<p>Pre-Workout.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "39.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "pre-workout"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "electrolytes",
+      "title": "Electrolytes",
+      "productType": "Performance",
+      "tags": [],
+      "descriptionHtml": "<p>Electrolytes.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "24.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "electrolytes"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "starter-stack",
+      "title": "Starter stack",
+      "productType": "Stacks",
+      "tags": [],
+      "descriptionHtml": "<p>Starter stack.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "109.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "starter-stack"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "collagen-peptides",
+      "title": "Collagen Peptides",
+      "productType": "Protein",
+      "tags": [],
+      "descriptionHtml": "<p>Collagen Peptides.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "36.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "collagen-peptides"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.7",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "shaker",
+      "title": "Shaker",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Shaker.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "12.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "shaker"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "sample-sachets-6",
+      "title": "Sample sachets (6)",
+      "productType": "",
+      "tags": [
+        "bp-gift"
+      ],
+      "descriptionHtml": "<p>Sample sachets (6).</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "18.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "sample-sachets-6"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "shipping-protection",
+      "title": "Shipping protection",
+      "productType": "",
+      "tags": [
+        "bp-protection"
+      ],
+      "descriptionHtml": "<p>Covers loss, theft and damage in transit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "2.95",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": false
+        }
+      ],
+      "files": [],
+      "metafields": []
+    }
+  ],
+  "metaobjects": [
+    {
+      "type": "blueprint_tier",
+      "handle": "rawform-tier-1",
+      "fields": {
+        "label": "1 tub",
+        "sublabel": "28 servings",
+        "preselected": false,
+        "pack_value": "1 tub"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "rawform-tier-2",
+      "fields": {
+        "label": "2 tubs",
+        "sublabel": "56 servings · free shipping",
+        "badge": "Most popular",
+        "preselected": true,
+        "pack_value": "2 tubs",
+        "subscription_plan_hint": "2 months"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "rawform-tier-3",
+      "fields": {
+        "label": "3 tubs",
+        "sublabel": "84 servings · free shaker",
+        "badge": "Best value",
+        "preselected": false,
+        "pack_value": "3 tubs",
+        "subscription_plan_hint": "3 months",
+        "gift_variant": {
+          "$variant": [
+            "steel-shaker",
+            []
+          ]
+        },
+        "gift_value_label": "$18 value"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "rawform-benefit-1",
+      "fields": {
+        "icon": "bolt",
+        "title": "28 g protein, 3.1 g leucine"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "rawform-benefit-2",
+      "fields": {
+        "icon": "flask",
+        "title": "Informed Sport, every batch"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "rawform-benefit-3",
+      "fields": {
+        "icon": "x",
+        "title": "No artificial sweeteners"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "rawform-benefit-4",
+      "fields": {
+        "icon": "shield",
+        "title": "Grass-fed, cold-filtered isolate"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "rawform-ingredient-1",
+      "fields": {
+        "name": "Protein",
+        "dose": "28 g",
+        "why": "Grass-fed whey isolate, cold-filtered"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "rawform-ingredient-2",
+      "fields": {
+        "name": "Sugar",
+        "dose": "1 g",
+        "why": "From cocoa. No sucralose, no ace-K"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "rawform-ingredient-3",
+      "fields": {
+        "name": "Carbohydrates",
+        "dose": "3 g",
+        "why": "Net 2 g"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "rawform-ingredient-4",
+      "fields": {
+        "name": "Leucine",
+        "dose": "3.1 g",
+        "why": "The amino that triggers synthesis"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "rawform-ingredient-5",
+      "fields": {
+        "name": "Digestive enzymes",
+        "dose": "100 mg",
+        "why": "ProHydrolase, no bloat"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "rawform-ingredient-6",
+      "fields": {
+        "name": "Artificial anything",
+        "dose": "0 mg",
+        "why": "Monk fruit and sea salt, that is it"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "rawform-comparison-1",
+      "fields": {
+        "feature": "Grass-fed isolate, cold-filtered",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "rawform-comparison-2",
+      "fields": {
+        "feature": "Informed Sport certified",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "rawform-comparison-3",
+      "fields": {
+        "feature": "No artificial sweeteners",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "rawform-comparison-4",
+      "fields": {
+        "feature": "COA published per batch",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "rawform-comparison-5",
+      "fields": {
+        "feature": "Amino spiking",
+        "us": "no",
+        "them": "yes"
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "rawform-faq-1",
+      "fields": {
+        "question": "Why isolate over concentrate?",
+        "answer": {
+          "rich": "Higher protein per gram, almost no lactose, cold-filtered to keep the fractions intact."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "rawform-faq-2",
+      "fields": {
+        "question": "Is it third-party tested?",
+        "answer": {
+          "rich": "Informed Sport, every batch. The certificate number is printed on the tub."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "rawform-faq-3",
+      "fields": {
+        "question": "Which flavour?",
+        "answer": {
+          "rich": "Chocolate outsells everything. Unflavoured if you blend it into oats or coffee."
+        }
+      }
+    },
+    {
+      "type": "blueprint_guarantee",
+      "handle": "rawform-guarantee",
+      "fields": {
+        "title": "60-day money-back guarantee",
+        "days": 60
+      }
+    }
+  ],
+  "sellingPlanGroups": [
+    {
+      "merchantCode": "bp-rawform-subscribe",
+      "name": "Subscribe & save 15%",
+      "options": [
+        "Delivery every"
+      ],
+      "percentage": 15,
+      "plans": [
+        {
+          "name": "Delivery every month",
+          "option": "month",
+          "months": 1
+        },
+        {
+          "name": "Delivery every 2 months",
+          "option": "2 months",
+          "months": 2
+        },
+        {
+          "name": "Delivery every 3 months",
+          "option": "3 months",
+          "months": 3
+        }
+      ],
+      "products": [
+        "rawform-whey"
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "handle": "best-sellers",
+      "title": "Best sellers",
+      "products": [
+        "rawform-whey",
+        "creatine-monohydrate",
+        "pre-workout",
+        "electrolytes",
+        "starter-stack",
+        "collagen-peptides"
+      ]
+    },
+    {
+      "handle": "protein",
+      "title": "Protein",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Protein"
+      }
+    },
+    {
+      "handle": "performance",
+      "title": "Performance",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Performance"
+      }
+    },
+    {
+      "handle": "stacks",
+      "title": "Stacks",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Stacks"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "handle": "advertorial",
+      "title": "A powerlifter sent 12 protein powders to a lab. Only 3 matched their label.",
+      "templateSuffix": "advertorial",
+      "body": "<p>I have taken whey for twelve years and I had never read a certificate of analysis. Then a lifter at my gym failed a drug test off a clean-labelled pre-workout.</p>"
+    },
+    {
+      "handle": "listicle",
+      "title": "6 things to check before you buy any protein",
+      "templateSuffix": "listicle",
+      "body": ""
+    },
+    {
+      "handle": "comparison",
+      "title": "How RAWFORM compares",
+      "templateSuffix": "comparison",
+      "body": ""
+    },
+    {
+      "handle": "about",
+      "title": "About RAWFORM",
+      "templateSuffix": "about",
+      "body": "<p>Transparent Labs meets Ghost. Loud, lab-tested, stack-driven.</p>"
+    },
+    {
+      "handle": "contact",
+      "title": "Contact",
+      "templateSuffix": "contact",
+      "body": ""
+    }
+  ],
+  "menus": [
+    {
+      "handle": "main-menu",
+      "title": "Main menu",
+      "items": [
+        {
+          "title": "Protein",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "best-sellers"
+          },
+          "items": [
+            {
+              "title": "Grass-fed Whey Isolate",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "rawform-whey"
+              }
+            },
+            {
+              "title": "Creatine Monohydrate",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "creatine-monohydrate"
+              }
+            },
+            {
+              "title": "Pre-Workout",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "pre-workout"
+              }
+            },
+            {
+              "title": "Electrolytes",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "electrolytes"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Creatine",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Stacks",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "stacks"
+          }
+        },
+        {
+          "title": "Lab results",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "footer",
+      "title": "Footer menu",
+      "items": [
+        {
+          "title": "Search",
+          "type": "SEARCH",
+          "url": "/search"
+        },
+        {
+          "title": "Shipping",
+          "type": "HTTP",
+          "url": "/policies/shipping-policy"
+        },
+        {
+          "title": "Returns",
+          "type": "HTTP",
+          "url": "/policies/refund-policy"
+        },
+        {
+          "title": "Contact",
+          "type": "PAGE",
+          "ref": {
+            "$page": "contact"
+          }
+        }
+      ]
+    }
+  ],
+  "discounts": [
+    {
+      "kind": "freeShipping",
+      "title": "Blueprint demo: free shipping over $75",
+      "minimumSubtotal": "75.00"
+    },
+    {
+      "kind": "giftOverAmount",
+      "title": "Blueprint demo: free shaker over $120",
+      "buysProducts": [
+        {
+          "$product": "rawform-whey"
+        },
+        {
+          "$product": "creatine-monohydrate"
+        },
+        {
+          "$product": "pre-workout"
+        },
+        {
+          "$product": "electrolytes"
+        },
+        {
+          "$product": "starter-stack"
+        },
+        {
+          "$product": "collagen-peptides"
+        },
+        {
+          "$product": "shaker"
+        }
+      ],
+      "minimumAmount": "120.00",
+      "gift": {
+        "$variant": [
+          "shaker",
+          []
+        ]
+      }
+    },
+    {
+      "kind": "giftOverAmount",
+      "title": "Blueprint demo: free samples over $200",
+      "buysProducts": [
+        {
+          "$product": "rawform-whey"
+        },
+        {
+          "$product": "creatine-monohydrate"
+        },
+        {
+          "$product": "pre-workout"
+        },
+        {
+          "$product": "electrolytes"
+        },
+        {
+          "$product": "starter-stack"
+        },
+        {
+          "$product": "collagen-peptides"
+        },
+        {
+          "$product": "shaker"
+        }
+      ],
+      "minimumAmount": "200.00",
+      "gift": {
+        "$variant": [
+          "sample-sachets-6",
+          []
+        ]
+      }
+    },
+    {
+      "kind": "giftWithVariants",
+      "title": "Blueprint demo: free steel shaker with 3 tubs",
+      "buysVariants": [
+        {
+          "$variant": [
+            "rawform-whey",
+            [
+              "Chocolate",
+              "2 lb · 28 servings",
+              "3 tubs"
+            ]
+          ]
+        },
+        {
+          "$variant": [
+            "rawform-whey",
+            [
+              "Chocolate",
+              "5 lb · 70 servings",
+              "3 tubs"
+            ]
+          ]
+        },
+        {
+          "$variant": [
+            "rawform-whey",
+            [
+              "Vanilla",
+              "2 lb · 28 servings",
+              "3 tubs"
+            ]
+          ]
+        },
+        {
+          "$variant": [
+            "rawform-whey",
+            [
+              "Vanilla",
+              "5 lb · 70 servings",
+              "3 tubs"
+            ]
+          ]
+        },
+        {
+          "$variant": [
+            "rawform-whey",
+            [
+              "Cookies & cream",
+              "2 lb · 28 servings",
+              "3 tubs"
+            ]
+          ]
+        },
+        {
+          "$variant": [
+            "rawform-whey",
+            [
+              "Cookies & cream",
+              "5 lb · 70 servings",
+              "3 tubs"
+            ]
+          ]
+        },
+        {
+          "$variant": [
+            "rawform-whey",
+            [
+              "Unflavoured",
+              "2 lb · 28 servings",
+              "3 tubs"
+            ]
+          ]
+        },
+        {
+          "$variant": [
+            "rawform-whey",
+            [
+              "Unflavoured",
+              "5 lb · 70 servings",
+              "3 tubs"
+            ]
+          ]
+        }
+      ],
+      "gift": {
+        "$variant": [
+          "steel-shaker",
+          []
+        ]
+      }
+    },
+    {
+      "kind": "amountOffProduct",
+      "title": "Blueprint demo: Creatine Monohydrate $24 in cart",
+      "products": [
+        {
+          "$product": "creatine-monohydrate"
+        }
+      ],
+      "amountEach": "5.00"
+    }
+  ],
+  "theme": {
+    "preset": "Bold",
+    "listing": "bold",
+    "settings": {
+      "color_mode": "dark",
+      "accent_color": "#D9FF3D",
+      "dark_bg": "#0C0C0E",
+      "dark_surface": "#1A1A1F",
+      "dark_ink": "#FFFFFF",
+      "dark_line": "#2A2A32",
+      "dark_accent_soft": "#262B12",
+      "light_on_accent": "",
+      "dark_on_accent": "",
+      "light_accent_text": "",
+      "dark_accent_text": "",
+      "cart_protection_product": "shipping-protection",
+      "cart_upsell_collection": "best-sellers",
+      "cart_upsell_show_deal": true,
+      "cart_empty_collection": "best-sellers",
+      "social_instagram": "https://instagram.com/rawform",
+      "social_tiktok": "https://tiktok.com/@rawform",
+      "cart_reward_1_label": "Free shipping",
+      "cart_reward_1_threshold": 75,
+      "cart_reward_1_gift": "",
+      "cart_reward_2_label": "Free shaker",
+      "cart_reward_2_threshold": 120,
+      "cart_reward_2_gift": "shaker",
+      "cart_reward_3_label": "Free samples",
+      "cart_reward_3_threshold": 200,
+      "cart_reward_3_gift": "sample-sachets-6"
+    }
+  }
+}

@@ -6,7 +6,7 @@
       "settings": {
         "eyebrow": "Beauty · Partner",
         "heading": "The $120 perfume people keep mistaking for a $400 one.",
-        "lede": "I review fragrance for a living, which means I own too much of it. Last month a sample of No. 04 ended up in my bag by accident."
+        "lede": ""
       }
     },
     "byline": {
@@ -20,28 +20,28 @@
       "type": "article-body",
       "settings": {},
       "blocks": {
-        "text_1": {
+        "image_1": {
+          "type": "image",
+          "settings": {
+            "ratio": "landscape"
+          }
+        },
+        "text_2": {
           "type": "text",
           "settings": {
-            "text": "<p>Tell the story in your customer's words: what they tried before, what changed and when.</p>"
+            "text": "<p>I review fragrance for a living, which means I own too much of it. Last month a sample of No. 04 ended up in my bag by accident.</p>"
           }
         },
-        "heading_2": {
-          "type": "heading",
-          "settings": {
-            "text": "What happened next"
-          }
-        },
-        "text_3": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Keep every claim specific and true. Link the study, show the label, say what it costs.</p>"
-          }
-        },
-        "quote_4": {
+        "quote_3": {
           "type": "quote",
           "settings": {
             "quote": "<p>Three strangers asked what I was wearing in one week. That has never happened with the expensive ones.</p>"
+          }
+        },
+        "text_4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Keep every claim specific and true: what they tried before, what changed and when. Link the study, show the label, say what it costs.</p>"
           }
         },
         "product_5": {
@@ -55,10 +55,10 @@
         }
       },
       "block_order": [
-        "text_1",
-        "heading_2",
-        "text_3",
-        "quote_4",
+        "image_1",
+        "text_2",
+        "quote_3",
+        "text_4",
         "product_5"
       ]
     },

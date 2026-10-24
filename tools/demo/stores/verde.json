@@ -1,0 +1,1276 @@
+{
+  "id": "verde",
+  "brand": "VERDE",
+  "preset": "Clinical",
+  "listing": "clinical",
+  "required": true,
+  "mode": "pack",
+  "notice": "Demo store: sample products, prices and reviews",
+  "files": [
+    {
+      "key": "hero",
+      "filename": "bp-verde-hero.png",
+      "label": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight",
+      "alt": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight"
+    },
+    {
+      "key": "hero-2",
+      "filename": "bp-verde-hero-2.png",
+      "label": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight · view 2",
+      "alt": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight · view 2"
+    },
+    {
+      "key": "hero-3",
+      "filename": "bp-verde-hero-3.png",
+      "label": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight · view 3",
+      "alt": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight · view 3"
+    },
+    {
+      "key": "hero-4",
+      "filename": "bp-verde-hero-4.png",
+      "label": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight · view 4",
+      "alt": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight · view 4"
+    },
+    {
+      "key": "hero-5",
+      "filename": "bp-verde-hero-5.png",
+      "label": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight · view 5",
+      "alt": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight · view 5"
+    },
+    {
+      "key": "travel-packs-5",
+      "filename": "bp-verde-travel-packs-5.png",
+      "label": "Travel packs (5)",
+      "alt": "Travel packs (5)"
+    },
+    {
+      "key": "d3-k2-drops",
+      "filename": "bp-verde-d3-k2-drops.png",
+      "label": "D3 + K2 drops",
+      "alt": "D3 + K2 drops"
+    },
+    {
+      "key": "travel-packs",
+      "filename": "bp-verde-travel-packs.png",
+      "label": "Travel packs",
+      "alt": "Travel packs"
+    },
+    {
+      "key": "omega-3",
+      "filename": "bp-verde-omega-3.png",
+      "label": "Omega-3",
+      "alt": "Omega-3"
+    },
+    {
+      "key": "starter-kit",
+      "filename": "bp-verde-starter-kit.png",
+      "label": "Starter kit",
+      "alt": "Starter kit"
+    },
+    {
+      "key": "steel-shaker",
+      "filename": "bp-verde-steel-shaker.png",
+      "label": "Steel shaker",
+      "alt": "Steel shaker"
+    },
+    {
+      "key": "glass-shaker",
+      "filename": "bp-verde-glass-shaker.png",
+      "label": "Glass shaker",
+      "alt": "Glass shaker"
+    },
+    {
+      "key": "travel-packs-10",
+      "filename": "bp-verde-travel-packs-10.png",
+      "label": "Travel packs (10)",
+      "alt": "Travel packs (10)"
+    },
+    {
+      "key": "bp-verde-photo-home-hero-scoop-pouring-into-a-glass-morning-kitchen-light-b",
+      "filename": "bp-verde-photo-home-hero-scoop-pouring-into-a-glass-morning-kitchen-light-b.png",
+      "label": "Home hero: scoop pouring into a glass, morning kitchen light, bone and green",
+      "alt": ""
+    },
+    {
+      "key": "bp-verde-photo-customer-photo-glass-of-verde-on-a-desk",
+      "filename": "bp-verde-photo-customer-photo-glass-of-verde-on-a-desk.png",
+      "label": "Customer photo: glass of Verde on a desk",
+      "alt": ""
+    },
+    {
+      "key": "bp-verde-photo-customer-photo-pouch-in-a-gym-bag",
+      "filename": "bp-verde-photo-customer-photo-pouch-in-a-gym-bag.png",
+      "label": "Customer photo: pouch in a gym bag",
+      "alt": ""
+    },
+    {
+      "key": "bp-verde-photo-customer-photo-morning-counter-with-shaker",
+      "filename": "bp-verde-photo-customer-photo-morning-counter-with-shaker.png",
+      "label": "Customer photo: morning counter with shaker",
+      "alt": ""
+    },
+    {
+      "key": "bp-verde-photo-advertorial-lead-image",
+      "filename": "bp-verde-photo-advertorial-lead-image.png",
+      "label": "Advertorial lead image",
+      "alt": ""
+    }
+  ],
+  "products": [
+    {
+      "handle": "verde-daily",
+      "title": "Verde Daily",
+      "productType": "Daily",
+      "tags": [
+        "bp-hero"
+      ],
+      "descriptionHtml": "<p>One scoop. 75 ingredients. Every morning.</p>",
+      "files": [
+        {
+          "$file": "hero"
+        },
+        {
+          "$file": "hero-2"
+        },
+        {
+          "$file": "hero-3"
+        },
+        {
+          "$file": "hero-4"
+        },
+        {
+          "$file": "hero-5"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "tiers",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_tier/verde-tier-1"
+            },
+            {
+              "$metaobject": "blueprint_tier/verde-tier-2"
+            },
+            {
+              "$metaobject": "blueprint_tier/verde-tier-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "pack_option",
+          "type": "single_line_text_field",
+          "value": "Pack"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "servings_per_unit",
+          "type": "number_integer",
+          "value": 30
+        },
+        {
+          "namespace": "blueprint",
+          "key": "serving_label",
+          "type": "single_line_text_field",
+          "value": "serving"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "days_per_unit",
+          "type": "number_integer",
+          "value": 30
+        },
+        {
+          "namespace": "blueprint",
+          "key": "badge",
+          "type": "single_line_text_field",
+          "value": "NSF Certified"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "benefits",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_benefit/verde-benefit-1"
+            },
+            {
+              "$metaobject": "blueprint_benefit/verde-benefit-2"
+            },
+            {
+              "$metaobject": "blueprint_benefit/verde-benefit-3"
+            },
+            {
+              "$metaobject": "blueprint_benefit/verde-benefit-4"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "ingredients",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_ingredient/verde-ingredient-1"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/verde-ingredient-2"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/verde-ingredient-3"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/verde-ingredient-4"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/verde-ingredient-5"
+            },
+            {
+              "$metaobject": "blueprint_ingredient/verde-ingredient-6"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "studies",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_study/verde-study-1"
+            },
+            {
+              "$metaobject": "blueprint_study/verde-study-2"
+            },
+            {
+              "$metaobject": "blueprint_study/verde-study-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "comparison",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_comparison_row/verde-comparison-1"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/verde-comparison-2"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/verde-comparison-3"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/verde-comparison-4"
+            },
+            {
+              "$metaobject": "blueprint_comparison_row/verde-comparison-5"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "comparison_competitor_label",
+          "type": "single_line_text_field",
+          "value": "Separate supplements"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "faqs",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_faq/verde-faq-1"
+            },
+            {
+              "$metaobject": "blueprint_faq/verde-faq-2"
+            },
+            {
+              "$metaobject": "blueprint_faq/verde-faq-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "guarantee",
+          "type": "metaobject_reference",
+          "value": {
+            "$metaobject": "blueprint_guarantee/verde-guarantee"
+          }
+        },
+        {
+          "namespace": "blueprint",
+          "key": "certifications",
+          "type": "list.single_line_text_field",
+          "value": [
+            "NSF Certified for Sport",
+            "Vegan",
+            "Gluten-free",
+            "No added sugar",
+            "Made in a cGMP facility"
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "upsell",
+          "type": "product_reference",
+          "value": {
+            "$product": "d3-k2-drops"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating_count",
+          "type": "number_integer",
+          "value": 41208
+        },
+        {
+          "namespace": "descriptors",
+          "key": "subtitle",
+          "type": "single_line_text_field",
+          "value": "One scoop. 75 ingredients. Every morning."
+        },
+        {
+          "namespace": "blueprint",
+          "key": "shot_note",
+          "type": "single_line_text_field",
+          "value": "PDP hero: matte green pouch and scoop, bone backdrop, soft daylight"
+        }
+      ],
+      "options": [
+        {
+          "name": "Format",
+          "values": [
+            "30-serving pouch",
+            "30 travel packs"
+          ]
+        },
+        {
+          "name": "Pack",
+          "values": [
+            "1 pouch",
+            "2 pouches",
+            "3 pouches"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "options": [
+            "30-serving pouch",
+            "1 pouch"
+          ],
+          "price": "79.00",
+          "compareAtPrice": "99.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "30-serving pouch",
+            "2 pouches"
+          ],
+          "price": "142.00",
+          "compareAtPrice": "198.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "30-serving pouch",
+            "3 pouches"
+          ],
+          "price": "199.00",
+          "compareAtPrice": "297.00",
+          "packQuantity": 3
+        },
+        {
+          "options": [
+            "30 travel packs",
+            "1 pouch"
+          ],
+          "price": "79.00",
+          "compareAtPrice": "99.00",
+          "packQuantity": 1
+        },
+        {
+          "options": [
+            "30 travel packs",
+            "2 pouches"
+          ],
+          "price": "142.00",
+          "compareAtPrice": "198.00",
+          "packQuantity": 2
+        },
+        {
+          "options": [
+            "30 travel packs",
+            "3 pouches"
+          ],
+          "price": "199.00",
+          "compareAtPrice": "297.00",
+          "packQuantity": 3
+        }
+      ]
+    },
+    {
+      "handle": "travel-packs-5",
+      "title": "Travel packs (5)",
+      "productType": "",
+      "tags": [
+        "bp-gift"
+      ],
+      "descriptionHtml": "<p>Travel packs (5).</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "18.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "travel-packs-5"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "d3-k2-drops",
+      "title": "D3 + K2 drops",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>D3 + K2 drops.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "24.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "d3-k2-drops"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "cart_deal_label",
+          "type": "single_line_text_field",
+          "value": "$18 in cart"
+        }
+      ]
+    },
+    {
+      "handle": "travel-packs",
+      "title": "Travel packs",
+      "productType": "Bundles",
+      "tags": [],
+      "descriptionHtml": "<p>Travel packs.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "89.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "travel-packs"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "omega-3",
+      "title": "Omega-3",
+      "productType": "Travel",
+      "tags": [],
+      "descriptionHtml": "<p>Omega-3.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "34.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "omega-3"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "starter-kit",
+      "title": "Starter kit",
+      "productType": "Bundles",
+      "tags": [],
+      "descriptionHtml": "<p>Starter kit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "99.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "starter-kit"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "steel-shaker",
+      "title": "Steel shaker",
+      "productType": "Daily",
+      "tags": [],
+      "descriptionHtml": "<p>Steel shaker.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "18.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "steel-shaker"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.7",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "glass-shaker",
+      "title": "Glass shaker",
+      "productType": "",
+      "tags": [
+        "bp-gift"
+      ],
+      "descriptionHtml": "<p>Glass shaker.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "15.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "glass-shaker"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "travel-packs-10",
+      "title": "Travel packs (10)",
+      "productType": "",
+      "tags": [
+        "bp-gift"
+      ],
+      "descriptionHtml": "<p>Travel packs (10).</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "36.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "travel-packs-10"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "shipping-protection",
+      "title": "Shipping protection",
+      "productType": "",
+      "tags": [
+        "bp-protection"
+      ],
+      "descriptionHtml": "<p>Covers loss, theft and damage in transit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "2.95",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": false
+        }
+      ],
+      "files": [],
+      "metafields": []
+    }
+  ],
+  "metaobjects": [
+    {
+      "type": "blueprint_tier",
+      "handle": "verde-tier-1",
+      "fields": {
+        "label": "1 pouch",
+        "sublabel": "30 servings",
+        "preselected": false,
+        "pack_value": "1 pouch"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "verde-tier-2",
+      "fields": {
+        "label": "2 pouches",
+        "sublabel": "60 servings · free shipping",
+        "badge": "Most popular",
+        "preselected": true,
+        "pack_value": "2 pouches",
+        "subscription_plan_hint": "2 months"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "verde-tier-3",
+      "fields": {
+        "label": "3 pouches",
+        "sublabel": "90 servings · free travel packs",
+        "badge": "Best value",
+        "preselected": false,
+        "pack_value": "3 pouches",
+        "subscription_plan_hint": "3 months",
+        "gift_variant": {
+          "$variant": [
+            "travel-packs-5",
+            []
+          ]
+        },
+        "gift_value_label": "$18 value"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "verde-benefit-1",
+      "fields": {
+        "icon": "leaf",
+        "title": "Gut, energy, immunity, focus"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "verde-benefit-2",
+      "fields": {
+        "icon": "flask",
+        "title": "NSF Certified for Sport"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "verde-benefit-3",
+      "fields": {
+        "icon": "drop",
+        "title": "No added sugar, vegan"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "verde-benefit-4",
+      "fields": {
+        "icon": "shield",
+        "title": "Clinically tested formula"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "verde-ingredient-1",
+      "fields": {
+        "name": "Spirulina + chlorella",
+        "dose": "2,400 mg",
+        "why": "Protein, iron, chlorophyll"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "verde-ingredient-2",
+      "fields": {
+        "name": "Probiotic blend",
+        "dose": "7.2B CFU",
+        "why": "L. acidophilus, B. bifidum"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "verde-ingredient-3",
+      "fields": {
+        "name": "Ashwagandha KSM-66",
+        "dose": "300 mg",
+        "why": "Stress response"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "verde-ingredient-4",
+      "fields": {
+        "name": "Vitamin C",
+        "dose": "420 mg",
+        "why": "467% DV, immune support"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "verde-ingredient-5",
+      "fields": {
+        "name": "Digestive enzymes",
+        "dose": "154 mg",
+        "why": "Bloat after meals"
+      }
+    },
+    {
+      "type": "blueprint_ingredient",
+      "handle": "verde-ingredient-6",
+      "fields": {
+        "name": "Rhodiola rosea",
+        "dose": "50 mg",
+        "why": "Mental stamina"
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "verde-study-1",
+      "fields": {
+        "stat_value": 97,
+        "stat_suffix": "%",
+        "label": "reported more sustained energy",
+        "source": "Published in Nutrients, March 2025. Full paper on the Science page."
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "verde-study-2",
+      "fields": {
+        "stat_value": 91,
+        "stat_suffix": "%",
+        "label": "better digestion by week 2",
+        "source": "Published in Nutrients, March 2025. Full paper on the Science page."
+      }
+    },
+    {
+      "type": "blueprint_study",
+      "handle": "verde-study-3",
+      "fields": {
+        "stat_value": 84,
+        "stat_suffix": "%",
+        "label": "fewer afternoon cravings",
+        "source": "Published in Nutrients, March 2025. Full paper on the Science page."
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "verde-comparison-1",
+      "fields": {
+        "feature": "One scoop, 60 seconds",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "verde-comparison-2",
+      "fields": {
+        "feature": "NSF Certified for Sport",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "verde-comparison-3",
+      "fields": {
+        "feature": "Doses on the label, no blends",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "verde-comparison-4",
+      "fields": {
+        "feature": "Under $2.70 a day",
+        "us": "yes",
+        "them": "no"
+      }
+    },
+    {
+      "type": "blueprint_comparison_row",
+      "handle": "verde-comparison-5",
+      "fields": {
+        "feature": "Seven bottles on the counter",
+        "us": "no",
+        "them": "yes"
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "verde-faq-1",
+      "fields": {
+        "question": "When will I notice something?",
+        "answer": {
+          "rich": "Energy and digestion within 7 to 14 days for most people. Give it 60 days; the trial ran 4 weeks."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "verde-faq-2",
+      "fields": {
+        "question": "Does it replace my multivitamin?",
+        "answer": {
+          "rich": "Yes. And your probiotic, greens and adaptogens. Keep your omega-3."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "verde-faq-3",
+      "fields": {
+        "question": "Can I pause my subscription?",
+        "answer": {
+          "rich": "Skip, pause, swap flavour or cancel from your account. Two taps, no calls."
+        }
+      }
+    },
+    {
+      "type": "blueprint_guarantee",
+      "handle": "verde-guarantee",
+      "fields": {
+        "title": "90-day money-back guarantee",
+        "days": 90,
+        "body": "If you do not feel a difference, email us and we refund it. Fewer than 2% ask."
+      }
+    }
+  ],
+  "sellingPlanGroups": [
+    {
+      "merchantCode": "bp-verde-subscribe",
+      "name": "Subscribe & save 20%",
+      "options": [
+        "Delivery every"
+      ],
+      "percentage": 20,
+      "plans": [
+        {
+          "name": "Delivery every month",
+          "option": "month",
+          "months": 1
+        },
+        {
+          "name": "Delivery every 2 months",
+          "option": "2 months",
+          "months": 2
+        },
+        {
+          "name": "Delivery every 3 months",
+          "option": "3 months",
+          "months": 3
+        }
+      ],
+      "products": [
+        "verde-daily"
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "handle": "best-sellers",
+      "title": "Best sellers",
+      "products": [
+        "verde-daily",
+        "travel-packs",
+        "d3-k2-drops",
+        "omega-3",
+        "starter-kit",
+        "steel-shaker"
+      ]
+    },
+    {
+      "handle": "daily",
+      "title": "Daily",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Daily"
+      }
+    },
+    {
+      "handle": "travel",
+      "title": "Travel",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Travel"
+      }
+    },
+    {
+      "handle": "bundles",
+      "title": "Bundles",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Bundles"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "handle": "advertorial",
+      "title": "I replaced seven supplements with one scoop. Here is my bloodwork 90 days later.",
+      "templateSuffix": "advertorial",
+      "body": "<p>I am 38, I run a team of twelve, and until March my kitchen counter looked like a pharmacy. A friend sent me a link and I rolled my eyes.</p>"
+    },
+    {
+      "handle": "listicle",
+      "title": "7 reasons 41,000 people start their morning with Verde",
+      "templateSuffix": "listicle",
+      "body": ""
+    },
+    {
+      "handle": "comparison",
+      "title": "How VERDE compares",
+      "templateSuffix": "comparison",
+      "body": ""
+    },
+    {
+      "handle": "about",
+      "title": "About VERDE",
+      "templateSuffix": "about",
+      "body": "<p>AG1 archetype. Clinical trust, one hero SKU, subscription first.</p>"
+    },
+    {
+      "handle": "contact",
+      "title": "Contact",
+      "templateSuffix": "contact",
+      "body": ""
+    }
+  ],
+  "menus": [
+    {
+      "handle": "main-menu",
+      "title": "Main menu",
+      "items": [
+        {
+          "title": "Shop",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "best-sellers"
+          },
+          "items": [
+            {
+              "title": "Verde Daily",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "verde-daily"
+              }
+            },
+            {
+              "title": "D3 + K2 drops",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "d3-k2-drops"
+              }
+            },
+            {
+              "title": "Travel packs",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "travel-packs"
+              }
+            },
+            {
+              "title": "Omega-3",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "omega-3"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Science",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Ingredients",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Reviews",
+          "type": "PRODUCT",
+          "ref": {
+            "$product": "verde-daily"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "footer",
+      "title": "Footer menu",
+      "items": [
+        {
+          "title": "Search",
+          "type": "SEARCH",
+          "url": "/search"
+        },
+        {
+          "title": "Shipping",
+          "type": "HTTP",
+          "url": "/policies/shipping-policy"
+        },
+        {
+          "title": "Returns",
+          "type": "HTTP",
+          "url": "/policies/refund-policy"
+        },
+        {
+          "title": "Contact",
+          "type": "PAGE",
+          "ref": {
+            "$page": "contact"
+          }
+        }
+      ]
+    }
+  ],
+  "discounts": [
+    {
+      "kind": "freeShipping",
+      "title": "Blueprint demo: free shipping over $50",
+      "minimumSubtotal": "50.00"
+    },
+    {
+      "kind": "freeShipping",
+      "title": "Blueprint demo: free shipping on subscriptions",
+      "subscriptionsOnly": true
+    },
+    {
+      "kind": "giftOverAmount",
+      "title": "Blueprint demo: free shaker over $130",
+      "buysProducts": [
+        {
+          "$product": "verde-daily"
+        },
+        {
+          "$product": "d3-k2-drops"
+        },
+        {
+          "$product": "travel-packs"
+        },
+        {
+          "$product": "omega-3"
+        },
+        {
+          "$product": "starter-kit"
+        },
+        {
+          "$product": "steel-shaker"
+        }
+      ],
+      "minimumAmount": "130.00",
+      "gift": {
+        "$variant": [
+          "glass-shaker",
+          []
+        ]
+      }
+    },
+    {
+      "kind": "giftOverAmount",
+      "title": "Blueprint demo: free travel packs over $250",
+      "buysProducts": [
+        {
+          "$product": "verde-daily"
+        },
+        {
+          "$product": "d3-k2-drops"
+        },
+        {
+          "$product": "travel-packs"
+        },
+        {
+          "$product": "omega-3"
+        },
+        {
+          "$product": "starter-kit"
+        },
+        {
+          "$product": "steel-shaker"
+        }
+      ],
+      "minimumAmount": "250.00",
+      "gift": {
+        "$variant": [
+          "travel-packs-10",
+          []
+        ]
+      }
+    },
+    {
+      "kind": "giftWithVariants",
+      "title": "Blueprint demo: free travel packs (5) with 3 pouches",
+      "buysVariants": [
+        {
+          "$variant": [
+            "verde-daily",
+            [
+              "30-serving pouch",
+              "3 pouches"
+            ]
+          ]
+        },
+        {
+          "$variant": [
+            "verde-daily",
+            [
+              "30 travel packs",
+              "3 pouches"
+            ]
+          ]
+        }
+      ],
+      "gift": {
+        "$variant": [
+          "travel-packs-5",
+          []
+        ]
+      }
+    },
+    {
+      "kind": "amountOffProduct",
+      "title": "Blueprint demo: Vitamin D3 + K2 drops $18 in cart",
+      "products": [
+        {
+          "$product": "d3-k2-drops"
+        }
+      ],
+      "amountEach": "6.00"
+    }
+  ],
+  "theme": {
+    "preset": "Clinical",
+    "listing": "clinical",
+    "settings": {
+      "color_mode": "light",
+      "accent_color": "#17533D",
+      "light_bg": "#F7F7F2",
+      "light_surface": "#E8EDE3",
+      "light_ink": "#0F1F17",
+      "light_line": "#D8DED2",
+      "light_accent_soft": "#DCE8DF",
+      "light_on_accent": "",
+      "dark_on_accent": "",
+      "light_accent_text": "",
+      "dark_accent_text": "",
+      "cart_protection_product": "shipping-protection",
+      "cart_upsell_collection": "best-sellers",
+      "cart_upsell_show_deal": true,
+      "cart_empty_collection": "best-sellers",
+      "social_instagram": "https://instagram.com/verde",
+      "social_tiktok": "https://tiktok.com/@verde",
+      "cart_reward_1_label": "Free shipping",
+      "cart_reward_1_threshold": 50,
+      "cart_reward_1_gift": "",
+      "cart_reward_2_label": "Free shaker",
+      "cart_reward_2_threshold": 130,
+      "cart_reward_2_gift": "glass-shaker",
+      "cart_reward_3_label": "Free travel packs",
+      "cart_reward_3_threshold": 250,
+      "cart_reward_3_gift": "travel-packs-10"
+    }
+  }
+}

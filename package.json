@@ -16,6 +16,8 @@
     "check:cart": "node tools/preview/cart-checklist.mjs",
     "store": "node tools/store.mjs",
     "check:sections": "node tools/preview/sections-checklist.mjs",
-    "check:landing": "node tools/preview/landing-checklist.mjs"
+    "check:landing": "node tools/preview/landing-checklist.mjs",
+    "seed": "node tools/seed-demo.mjs",
+    "demo:build": "node tools/demo/build-stores.mjs && node tools/demo/shot-list.mjs"
   }
 }

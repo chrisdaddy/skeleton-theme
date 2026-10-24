@@ -1,0 +1,1309 @@
+{
+  "id": "stillwater",
+  "brand": "STILLWATER",
+  "preset": "Editorial",
+  "listing": "editorial",
+  "required": false,
+  "mode": "mix",
+  "notice": "Demo store: sample products, prices and reviews",
+  "files": [
+    {
+      "key": "hero",
+      "filename": "bp-stillwater-hero.png",
+      "label": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light",
+      "alt": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light"
+    },
+    {
+      "key": "hero-2",
+      "filename": "bp-stillwater-hero-2.png",
+      "label": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light · view 2",
+      "alt": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light · view 2"
+    },
+    {
+      "key": "hero-3",
+      "filename": "bp-stillwater-hero-3.png",
+      "label": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light · view 3",
+      "alt": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light · view 3"
+    },
+    {
+      "key": "hero-4",
+      "filename": "bp-stillwater-hero-4.png",
+      "label": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light · view 4",
+      "alt": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light · view 4"
+    },
+    {
+      "key": "hero-5",
+      "filename": "bp-stillwater-hero-5.png",
+      "label": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light · view 5",
+      "alt": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light · view 5"
+    },
+    {
+      "key": "the-crew-sock-3",
+      "filename": "bp-stillwater-the-crew-sock-3.png",
+      "label": "The Crew Sock · 3",
+      "alt": "The Crew Sock · 3"
+    },
+    {
+      "key": "the-long-sleeve",
+      "filename": "bp-stillwater-the-long-sleeve.png",
+      "label": "The Long Sleeve",
+      "alt": "The Long Sleeve"
+    },
+    {
+      "key": "the-crew-sweatshirt",
+      "filename": "bp-stillwater-the-crew-sweatshirt.png",
+      "label": "The Crew Sweatshirt",
+      "alt": "The Crew Sweatshirt"
+    },
+    {
+      "key": "the-relaxed-jean",
+      "filename": "bp-stillwater-the-relaxed-jean.png",
+      "label": "The Relaxed Jean",
+      "alt": "The Relaxed Jean"
+    },
+    {
+      "key": "the-chore-coat",
+      "filename": "bp-stillwater-the-chore-coat.png",
+      "label": "The Chore Coat",
+      "alt": "The Chore Coat"
+    },
+    {
+      "key": "tees",
+      "filename": "bp-stillwater-tees.png",
+      "label": "Tees",
+      "alt": "Tees"
+    },
+    {
+      "key": "sweats",
+      "filename": "bp-stillwater-sweats.png",
+      "label": "Sweats",
+      "alt": "Sweats"
+    },
+    {
+      "key": "denim",
+      "filename": "bp-stillwater-denim.png",
+      "label": "Denim",
+      "alt": "Denim"
+    },
+    {
+      "key": "outerwear",
+      "filename": "bp-stillwater-outerwear.png",
+      "label": "Outerwear",
+      "alt": "Outerwear"
+    },
+    {
+      "key": "bone",
+      "filename": "bp-stillwater-bone.png",
+      "label": "Bone",
+      "alt": "Bone"
+    },
+    {
+      "key": "black",
+      "filename": "bp-stillwater-black.png",
+      "label": "Black",
+      "alt": "Black"
+    },
+    {
+      "key": "olive",
+      "filename": "bp-stillwater-olive.png",
+      "label": "Olive",
+      "alt": "Olive"
+    },
+    {
+      "key": "washed-navy",
+      "filename": "bp-stillwater-washed-navy.png",
+      "label": "Washed Navy",
+      "alt": "Washed Navy"
+    },
+    {
+      "key": "heather-grey",
+      "filename": "bp-stillwater-heather-grey.png",
+      "label": "Heather Grey",
+      "alt": "Heather Grey"
+    },
+    {
+      "key": "white",
+      "filename": "bp-stillwater-white.png",
+      "label": "White",
+      "alt": "White"
+    },
+    {
+      "key": "bp-stillwater-photo-home-hero-two-models-in-bone-and-olive-tees-concrete-wall-ov",
+      "filename": "bp-stillwater-photo-home-hero-two-models-in-bone-and-olive-tees-concrete-wall-ov.png",
+      "label": "Home hero: two models in bone and olive tees, concrete wall, overcast light",
+      "alt": ""
+    },
+    {
+      "key": "bp-stillwater-photo-macro-fabric-weave-bone-cotton-raking-light",
+      "filename": "bp-stillwater-photo-macro-fabric-weave-bone-cotton-raking-light.png",
+      "label": "Macro: fabric weave, bone cotton, raking light",
+      "alt": ""
+    },
+    {
+      "key": "bp-stillwater-photo-detail-inside-collar-seam-tape",
+      "filename": "bp-stillwater-photo-detail-inside-collar-seam-tape.png",
+      "label": "Detail: inside collar seam tape",
+      "alt": ""
+    },
+    {
+      "key": "bp-stillwater-photo-dye-house-tees-on-racks-los-angeles",
+      "filename": "bp-stillwater-photo-dye-house-tees-on-racks-los-angeles.png",
+      "label": "Dye house: tees on racks, Los Angeles",
+      "alt": ""
+    },
+    {
+      "key": "bp-stillwater-photo-model-in-bone-heavyweight-tee-grey-backdrop-full-length-natu",
+      "filename": "bp-stillwater-photo-model-in-bone-heavyweight-tee-grey-backdrop-full-length-natu.png",
+      "label": "Model in bone heavyweight tee, grey backdrop, full length, natural pose",
+      "alt": ""
+    },
+    {
+      "key": "bp-stillwater-photo-ugc-still-customer-in-heavyweight-tee-street-natural-light-j",
+      "filename": "bp-stillwater-photo-ugc-still-customer-in-heavyweight-tee-street-natural-light-j.png",
+      "label": "UGC still: customer in heavyweight tee, street, natural light · @jo.wears",
+      "alt": ""
+    },
+    {
+      "key": "bp-stillwater-photo-ugc-still-customer-in-heavyweight-tee-street-natural-light-d",
+      "filename": "bp-stillwater-photo-ugc-still-customer-in-heavyweight-tee-street-natural-light-d.png",
+      "label": "UGC still: customer in heavyweight tee, street, natural light · @daily.uniform",
+      "alt": ""
+    },
+    {
+      "key": "bp-stillwater-photo-ugc-still-customer-in-heavyweight-tee-street-natural-light-m",
+      "filename": "bp-stillwater-photo-ugc-still-customer-in-heavyweight-tee-street-natural-light-m.png",
+      "label": "UGC still: customer in heavyweight tee, street, natural light · @m.okafor",
+      "alt": ""
+    },
+    {
+      "key": "bp-stillwater-photo-ugc-still-customer-in-heavyweight-tee-street-natural-light-q",
+      "filename": "bp-stillwater-photo-ugc-still-customer-in-heavyweight-tee-street-natural-light-q.png",
+      "label": "UGC still: customer in heavyweight tee, street, natural light · @quietcloset",
+      "alt": ""
+    },
+    {
+      "key": "bp-stillwater-photo-customer-photo-tee-after-30-washes",
+      "filename": "bp-stillwater-photo-customer-photo-tee-after-30-washes.png",
+      "label": "Customer photo: tee after 30 washes",
+      "alt": ""
+    },
+    {
+      "key": "bp-stillwater-photo-advertorial-lead-image",
+      "filename": "bp-stillwater-photo-advertorial-lead-image.png",
+      "label": "Advertorial lead image",
+      "alt": ""
+    }
+  ],
+  "products": [
+    {
+      "handle": "stillwater-the-heavyweight-tee",
+      "title": "The Heavyweight Tee",
+      "productType": "Tees",
+      "tags": [
+        "bp-hero"
+      ],
+      "descriptionHtml": "<p>The Heavyweight Tee. 7 oz. cotton, garment-dyed, made to be kept.</p>",
+      "files": [
+        {
+          "$file": "hero"
+        },
+        {
+          "$file": "hero-2"
+        },
+        {
+          "$file": "hero-3"
+        },
+        {
+          "$file": "hero-4"
+        },
+        {
+          "$file": "hero-5"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "tiers",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_tier/stillwater-tier-1"
+            },
+            {
+              "$metaobject": "blueprint_tier/stillwater-tier-2"
+            },
+            {
+              "$metaobject": "blueprint_tier/stillwater-tier-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "badge",
+          "type": "single_line_text_field",
+          "value": "Best seller"
+        },
+        {
+          "namespace": "blueprint",
+          "key": "benefits",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_benefit/stillwater-benefit-1"
+            },
+            {
+              "$metaobject": "blueprint_benefit/stillwater-benefit-2"
+            },
+            {
+              "$metaobject": "blueprint_benefit/stillwater-benefit-3"
+            },
+            {
+              "$metaobject": "blueprint_benefit/stillwater-benefit-4"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "faqs",
+          "type": "list.metaobject_reference",
+          "value": [
+            {
+              "$metaobject": "blueprint_faq/stillwater-faq-1"
+            },
+            {
+              "$metaobject": "blueprint_faq/stillwater-faq-2"
+            },
+            {
+              "$metaobject": "blueprint_faq/stillwater-faq-3"
+            }
+          ]
+        },
+        {
+          "namespace": "blueprint",
+          "key": "guarantee",
+          "type": "metaobject_reference",
+          "value": {
+            "$metaobject": "blueprint_guarantee/stillwater-guarantee"
+          }
+        },
+        {
+          "namespace": "blueprint",
+          "key": "upsell",
+          "type": "product_reference",
+          "value": {
+            "$product": "the-crew-sock-3"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        },
+        {
+          "namespace": "reviews",
+          "key": "rating_count",
+          "type": "number_integer",
+          "value": 4871
+        },
+        {
+          "namespace": "descriptors",
+          "key": "subtitle",
+          "type": "single_line_text_field",
+          "value": "The Heavyweight Tee. 7 oz. cotton, garment-dyed, made to be kept."
+        },
+        {
+          "namespace": "blueprint",
+          "key": "shot_note",
+          "type": "single_line_text_field",
+          "value": "PDP hero: bone heavyweight tee on model, grey seamless, soft directional light"
+        }
+      ],
+      "options": [
+        {
+          "name": "Colour",
+          "values": [
+            "Bone",
+            "Black",
+            "Olive",
+            "Washed Navy"
+          ]
+        },
+        {
+          "name": "Size",
+          "values": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "options": [
+            "Bone",
+            "XS"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Bone",
+            "S"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Bone",
+            "M"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Bone",
+            "L"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Bone",
+            "XL"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Bone",
+            "XXL"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Black",
+            "XS"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Black",
+            "S"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Black",
+            "M"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Black",
+            "L"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Black",
+            "XL"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Black",
+            "XXL"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Olive",
+            "XS"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Olive",
+            "S"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Olive",
+            "M"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Olive",
+            "L"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Olive",
+            "XL"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Olive",
+            "XXL"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Washed Navy",
+            "XS"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Washed Navy",
+            "S"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Washed Navy",
+            "M"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Washed Navy",
+            "L"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Washed Navy",
+            "XL"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        },
+        {
+          "options": [
+            "Washed Navy",
+            "XXL"
+          ],
+          "price": "38.00",
+          "compareAtPrice": null
+        }
+      ]
+    },
+    {
+      "handle": "the-crew-sock-3",
+      "title": "The Crew Sock · 3",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>The Crew Sock · 3.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "24.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "the-crew-sock-3"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "blueprint",
+          "key": "cart_deal_label",
+          "type": "single_line_text_field",
+          "value": "$19 in cart"
+        }
+      ]
+    },
+    {
+      "handle": "the-long-sleeve",
+      "title": "The Long Sleeve",
+      "productType": "Denim",
+      "tags": [],
+      "descriptionHtml": "<p>The Long Sleeve.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "48.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "the-long-sleeve"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "the-crew-sweatshirt",
+      "title": "The Crew Sweatshirt",
+      "productType": "Tees",
+      "tags": [],
+      "descriptionHtml": "<p>The Crew Sweatshirt.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "78.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "the-crew-sweatshirt"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "the-relaxed-jean",
+      "title": "The Relaxed Jean",
+      "productType": "Sweats",
+      "tags": [],
+      "descriptionHtml": "<p>The Relaxed Jean.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "118.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "the-relaxed-jean"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.8",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "the-chore-coat",
+      "title": "The Chore Coat",
+      "productType": "Denim",
+      "tags": [],
+      "descriptionHtml": "<p>The Chore Coat.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "168.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "the-chore-coat"
+        }
+      ],
+      "metafields": [
+        {
+          "namespace": "reviews",
+          "key": "rating",
+          "type": "rating",
+          "value": {
+            "value": "4.9",
+            "scale_min": "1.0",
+            "scale_max": "5.0"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "tees",
+      "title": "Tees",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Tees.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "38.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "tees"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "sweats",
+      "title": "Sweats",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Sweats.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "78.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "sweats"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "denim",
+      "title": "Denim",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Denim.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "118.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "denim"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "outerwear",
+      "title": "Outerwear",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Outerwear.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "168.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "outerwear"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "bone",
+      "title": "Bone",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Bone.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "38.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "bone"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "black",
+      "title": "Black",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Black.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "38.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "black"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "olive",
+      "title": "Olive",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Olive.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "38.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "olive"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "washed-navy",
+      "title": "Washed Navy",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Washed Navy.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "38.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "washed-navy"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "heather-grey",
+      "title": "Heather Grey",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>Heather Grey.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "38.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "heather-grey"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "white",
+      "title": "White",
+      "productType": "",
+      "tags": [],
+      "descriptionHtml": "<p>White.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "38.00",
+          "compareAtPrice": null,
+          "requiresShipping": true,
+          "taxable": true
+        }
+      ],
+      "files": [
+        {
+          "$file": "white"
+        }
+      ],
+      "metafields": []
+    },
+    {
+      "handle": "shipping-protection",
+      "title": "Shipping protection",
+      "productType": "",
+      "tags": [
+        "bp-protection"
+      ],
+      "descriptionHtml": "<p>Covers loss, theft and damage in transit.</p>",
+      "options": [],
+      "variants": [
+        {
+          "options": [],
+          "price": "2.95",
+          "compareAtPrice": null,
+          "requiresShipping": false,
+          "taxable": false
+        }
+      ],
+      "files": [],
+      "metafields": []
+    }
+  ],
+  "metaobjects": [
+    {
+      "type": "blueprint_tier",
+      "handle": "stillwater-tier-1",
+      "fields": {
+        "label": "1 tee",
+        "sublabel": "Any colour",
+        "preselected": false,
+        "quantity": 1
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "stillwater-tier-2",
+      "fields": {
+        "label": "3-pack",
+        "sublabel": "Any colours · save 15%",
+        "badge": "Most popular",
+        "preselected": true,
+        "quantity": 3,
+        "discount_label": "3-pack discount"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "stillwater-tier-3",
+      "fields": {
+        "label": "5-pack",
+        "sublabel": "Save 20% · free shipping",
+        "badge": "Best value",
+        "preselected": false,
+        "quantity": 5,
+        "discount_label": "5-pack discount"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "stillwater-benefit-1",
+      "fields": {
+        "icon": "layers",
+        "title": "7 oz. ring-spun cotton"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "stillwater-benefit-2",
+      "fields": {
+        "icon": "refresh",
+        "title": "365-day returns, worn or washed"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "stillwater-benefit-3",
+      "fields": {
+        "icon": "shield",
+        "title": "Shrinkage under 2%"
+      }
+    },
+    {
+      "type": "blueprint_benefit",
+      "handle": "stillwater-benefit-4",
+      "fields": {
+        "icon": "heart",
+        "title": "Sewn and dyed in Los Angeles"
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "stillwater-faq-1",
+      "fields": {
+        "question": "Will it shrink?",
+        "answer": {
+          "rich": "Under 2%. It is pre-shrunk and garment-dyed; wash cold, tumble low."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "stillwater-faq-2",
+      "fields": {
+        "question": "365-day returns, really?",
+        "answer": {
+          "rich": "Yes. Worn, washed, whatever. Send it back within a year for a refund or a different size."
+        }
+      }
+    },
+    {
+      "type": "blueprint_faq",
+      "handle": "stillwater-faq-3",
+      "fields": {
+        "question": "Where is it made?",
+        "answer": {
+          "rich": "Cotton milled in North Carolina, sewn and dyed in Los Angeles. The factory is on the About page, with photos."
+        }
+      }
+    },
+    {
+      "type": "blueprint_guarantee",
+      "handle": "stillwater-guarantee",
+      "fields": {
+        "title": "365-day returns"
+      }
+    }
+  ],
+  "sellingPlanGroups": [],
+  "collections": [
+    {
+      "handle": "best-sellers",
+      "title": "Best sellers",
+      "products": [
+        "stillwater-the-heavyweight-tee",
+        "the-long-sleeve",
+        "the-crew-sweatshirt",
+        "the-relaxed-jean",
+        "the-chore-coat",
+        "the-crew-sock-3",
+        "tees",
+        "sweats",
+        "denim",
+        "outerwear"
+      ]
+    },
+    {
+      "handle": "tees",
+      "title": "Tees",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Tees"
+      }
+    },
+    {
+      "handle": "sweats",
+      "title": "Sweats",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Sweats"
+      }
+    },
+    {
+      "handle": "denim",
+      "title": "Denim",
+      "rule": {
+        "column": "TYPE",
+        "relation": "EQUALS",
+        "condition": "Denim"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "handle": "advertorial",
+      "title": "I bought one $38 tee to prove a point. Eighteen months later I own nine.",
+      "templateSuffix": "advertorial",
+      "body": "<p>I had a drawer of $12 tees that twisted after a month and a theory that expensive basics were a scam.</p>"
+    },
+    {
+      "handle": "listicle",
+      "title": "5 reasons this is the last tee you will buy for a while",
+      "templateSuffix": "listicle",
+      "body": ""
+    },
+    {
+      "handle": "comparison",
+      "title": "How STILLWATER compares",
+      "templateSuffix": "comparison",
+      "body": ""
+    },
+    {
+      "handle": "about",
+      "title": "About STILLWATER",
+      "templateSuffix": "about",
+      "body": "<p>Everlane archetype. Quiet, honest pricing, the product is the brand.</p>"
+    },
+    {
+      "handle": "contact",
+      "title": "Contact",
+      "templateSuffix": "contact",
+      "body": ""
+    }
+  ],
+  "menus": [
+    {
+      "handle": "main-menu",
+      "title": "Main menu",
+      "items": [
+        {
+          "title": "Men",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "best-sellers"
+          },
+          "items": [
+            {
+              "title": "The Heavyweight Tee",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "stillwater-the-heavyweight-tee"
+              }
+            },
+            {
+              "title": "The Crew Sock · 3",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "the-crew-sock-3"
+              }
+            },
+            {
+              "title": "The Long Sleeve",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "the-long-sleeve"
+              }
+            },
+            {
+              "title": "The Crew Sweatshirt",
+              "type": "PRODUCT",
+              "ref": {
+                "$product": "the-crew-sweatshirt"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Women",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        },
+        {
+          "title": "Tees",
+          "type": "COLLECTION",
+          "ref": {
+            "$collection": "tees"
+          }
+        },
+        {
+          "title": "About",
+          "type": "PAGE",
+          "ref": {
+            "$page": "about"
+          }
+        }
+      ]
+    },
+    {
+      "handle": "footer",
+      "title": "Footer menu",
+      "items": [
+        {
+          "title": "Search",
+          "type": "SEARCH",
+          "url": "/search"
+        },
+        {
+          "title": "Shipping",
+          "type": "HTTP",
+          "url": "/policies/shipping-policy"
+        },
+        {
+          "title": "Returns",
+          "type": "HTTP",
+          "url": "/policies/refund-policy"
+        },
+        {
+          "title": "Contact",
+          "type": "PAGE",
+          "ref": {
+            "$page": "contact"
+          }
+        }
+      ]
+    }
+  ],
+  "discounts": [
+    {
+      "kind": "freeShipping",
+      "title": "Blueprint demo: free shipping over $75",
+      "minimumSubtotal": "75.00"
+    },
+    {
+      "kind": "amountOffProduct",
+      "title": "Blueprint demo: The Crew Sock · 3-pack $19 in cart",
+      "products": [
+        {
+          "$product": "the-crew-sock-3"
+        }
+      ],
+      "amountEach": "5.00"
+    },
+    {
+      "kind": "percentOffQuantity",
+      "title": "3-pack discount",
+      "products": [
+        {
+          "$product": "stillwater-the-heavyweight-tee"
+        }
+      ],
+      "minimumQuantity": 3,
+      "percentage": 14
+    },
+    {
+      "kind": "percentOffQuantity",
+      "title": "5-pack discount",
+      "products": [
+        {
+          "$product": "stillwater-the-heavyweight-tee"
+        }
+      ],
+      "minimumQuantity": 5,
+      "percentage": 19
+    }
+  ],
+  "theme": {
+    "preset": "Editorial",
+    "listing": "editorial",
+    "settings": {
+      "color_mode": "light",
+      "accent_color": "#141414",
+      "light_bg": "#FFFFFF",
+      "light_surface": "#F1EFEA",
+      "light_ink": "#141414",
+      "light_line": "#E3E0D9",
+      "light_accent_soft": "#ECEAE4",
+      "light_on_accent": "",
+      "dark_on_accent": "",
+      "light_accent_text": "",
+      "dark_accent_text": "",
+      "cart_protection_product": "shipping-protection",
+      "cart_upsell_collection": "best-sellers",
+      "cart_upsell_show_deal": true,
+      "cart_empty_collection": "best-sellers",
+      "social_instagram": "https://instagram.com/stillwater",
+      "social_tiktok": "https://tiktok.com/@stillwater",
+      "cart_reward_1_label": "Free shipping",
+      "cart_reward_1_threshold": 75,
+      "cart_reward_1_gift": "",
+      "cart_reward_2_label": "",
+      "cart_reward_2_threshold": null,
+      "cart_reward_2_gift": "",
+      "cart_reward_3_label": "",
+      "cart_reward_3_threshold": null,
+      "cart_reward_3_gift": ""
+    }
+  }
+}
