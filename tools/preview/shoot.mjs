@@ -8,7 +8,7 @@ import { mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
-import { PAGES, PRESET_STORES } from './render.mjs';
+import { PAGES, PRESET_PRODUCTS, PRESET_STORES } from './render.mjs';
 import { startServer } from './server.mjs';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
@@ -40,6 +40,9 @@ for (const preset of Object.keys(PRESET_STORES)) {
   const name = preset.toLowerCase();
   for (const page of PAGES) {
     for (const width of [390, 1440]) {
+      server.resetCart();
+      // The cart page shows a two-pack (the store's most popular tier).
+      if (page.name === 'cart') server.cart.add([{ id: PRESET_PRODUCTS[preset].variants[1].id, quantity: 1 }]);
       const { tab, errors } = await open(`/${preset}/${page.name}.html`, width);
       const file = `${name}-${page.name}-${width}.png`;
       await tab.screenshot({ path: join(shots, file), fullPage: true });
@@ -63,6 +66,11 @@ for (const preset of Object.keys(PRESET_STORES)) {
         await tab.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.6));
         await tab.waitForTimeout(600);
         await tab.screenshot({ path: join(shots, `${name}-sticky-${width}.png`) });
+        // Cart drawer after adding tier 3 on subscription.
+        await tab.click('[data-bp-atc]');
+        await tab.waitForSelector('#CartDrawer[open]', { timeout: 5000 }).catch(() => errors.push('cart drawer did not open'));
+        await tab.waitForTimeout(900);
+        await tab.screenshot({ path: join(shots, `${name}-drawer-${width}.png`) });
       }
       report.push({ file, cls: Number(cls.toFixed(4)), errors });
       await tab.close();

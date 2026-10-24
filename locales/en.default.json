@@ -136,7 +136,7 @@
     "added": "Added to your cart"
   },
   "cart": {
-    "title": "Cart",
+    "title": "Your cart",
     "item_count": {
       "one": "{{ count }} item",
       "other": "{{ count }} items"
@@ -146,7 +146,39 @@
     "checkout": "Checkout",
     "remove": "Remove",
     "empty": "Your cart is empty.",
-    "continue_shopping": "Continue shopping"
+    "continue_shopping": "Continue shopping",
+    "drawer_heading": "Your cart ({{ count }})",
+    "close": "Close cart",
+    "quantity": "Quantity",
+    "increase": "Increase quantity of {{ title }}",
+    "decrease": "Decrease quantity of {{ title }}",
+    "remove_item": "Remove {{ title }}",
+    "free_gift": "Free gift",
+    "gift": "Gift",
+    "add_gift": "Add your free gift: {{ title }}",
+    "line_discount": "{{ title }} (−{{ amount }})",
+    "rewards": {
+      "away": "You're {{ amount }} away from {{ reward }}",
+      "all_unlocked": "You've unlocked {{ reward }}",
+      "label": "Rewards"
+    },
+    "protection": {
+      "title": "Shipping protection",
+      "label": "Shipping protection, {{ price }}"
+    },
+    "upsell": {
+      "heading": "Goes well with",
+      "add": "Add",
+      "add_label": "Add {{ title }} to cart"
+    },
+    "total": "Total",
+    "saving": "You're saving {{ amount }}",
+    "taxes_note": "Taxes and shipping calculated at checkout",
+    "checkout_total": "Checkout · {{ total }}",
+    "best_sellers": "Best sellers",
+    "status": "Cart updated: {{ count }}",
+    "error": "That didn't work, so your cart has been refreshed. Please try again.",
+    "loading": "Updating cart"
   },
   "collections": {
     "title": "Collections",

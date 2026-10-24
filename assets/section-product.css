@@ -193,14 +193,6 @@
   font-weight: 600;
 }
 
-.bp-stars {
-  letter-spacing: 0.08em;
-  background: linear-gradient(90deg, var(--bp-star) var(--bp-rating), var(--bp-input-border) var(--bp-rating));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
 .bp-product-title {
   display: flex;
   flex-direction: column;
@@ -645,12 +637,6 @@
   font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
-}
-
-.bp-button--small {
-  min-height: 40px;
-  padding: 0.5rem 1rem;
-  font-size: 0.8125rem;
 }
 
 .bp-quantity__control {

@@ -197,8 +197,8 @@ class BpProduct extends HTMLElement {
     this.showError('');
     button?.setAttribute('aria-busy', 'true');
     try {
-      await this.addToCart(form);
-      document.dispatchEvent(new CustomEvent('bp:cart:changed', { detail: { source: 'product-form' } }));
+      const sections = await this.addToCart(form);
+      document.dispatchEvent(new CustomEvent('bp:cart:changed', { detail: { source: 'product-form', sections } }));
       // The cart drawer (when present) handles this; otherwise go to the cart page,
       // exactly as the form does without JavaScript.
       const unhandled = document.dispatchEvent(new CustomEvent('bp:cart:open', { cancelable: true }));
@@ -210,32 +210,37 @@ class BpProduct extends HTMLElement {
     }
   };
 
+  // Returns the cart's re-rendered sections (when a cart is on the page) from the last request.
   async addToCart(form) {
     const data = new FormData(form);
     const tier = this.tierInput;
     const slots = [...this.querySelectorAll('[data-bp-mix-slot]')];
+    const giftId = tier?.dataset.giftId;
+    const sections = document.querySelector('bp-cart')?.dataset.sectionId;
+    let result;
 
     if (slots.length) {
       const counts = new Map();
       for (const slot of slots) counts.set(slot.value, (counts.get(slot.value) || 0) + 1);
-      await this.post({ items: [...counts].map(([id, quantity]) => ({ id: Number(id), quantity })) });
+      result = await this.post({ items: [...counts].map(([id, quantity]) => ({ id: Number(id), quantity })), ...(giftId ? {} : { sections }) });
     } else {
       // The form data already carries id, quantity, selling_plan and any line item properties.
-      await this.post(data);
+      if (sections && !giftId) data.append('sections', sections);
+      result = await this.post(data);
     }
 
     // A tier's free gift is its own line, priced at zero by the merchant's automatic discount.
     // Added separately so a gift problem never blocks the purchase itself.
-    const giftId = tier?.dataset.giftId;
     if (giftId) {
       const parentId = Number(data.getAll('id').at(-1));
-      const gift = { id: Number(giftId), quantity: 1, properties: { _bp_gift: '1' } };
+      const gift = { id: Number(giftId), quantity: 1, properties: { _bp_gift: 'tier', _bp_gift_for: String(parentId) } };
       try {
-        await this.post({ items: [{ ...gift, parent_id: parentId }] });
+        result = await this.post({ items: [{ ...gift, parent_id: parentId }], sections });
       } catch {
-        await this.post({ items: [gift] }).catch(() => {});
+        result = await this.post({ items: [gift], sections }).catch(() => result);
       }
     }
+    return result?.sections;
   }
 
   async post(body) {

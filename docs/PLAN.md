@@ -20,6 +20,7 @@
 | 0. Setup | Done | Original foundation, new `AGENTS.md`, CI (Theme Check, unit tests, contrast) |
 | 1. Foundation | Done, pending store verification | See "Phase 1 delivered" below |
 | 2. Product page | Done offline, pending store verification | See "Phase 2 delivered" below. Quick-add sheet moved to Phase 4 (it belongs with product cards) |
+| 3. Cart drawer | Done offline, pending store verification | See "Phase 3 delivered" below |
 
 #### Phase 1 delivered
 
@@ -54,6 +55,59 @@
   - that `dm_sans_n4`, `dm_sans_n6`, `dm_sans_n7` and `instrument_serif_n4` are valid font handles;
   - that the editor's `visible_if` settings behave as expected;
   - that the Standard Actions handlers fire.
+
+#### Phase 3 delivered
+
+- **One cart, two places:** `snippets/cart-contents.liquid` (and its `cart-*` snippets) renders the drawer (`sections/cart-drawer.liquid`) and the cart page (`sections/main-cart.liquid`).
+  - The drawer is a static section in `layout/theme.liquid`, so its Section Rendering ID is always `cart-drawer`.
+  - Settings live in the new theme settings group **Cart**: cart type, three rewards with currency overrides, protection, upsell, express checkout and the empty-cart collection.
+- **Works without JavaScript:** every control is a real form.
+  - Steppers and remove are GET forms to `routes.cart_change_url`, Shopify's `url_to_remove` pattern.
+  - Gifts, protection and the upsell post to `routes.cart_add_url`.
+  - Checkout posts `checkout` to the cart.
+  - The cart page offers any earned gift that isn't in the cart, including a bundle tier's gift, which a no-JS add can't post.
+- **Drawer:**
+  - A modal `<dialog>` with `closedby="any"` plus a backdrop-click fallback.
+  - Escape closes it, the background is inert, and focus returns to whatever opened it.
+  - Its heading reads "Your cart (n)".
+  - A polite live region and a `role=alert` sit outside the swapped markup.
+  - Its stylesheet loads `media="print"` and switches on before the first open, so the drawer adds no render-blocking request.
+- **JavaScript (`bp-cart.js`, 3.6 KB, idle-loaded):**
+  - One Section Rendering request per interaction.
+  - Stepper presses within 300 ms become one request.
+  - Focus stays on the same control across swaps.
+  - After an error it shows the message and re-renders from the server, because the change may have gone through.
+  - `bp-core.js` opens the drawer from the header link and from `bp:cart:open` (Standard Actions `openCart` included). It also loads the module on demand and keeps the header count and its screen-reader label current.
+  - The product form now asks for the drawer's section in its add request, so adding and opening cost no extra request.
+- **Gifts and protection:**
+  - `reconcile()` is a pure function, covered by 12 unit tests. It decides what to add or remove after each change: reward gifts by threshold, tier gifts that lost their bundle, and protection in an empty cart.
+  - Default-on protection is added once and never again after the shopper touches it.
+  - A removed reward gift counts as declined for the visit.
+  - Line properties: `_bp_gift` (`reward` or `tier`), `_bp_reward` and `_bp_gift_for`.
+- **Totals:**
+  - The rows are Shopify's `items_subtotal_price`, each cart-level discount, and `total_price`.
+  - The saving against compare-at or regular prices is a note, not a row, so the rows always add up.
+- **Merchant setup:** `docs/merchant/cart-setup.md` covers the matching discounts for rewards, gifts and the upsell deal.
+- **Checklist:** `npm run check:cart` (`tools/preview/cart-checklist.mjs`) runs 280 checks, and all pass.
+  - The harness cart (`tools/preview/mock-cart.mjs`) behaves like Shopify's: line keys, nested lines, `sections`, and BXGY and deal discounts.
+  - For each demo product it covers:
+    - **Drawer:** opens with no reload; counts and labels; focus and inertness; axe on the drawer; figures equal the cart's own fields after every change.
+    - **Rewards:** gifts follow thresholds up and down; declining and claiming back.
+    - **Controls:** three stepper presses send one request; protection on and off; upsell exclusions.
+    - **Errors and closing:** error alert plus re-render; Escape and close-button focus return; no layout shift on open; outside changes (Standard Actions); empty state.
+    - **Cart page:** works in place with JS; axe.
+    - **Without JS:** add, claim the tier and reward gifts, stepper, protection, upsell, remove, and checkout carrying the total.
+- **Screenshots:** `docs/screenshots/phase-3/` has the drawer and cart page for every preset at 390 and 1440. No console errors; layout shift ≤ 0.01.
+- **Not done:**
+  - **Express checkout:** the buttons are behind a setting. Re-initialising them after a drawer swap needs a store to verify.
+  - **Discount-mismatch warning:** the plan's editor-preview warning when thresholds don't match a discount isn't possible from Liquid, so it moves to the setup docs (Phase 8).
+  - **Pre-lander drawer:** pre-landers (`layout/landing.liquid`) don't include the drawer yet; Phase 5 decides with the offer section.
+- **Still to verify on a store:**
+  - that `/cart/change` with a GET `id` (line key) and `quantity` redirects to the cart for any quantity, not only 0;
+  - that `/cart/add.js` and `/cart/change.js` return `sections` with a static section ID;
+  - that `parent_id` gift lines are removed with their bundle;
+  - that `closedby` and focus return work in Safari;
+  - the axe and screen-reader pass with VoiceOver.
 
 #### Phase 2 delivered
 

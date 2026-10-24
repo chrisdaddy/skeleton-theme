@@ -39,7 +39,7 @@ export function measure() {
   }
   // Product page: main-product, its blocks and their snippets (worst case: every block present).
   const product = new Set();
-  const productFiles = ['sections/main-product.liquid', ...readdirSync(new URL('blocks/', root)).map((f) => `blocks/${f}`), ...readdirSync(new URL('snippets/', root)).filter((f) => /^(product-|offer-)/.test(f)).map((f) => `snippets/${f}`)];
+  const productFiles = ['sections/main-product.liquid', 'sections/cart-drawer.liquid', ...readdirSync(new URL('blocks/', root)).map((f) => `blocks/${f}`), ...readdirSync(new URL('snippets/', root)).filter((f) => /^(product-|offer-)/.test(f)).map((f) => `snippets/${f}`)];
   for (const file of productFiles) {
     const text = read(file);
     for (const m of text.matchAll(/'([\w.-]+\.(?:js|css))'\s*\|\s*asset_url/g)) product.add(m[1]);

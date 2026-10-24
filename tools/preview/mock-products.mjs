@@ -22,6 +22,11 @@ function media(alt, count = 5) {
   });
 }
 
+// variant.product, as Liquid has it (not enumerable, so cart JSON stays acyclic).
+function linkVariants(product) {
+  for (const variant of product.variants) Object.defineProperty(variant, 'product', { value: product, enumerable: false });
+}
+
 function simpleProduct(title, price, extra = {}) {
   const variantId = id();
   const product = {
@@ -37,6 +42,11 @@ function simpleProduct(title, price, extra = {}) {
   const variant = { id: variantId, title: 'Default Title', price, compare_at_price: null, available: true, options: ['Default Title'], url: `${product.url}?variant=${variantId}`, metafields: {}, selling_plan_allocations: [] };
   product.variants = [variant];
   product.selected_or_first_available_variant = variant;
+  product.price = price;
+  product.price_varies = false;
+  product.options_with_values = [];
+  product.has_only_default_variant = true;
+  linkVariants(product);
   return product;
 }
 
@@ -88,6 +98,7 @@ function buildProduct({ title, handle, options, priceFor, compareFor, packOption
   product.metafields.blueprint.tiers = field(tiers(product));
   if (packOption) product.metafields.blueprint.pack_option = field(packOption);
   product.swatches = swatches;
+  linkVariants(product);
   return product;
 }
 
@@ -233,7 +244,45 @@ export function buildDemoProducts(demo) {
   // Every Ode tier is one bottle.
   for (const v of odeProduct.variants) v.metafields.blueprint.pack_quantity = field(1);
 
+  // Upsell products carry the store's in-cart deal copy (blueprint.cart_deal_label).
+  for (const [product, store] of [[verdeProduct, verde], [rawProduct, raw], [odeProduct, ode]]) {
+    const upsellProduct = product.metafields.blueprint.upsell.value;
+    upsellProduct.metafields = { blueprint: { cart_deal_label: field(store.upsell.deal) } };
+  }
+
   return { verde: verdeProduct, rawform: rawProduct, ode: odeProduct, gifts: [verdeGift, shaker, discovery] };
+}
+
+// Cart fixtures per store: rewards, gifts, shipping protection and the best-seller collection.
+// Thresholds and gift choices are mock data (the demo only names the rewards); each reward's
+// gift is a separate product from the store's bundle-tier gift, so the two never overlap.
+export function buildCartFixtures(demo, products) {
+  const protection = simpleProduct('Shipping protection', 295, { requires_shipping: false });
+  const collectionOf = (store, hero) => {
+    const items = store.collection
+      .filter(([name]) => name !== hero.title && !hero.title.includes(name))
+      .map(([name, price, rating]) => {
+        const product = simpleProduct(name, cents(Number(price.replace('$', ''))));
+        product.metafields = { reviews: { rating: field({ rating: Number(rating), scale_max: 5 }) } };
+        return product;
+      });
+    return { title: 'Best sellers', products: items, products_count: items.length };
+  };
+  const reward = (label, threshold, gift = null) => ({ label, threshold, gift });
+  const verde = demo.stores.verde;
+  const ode = demo.stores.ode;
+  const raw = demo.stores.rawform;
+  const verdeShaker = simpleProduct('Glass shaker · reward', 1500);
+  const verdePacks = simpleProduct('Travel packs (10) · reward', 3600);
+  const odeSamples = simpleProduct('Samples (2) · reward', 1200);
+  const rawSamples = simpleProduct('Sample sachets (6) · reward', 1800);
+  const fixtures = {
+    verde: { rewards: [reward(verde.rewards[0], 50), reward(verde.rewards[1], 130, verdeShaker), reward(verde.rewards[2], 250, verdePacks)], collection: collectionOf(verde, products.verde) },
+    ode: { rewards: [reward(ode.rewards[0], 100), reward(ode.rewards[1], 150, odeSamples), reward(ode.rewards[2], 300)], collection: collectionOf(ode, products.ode) },
+    rawform: { rewards: [reward(raw.rewards[0], 50), reward(raw.rewards[1], 120), reward(raw.rewards[2], 200, rawSamples)], collection: collectionOf(raw, products.rawform) },
+  };
+  const extra = [protection, verdeShaker, verdePacks, odeSamples, rawSamples, ...Object.values(fixtures).flatMap((f) => f.collection.products)];
+  return { protection, fixtures, products: extra };
 }
 
 // Shopify's per-request view of a product: selected variant and plan from the URL,

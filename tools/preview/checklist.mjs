@@ -145,7 +145,7 @@ async function runCombination(preset, product, index, t, plan, js) {
   }
   if (js && t.tier.gift_variant?.value) {
     const gift = server.requests.find((r) => r.items.some((i) => String(i.id) === String(t.tier.gift_variant.value.id)));
-    check(`${label}: adds the free gift line`, gift && gift.items[0].properties?._bp_gift === '1', JSON.stringify(gift?.items));
+    check(`${label}: adds the free gift line`, gift && gift.items[0].properties?._bp_gift === 'tier' && gift.items[0].properties?._bp_gift_for === String(t.variant.id), JSON.stringify(gift?.items));
   }
   if (!js) check(`${label}: lands on the cart page`, new URL(page.url()).pathname === '/cart', page.url());
   await context.close();

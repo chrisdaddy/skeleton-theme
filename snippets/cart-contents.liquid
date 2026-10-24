@@ -1,0 +1,111 @@
+{% doc %}
+  Everything inside the cart drawer and the cart page: rewards bar, lines, unclaimed gifts,
+  shipping protection, one upsell, totals and checkout (docs/PLAN.md §8).
+
+  Every control is a real form, so the cart page works without JavaScript; bp-cart.js
+  intercepts the same forms and swaps this markup through the Section Rendering API.
+  Money comes only from Shopify's cart fields.
+
+  Line item properties used by the theme (hidden from shoppers by the leading underscore):
+  - _bp_gift: "reward" (rewards bar gift) or "tier" (a bundle tier's gift)
+  - _bp_reward: the reward number (1–3) for a rewards gift
+  - _bp_gift_for: the variant ID a tier gift belongs to
+
+  @param {string} context - 'drawer' or 'page'
+  @param {string} section_id - The section rendering this
+{% enddoc %}
+{%- liquid
+  assign protection_variant = settings.cart_protection_product.selected_or_first_available_variant
+  assign protection_id = protection_variant.id | default: 0
+  assign protection_line = false
+  assign basis = 0
+  assign merch_count = 0
+  assign in_cart_products = ','
+  assign gift_keys = ','
+  for item in cart.items
+    assign gift_kind = item.properties._bp_gift
+    if item.variant_id == protection_id
+      assign protection_line = item
+    elsif gift_kind != blank
+      assign gift_marker = item.properties._bp_reward | default: item.properties._bp_gift_for
+      assign gift_keys = gift_keys | append: gift_kind | append: '-' | append: gift_marker | append: ','
+    else
+      assign basis = basis | plus: item.final_line_price
+      assign merch_count = merch_count | plus: item.quantity
+    endif
+    assign in_cart_products = in_cart_products | append: item.product_id | append: ','
+  endfor
+-%}
+<div class="bp-cart bp-cart--{{ context }}" data-bp-cart-region>
+  {%- if context == 'drawer' -%}
+    <div class="bp-drawer__header bp-cart__header">
+      <h2 class="bp-h4" id="CartDrawer-Heading" tabindex="-1" data-bp-cart-heading>
+        {{- 'cart.drawer_heading' | t: count: cart.item_count -}}
+      </h2>
+      <button type="button" class="bp-icon-button" command="close" commandfor="CartDrawer" data-bp-cart-close>
+        <span class="bp-visually-hidden">{{ 'cart.close' | t }}</span>
+        {%- render 'icon', name: 'close' -%}
+      </button>
+    </div>
+  {%- else -%}
+    <h1 class="bp-h2" id="Cart-Heading" tabindex="-1" data-bp-cart-heading>{{ 'cart.title' | t }}</h1>
+  {%- endif -%}
+
+  {%- if cart.item_count == 0 -%}
+    {%- render 'cart-empty' -%}
+  {%- else -%}
+    <div class="bp-cart__body">
+      <div class="bp-cart__main">
+        {%- if settings.cart_rewards_enabled -%}
+          {%- render 'cart-rewards', basis: basis, merch_count: merch_count, gift_keys: gift_keys -%}
+        {%- endif -%}
+
+        <ul class="bp-cart__lines" role="list" aria-label="{{ 'cart.title' | t }}">
+          {%- for item in cart.items -%}
+            {%- unless item.variant_id == protection_id -%}
+              {%- render 'cart-line', item: item -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        </ul>
+
+        {%- render 'cart-tier-gifts', gift_keys: gift_keys, protection_id: protection_id -%}
+
+        {%- if protection_variant != blank -%}
+          {%- render 'cart-protection', variant: protection_variant, line: protection_line -%}
+        {%- endif -%}
+
+        {%- if settings.cart_upsell_enabled -%}
+          {%- render 'cart-upsell', in_cart_products: in_cart_products, protection_id: protection_id -%}
+        {%- endif -%}
+      </div>
+
+      <div class="bp-cart__summary">
+        {%- render 'cart-totals', protection_id: protection_id -%}
+        <form action="{{ routes.cart_url }}" method="post" class="bp-cart__checkout" id="CartCheckout-{{ section_id }}">
+          <button type="submit" name="checkout" class="bp-button bp-button--block">
+            {%- assign total = cart.total_price | money -%}
+            {{- 'cart.checkout_total' | t: total: total -}}
+          </button>
+        </form>
+        {%- if settings.cart_secure_text != blank -%}
+          <p class="bp-cart__secure bp-small bp-muted">
+            {%- render 'icon', name: 'lock' -%}
+            {{ settings.cart_secure_text | escape }}
+          </p>
+        {%- endif -%}
+        {%- if shop.enabled_payment_types.size > 0 -%}
+          <ul class="bp-payment-icons bp-cart__payments" role="list" aria-label="{{ 'footer.payment_methods' | t }}">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>{{ type | payment_type_svg_tag }}</li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- if settings.cart_dynamic_checkout and additional_checkout_buttons -%}
+          <div class="bp-cart__dynamic">{{ content_for_additional_checkout_buttons }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- render 'cart-state', protection_id: protection_id, basis: basis, merch_count: merch_count -%}
+</div>

@@ -188,6 +188,57 @@
         "label": "Lead with the monthly price on multi-month tiers",
         "info": "Uses the product's blueprint.days_per_unit metafield (default 30 days per unit)."
       }
+    },
+    "cart": {
+      "name": "Cart",
+      "cart_type": {
+        "label": "Cart type",
+        "drawer": "Drawer",
+        "page": "Page"
+      },
+      "rewards": {
+        "header": "Rewards bar",
+        "info": "Up to three rewards unlocked by cart value. Create a matching automatic discount in Shopify for each one (free shipping over the amount; Buy X Get Y for a gift), or the reward won't apply at checkout.",
+        "enabled": "Show the rewards bar",
+        "reward_1_label": "Reward 1",
+        "reward_2_label": "Reward 2",
+        "reward_3_label": "Reward 3",
+        "threshold": "Unlocks at",
+        "threshold_info": "Cart value in your store currency, after discounts. Gifts and shipping protection don't count. Leave blank to turn this reward off.",
+        "gift": "Free gift product",
+        "gift_info": "Added automatically when the reward unlocks and removed below it. Shoppers can remove it.",
+        "currencies": {
+          "label": "Thresholds in other currencies",
+          "info": "One line per currency, for example EUR: 45, 120, 180. The bar is hidden for currencies without a line, so it never shows a converted guess."
+        }
+      },
+      "protection": {
+        "header": "Shipping protection",
+        "product": "Protection product",
+        "product_info": "A product you create, for example $2.95 with no shipping required. Hide it from search. Leave blank to turn protection off.",
+        "text": "Description",
+        "default": "Add it to carts by default",
+        "default_info": "Off is recommended: pre-checked protection is the subject of a 2026 class action alleging hidden fees. If on, it's added once per cart and never re-added after a shopper removes it."
+      },
+      "upsell": {
+        "header": "Upsell",
+        "enabled": "Show one \"Goes well with\" product",
+        "info": "From the first item's blueprint.upsell metafield, otherwise the collection below. Products already in the cart are skipped.",
+        "collection": "Fallback collection",
+        "show_deal": "Show the in-cart deal label",
+        "show_deal_info": "Shows the upsell product's blueprint.cart_deal_label (for example \"$18 in cart\"). Only turn on with a matching automatic discount."
+      },
+      "checkout": {
+        "header": "Checkout",
+        "secure_text": "Text under the checkout button",
+        "dynamic": "Show express checkout buttons",
+        "dynamic_info": "Shop Pay, Apple Pay and others. They load extra scripts and slow the cart down."
+      },
+      "empty": {
+        "header": "Empty cart",
+        "collection": "Best sellers collection",
+        "info": "Up to three products shown when the cart is empty."
+      }
     }
   },
   "section_groups": {
@@ -392,6 +443,9 @@
     },
     "rich_text": {
       "name": "Rich text"
+    },
+    "cart_drawer": {
+      "name": "Cart drawer"
     }
   },
   "blocks": {

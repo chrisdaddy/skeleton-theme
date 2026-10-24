@@ -1,0 +1,36 @@
+{% doc %}
+  Prints the three reward thresholds in the cart's currency, in cents, comma-separated
+  ("5000,13000," means rewards 1 and 2 are on and 3 is off).
+
+  Store currency: the theme settings. Other currencies: the matching line of the
+  "thresholds in other currencies" setting ("EUR: 45, 120, 180"). Without one, every
+  threshold is blank and the rewards bar hides rather than showing a converted guess.
+{% enddoc %}
+{%- liquid
+  assign values = ''
+  if cart.currency.iso_code == shop.currency
+    assign values = settings.cart_reward_1_threshold | append: ',' | append: settings.cart_reward_2_threshold | append: ',' | append: settings.cart_reward_3_threshold
+  else
+    assign lines = settings.cart_reward_currency_thresholds | newline_to_br | split: '<br />'
+    for line in lines
+      assign parts = line | split: ':'
+      assign code = parts.first | strip | upcase
+      if parts.size == 2 and code == cart.currency.iso_code
+        assign values = parts.last | strip
+      endif
+    endfor
+  endif
+  assign list = values | split: ','
+  assign out = ''
+  for i in (0..2)
+    assign value = list[i] | strip
+    if value != blank
+      assign cents = value | times: 100 | round
+      if cents > 0
+        assign out = out | append: cents
+      endif
+    endif
+    assign out = out | append: ','
+  endfor
+  echo out
+-%}

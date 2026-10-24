@@ -336,6 +336,12 @@ h4,
   width: 100%;
 }
 
+.bp-button--small {
+  min-height: 40px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+}
+
 .bp-button[disabled],
 .bp-button[aria-disabled='true'] {
   cursor: not-allowed;
@@ -424,6 +430,15 @@ h4,
 .bp-badge--gift {
   background: var(--bp-success);
   color: var(--bp-on-success);
+}
+
+/* Star rating: snippets/rating-stars.liquid sets --bp-rating. */
+.bp-stars {
+  letter-spacing: 0.08em;
+  background: linear-gradient(90deg, var(--bp-star) var(--bp-rating), var(--bp-input-border) var(--bp-rating));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .bp-price {

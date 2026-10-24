@@ -100,7 +100,7 @@
         </a>
       {%- endif -%}
       <a class="bp-cart-link" href="{{ routes.cart_url }}" data-bp-cart-link>
-        <span class="bp-visually-hidden">
+        <span class="bp-visually-hidden" data-bp-cart-label>
           {{- 'header.cart' | t }}, {{ 'cart.item_count' | t: count: cart.item_count -}}
         </span>
         {%- render 'icon', name: 'cart' -%}

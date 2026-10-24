@@ -12,7 +12,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Hash, Liquid, Tag } from 'liquidjs';
 import { contrast, mix } from '../lib/color.mjs';
-import { buildDemoProducts, productForRequest } from './mock-products.mjs';
+import { createCart } from './mock-cart.mjs';
+import { buildCartFixtures, buildDemoProducts, productForRequest } from './mock-products.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const theme = join(here, '..', '..');
@@ -30,6 +31,37 @@ export const PRESET_STORES = { Clinical: 'verde', Editorial: 'ode', Bold: 'rawfo
 export const PRODUCTS = buildDemoProducts(demo);
 export const PRESET_PRODUCTS = { Clinical: PRODUCTS.verde, Editorial: PRODUCTS.ode, Bold: PRODUCTS.rawform };
 export const presetForHandle = (handle) => Object.keys(PRESET_PRODUCTS).find((p) => PRESET_PRODUCTS[p].handle === handle);
+
+// ---------- Cart ----------
+
+const CART = buildCartFixtures(demo, PRODUCTS);
+const upsells = Object.values(PRESET_PRODUCTS).map((p) => p.metafields.blueprint.upsell.value);
+export const ALL_PRODUCTS = [...Object.values(PRESET_PRODUCTS), ...PRODUCTS.gifts, ...upsells, ...CART.products];
+export const findVariant = (id) => {
+  for (const product of ALL_PRODUCTS) {
+    const variant = product.variants.find((v) => String(v.id) === String(id));
+    if (variant) return { product, variant };
+  }
+  return null;
+};
+export const cartFixtures = (preset) => CART.fixtures[PRESET_STORES[preset]];
+// The preset whose store the shopper last looked at (the cart page has no product of its own).
+export const session = { preset: 'Clinical' };
+export const cart = createCart({
+  // Lines see the product as Liquid does, with options_with_values.
+  findVariant: (id) => {
+    const found = findVariant(id);
+    return found && { ...found, product: found.product.options_with_values ? found.product : productForRequest(found.product) };
+  },
+  rewardsFor: (preset) => cartFixtures(preset).rewards,
+  // The upsell's deal copy names its in-cart price ("$18 in cart"); "Engraving included" names none.
+  dealPrice: (variantId) => {
+    const upsell = upsells.find((p) => p.variants[0].id === Number(variantId));
+    const match = /\$(\d+(?:\.\d+)?)/.exec(upsell?.metafields.blueprint.cart_deal_label.value || '');
+    return match ? Math.round(Number(match[1]) * 100) : null;
+  },
+});
+export const PROTECTION = CART.protection;
 
 // ---------- Fonts ----------
 
@@ -62,6 +94,17 @@ function defaults(list) {
 function themeSettings(preset, store) {
   const values = { ...defaults(schema.flatMap((g) => g.settings ?? [])), ...settingsData.presets[preset] };
   for (const key of ['type_body_font', 'type_heading_sans', 'type_heading_serif']) values[key] = font(values[key]);
+  // Cart settings a merchant would set (mock thresholds and gifts: see buildCartFixtures).
+  const fixtures = CART.fixtures[store.id];
+  fixtures.rewards.forEach((reward, i) => {
+    values[`cart_reward_${i + 1}_label`] = reward.label;
+    values[`cart_reward_${i + 1}_threshold`] = reward.threshold;
+    values[`cart_reward_${i + 1}_gift`] = reward.gift;
+  });
+  values.cart_protection_product = CART.protection;
+  values.cart_upsell_collection = fixtures.collection;
+  values.cart_upsell_show_deal = true;
+  values.cart_empty_collection = fixtures.collection;
   values.social_instagram = `https://instagram.com/${store.id}`;
   values.social_tiktok = `https://tiktok.com/@${store.id}`;
   return values;
@@ -85,9 +128,9 @@ function mockStore(store) {
         { title: 'Privacy policy', url: '#' },
         { title: 'Terms of service', url: '#' },
       ],
+      currency: 'USD',
       enabled_payment_types: ['visa', 'master', 'american_express', 'paypal', 'shopify_pay', 'apple_pay', 'google_pay'],
     },
-    cart: { item_count: 2 },
     announcements: store.bar.split(' · '),
   };
 }
@@ -199,6 +242,21 @@ engine.registerTag(
     }
   },
 );
+
+// {% section 'name' %}: a static section (no template entry, ID = file name).
+engine.registerTag(
+  'section',
+  class extends Tag {
+    constructor(token, remainTokens, liquid) {
+      super(token, remainTokens, liquid);
+      this.name = /'([^']+)'/.exec(token.args)[1];
+    }
+    *render(ctx, emitter) {
+      emitter.write(yield renderSections(staticSection(this.name), ctx.getAll()));
+    }
+  },
+);
+const staticSection = (name) => ({ sections: { [name]: { type: name, settings: {} } }, order: [name] });
 
 // {% content_for 'blocks' %}: renders the current section's or block's child theme blocks.
 engine.registerTag(
@@ -371,6 +429,9 @@ export async function renderPage(preset, page, query = new URLSearchParams(), on
   const settings = themeSettings(preset, store);
   const product = page.type === 'product' ? productForRequest(PRESET_PRODUCTS[preset], query) : null;
   const scope = {
+    cart: cart.view(preset),
+    additional_checkout_buttons: true,
+    content_for_additional_checkout_buttons: '<div class="shopify-cleanslate"><button type="button" disabled>Express checkout (mocked)</button></div>',
     product,
     closest: { product },
     request: { locale: { iso_code: 'en' }, page_type: page.type, origin: 'http://localhost' },
@@ -380,6 +441,7 @@ export async function renderPage(preset, page, query = new URLSearchParams(), on
       cart_add_url: '/cart/add',
       root_url: '/',
       cart_url: '/cart',
+      cart_change_url: '/cart/change',
       search_url: '/search',
       account_url: '/account',
       all_products_collection_url: '/collections/all',
@@ -396,7 +458,17 @@ export async function renderPage(preset, page, query = new URLSearchParams(), on
   headerGroup.sections.announcement.blocks = Object.fromEntries(mock.announcements.map((text, i) => [`m${i}`, { type: 'message', settings: { text } }]));
   groupOverrides['header-group'] = headerGroup;
 
-  if (onlySection) return renderSections(readJson(join(theme, 'templates', `${page.template}.json`)), scope, '', onlySection);
+  // Section Rendering API: one section (?section_id=) or a map of them (?sections=a,b).
+  if (onlySection) {
+    const ids = Array.isArray(onlySection) ? onlySection : [onlySection];
+    const template = readJson(join(theme, 'templates', `${page.template}.json`));
+    const map = {};
+    for (const id of ids) {
+      const source = template.sections[id] ? template : staticSection(id);
+      map[id] = await renderSections(source, scope, '', id);
+    }
+    return Array.isArray(onlySection) ? map : map[onlySection];
+  }
 
   scope.content_for_layout = page.template
     ? await renderSections(readJson(join(theme, 'templates', `${page.template}.json`)), scope)
@@ -411,6 +483,7 @@ export async function renderPage(preset, page, query = new URLSearchParams(), on
 export const PAGES = [
   { name: 'home', type: 'index', title: 'Home', template: 'index' },
   { name: 'product', type: 'product', title: 'Product', template: 'product' },
+  { name: 'cart', type: 'cart', title: 'Cart', template: 'cart' },
   { name: 'styleguide', type: 'page', title: 'Style guide', file: 'styleguide.liquid-preview' },
 ];
 
