@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+// Runs Shopify CLI theme commands against a development store from shopify.theme.toml,
+// with that store's Theme Access password from its own environment variable:
+//
+//   SHOPIFY_CLI_THEME_TOKEN_VERDE, SHOPIFY_CLI_THEME_TOKEN_ODE, SHOPIFY_CLI_THEME_TOKEN_RAWFORM
+//
+//   node tools/store.mjs <verde|ode|rawform> <theme command…>
+//   node tools/store.mjs verde list
+//   node tools/store.mjs verde push --unpublished --theme "Blueprint dev"
+import { spawnSync } from 'node:child_process';
+
+const [store, ...command] = process.argv.slice(2);
+const stores = ['verde', 'ode', 'rawform'];
+if (!stores.includes(store) || command.length === 0) {
+  console.error(`Usage: node tools/store.mjs <${stores.join('|')}> <theme command…>`);
+  process.exit(2);
+}
+const variable = `SHOPIFY_CLI_THEME_TOKEN_${store.toUpperCase()}`;
+const password = process.env[variable];
+if (!password) {
+  console.error(`${variable} isn't set. Add the store's Theme Access password to the environment settings, then start a new session.`);
+  process.exit(2);
+}
+const result = spawnSync('shopify', ['theme', ...command, '--environment', store], {
+  stdio: 'inherit',
+  env: { ...process.env, SHOPIFY_CLI_THEME_TOKEN: password },
+});
+process.exit(result.status ?? 1);

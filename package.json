@@ -13,6 +13,7 @@
     "check:theme": "shopify theme check",
     "report:demo-contrast": "node tools/contrast-check.mjs --demo",
     "check:budget": "node tools/budget-check.mjs",
-    "check:cart": "node tools/preview/cart-checklist.mjs"
+    "check:cart": "node tools/preview/cart-checklist.mjs",
+    "store": "node tools/store.mjs"
   }
 }
