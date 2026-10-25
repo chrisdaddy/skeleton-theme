@@ -184,6 +184,7 @@ The first run against the three development stores, with the seed app's credenti
   - **Footer.** The reference's footer has no "about" copy. The demo build drops footer text blocks still on the theme's default ("Tell customers what your brand stands for"). The default itself stays in the theme for merchants to replace.
   - **Placeholder labels.** Labels now stay inside the area any crop down to 4:5 keeps: the middle three-quarters of the height on landscape images. A unit test covers it.
     - `--refresh-images` on the seed re-renders placeholders and replaces them in place with `fileUpdate`, so every product and section using them updates.
+  - **Seed fix found along the way:** a metaobject upsert only touches the fields it's sent, so Ode's new 10 ml tier inherited the old 50 ml tier's subtitle and badge. Upserts now send the fields the catalog leaves out as empty, which clears them. A test covers it.
 
 #### Phase 8 delivered
 
