@@ -1,8 +1,15 @@
 // Admin GraphQL access: tokens and an executor that only runs allow-listed operations.
+//
+// Two credentials, because Shopify refuses theme changes (themeDuplicate, themeFilesUpsert…)
+// from apps without a special exemption, even with write_themes:
+// - theme operations go through Shopify's Theme Access endpoint with a Theme Access password
+//   (the free Theme Access app), the way Shopify CLI does;
+// - everything else (products, metaobjects, pages) uses the merchant's Dev Dashboard app.
 
-import { OPERATIONS, type OperationName } from './operations.ts';
+import { OPERATIONS, THEME_OPERATIONS, WRITE_OPERATIONS, type OperationName } from './operations.ts';
 
 export const API_VERSION = '2026-07';
+export const THEME_ACCESS_ENDPOINT = `https://theme-kit-access.shopifyapps.com/cli/admin/api/${API_VERSION}/graphql.json`;
 
 export type Executor = (name: OperationName, variables?: Record<string, unknown>) => Promise<any>;
 type Fetch = typeof fetch;
@@ -22,7 +29,9 @@ export function tokenProvider(credentials: Credentials, fetchImpl: Fetch = fetch
     const token = credentials.accessToken;
     return async () => token;
   }
-  if (!credentials.clientId || !credentials.clientSecret) throw new Error('Set BLUEPRINT_CLIENT_ID and BLUEPRINT_CLIENT_SECRET, or BLUEPRINT_ADMIN_TOKEN.');
+  if (!credentials.clientId || !credentials.clientSecret) return async () => {
+    throw new Error('This needs the Blueprint app: set BLUEPRINT_CLIENT_ID and BLUEPRINT_CLIENT_SECRET (or BLUEPRINT_ADMIN_TOKEN).');
+  };
   let token = '';
   let expires = 0;
   return async () => {
@@ -46,15 +55,23 @@ export function tokenProvider(credentials: Credentials, fetchImpl: Fetch = fetch
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-export function adminExecutor(shop: string, token: () => Promise<string>, fetchImpl: Fetch = fetch): Executor {
+// Theme operations use the Theme Access password when there is one. Without it, theme reads
+// fall back to the app (read_themes is enough) and theme writes are refused with how to fix it.
+export function adminExecutor(shop: string, token: () => Promise<string>, fetchImpl: Fetch = fetch, themePassword?: string): Executor {
   const url = `https://${shop}/admin/api/${API_VERSION}/graphql.json`;
   return async (name, variables = {}) => {
     const query = OPERATIONS[name];
     if (!query) throw new Error(`Operation ${String(name)} is not allowed`);
+    const viaThemeAccess = THEME_OPERATIONS.has(name) && Boolean(themePassword);
+    if (THEME_OPERATIONS.has(name) && WRITE_OPERATIONS.has(name) && !themePassword) {
+      throw new Error('Editing drafts needs a Theme Access password (BLUEPRINT_THEME_PASSWORD): Shopify only lets apps with a special exemption change themes. Install the free Theme Access app, create a password, and add it to the kit\'s settings (docs/ai-kit.md).');
+    }
     for (let attempt = 0; ; attempt++) {
-      const response = await fetchImpl(url, {
+      const response = await fetchImpl(viaThemeAccess ? THEME_ACCESS_ENDPOINT : url, {
         method: 'POST',
-        headers: { 'content-type': 'application/json', 'x-shopify-access-token': await token() },
+        headers: viaThemeAccess
+          ? { 'content-type': 'application/json', 'X-Shopify-Shop': shop, 'X-Shopify-Access-Token': themePassword! }
+          : { 'content-type': 'application/json', 'x-shopify-access-token': await token() },
         body: JSON.stringify({ query, variables }),
       });
       if ((response.status === 429 || response.status >= 500) && attempt < 4) {
@@ -66,7 +83,9 @@ export function adminExecutor(shop: string, token: () => Promise<string>, fetchI
         await sleep(2000);
         continue;
       }
-      if (response.status === 401 || response.status === 403) throw new Error(`Admin API refused the request (${response.status}): check the app's access scopes (${name}).`);
+      if (response.status === 401 || response.status === 403) {
+        throw new Error(viaThemeAccess ? `Shopify refused the Theme Access password (${response.status}): check BLUEPRINT_THEME_PASSWORD (${name}).` : `Admin API refused the request (${response.status}): check the app's access scopes (${name}).`);
+      }
       if (!response.ok || body.errors) throw new Error(`Admin API error in ${name}: ${JSON.stringify(body.errors ?? response.status).slice(0, 400)}`);
       return body.data;
     }

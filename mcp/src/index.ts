@@ -4,8 +4,10 @@
 //
 // Configuration (environment):
 //   BLUEPRINT_SHOP                      your-store.myshopify.com
+//   BLUEPRINT_THEME_PASSWORD            a Theme Access password: drafts (Shopify lets only exempt
+//                                       apps change themes, so theme edits use this instead)
 //   BLUEPRINT_CLIENT_ID / _SECRET       a Dev Dashboard app in the store's organization, or
-//   BLUEPRINT_ADMIN_TOKEN               an Admin API access token (shpat_…)
+//   BLUEPRINT_ADMIN_TOKEN               an Admin API access token (shpat_…): products, pages, content
 //   JUDGEME_API_TOKEN, OKENDO_STORE_ID, YOTPO_APP_KEY, STAMPED_API_KEY + STAMPED_STORE_URL   reviews (optional)
 //   BLUEPRINT_MCP_HOME                  where the draft registry is kept (default ~/.blueprint-mcp)
 
@@ -30,7 +32,7 @@ if (!/^[a-z0-9][a-z0-9-]*\.myshopify\.com$/i.test(shop)) {
 
 const token = tokenProvider({ shop, clientId: env.BLUEPRINT_CLIENT_ID, clientSecret: env.BLUEPRINT_CLIENT_SECRET, accessToken: env.BLUEPRINT_ADMIN_TOKEN });
 const server = createServer({
-  admin: adminExecutor(shop, token),
+  admin: adminExecutor(shop, token, fetch, env.BLUEPRINT_THEME_PASSWORD || undefined),
   shop,
   registry: new DraftRegistry(shop),
   reviewKeys: {

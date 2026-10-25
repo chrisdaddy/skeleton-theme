@@ -224,7 +224,7 @@ test('release: version stamps checked, zip holds only the theme, manifest record
   assert.match(checkRelease(dir).problems.join('\n'), /not update-safe vs 1\.0\.0: sections\/hero\.liquid: setting "eyebrow" was removed/);
 });
 
-test('the CLI runs the whole update over HTTP: token, Admin API (allow-listed) and Portal', async () => {
+test('the CLI runs the whole update over HTTP: Theme Access (allow-listed operations) and Portal', async () => {
   const { main } = await import('../../tools/update/cli.mjs');
   const { files: v101, migration } = release101();
   const v100 = repoFiles();
@@ -234,10 +234,10 @@ test('the CLI runs the whole update over HTTP: token, Admin API (allow-listed) a
   const fetchImpl = async (url, init) => {
     sent.push(String(url));
     const reply = (data, status = 200) => new Response(JSON.stringify(data), { status });
-    if (url.endsWith('/admin/oauth/access_token')) return reply({ access_token: 'tok', expires_in: 86399 });
-    if (url.includes('/admin/api/2026-07/graphql.json')) {
+    if (url === 'https://theme-kit-access.shopifyapps.com/cli/admin/api/2026-07/graphql.json') {
       const { query, variables } = JSON.parse(init.body);
-      assert.equal(init.headers['x-shopify-access-token'], 'tok');
+      assert.equal(init.headers['X-Shopify-Access-Token'], 'shptka_test');
+      assert.equal(init.headers['X-Shopify-Shop'], 'verde.myshopify.com');
       const name = /(?:query|mutation)\s+(\w+)/.exec(query)[1];
       return reply({ data: await store.admin(name, variables) });
     }
@@ -246,8 +246,10 @@ test('the CLI runs the whole update over HTTP: token, Admin API (allow-listed) a
     if (url === 'https://portal.test/api/v1/releases/manifest') return reply(manifestOf('1.0.0', v100));
     return reply({ error: 'unexpected' }, 404);
   };
-  const env = { BLUEPRINT_SHOP: 'verde.myshopify.com', BLUEPRINT_LICENSE_KEY: 'BP-TEST', BLUEPRINT_CLIENT_ID: 'id', BLUEPRINT_CLIENT_SECRET: 'secret', BLUEPRINT_PORTAL_URL: 'https://portal.test' };
+  const env = { BLUEPRINT_SHOP: 'verde.myshopify.com', BLUEPRINT_LICENSE_KEY: 'BP-TEST', BLUEPRINT_THEME_PASSWORD: 'shptka_test', BLUEPRINT_PORTAL_URL: 'https://portal.test' };
   const lines = [];
+  assert.equal(await main([], { ...env, BLUEPRINT_THEME_PASSWORD: '' }, { fetchImpl, log: (l) => lines.push(l) }), 2, 'no password, no update');
+  assert.match(lines.pop(), /BLUEPRINT_THEME_PASSWORD/);
   assert.equal(await main(['--dry-run'], env, { fetchImpl, log: (l) => lines.push(l) }), 0);
   assert.equal(store.themes.length, 1, 'dry run creates nothing');
   assert.match(lines.join('\n'), /Update Blueprint 1\.0\.0 → 1\.0\.1/);
@@ -257,5 +259,5 @@ test('the CLI runs the whole update over HTTP: token, Admin API (allow-listed) a
   assert.equal(store.themes.length, 2);
   assert.equal(store.themes[1].role, 'UNPUBLISHED');
   assert.match(lines.at(-2), /"Blueprint 1\.0\.1" is ready and unpublished/);
-  assert.ok(sent.every((u) => u.startsWith('https://verde.myshopify.com/') || u.startsWith('https://portal.test/')));
+  assert.ok(sent.every((u) => u.startsWith('https://theme-kit-access.shopifyapps.com/') || u.startsWith('https://portal.test/')));
 });

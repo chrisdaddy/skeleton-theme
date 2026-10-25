@@ -4,13 +4,19 @@
 // Environment:
 //   BLUEPRINT_SHOP                   your-store.myshopify.com
 //   BLUEPRINT_LICENSE_KEY            from the Blueprint Portal
-//   BLUEPRINT_CLIENT_ID / _SECRET    your Blueprint app (the one the AI kit uses), or
-//   BLUEPRINT_ADMIN_TOKEN            an Admin API access token
+//   BLUEPRINT_THEME_PASSWORD         a Theme Access password (the free Theme Access app)
 //   BLUEPRINT_PORTAL_URL             default https://portal.blueprinttheme.com
+//
+// Why a Theme Access password: Shopify refuses theme changes (themeCreate, themeFilesUpsert)
+// from apps without a special exemption, even with write_themes. A Theme Access password
+// can make them, through the endpoint Shopify CLI uses for it. It covers themes only, which
+// is all the updater touches. An Admin API token from an exempt app (BLUEPRINT_ADMIN_TOKEN)
+// also works.
 import { createInterface } from 'node:readline/promises';
 import { applyUpdate, OPERATIONS, planUpdate } from './updater.mjs';
 
 const API_VERSION = '2026-07';
+export const THEME_ACCESS_ENDPOINT = `https://theme-kit-access.shopifyapps.com/cli/admin/api/${API_VERSION}/graphql.json`;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export function portalClient(base = 'https://portal.blueprinttheme.com', fetchImpl = fetch) {
@@ -27,25 +33,21 @@ export function portalClient(base = 'https://portal.blueprinttheme.com', fetchIm
   };
 }
 
-async function accessToken(env, shop, fetchImpl) {
-  if (env.BLUEPRINT_ADMIN_TOKEN) return env.BLUEPRINT_ADMIN_TOKEN;
-  if (!env.BLUEPRINT_CLIENT_ID || !env.BLUEPRINT_CLIENT_SECRET) throw new Error('Set BLUEPRINT_CLIENT_ID and BLUEPRINT_CLIENT_SECRET (or BLUEPRINT_ADMIN_TOKEN).');
-  const response = await fetchImpl(`https://${shop}/admin/oauth/access_token`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({ grant_type: 'client_credentials', client_id: env.BLUEPRINT_CLIENT_ID, client_secret: env.BLUEPRINT_CLIENT_SECRET }),
-  });
-  if (!response.ok) throw new Error(`Token request failed (${response.status}).${/shop_not_permitted/.test(await response.text()) ? ' The app and the store must be in the same organization.' : ''}`);
-  return (await response.json()).access_token;
+// Where theme operations go: a Theme Access password through Shopify's Theme Access endpoint,
+// or an exempt app's Admin API token straight to the store.
+export function themeAccess(env, shop) {
+  if (env.BLUEPRINT_THEME_PASSWORD) return { url: THEME_ACCESS_ENDPOINT, headers: { 'X-Shopify-Shop': shop, 'X-Shopify-Access-Token': env.BLUEPRINT_THEME_PASSWORD } };
+  if (env.BLUEPRINT_ADMIN_TOKEN) return { url: `https://${shop}/admin/api/${API_VERSION}/graphql.json`, headers: { 'X-Shopify-Access-Token': env.BLUEPRINT_ADMIN_TOKEN } };
+  return null;
 }
 
 // Runs only the updater's allow-listed operations.
-export function adminFor(shop, token, fetchImpl = fetch) {
+export function adminFor(access, fetchImpl = fetch) {
   return async (name, variables = {}) => {
     const query = OPERATIONS[name];
     if (!query) throw new Error(`Operation ${name} is not allowed`);
     for (let attempt = 0; ; attempt++) {
-      const response = await fetchImpl(`https://${shop}/admin/api/${API_VERSION}/graphql.json`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-shopify-access-token': token }, body: JSON.stringify({ query, variables }) });
+      const response = await fetchImpl(access.url, { method: 'POST', headers: { 'content-type': 'application/json', ...access.headers }, body: JSON.stringify({ query, variables }) });
       if ((response.status === 429 || response.status >= 500) && attempt < 4) {
         await sleep(1000 * 2 ** attempt);
         continue;
@@ -55,6 +57,7 @@ export function adminFor(shop, token, fetchImpl = fetch) {
         await sleep(2000);
         continue;
       }
+      if (response.status === 401 || response.status === 403) throw new Error(`Shopify refused the Theme Access password (${response.status}). Check BLUEPRINT_THEME_PASSWORD and BLUEPRINT_SHOP.`);
       if (!response.ok || body.errors) throw new Error(`Admin API error in ${name}: ${JSON.stringify(body.errors ?? response.status).slice(0, 300)}`);
       return body.data;
     }
@@ -63,11 +66,12 @@ export function adminFor(shop, token, fetchImpl = fetch) {
 
 export async function main(args, env = process.env, { fetchImpl = fetch, log = console.log, ask } = {}) {
   const shop = String(env.BLUEPRINT_SHOP ?? '').replace(/^https?:\/\//, '').replace(/\/.*$/, '');
-  if (!shop || !env.BLUEPRINT_LICENSE_KEY) {
-    log('Set BLUEPRINT_SHOP and BLUEPRINT_LICENSE_KEY (and BLUEPRINT_CLIENT_ID/_SECRET or BLUEPRINT_ADMIN_TOKEN). See the update guide.');
+  const access = themeAccess(env, shop);
+  if (!shop || !env.BLUEPRINT_LICENSE_KEY || !access) {
+    log('Set BLUEPRINT_SHOP, BLUEPRINT_LICENSE_KEY and BLUEPRINT_THEME_PASSWORD (a Theme Access password). See the update guide.');
     return 2;
   }
-  const admin = adminFor(shop, await accessToken(env, shop, fetchImpl), fetchImpl);
+  const admin = adminFor(access, fetchImpl);
   const portal = portalClient(env.BLUEPRINT_PORTAL_URL ?? 'https://portal.blueprinttheme.com', fetchImpl);
   const plan = await planUpdate({ admin, portal, key: env.BLUEPRINT_LICENSE_KEY, shop, log });
   if (plan.upToDate) {

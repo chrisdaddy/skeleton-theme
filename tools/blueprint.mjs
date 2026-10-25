@@ -4,8 +4,8 @@
 //
 //   node tools/blueprint.mjs update [--yes] [--dry-run]
 //
-// Environment: see tools/update/cli.mjs. The app needs read_themes and write_themes. The update
-// creates a new, unpublished theme; you publish it yourself after a look in the theme editor.
+// Environment: see tools/update/cli.mjs (store, licence key and a Theme Access password). The
+// update creates a new, unpublished theme; you publish it yourself after a look in the editor.
 import { spawnSync } from 'node:child_process';
 import { main } from './update/cli.mjs';
 

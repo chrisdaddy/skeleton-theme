@@ -19,6 +19,7 @@
         "BLUEPRINT_SHOP": "${user_config.shop}",
         "BLUEPRINT_CLIENT_ID": "${user_config.client_id}",
         "BLUEPRINT_CLIENT_SECRET": "${user_config.client_secret}",
+        "BLUEPRINT_THEME_PASSWORD": "${user_config.theme_password}",
         "JUDGEME_API_TOKEN": "${user_config.judgeme_api_token}"
       }
     }
@@ -298,6 +299,13 @@
       "type": "string",
       "title": "App client secret",
       "description": "From the same app (stored securely)",
+      "sensitive": true,
+      "required": true
+    },
+    "theme_password": {
+      "type": "string",
+      "title": "Theme Access password",
+      "description": "From the free Theme Access app; lets the kit create and edit draft themes (stored securely)",
       "sensitive": true,
       "required": true
     },

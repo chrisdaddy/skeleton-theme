@@ -21,12 +21,24 @@ The updater lists any code files you edited, so you can re-apply those changes i
 
 ## Update with the command line
 
-You need Node.js 22 or later, your licence key, and the Shopify app you created for the [AI kit](../ai-kit.md). The app must have `read_themes` and `write_themes`. In a terminal:
+You need:
+- Node.js 22 or later;
+- your licence key;
+- a **Theme Access password**. Shopify lets only specially approved apps change themes, so the updater uses the password Shopify provides for theme tools instead. If you set up the [AI kit](../ai-kit.md), use the same password.
+
+To get the password:
+1. In your Shopify admin, install the free **Theme Access** app from the Shopify App Store.
+2. Open it and click **Create theme password**. Enter your own name and email.
+3. Shopify emails you a link to the password. You can view it only once, so copy it straight into the command below or your password manager.
+
+The password covers themes only: it can't see your orders, customers or products.
+
+In a terminal:
 
 ```sh
 BLUEPRINT_SHOP=your-store.myshopify.com \
 BLUEPRINT_LICENSE_KEY=BP-XXXX-XXXX-XXXX-XXXX \
-BLUEPRINT_CLIENT_ID=… BLUEPRINT_CLIENT_SECRET=… \
+BLUEPRINT_THEME_PASSWORD=shptka_… \
 npx -y @blueprint/mcp update
 ```
 

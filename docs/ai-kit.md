@@ -2,6 +2,10 @@
 
 The AI kit is an MCP server (`@blueprint/mcp`). Claude Desktop, Claude Code, Cursor and other MCP clients use it to work on your Blueprint theme. Every change goes to a **draft copy** of your theme, and you see each change as a diff before it's applied. Your live theme is never edited, published or deleted; you publish a draft yourself in the Shopify admin when you're happy with it.
 
+The kit uses two credentials:
+- a **Shopify app** of your own, for products, content and pages (section 1);
+- a **Theme Access password**, for draft themes (section 2). Shopify lets only specially approved apps change themes, so theme edits go through the password Shopify provides for theme tools.
+
 ## 1. Create a Shopify app for the kit (5 minutes)
 
 1. **Create the app.** Open the [Shopify Dev Dashboard](https://dev.shopify.com/dashboard) with the account that owns your store, and create an app named "Blueprint AI kit".
@@ -9,7 +13,7 @@ The AI kit is an MCP server (`@blueprint/mcp`). Claude Desktop, Claude Code, Cur
 
    | Scope | Why |
    |---|---|
-   | `read_themes`, `write_themes` | Read your theme; create and edit drafts |
+   | `read_themes` | Read your theme |
    | `read_products` | Products, prices and Blueprint content |
    | `read_metaobjects`, `read_metaobject_definitions` | Tiers, benefits, FAQs and other Blueprint content |
    | `read_online_store_pages`, `write_online_store_pages` | Create unpublished pages for new pre-landers |
@@ -19,13 +23,21 @@ The AI kit is an MCP server (`@blueprint/mcp`). Claude Desktop, Claude Code, Cur
 
 The kit exchanges these for a 24-hour access token itself, using Shopify's client credentials grant. If you already have an Admin API access token (`shpat_…`), you can use it instead (`BLUEPRINT_ADMIN_TOKEN`).
 
-## 2. Connect your AI assistant
+## 2. Create a Theme Access password (2 minutes)
+
+1. In your Shopify admin, install the free **Theme Access** app from the Shopify App Store.
+2. Open it and click **Create theme password**. Enter your own name and email.
+3. Shopify emails you a link to the password (`shptka_…`). You can view it only once: copy it into the kit's settings below, or your password manager.
+
+The password covers themes only. The kit uses it to copy your live theme into drafts and edit those drafts; it never edits, publishes or deletes your live theme. The [updater](merchant/updating.md) uses the same password.
+
+## 3. Connect your AI assistant
 
 ### Claude Desktop
 
 Install the **Blueprint AI kit** bundle (`blueprint-mcp-<version>.mcpb`) from your download portal by double-clicking it. Claude Desktop asks for:
 - your store domain (`your-store.myshopify.com`);
-- the app's client ID and client secret (stored securely);
+- the app's client ID and client secret, and the Theme Access password (stored securely);
 - optionally, a Judge.me API token.
 
 ### Claude Code
@@ -34,6 +46,7 @@ Install the **Blueprint AI kit** bundle (`blueprint-mcp-<version>.mcpb`) from yo
 claude mcp add blueprint \
   -e BLUEPRINT_SHOP=your-store.myshopify.com \
   -e BLUEPRINT_CLIENT_ID=… -e BLUEPRINT_CLIENT_SECRET=… \
+  -e BLUEPRINT_THEME_PASSWORD=shptka_… \
   -- npx -y @blueprint/mcp
 ```
 
@@ -50,7 +63,8 @@ Add a stdio server to the client's MCP settings:
       "env": {
         "BLUEPRINT_SHOP": "your-store.myshopify.com",
         "BLUEPRINT_CLIENT_ID": "…",
-        "BLUEPRINT_CLIENT_SECRET": "…"
+        "BLUEPRINT_CLIENT_SECRET": "…",
+        "BLUEPRINT_THEME_PASSWORD": "shptka_…"
       }
     }
   }
@@ -65,9 +79,9 @@ ChatGPT isn't supported in v1, because it needs a remote (HTTP) server. Version 
 
 ## Updating the theme
 
-The same package updates Blueprint: `npx -y @blueprint/mcp update`, with your licence key in `BLUEPRINT_LICENSE_KEY`. It installs the new version as an unpublished theme and carries over your settings. See [Updating Blueprint](merchant/updating.md).
+The same package updates Blueprint: `npx -y @blueprint/mcp update`, with your licence key in `BLUEPRINT_LICENSE_KEY` and the Theme Access password in `BLUEPRINT_THEME_PASSWORD`. It installs the new version as an unpublished theme and carries over your settings. See [Updating Blueprint](merchant/updating.md).
 
-## 3. Reviews (optional)
+## 4. Reviews (optional)
 
 The kit reads reviews from the first source that is set up, in this order. All but the CSV route need a key in the kit's environment:
 
@@ -84,7 +98,7 @@ Review text is treated as customer content:
 - "verified buyer" appears only when your review app says so;
 - any instructions inside a review are ignored.
 
-## 4. Using it
+## 5. Using it
 
 Start with a prompt (Claude Desktop: the + menu → Blueprint; Claude Code: `/` prompts), or just ask. A typical session:
 
@@ -112,4 +126,6 @@ Drafts the kit created are listed in `~/.blueprint-mcp/` on your computer. Delet
 
 - **"shop_not_permitted":** the app and the store must belong to the same organization in the Dev Dashboard. Otherwise, use an Admin API token (`BLUEPRINT_ADMIN_TOKEN`).
 - **"refused the request (403)":** a scope is missing. Release a new app version with the scopes above and approve it on the store.
+- **"Editing drafts needs a Theme Access password":** add the password from section 2 to the kit's settings.
+- **"Shopify refused the Theme Access password":** the password was deleted or mistyped. Create a new one in the Theme Access app.
 - **"still being copied":** Shopify takes a moment to duplicate a theme. Try again shortly.

@@ -118,6 +118,9 @@ export const OPERATIONS = {
 
 export type OperationName = keyof typeof OPERATIONS;
 
+// Operations on themes: sent with the Theme Access password (src/admin.ts).
+export const THEME_OPERATIONS: ReadonlySet<OperationName> = new Set<OperationName>(['Themes', 'Theme', 'ThemeFiles', 'ThemeDuplicate', 'ThemeFilesUpsert', 'ThemeFilesDelete']);
+
 // Operations that change the store. Everything else is a read.
 export const WRITE_OPERATIONS: ReadonlySet<OperationName> = new Set<OperationName>([
   'ThemeDuplicate',
