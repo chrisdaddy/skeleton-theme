@@ -30,6 +30,7 @@ A bundle tier can include a gift (the product's `blueprint.tiers` metafield, *Gi
 
 - **How it's added:** the gift goes in as its own line, linked to the bundle. Removing the bundle removes the gift.
 - **Discount to create:** a Buy X Get Y discount that makes the gift free with that bundle variant.
+- **One gift per bundle.** In Shopify, a product can qualify for only one Buy X Get Y discount. When a bundle's tier gift and a spend reward gift (for example "free shaker over $130") would both come from the same bundle, only one is free; the other is charged at its price, and the cart shows that price. Avoid offering both on the same bundle, or test the combination with a real cart before you go live.
 
 ## Shipping protection
 

@@ -23,7 +23,7 @@
 | 3. Cart drawer | Done offline, pending store verification | See "Phase 3 delivered" below |
 | 4. Content sections | Done offline, pending store verification | See "Phase 4 delivered" below. Includes the quick add moved from Phase 2 |
 | 5. Templates and pre-landers | Done offline, pending store verification | See "Phase 5 delivered" below. Includes the collection page moved from Phase 4 |
-| 6. Demo stores | Seeded and themes pushed (unpublished) on all 3 stores; storefront comparisons wait on the storefront passwords | See "Store run, 2026-10-25" below |
+| 6. Demo stores | Seeded, themes pushed (unpublished) and checked on all 3 stores; comparisons in `docs/screenshots/store/` | See "Store run, 2026-10-25" below. One gift-discount limitation awaits a decision |
 | 7. AI kit | Built and tested offline. **Launch blocker confirmed on a real store:** an app can't write themes without Shopify's exemption | See "Store run, 2026-10-25": theme writes need a Theme Access password instead (decision pending) |
 | 8. Updater + docs + launch | Built and tested offline; Portal deploy, sales store and a real test purchase wait on accounts | See "Phase 8 delivered" below. Runbook in `LAUNCH.md`. Same theme-write blocker as Phase 7 |
 
@@ -146,7 +146,31 @@ The first run against the three development stores, with the seed app's credenti
     3. An App Store app with the exemption. That's the v1.1 web-updater plan, and needs Shopify's approval.
 
     Either way, the AI kit keeps the app for product, metaobject and page access. The test themes were deleted afterwards.
-- **Not yet checked:** the storefront. All three stores are password-protected, so the preview, the reference comparisons and the Phase 1–5 "still to verify on a store" items need the storefront passwords (`BLUEPRINT_STORE_PASSWORD_<STORE>`, `docs/demo-stores.md`).
+- **Storefront** (with the storefront passwords). Bugs found and fixed:
+  - **Every demo product showed "Sold out".** Dev stores list a non-shipping "My Custom Location" first, and the seed stocked it. The admin showed 120 available; the storefront showed nothing. The seed now stocks a location that ships and fulfills online orders, setting stock explicitly with `inventoryActivate` and `inventorySetQuantities` (with `@idempotent`, as 2026-04+ requires).
+  - **Re-running the products step alone dropped the product's reference metafields** (tiers, benefits…). `productSet` replaces the whole metafield list. Plain metafields now go through `metafieldsSet`, and a test covers a products-only re-run.
+  - **`compare.mjs` cut every composite at 900 px**, including the phase-6 set. It now captures full height, and goes through the proxy.
+- **Store checklist** (`tools/demo/store-check.mjs`, new). Ode passed 52 of 52; Verde 60 of 61; Rawform 59 of 60. On real Shopify, the checklist confirmed:
+  - every template answers, with no console errors;
+  - pre-landers are `noindex`;
+  - every tier and the subscription add the right variant, plan and gift;
+  - reward gifts are free through the automatic discounts;
+  - the drawer total is Shopify's `total_price`;
+  - deep links post their variant and plan;
+  - the form works without JavaScript.
+- **Limitation found (decision pending):**
+  - **What fails:** on Verde's and Rawform's tier 3, the tier's gift and the "free shaker over $130" reward both qualify, but only the tier gift is free. Shopify lets a product qualify for only one Buy X Get Y discount ("BXGY discounts stack only on the customer-gets products, not the customer-buys products"), so no discount setting fixes it.
+  - **What the shopper sees:** the cart is truthful; the shaker shows "Gift" at $15, not "Free gift". But the theme added it automatically.
+  - **Options:**
+    - have `bp-cart.js` remove a reward gift Shopify doesn't make free, and say so in the rewards bar;
+    - configure offers so that they never overlap;
+    - a discount Function (an app).
+  - **Done now:** `docs/merchant/cart-setup.md` warns about it.
+- **Visual comparison** (`docs/screenshots/store/`, 30 composites, reference vs store at 390 and 1440): the stores follow the reference's content and order. Differences noted:
+  - Ode has no subscription plan, so no subscribe option. The reference shows "Subscribe & save 15%", but the seed adds a plan only where the reference states a saving.
+  - Ode shows its sizes as bundle tiers, without the reference's separate size picker.
+  - The footer's "About us" column shows its default text.
+  - Placeholder images crop their label text in wide hero frames.
 
 #### Phase 8 delivered
 
