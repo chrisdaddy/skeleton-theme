@@ -90,14 +90,40 @@ class BpProduct extends HTMLElement {
 
     const form = this.form;
     if (!form) return;
-    // Dynamic checkout buttons read id and selling_plan from inside the form. Copy the
-    // effective values in (disabled first, so they don't read themselves).
-    const synced = form.querySelectorAll('[data-bp-sync]');
+    // Dynamic checkout buttons read the first id, quantity and selling_plan in the form's
+    // element order, checked or not. Copy the effective (last) values into the synced inputs
+    // (disabled first, so they don't read themselves) and move those inputs ahead of the rest.
+    const synced = [...form.elements].filter((el) => el.dataset.bpSync);
     synced.forEach((el) => (el.disabled = true));
     const data = new FormData(form);
+    const slots = [...this.querySelectorAll('[data-bp-mix-slot]')].map((el) => el.value);
+    const counts = new Map();
+    for (const id of slots) counts.set(id, (counts.get(id) || 0) + 1);
+    const [main, ...others] = counts.size ? [...counts] : [[data.getAll('id').at(-1), data.getAll('quantity').at(-1) ?? 1]];
+    // A mix posts its picks without a plan (see addToCart), so Buy it now does the same.
+    const values = { id: main[0], quantity: main[1], selling_plan: counts.size ? '' : (data.getAll('selling_plan').at(-1) ?? '') };
     synced.forEach((el) => {
-      el.value = data.getAll(el.dataset.bpSync).at(-1) ?? '';
+      el.value = values[el.dataset.bpSync] ?? '';
       el.disabled = false;
+    });
+    const first = [...form.elements].find((el) => Object.hasOwn(values, el.name) && !el.dataset.bpSync);
+    if (first && first.compareDocumentPosition(synced[0]) & Node.DOCUMENT_POSITION_FOLLOWING) {
+      synced.forEach((el) => el.setAttribute('form', form.getAttribute('id')));
+      first.before(...synced);
+    }
+
+    // What else Buy it now checks out with (Shopify's shopify-additional-items fields): a mix's
+    // other picks, and the tier's free gift nested under the bundle, as add to cart does.
+    form.querySelectorAll('[data-bp-extra]').forEach((el) => el.remove());
+    const extras = others.map(([id, quantity]) => ({ id, quantity }));
+    const giftId = tier?.dataset.giftId;
+    if (giftId) extras.push({ id: giftId, quantity: 1, parent_id: main[0], properties: JSON.stringify({ _bp_gift: 'tier', _bp_gift_for: String(main[0]) }) });
+    extras.forEach((item, index) => {
+      for (const [key, value] of Object.entries(item)) {
+        const input = Object.assign(document.createElement('input'), { type: 'hidden', name: `shopify-additional-items[${index + 1}][${key}]`, value });
+        input.dataset.bpExtra = '';
+        form.append(input);
+      }
     });
     const button = form.querySelector('[data-bp-atc]');
     if (button && tier) button.disabled = tier.disabled;
@@ -105,6 +131,9 @@ class BpProduct extends HTMLElement {
 
   // "Pick any N" tiers: one select per item, filled with the product's variants.
   renderMix(tier) {
+    // Rebuilt only when the tier changes, so picking an item keeps the other picks.
+    if (tier === this.mixTier && this.querySelector('.bp-mix')) return;
+    this.mixTier = tier;
     this.querySelectorAll('.bp-mix').forEach((el) => el.remove());
     const count = Number(tier?.dataset.bpMix || 0);
     const source = this.querySelector('[data-bp-variants]');
@@ -213,6 +242,8 @@ class BpProduct extends HTMLElement {
   // Returns the cart's re-rendered sections (when a cart is on the page) from the last request.
   async addToCart(form) {
     const data = new FormData(form);
+    // Those fields are for Buy it now; add to cart posts the gift itself, below.
+    for (const key of [...data.keys()]) if (key.startsWith('shopify-additional-items')) data.delete(key);
     const tier = this.tierInput;
     const slots = [...this.querySelectorAll('[data-bp-mix-slot]')];
     const giftId = tier?.dataset.giftId;

@@ -13,9 +13,11 @@
   {%- form 'product', product, id: form_id, class: 'bp-buy-buttons__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
     {%- comment -%}
       Disabled until bp-product.js syncs them, so without JS only the tier and plan radios submit.
-      Dynamic checkout buttons read these from inside the form.
+      Dynamic checkout buttons read the first id, quantity and selling_plan in the form's
+      element order, so bp-product.js also moves these ahead of the section's own inputs.
     {%- endcomment -%}
     <input type="hidden" name="id" value="{{ variant.id }}" disabled data-bp-sync="id">
+    <input type="hidden" name="quantity" value="1" disabled data-bp-sync="quantity">
     <input type="hidden" name="selling_plan" value="" disabled data-bp-sync="selling_plan">
     {%- if product.gift_card? and block.settings.show_gift_card_recipient -%}
       {%- render 'gift-card-recipient', form_id: form_id -%}

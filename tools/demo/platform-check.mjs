@@ -241,7 +241,7 @@ try {
     await page.locator(`label:has([data-bp-tier-input="${subTier}"])`).click();
     await page.locator('label:has([data-bp-plan="sub"])').first().click();
     const synced = await page.evaluate(() => ({ id: document.querySelector('[data-bp-sync="id"]')?.value, plan: document.querySelector('[data-bp-sync="selling_plan"]')?.value, disabled: document.querySelector('[data-bp-sync="id"]')?.disabled }));
-    const wanted = { id: await page.locator(`[data-bp-tier-input="${subTier}"]`).getAttribute('value'), plan: await page.locator(`[data-bp-tier-input="${subTier}"]`).getAttribute('data-plan-id') };
+    const wanted = { id: await page.locator(`[data-bp-tier-input="${subTier}"]`).getAttribute('value'), plan: await page.locator(`[data-bp-tier-input="${subTier}"]`).getAttribute('data-plan-id'), gift: await page.locator(`[data-bp-tier-input="${subTier}"]`).getAttribute('data-gift-id') };
     check('Phase 2', 'dynamic checkout: the synced id and selling_plan inputs hold the chosen tier and plan', synced.id === wanted.id && synced.plan === wanted.plan && !synced.disabled, { synced, wanted });
     const posted = [];
     page.on('request', (r) => r.method() === 'POST' && posted.push({ url: r.url().replace(base, ''), body: r.postDataBuffer()?.toString('utf8') ?? '' }));
@@ -255,6 +255,10 @@ try {
     } catch {}
     const line = lines.find((l) => String(l.merchandiseId).endsWith(`/${wanted.id}`));
     check('Phase 2', 'dynamic checkout: "Buy it now" sends that variant and its selling plan', line && String(line.sellingPlanId).endsWith(`/${wanted.plan}`), { landed: page.url().replace(base, '').slice(0, 60), wanted, lines: create ? lines : posted.map((p) => p.url.slice(0, 80)) });
+    if (wanted.gift) {
+      const gift = lines.find((l) => String(l.merchandiseId).endsWith(`/${wanted.gift}`));
+      check('Phase 2', 'dynamic checkout: "Buy it now" nests the tier\'s free gift under it', gift && JSON.stringify(gift.parent ?? {}).includes(`/${wanted.id}`), gift ?? lines);
+    }
   } else check('Phase 2', 'dynamic checkout: no "Buy it now" button or no subscription tier', null);
 
   // ---------- Accessibility (axe, WCAG 2.2 AA) ----------

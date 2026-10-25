@@ -130,6 +130,27 @@ async function runCombination(preset, product, index, t, plan, js) {
   const atc = await visibleText(page.locator('[data-bp-atc]'));
   check(`${label}: button shows ${formatMoney(f.total)} and no other price`, atc.includes(formatMoney(f.total)) && (atc.match(/\$/g) || []).length === 1, atc);
 
+  // Dynamic checkout reads the first id, quantity and selling_plan in the form's element order,
+  // plus shopify-additional-items fields (the tier's gift, nested under the bundle).
+  if (js) {
+    const reads = await page.evaluate(() => {
+      const form = document.querySelector('form[data-type="add-to-cart-form"]');
+      const first = (name) => {
+        const found = form.elements.namedItem(name);
+        return (found && 'length' in found ? found.item(0) : found)?.value ?? null;
+      };
+      const extras = Object.fromEntries([...new FormData(form)].filter(([key]) => key.startsWith('shopify-additional-items')));
+      return { id: first('id'), quantity: first('quantity'), plan: first('selling_plan'), extras };
+    });
+    const expectedPlan = plan === 'sub' ? String(t.allocation.selling_plan.id) : '';
+    check(`${label}: Buy it now reads variant ${t.variant.id}, quantity 1, plan "${expectedPlan || 'none'}"`, reads.id === String(t.variant.id) && reads.quantity === '1' && (reads.plan ?? '') === expectedPlan, JSON.stringify(reads));
+    const giftId = t.tier.gift_variant?.value?.id;
+    const extrasOk = giftId
+      ? reads.extras['shopify-additional-items[1][id]'] === String(giftId) && reads.extras['shopify-additional-items[1][parent_id]'] === String(t.variant.id)
+      : Object.keys(reads.extras).length === 0;
+    check(`${label}: Buy it now ${giftId ? 'nests the free gift under the bundle' : 'adds no other lines'}`, extrasOk, JSON.stringify(reads.extras));
+  }
+
   // §16.10 (posting half): what the form sends.
   await page.click('[data-bp-atc]');
   await page.waitForTimeout(js ? 400 : 300);
