@@ -23,9 +23,9 @@
 | 3. Cart drawer | Done offline, pending store verification | See "Phase 3 delivered" below |
 | 4. Content sections | Done offline, pending store verification | See "Phase 4 delivered" below. Includes the quick add moved from Phase 2 |
 | 5. Templates and pre-landers | Done offline, pending store verification | See "Phase 5 delivered" below. Includes the collection page moved from Phase 4 |
-| 6. Demo stores | Built and verified offline; seeding waits on store credentials | See "Phase 6 delivered" below. One Dev Dashboard app's credentials, plus Theme Access passwords, in the environment settings |
-| 7. AI kit | Built and tested offline (in-memory store); store end-to-end waits on credentials | See "Phase 7 delivered" below. The `write_themes` launch blocker is still to verify on a real store |
-| 8. Updater + docs + launch | Built and tested offline; Portal deploy, sales store and a real test purchase wait on accounts | See "Phase 8 delivered" below. Runbook in `LAUNCH.md` |
+| 6. Demo stores | Seeded and themes pushed (unpublished) on all 3 stores; storefront comparisons wait on the storefront passwords | See "Store run, 2026-10-25" below |
+| 7. AI kit | Built and tested offline. **Launch blocker confirmed on a real store:** an app can't write themes without Shopify's exemption | See "Store run, 2026-10-25": theme writes need a Theme Access password instead (decision pending) |
+| 8. Updater + docs + launch | Built and tested offline; Portal deploy, sales store and a real test purchase wait on accounts | See "Phase 8 delivered" below. Runbook in `LAUNCH.md`. Same theme-write blocker as Phase 7 |
 
 #### Phase 1 delivered
 
@@ -120,6 +120,33 @@
   - that `/cart/add` accepts `items[n][id]` form posts;
   - that `request.design_mode` hides the unset countdown;
   - that `product_recommendations_url` returns the section with `intent=complementary`.
+
+#### Store run, 2026-10-25
+
+The first run against the three development stores, with the seed app's credentials and Theme Access passwords in the environment.
+
+- **Seeding** (`tools/seed-demo.mjs`):
+  - Verde, Ode and Rawform were each seeded in about a minute, with no errors: 66 objects created and 14–16 updated per store.
+  - A second run on Verde created nothing and updated the same objects in place, so seeding is safe to repeat.
+  - The stores' own 17 sample products, from store creation, are untouched.
+- **Demo themes** (`tools/demo/theme.mjs --push`): a "Blueprint demo" theme, **unpublished**, is on each store. All 200 files were accepted.
+  - **Bug found by Shopify's upload validation:** the ticker's padding defaults (12) weren't on its step (8), so Shopify rejected `sections/ticker.liquid`, and Ode's home page, which uses it, with it. Fixed (default 16). A new unit test, `tests/unit/schema-ranges.test.mjs`, checks every range setting's bounds, default and stored value against Shopify's rule.
+  - **Tooling:** `tools/store.mjs` now passes `--store` itself, because Shopify CLI looks for `shopify.theme.toml` in `--path`. It also routes the CLI through the proxy.
+- **The theme-write question (Phases 7 and 8), answered:**
+  - **A Dev Dashboard app can't write themes.** Even on a development store in the app's own organization, with `write_themes` granted, Shopify refuses `themeDuplicate`, `themeCreate` and `themeFilesUpsert`: "needs write_themes and an exemption from Shopify to modify themes". As built, the AI kit's draft tools and `blueprint update` can't work for merchants.
+  - **A Theme Access password can.** Sent to Shopify CLI's endpoint (`theme-kit-access.shopifyapps.com/cli/admin/api/<version>/graphql.json`), the same password ran:
+    - `themeDuplicate`;
+    - `themeFilesUpsert` and `themeFilesDelete`;
+    - `stagedUploadsCreate` and `themeCreate` from the staged release zip: all 200 files were installed and processed, with no processing failure.
+
+    The password covers themes only; product reads are refused.
+  - **Decision needed:** which route the AI kit and the updater use for theme writes.
+    1. The Theme Access endpoint directly. It works today, but it's the CLI's endpoint, not a documented public API.
+    2. Shopify CLI as a subprocess, with the same password. Official, but heavier for merchants.
+    3. An App Store app with the exemption. That's the v1.1 web-updater plan, and needs Shopify's approval.
+
+    Either way, the AI kit keeps the app for product, metaobject and page access. The test themes were deleted afterwards.
+- **Not yet checked:** the storefront. All three stores are password-protected, so the preview, the reference comparisons and the Phase 1–5 "still to verify on a store" items need the storefront passwords (`BLUEPRINT_STORE_PASSWORD_<STORE>`, `docs/demo-stores.md`).
 
 #### Phase 8 delivered
 

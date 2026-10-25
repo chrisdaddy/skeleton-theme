@@ -61,7 +61,8 @@ Money only comes from variants and selling plans. The labels that state an amoun
 3. **Add the credentials as environment variables** in the cloud environment's settings. Never paste them into a chat or a file.
    - `BLUEPRINT_SEED_CLIENT_ID` and `BLUEPRINT_SEED_CLIENT_SECRET`: the app's client ID and secret from its settings page.
    - `SHOPIFY_CLI_THEME_TOKEN_VERDE`, `SHOPIFY_CLI_THEME_TOKEN_ODE`, `SHOPIFY_CLI_THEME_TOKEN_RAWFORM`: Theme Access passwords, used for the theme push.
-   - Optional: `BLUEPRINT_STORE_PASSWORD`, the storefront password, used for the side-by-side screenshots of a password-protected store.
+   - Optional: the storefront passwords (**Online Store → Preferences → Password protection**), used to screenshot the stores: `BLUEPRINT_STORE_PASSWORD_VERDE`, `BLUEPRINT_STORE_PASSWORD_ODE` and `BLUEPRINT_STORE_PASSWORD_RAWFORM`. `BLUEPRINT_STORE_PASSWORD` covers all three if they share one.
+   - Behind an HTTPS proxy, `tools/store.mjs` passes it to Shopify CLI as `SHOPIFY_HTTPS_PROXY`. Theme Access passwords go through `theme-kit-access.shopifyapps.com`, which the network policy must allow.
 
    An Admin API access token per store, `SHOPIFY_ADMIN_TOKEN_<STORE>`, also works instead of the app credentials.
 4. Start a new session so the variables load.

@@ -9,7 +9,8 @@
 // --target=preview (default) renders Blueprint offline with the store's colours
 // (tools/preview, ?demo=1); only verde, ode and rawform have preview data.
 // --target=store opens the seeded dev store (shopify.theme.toml), optionally an unpublished
-// theme (--theme=<id>), entering the storefront password from BLUEPRINT_STORE_PASSWORD.
+// theme (--theme=<id>), entering the storefront password from BLUEPRINT_STORE_PASSWORD_<STORE>
+// (each dev store has its own), or BLUEPRINT_STORE_PASSWORD for all of them.
 //
 // The reference draws each store inside a framed, scrolling "browser"; that frame is expanded
 // to its full height before capture. Images are written as <store>-<page>-<width>.jpg:
@@ -145,11 +146,12 @@ for (const storeId of stores) {
     const toml = readFileSync(join(root, 'shopify.theme.toml'), 'utf8');
     const shop = new RegExp(`\\[environments\\.${storeId}\\][^\\[]*?store\\s*=\\s*"([^"]+)"`).exec(toml)?.[1];
     context.base = `https://${shop}`;
-    if (process.env.BLUEPRINT_STORE_PASSWORD) {
+    const password = process.env[`BLUEPRINT_STORE_PASSWORD_${storeId.toUpperCase()}`] ?? process.env.BLUEPRINT_STORE_PASSWORD;
+    if (password) {
       const tab = await context.newPage();
       await tab.goto(`${context.base}/password`);
       if (await tab.locator('input[type="password"]').count()) {
-        await tab.fill('input[type="password"]', process.env.BLUEPRINT_STORE_PASSWORD);
+        await tab.fill('input[type="password"]', password);
         await Promise.all([tab.waitForNavigation(), tab.locator('input[type="password"]').press('Enter')]);
       }
       await tab.close();

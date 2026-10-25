@@ -259,7 +259,7 @@ These are built and tested offline. Check each one once the credentials exist, a
 - [ ] Portal deployed: webhook signatures from a real store, Resend delivery, R2 downloads.
 - [ ] The test purchase in §1.3.
 - [ ] `blueprint update` against a real store: `themeCreate` from the Portal's signed URL, then file carry-over.
-- [ ] The AI kit's launch blocker: `themeDuplicate` and `themeFilesUpsert` from a merchant's Dev Dashboard app without a `write_themes` exemption (PLAN, "Phase 7 delivered"). The updater needs the same access.
+- [x] The AI kit's launch blocker. **Answered 2026-10-25: an app can't write themes without Shopify's exemption; a Theme Access password can** (PLAN, "Store run, 2026-10-25"). The AI kit and the updater must switch routes before launch.
 - [ ] Sales store seeded, and Digital Downloads attached.
 - [ ] npm package published; `.mcpb` signed.
 - [ ] The app-compatibility pass in §4.
