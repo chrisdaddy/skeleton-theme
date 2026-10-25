@@ -146,7 +146,10 @@ async function runCombination(preset, product, index, t, plan, js) {
     check(`${label}: Buy it now reads variant ${t.variant.id}, quantity 1, plan "${expectedPlan || 'none'}"`, reads.id === String(t.variant.id) && reads.quantity === '1' && (reads.plan ?? '') === expectedPlan, JSON.stringify(reads));
     const giftId = t.tier.gift_variant?.value?.id;
     const extrasOk = giftId
-      ? reads.extras['shopify-additional-items[1][id]'] === String(giftId) && reads.extras['shopify-additional-items[1][parent_id]'] === String(t.variant.id)
+      ? reads.extras['shopify-additional-items[1][id]'] === String(giftId) &&
+        reads.extras['shopify-additional-items[1][parent_id]'] === String(t.variant.id) &&
+        // A list of { key, value }: Shopify's wallet script maps over it.
+        JSON.parse(reads.extras['shopify-additional-items[1][properties]']).some((p) => p.key === '_bp_gift' && p.value === 'tier')
       : Object.keys(reads.extras).length === 0;
     check(`${label}: Buy it now ${giftId ? 'nests the free gift under the bundle' : 'adds no other lines'}`, extrasOk, JSON.stringify(reads.extras));
   }

@@ -117,7 +117,9 @@ class BpProduct extends HTMLElement {
     form.querySelectorAll('[data-bp-extra]').forEach((el) => el.remove());
     const extras = others.map(([id, quantity]) => ({ id, quantity }));
     const giftId = tier?.dataset.giftId;
-    if (giftId) extras.push({ id: giftId, quantity: 1, parent_id: main[0], properties: JSON.stringify({ _bp_gift: 'tier', _bp_gift_for: String(main[0]) }) });
+    // properties is a JSON list of { key, value } (what Shopify's wallet script maps over).
+    const giftProperties = [{ key: '_bp_gift', value: 'tier' }, { key: '_bp_gift_for', value: String(main[0]) }];
+    if (giftId) extras.push({ id: giftId, quantity: 1, parent_id: main[0], properties: JSON.stringify(giftProperties) });
     extras.forEach((item, index) => {
       for (const [key, value] of Object.entries(item)) {
         const input = Object.assign(document.createElement('input'), { type: 'hidden', name: `shopify-additional-items[${index + 1}][${key}]`, value });
