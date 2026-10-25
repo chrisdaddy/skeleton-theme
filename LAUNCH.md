@@ -258,7 +258,7 @@ These are built and tested offline. Check each one once the credentials exist, a
 
 - [ ] Portal deployed: webhook signatures from a real store, Resend delivery, R2 downloads.
 - [ ] The test purchase in §1.3.
-- [ ] `blueprint update` against a real store: `themeCreate` from the Portal's signed URL, then file carry-over.
+- [x] `blueprint update` against a real store (2026-10-25, Rawform, 1.0.0 → a synthetic 1.0.1, with a stand-in Portal and the zip staged on Shopify): the new theme was created unpublished, settings, templates and translations carried over, the migration applied, and the live theme left untouched. Still to do: the same with the real Portal's signed R2 link.
 - [x] The AI kit's launch blocker. **Answered 2026-10-25:** an app can't write themes without Shopify's exemption, but a Theme Access password can. The AI kit and the updater now use the password for theme writes; the AI kit was verified end to end on Verde.
 - [ ] Sales store seeded, and Digital Downloads attached.
 - [ ] npm package published; `.mcpb` signed.

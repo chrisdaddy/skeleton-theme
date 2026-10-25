@@ -144,7 +144,18 @@ The first run against the three development stores, with the seed app's credenti
     - **AI kit** (`mcp/src/admin.ts`): the theme operations (`THEME_OPERATIONS`) go to `theme-kit-access.shopifyapps.com` with `BLUEPRINT_THEME_PASSWORD`; products, metaobjects and pages keep the app. Without the password, theme reads fall back to the app and draft writes are refused with how to fix it.
     - **Updater** (`tools/update/cli.mjs`): it only touches themes, so it needs just the password and the licence key (or an exempt app's `BLUEPRINT_ADMIN_TOKEN`).
     - **Settings and docs:** the `.mcpb` bundle asks for the password; `docs/ai-kit.md` and `docs/merchant/updating.md` explain how to create one; the app no longer asks for `write_themes`.
-    - **Verified on Verde:** the AI kit over MCP read products through the app, duplicated the live theme into a draft, and planned and applied a template change through Theme Access; a write to the live theme was refused by the rails. The draft was deleted afterwards. The updater's `themeCreate` from a release zip was verified the same way earlier; a full `blueprint update` run needs a store whose live theme is Blueprint.
+    - **Verified on Verde:** the AI kit over MCP read products through the app, duplicated the live theme into a draft, and planned and applied a template change through Theme Access; a write to the live theme was refused by the rails. The draft was deleted afterwards. **Phase 8 acceptance on a real store (Rawform, live theme Blueprint 1.0.0):**
+      - **How:** the real CLI (`tools/update/cli.mjs`) with the Theme Access password updated to a synthetic 1.0.1 (a new main-product setting with a migration, a new translation, a new template). A stand-in Portal supplied the release, and the zip was staged on Shopify, since the Portal isn't deployed.
+      - **Results:**
+        - "Blueprint 1.0.1" was created unpublished.
+        - All 19 other templates and section groups and the theme settings carried over unchanged.
+        - The migration turned the new setting on in the product template, and nothing else changed there.
+        - The new translation and template arrived, and the merchant's wording was kept.
+        - No edited code was reported, which is correct.
+        - The live theme's 200 checksums were identical afterwards.
+        - The store checklist passed 60 of 60 on the updated theme.
+      - **Cleanup:** the synthetic theme was then deleted.
+      - **Still open:** the same run against the real Portal's signed R2 link.
     - **Risk:** the endpoint is Shopify CLI's, not a documented public API. If Shopify changes it, the fallback is running Shopify CLI with the same password.
 - **Storefront** (with the storefront passwords). Bugs found and fixed:
   - **Every demo product showed "Sold out".** Dev stores list a non-shipping "My Custom Location" first, and the seed stocked it. The admin showed 120 available; the storefront showed nothing. The seed now stocks a location that ships and fulfills online orders, setting stock explicitly with `inventoryActivate` and `inventorySetQuantities` (with `@idempotent`, as 2026-04+ requires).
