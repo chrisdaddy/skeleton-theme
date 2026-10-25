@@ -125,7 +125,12 @@ try {
     check('Phase 4', 'temporary template accepted by Shopify', wroteTemplate, themeFilesUpsert.userErrors);
   }
   if (wroteTemplate) {
-    await page.goto(url('/pages/about', { view: 'bp-platform-check' }), { waitUntil: 'networkidle' });
+    // A template written seconds ago can take a moment to render: retry before judging it.
+    for (let attempt = 0; attempt < 4; attempt++) {
+      await page.goto(url('/pages/about', { view: 'bp-platform-check' }), { waitUntil: 'networkidle' });
+      if (await page.locator('[id$="__featured"] [data-bp-tier-input]').count()) break;
+      await settle(page, 5000);
+    }
     const shown = await page.evaluate(() => {
       const section = (key) => document.querySelector(`[id^="shopify-section-"][id$="__${key}"]`);
       return {
@@ -139,12 +144,14 @@ try {
     check('Phase 4', `featured product: closest.product resolves to the section's product ("${shown.title}")`, shown.title && productJs.title && shown.title.includes(productJs.title), shown);
     check('Phase 4', 'featured product: the buy-box blocks render its tiers', shown.tiers > 0, shown);
     await clear(page);
-    const tierLabel = page.locator('[id$="__featured"] label:has([data-bp-tier-input])').last();
-    await tierLabel.click();
-    const wanted = await page.locator('[id$="__featured"] [data-bp-tier-input]').last().getAttribute('value');
-    await page.locator('[id$="__featured"] [data-bp-atc]').click();
-    await settle(page, 3000);
-    check('Phase 4', 'featured product: adds the chosen tier to the cart', (await cartJs(page)).items.some((i) => String(i.variant_id) === wanted), wanted);
+    if (shown.tiers > 0) {
+      const tierLabel = page.locator('[id$="__featured"] label:has([data-bp-tier-input])').last();
+      await tierLabel.click();
+      const wanted = await page.locator('[id$="__featured"] [data-bp-tier-input]').last().getAttribute('value');
+      await page.locator('[id$="__featured"] [data-bp-atc]').click();
+      await settle(page, 3000);
+      check('Phase 4', 'featured product: adds the chosen tier to the cart', (await cartJs(page)).items.some((i) => String(i.variant_id) === wanted), wanted);
+    }
     check('Phase 4', 'countdown with no end date renders nothing on the storefront', shown.countdownText === '' || shown.countdownText === null, shown.countdownText);
     const recs = await page.evaluate(async ({ id, pid }) => {
       const response = await fetch(`${window.Shopify.routes.root}recommendations/products?section_id=${id}&product_id=${pid}&limit=4&intent=complementary`);
