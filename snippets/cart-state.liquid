@@ -39,7 +39,8 @@
         -%}
         {"key": {{ item.key | json }}, "id": {{ item.variant_id }}, "quantity": {{ item.quantity }},
          "gift": {{ item.properties._bp_gift | default: '' | json }}, "reward": {{ item.properties._bp_reward | default: 0 | plus: 0 }},
-         "for": {{ item.properties._bp_gift_for | default: 0 | plus: 0 }}, "discounted": {{ discounted }}}
+         "for": {{ item.properties._bp_gift_for | default: 0 | plus: 0 }}, "discounted": {{ discounted }},
+         "price": {{ item.final_line_price }}, "title": {{ item.product.title | json }}}
         {%- unless forloop.last %},{% endunless -%}
       {%- endfor -%}
     ]

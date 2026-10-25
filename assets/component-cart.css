@@ -65,6 +65,12 @@ bp-cart[aria-busy='true'] .bp-cart__body {
   margin: 0 var(--bp-gutter) 1rem;
 }
 
+.bp-cart__gift-note {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  color: var(--bp-muted);
+}
+
 /* ---------- Page layout ---------- */
 
 .bp-cart--page {

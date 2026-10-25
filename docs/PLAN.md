@@ -23,9 +23,9 @@
 | 3. Cart drawer | Done offline, pending store verification | See "Phase 3 delivered" below |
 | 4. Content sections | Done offline, pending store verification | See "Phase 4 delivered" below. Includes the quick add moved from Phase 2 |
 | 5. Templates and pre-landers | Done offline, pending store verification | See "Phase 5 delivered" below. Includes the collection page moved from Phase 4 |
-| 6. Demo stores | Seeded, themes pushed (unpublished) and checked on all 3 stores; comparisons in `docs/screenshots/store/` | See "Store run, 2026-10-25" below. One gift-discount limitation awaits a decision |
-| 7. AI kit | Built and tested offline. **Launch blocker confirmed on a real store:** an app can't write themes without Shopify's exemption | See "Store run, 2026-10-25": theme writes need a Theme Access password instead (decision pending) |
-| 8. Updater + docs + launch | Built and tested offline; Portal deploy, sales store and a real test purchase wait on accounts | See "Phase 8 delivered" below. Runbook in `LAUNCH.md`. Same theme-write blocker as Phase 7 |
+| 6. Demo stores | Seeded, themes pushed (unpublished) and checked on all 3 stores; comparisons in `docs/screenshots/store/` | See "Store run, 2026-10-25" below. Overlapping gifts handled in the cart |
+| 7. AI kit | Built; verified end to end on Verde with a Theme Access password for theme writes (apps can't write themes without Shopify's exemption) | See "Store run, 2026-10-25" |
+| 8. Updater + docs + launch | Built and tested offline; Portal deploy, sales store and a real test purchase wait on accounts | See "Phase 8 delivered" below. Runbook in `LAUNCH.md`. Updater uses the Theme Access password |
 
 #### Phase 1 delivered
 
@@ -140,17 +140,17 @@ The first run against the three development stores, with the seed app's credenti
     - `stagedUploadsCreate` and `themeCreate` from the staged release zip: all 200 files were installed and processed, with no processing failure.
 
     The password covers themes only; product reads are refused.
-  - **Decision needed:** which route the AI kit and the updater use for theme writes.
-    1. The Theme Access endpoint directly. It works today, but it's the CLI's endpoint, not a documented public API.
-    2. Shopify CLI as a subprocess, with the same password. Official, but heavier for merchants.
-    3. An App Store app with the exemption. That's the v1.1 web-updater plan, and needs Shopify's approval.
-
-    Either way, the AI kit keeps the app for product, metaobject and page access. The test themes were deleted afterwards.
+  - **Decided (owner, 2026-10-25): the Theme Access endpoint directly.**
+    - **AI kit** (`mcp/src/admin.ts`): the theme operations (`THEME_OPERATIONS`) go to `theme-kit-access.shopifyapps.com` with `BLUEPRINT_THEME_PASSWORD`; products, metaobjects and pages keep the app. Without the password, theme reads fall back to the app and draft writes are refused with how to fix it.
+    - **Updater** (`tools/update/cli.mjs`): it only touches themes, so it needs just the password and the licence key (or an exempt app's `BLUEPRINT_ADMIN_TOKEN`).
+    - **Settings and docs:** the `.mcpb` bundle asks for the password; `docs/ai-kit.md` and `docs/merchant/updating.md` explain how to create one; the app no longer asks for `write_themes`.
+    - **Verified on Verde:** the AI kit over MCP read products through the app, duplicated the live theme into a draft, and planned and applied a template change through Theme Access; a write to the live theme was refused by the rails. The draft was deleted afterwards. The updater's `themeCreate` from a release zip was verified the same way earlier; a full `blueprint update` run needs a store whose live theme is Blueprint.
+    - **Risk:** the endpoint is Shopify CLI's, not a documented public API. If Shopify changes it, the fallback is running Shopify CLI with the same password.
 - **Storefront** (with the storefront passwords). Bugs found and fixed:
   - **Every demo product showed "Sold out".** Dev stores list a non-shipping "My Custom Location" first, and the seed stocked it. The admin showed 120 available; the storefront showed nothing. The seed now stocks a location that ships and fulfills online orders, setting stock explicitly with `inventoryActivate` and `inventorySetQuantities` (with `@idempotent`, as 2026-04+ requires).
   - **Re-running the products step alone dropped the product's reference metafields** (tiers, benefits…). `productSet` replaces the whole metafield list. Plain metafields now go through `metafieldsSet`, and a test covers a products-only re-run.
   - **`compare.mjs` cut every composite at 900 px**, including the phase-6 set. It now captures full height, and goes through the proxy.
-- **Store checklist** (`tools/demo/store-check.mjs`, new). Ode passed 52 of 52; Verde 60 of 61; Rawform 59 of 60. On real Shopify, the checklist confirmed:
+- **Store checklist** (`tools/demo/store-check.mjs`, new). First run: Ode 52 of 52, Verde 60 of 61, Rawform 59 of 60. After the gift change: Ode 52 of 52, Verde 61 of 61, Rawform 60 of 60; on Verde's and Rawform's tier 3 the charged shaker is taken out and the drawer says so. On real Shopify, the checklist confirmed:
   - every template answers, with no console errors;
   - pre-landers are `noindex`;
   - every tier and the subscription add the right variant, plan and gift;
@@ -158,14 +158,15 @@ The first run against the three development stores, with the seed app's credenti
   - the drawer total is Shopify's `total_price`;
   - deep links post their variant and plan;
   - the form works without JavaScript.
-- **Limitation found (decision pending):**
+- **Limitation found, now handled:**
   - **What fails:** on Verde's and Rawform's tier 3, the tier's gift and the "free shaker over $130" reward both qualify, but only the tier gift is free. Shopify lets a product qualify for only one Buy X Get Y discount ("BXGY discounts stack only on the customer-gets products, not the customer-buys products"), so no discount setting fixes it.
   - **What the shopper sees:** the cart is truthful; the shaker shows "Gift" at $15, not "Free gift". But the theme added it automatically.
-  - **Options:**
-    - have `bp-cart.js` remove a reward gift Shopify doesn't make free, and say so in the rewards bar;
-    - configure offers so that they never overlap;
-    - a discount Function (an app).
-  - **Done now:** `docs/merchant/cart-setup.md` warns about it.
+  - **Decided (owner, 2026-10-25): the cart takes out a gift Shopify charges for.**
+    - `reconcile()` in `assets/bp-cart.js` removes any reward or tier gift line whose final price isn't 0. A withdrawn reward isn't added again until the cart's merchandise changes. The cart hides that gift's claim button and shows a note: "{title} can't be free with this cart, so we took it out." The note is also announced.
+    - `bp-cart.js` re-checks the cart once after adding a gift, so a charged gift comes straight back out.
+    - Unit tests cover it, and the store checklist reports the note.
+    - This also covers a gift whose discount the merchant forgot to create.
+  - `docs/merchant/cart-setup.md` warns about overlapping gifts.
 - **Visual comparison** (`docs/screenshots/store/`, 30 composites, reference vs store at 390 and 1440): the stores follow the reference's content and order. Differences noted:
   - Ode has no subscription plan, so no subscribe option. The reference shows "Subscribe & save 15%", but the seed adds a plan only where the reference states a saving.
   - Ode shows its sizes as bundle tiers, without the reference's separate size picker.

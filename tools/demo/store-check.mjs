@@ -148,10 +148,13 @@ for (const storeId of stores) {
       const gift = cart.items.find((i) => i.properties?._bp_gift === 'tier');
       check(`${label}: the tier's gift is added`, gift && String(gift.variant_id) === c.gift, cart.items.map((i) => [i.variant_id, i.properties]));
     }
+    // Every gift left in the cart is free; one Shopify charged for is taken out, with a note.
     for (const gift of cart.items.filter((i) => i.properties?._bp_gift)) {
       const lines = cart.items.map((i) => ({ product: i.product_title, qty: i.quantity, price: i.final_line_price, gift: i.properties?._bp_gift ?? null, discounts: i.line_level_discount_allocations?.map((d) => `${d.discount_application?.title} −${d.amount}`) }));
       check(`${label}: gift "${gift.product_title}" is free (automatic discount)`, gift.final_line_price === 0, { lines, applied: cart.cart_level_discount_applications?.map((d) => d.title) });
     }
+    const note = await page.locator('#CartDrawer [data-bp-gift-note]:not([hidden])').textContent().catch(() => '');
+    if (note) check(`${label}: a gift Shopify would charge for was taken out, and the drawer says so ("${text(note)}")`, true);
     const shownTotal = await page.locator('#CartDrawer .bp-cart-totals__total dd').textContent().catch(() => '');
     check(`${label}: the drawer total is Shopify's total_price (${money(cart.total_price)})`, text(shownTotal) === money(cart.total_price), [text(shownTotal), cart.total_price]);
   }

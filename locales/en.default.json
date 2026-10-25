@@ -164,6 +164,7 @@
     "free_gift": "Free gift",
     "gift": "Gift",
     "add_gift": "Add your free gift: {{ title }}",
+    "gift_withdrawn": "{{ title }} can't be free with this cart, so we took it out.",
     "line_discount": "{{ title }} (−{{ amount }})",
     "rewards": {
       "away": "You're {{ amount }} away from {{ reward }}",

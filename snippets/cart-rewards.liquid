@@ -90,7 +90,13 @@
       -%}
       {%- if threshold > 0 and basis >= threshold and merch_count > 0 and gift_variant.available -%}
         {%- unless gift_keys contains marker -%}
-          <form action="{{ routes.cart_add_url }}" method="post" class="bp-cart-gift-claim" data-bp-cart-add>
+          <form
+            action="{{ routes.cart_add_url }}"
+            method="post"
+            class="bp-cart-gift-claim"
+            data-bp-cart-add
+            data-bp-gift-claim="reward-{{ i }}"
+          >
             <input type="hidden" name="id" value="{{ gift_variant.id }}">
             <input type="hidden" name="quantity" value="1">
             <input type="hidden" name="properties[_bp_gift]" value="reward">

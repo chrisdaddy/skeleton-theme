@@ -1,7 +1,7 @@
 // Gift and shipping protection rules for the cart (assets/bp-cart.js, docs/PLAN.md §8).
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { reconcile } from '../../assets/bp-cart.js';
+import { merchSignature, reconcile } from '../../assets/bp-cart.js';
 
 const PROTECTION = 900;
 const SHAKER = 801;
@@ -11,7 +11,7 @@ const rewards = [
   { index: 2, threshold: 13000, gift: SHAKER },
   { index: 3, threshold: 19000, gift: PACKS },
 ];
-const line = (id, extra = {}) => ({ key: `${id}:k`, id, quantity: 1, gift: '', reward: 0, for: 0, discounted: false, ...extra });
+const line = (id, extra = {}) => ({ key: `${id}:k`, id, quantity: 1, gift: '', reward: 0, for: 0, discounted: false, price: 0, title: `Product ${id}`, ...extra });
 const state = (basis, items, extra = {}) => ({ basis, merch: items.filter((i) => !i.gift && i.id !== PROTECTION).length, items, rewards, protection: PROTECTION, protectionDefault: false, ...extra });
 
 test('adds every reward gift the cart has earned, and nothing else', () => {
@@ -22,7 +22,7 @@ test('adds every reward gift the cart has earned, and nothing else', () => {
 
 test('does not add a gift that is already in the cart', () => {
   const plan = reconcile(state(19900, [line(1014), line(SHAKER, { gift: 'reward', reward: 2 }), line(PACKS, { gift: 'reward', reward: 3 })]));
-  assert.deepEqual(plan, { add: [], remove: [], protectionAdded: false });
+  assert.deepEqual(plan, { add: [], remove: [], protectionAdded: false, withdrawn: [] });
 });
 
 test('removes reward gifts when the cart drops below their threshold', () => {
@@ -78,4 +78,36 @@ test('protection leaves a cart with no merchandise', () => {
 test('protection never counts towards rewards or as merchandise', () => {
   const plan = reconcile(state(4000, [line(PROTECTION)]));
   assert.deepEqual(plan.remove, [`${PROTECTION}:k`]);
+});
+
+// Shopify lets a product qualify for one Buy X Get Y discount only, so a reward gift can come
+// out charged when the bundle's own gift already used it (found on the Verde demo store).
+test('takes out a reward gift Shopify charges for, and says which', () => {
+  const plan = reconcile(state(14200, [line(1014), line(PACKS, { gift: 'tier', for: 1014 }), line(SHAKER, { gift: 'reward', reward: 2, price: 1500, title: 'Glass shaker' })]));
+  assert.deepEqual(plan.remove, [`${SHAKER}:k`]);
+  assert.deepEqual(plan.add, []);
+  assert.deepEqual(plan.withdrawn, [{ gift: 'reward', ref: 2, title: 'Glass shaker' }]);
+});
+
+test('a withdrawn reward stays out until the merchandise changes', () => {
+  const cart = state(14200, [line(1014)]);
+  const withdrawn = [{ gift: 'reward', ref: 2, title: 'Glass shaker', sig: merchSignature(cart) }];
+  assert.deepEqual(reconcile(cart, { withdrawn }).add, []);
+  const changed = state(15000, [line(1014), line(1020)]);
+  assert.deepEqual(reconcile(changed, { withdrawn }).add, [{ id: SHAKER, quantity: 1, properties: { _bp_gift: 'reward', _bp_reward: '2' } }]);
+});
+
+test('takes out a tier gift Shopify charges for; free gifts stay', () => {
+  const charged = reconcile(state(14200, [line(1014), line(PACKS, { gift: 'tier', for: 1014, price: 1800, title: 'Travel packs' })]));
+  assert.deepEqual(charged.remove, [`${PACKS}:k`]);
+  assert.deepEqual(charged.withdrawn, [{ gift: 'tier', ref: 1014, title: 'Travel packs' }]);
+  const free = reconcile(state(14200, [line(1014), line(PACKS, { gift: 'tier', for: 1014 }), line(SHAKER, { gift: 'reward', reward: 2 })]));
+  assert.deepEqual(free, { add: [], remove: [], protectionAdded: false, withdrawn: [] });
+});
+
+test('the merchandise signature ignores gifts, protection and order', () => {
+  const a = state(0, [line(2, { quantity: 2 }), line(1), line(SHAKER, { gift: 'reward', reward: 2 }), line(PROTECTION)]);
+  const b = state(0, [line(1), line(2, { quantity: 2 })]);
+  assert.equal(merchSignature(a), merchSignature(b));
+  assert.notEqual(merchSignature(a), merchSignature(state(0, [line(1), line(2)])));
 });

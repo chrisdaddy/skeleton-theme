@@ -35,7 +35,13 @@
       assign tier_variant_id = tier_variant_id | strip | plus: 0
     -%}
     {%- if tier_variant_id == item.variant_id -%}
-      <form action="{{ routes.cart_add_url }}" method="post" class="bp-cart-gift-claim" data-bp-cart-add>
+      <form
+        action="{{ routes.cart_add_url }}"
+        method="post"
+        class="bp-cart-gift-claim"
+        data-bp-cart-add
+        data-bp-gift-claim="tier-{{ item.variant_id }}"
+      >
         <input type="hidden" name="id" value="{{ gift.id }}">
         <input type="hidden" name="quantity" value="1">
         <input type="hidden" name="properties[_bp_gift]" value="tier">

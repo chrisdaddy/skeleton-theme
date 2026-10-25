@@ -59,6 +59,12 @@
         {%- if settings.cart_rewards_enabled -%}
           {%- render 'cart-rewards', basis: basis, merch_count: merch_count, gift_keys: gift_keys -%}
         {%- endif -%}
+        <p
+          class="bp-cart__gift-note"
+          data-bp-gift-note
+          data-template="{{ 'cart.gift_withdrawn' | t: title: '[title]' }}"
+          hidden
+        ></p>
 
         <ul class="bp-cart__lines" role="list" aria-label="{{ 'cart.title' | t }}">
           {%- for item in cart.items -%}

@@ -153,7 +153,7 @@ On a development store that runs the previous version and has been customised (s
 
 ```sh
 BLUEPRINT_SHOP=<dev-store>.myshopify.com BLUEPRINT_LICENSE_KEY=… \
-BLUEPRINT_CLIENT_ID=… BLUEPRINT_CLIENT_SECRET=… \
+BLUEPRINT_THEME_PASSWORD=… \
 node tools/blueprint.mjs update --dry-run        # plan: migrations, edited code, files to carry over
 node tools/blueprint.mjs update                  # installs "Blueprint x.y.z" unpublished
 ```
@@ -259,7 +259,7 @@ These are built and tested offline. Check each one once the credentials exist, a
 - [ ] Portal deployed: webhook signatures from a real store, Resend delivery, R2 downloads.
 - [ ] The test purchase in §1.3.
 - [ ] `blueprint update` against a real store: `themeCreate` from the Portal's signed URL, then file carry-over.
-- [x] The AI kit's launch blocker. **Answered 2026-10-25: an app can't write themes without Shopify's exemption; a Theme Access password can** (PLAN, "Store run, 2026-10-25"). The AI kit and the updater must switch routes before launch.
+- [x] The AI kit's launch blocker. **Answered 2026-10-25:** an app can't write themes without Shopify's exemption, but a Theme Access password can. The AI kit and the updater now use the password for theme writes; the AI kit was verified end to end on Verde.
 - [ ] Sales store seeded, and Digital Downloads attached.
 - [ ] npm package published; `.mcpb` signed.
 - [ ] The app-compatibility pass in §4.
