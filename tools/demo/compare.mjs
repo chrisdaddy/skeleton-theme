@@ -50,7 +50,9 @@ if (!stores.length) {
   process.exit(2);
 }
 mkdirSync(out, { recursive: true });
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium' });
+// Behind an HTTPS proxy, store pages go through it; the reference and the offline preview are local.
+const proxy = process.env.HTTPS_PROXY ? { server: process.env.HTTPS_PROXY, bypass: 'localhost,127.0.0.1' } : undefined;
+const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium', proxy });
 
 async function reference(storeId, page, width) {
   const tab = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
@@ -123,7 +125,7 @@ async function sideBySide(left, right, file, label, width) {
   </style><div class="row"><figure><figcaption>Reference · ${label}</figcaption><img src="${src(left)}"></figure><figure><figcaption>Blueprint (${target}) · ${label}</figcaption><img src="${src(right)}"></figure></div>`);
   await tab.waitForTimeout(200);
   const height = Math.min(MAX_HEIGHT, await tab.evaluate(() => document.body.scrollHeight));
-  await tab.screenshot({ path: file, type: 'jpeg', quality: 60, clip: { x: 0, y: 0, width: canvas, height } });
+  await tab.screenshot({ path: file, type: 'jpeg', quality: 60, fullPage: true, clip: { x: 0, y: 0, width: canvas, height } });
   await tab.close();
 }
 

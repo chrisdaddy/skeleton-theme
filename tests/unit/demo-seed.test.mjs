@@ -7,7 +7,7 @@ import { test } from 'node:test';
 import { buildCatalog, REQUIRED_STORES } from '../../tools/demo/catalog.mjs';
 import { storeConfig } from '../../tools/demo/build-stores.mjs';
 import { fakeAdmin } from '../../tools/demo/fake-admin.mjs';
-import { seed } from '../../tools/demo/seed.mjs';
+import { pickLocation, seed } from '../../tools/demo/seed.mjs';
 import { buildDemoProducts } from '../../tools/preview/mock-products.mjs';
 import { buildTemplates } from '../../tools/templates-from-demo.mjs';
 
@@ -142,9 +142,23 @@ test('seeding is idempotent and leaves no unresolved references', async () => {
     // Prices go to Shopify exactly as the catalog has them.
     const hero = fake.db.products.find((p) => p.handle === configs[id].products[0].handle).input;
     assert.deepEqual(hero.variants.map((v) => v.price), configs[id].products[0].variants.map((v) => v.price));
+    // Every tracked variant is stocked, on every run, at the location that ships (not the dev
+    // store's first location, which doesn't).
+    const heroItems = fake.db.products.find((p) => p.handle === configs[id].products[0].handle).variants.map((v) => v.inventoryItem.id);
+    for (const item of heroItems) assert.equal(fake.db.stock[`${item}@gid://shopify/Location/1`], 120, `${id}: ${item} not stocked at Shop location`);
+    assert.ok(Object.keys(fake.db.stock).every((k) => k.endsWith('@gid://shopify/Location/1')), `${id}: stock at another location`);
   }
 });
 
 test('a catalog builds for every reference store', () => {
   for (const id of demo.storeOrder) assert.ok(buildCatalog(demo, id).products.length > 1, id);
+});
+
+test('stock goes to an active location that ships and fulfills online orders', () => {
+  const custom = { id: 'custom', isActive: true, fulfillsOnlineOrders: true, shipsInventory: false };
+  const shop = { id: 'shop', isActive: true, fulfillsOnlineOrders: true, shipsInventory: true };
+  const closed = { id: 'closed', isActive: false, fulfillsOnlineOrders: true, shipsInventory: true };
+  assert.equal(pickLocation([custom, shop]).id, 'shop');
+  assert.equal(pickLocation([closed, custom]).id, 'custom');
+  assert.equal(pickLocation([closed]).id, 'closed');
 });

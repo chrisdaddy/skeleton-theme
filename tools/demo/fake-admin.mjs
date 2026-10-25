@@ -8,14 +8,14 @@
 export function fakeAdmin({ shop = 'demo.myshopify.com', currencyCode = 'USD' } = {}) {
   let next = 1;
   const gid = (type) => `gid://shopify/${type}/${next++}`;
-  const db = { metaobjectDefinitions: [], metafieldDefinitions: [], files: [], collections: [], products: [], metaobjects: [], sellingPlanGroups: [], pages: [], menus: [{ id: gid('Menu'), handle: 'main-menu' }, { id: gid('Menu'), handle: 'footer' }], discounts: [], published: new Set() };
+  const db = { metaobjectDefinitions: [], metafieldDefinitions: [], files: [], collections: [], products: [], metaobjects: [], sellingPlanGroups: [], pages: [], menus: [{ id: gid('Menu'), handle: 'main-menu' }, { id: gid('Menu'), handle: 'footer' }], discounts: [], published: new Set(), stock: {} };
   const calls = [];
   const ok = (payload) => ({ ...payload, userErrors: [] });
 
   const handlers = {
     BpShop: () => ({
       shop: { name: 'Dry run', currencyCode, myshopifyDomain: shop },
-      locations: { nodes: [{ id: 'gid://shopify/Location/1', name: 'Shop location', isActive: true }] },
+      locations: { nodes: [{ id: 'gid://shopify/Location/2', name: 'My Custom Location', isActive: true, fulfillsOnlineOrders: true, shipsInventory: false }, { id: 'gid://shopify/Location/1', name: 'Shop location', isActive: true, fulfillsOnlineOrders: true, shipsInventory: true }] },
       publications: { nodes: [{ id: 'gid://shopify/Publication/1', catalog: { title: 'Online Store' } }] },
     }),
     BpMetaobjectDefinition: ({ type }) => ({ metaobjectDefinitionByType: db.metaobjectDefinitions.find((d) => d.type === type) ?? null }),
@@ -71,10 +71,22 @@ export function fakeAdmin({ shop = 'demo.myshopify.com', currencyCode = 'USD' } 
       product.variants = input.variants.map((v) => {
         const options = v.optionValues.map((o) => ({ name: o.optionName, value: o.name }));
         const same = product.variants.find((x) => JSON.stringify(x.selectedOptions) === JSON.stringify(options));
-        return { id: same?.id ?? gid('ProductVariant'), selectedOptions: options };
+        return { id: same?.id ?? gid('ProductVariant'), selectedOptions: options, inventoryItem: same?.inventoryItem ?? { id: gid('InventoryItem'), tracked: v.inventoryItem?.tracked ?? true } };
       });
       product.input = input;
       return { productSet: ok({ product: view(product) }) };
+    },
+    BpInventoryActivate: ({ item, location }) => {
+      db.stock[`${item}@${location}`] ??= 0;
+      return { inventoryActivate: ok({ inventoryLevel: { id: gid('InventoryLevel') } }) };
+    },
+    BpInventorySet: ({ input }) => {
+      for (const q of input.quantities) {
+        if (!(`${q.inventoryItemId}@${q.locationId}` in db.stock)) return { inventorySetQuantities: { inventoryAdjustmentGroup: null, userErrors: [{ field: ['input'], message: 'not stocked at location', code: 'ITEM_NOT_STOCKED_AT_LOCATION' }] } };
+        if (q.changeFromQuantity === undefined) throw new Error('changeFromQuantity is required from 2026-04');
+        db.stock[`${q.inventoryItemId}@${q.locationId}`] = q.quantity;
+      }
+      return { inventorySetQuantities: ok({ inventoryAdjustmentGroup: { id: gid('InventoryAdjustmentGroup') } }) };
     },
     BpMetaobjectUpsert: ({ handle, metaobject }) => {
       let mo = db.metaobjects.find((m) => m.type === handle.type && m.handle === handle.handle);

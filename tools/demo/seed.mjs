@@ -19,15 +19,24 @@
 // gql(query, variables) is injected (tools/demo/admin.mjs for a store, tools/demo/fake-admin.mjs
 // for a dry run and the tests). Money comes from the config as decimal strings.
 
+import { randomUUID } from 'node:crypto';
 import { assertNoUserErrors } from './admin.mjs';
 import { METAFIELDS, METAOBJECTS, NAMESPACE, STANDARD_METAFIELDS } from './definitions.mjs';
+
+// Stock goes where the online store can sell it from: an active location that fulfills online
+// orders and ships. Stock at a location that doesn't ship (a dev store's "My Custom Location")
+// counts as available in the admin but sells out on the storefront.
+export function pickLocation(locations) {
+  const active = locations.filter((l) => l.isActive);
+  return active.find((l) => l.fulfillsOnlineOrders && l.shipsInventory) ?? active.find((l) => l.fulfillsOnlineOrders) ?? active[0] ?? locations[0];
+}
 
 export const STEPS = ['shop', 'definitions', 'files', 'collections', 'products', 'metaobjects', 'metafields', 'sellingplans', 'publish', 'pages', 'menus', 'discounts'];
 
 const Q = {
   shop: `query BpShop {
     shop { name currencyCode myshopifyDomain }
-    locations(first: 5) { nodes { id name isActive } }
+    locations(first: 20) { nodes { id name isActive fulfillsOnlineOrders shipsInventory } }
     publications(first: 20) { nodes { id catalog { title } } }
   }`,
   metaobjectDefinitionByType: `query BpMetaobjectDefinition($type: String!) {
@@ -71,9 +80,16 @@ const Q = {
   }`,
   productSet: `mutation BpProductSet($identifier: ProductSetIdentifiers, $input: ProductSetInput!) {
     productSet(identifier: $identifier, input: $input, synchronous: true) {
-      product { id handle variants(first: 250) { nodes { id selectedOptions { name value } } } }
+      product { id handle variants(first: 250) { nodes { id selectedOptions { name value } inventoryItem { id tracked } } } }
       userErrors { field message code }
     }
+  }`,
+  // Both need @idempotent from 2026-04; every call gets its own key.
+  inventoryActivate: `mutation BpInventoryActivate($item: ID!, $location: ID!, $key: String!) {
+    inventoryActivate(inventoryItemId: $item, locationId: $location) @idempotent(key: $key) { inventoryLevel { id } userErrors { field message } }
+  }`,
+  inventorySet: `mutation BpInventorySet($input: InventorySetQuantitiesInput!, $key: String!) {
+    inventorySetQuantities(input: $input) @idempotent(key: $key) { inventoryAdjustmentGroup { id } userErrors { field message code } }
   }`,
   metaobjectUpsert: `mutation BpMetaobjectUpsert($handle: MetaobjectHandleInput!, $metaobject: MetaobjectUpsertInput!) {
     metaobjectUpsert(handle: $handle, metaobject: $metaobject) { metaobject { id handle } userErrors { field message code } }
@@ -176,10 +192,10 @@ export async function seed(config, gql, { steps = STEPS, log = console.log, rend
 
   // ---------- shop ----------
   const shop = await gql(Q.shop);
-  const location = shop.locations.nodes.find((l) => l.isActive) ?? shop.locations.nodes[0];
+  const location = pickLocation(shop.locations.nodes);
   const onlineStore = shop.publications.nodes.find((p) => /online store/i.test(p.catalog?.title ?? ''));
   if (run('shop')) {
-    log(`shop: ${shop.shop.name} (${shop.shop.myshopifyDomain}), ${shop.shop.currencyCode}`);
+    log(`shop: ${shop.shop.name} (${shop.shop.myshopifyDomain}), ${shop.shop.currencyCode}; stock at ${location?.name ?? 'no location'}`);
     if (shop.shop.currencyCode !== 'USD') log(`  warning: the demo prices are USD; this store uses ${shop.shop.currencyCode}`);
     if (!onlineStore) log('  warning: no Online Store publication found; products will not be published');
   }
@@ -305,7 +321,6 @@ export async function seed(config, gql, { steps = STEPS, log = console.log, rend
         taxable: v.taxable ?? true,
         inventoryPolicy: 'DENY',
         inventoryItem: { tracked: v.tracked ?? true, requiresShipping: v.requiresShipping ?? true, ...(v.sku ? { sku: v.sku } : {}) },
-        ...(location && (v.tracked ?? true) ? { inventoryQuantities: [{ locationId: location.id, name: 'available', quantity: 120 }] } : {}),
         ...(v.tracked === false ? { inventoryPolicy: 'CONTINUE' } : {}),
         ...(v.packQuantity ? { metafields: [{ namespace: NAMESPACE, key: 'pack_quantity', type: 'number_integer', value: String(v.packQuantity) }] } : {}),
       })),
@@ -320,6 +335,15 @@ export async function seed(config, gql, { steps = STEPS, log = console.log, rend
     const payload = (await gql(Q.productSet, { identifier: { handle: product.handle }, input })).productSet;
     assertNoUserErrors(`product ${product.handle}`, payload);
     remember(product, payload.product);
+    // Stock: set here rather than through productSet, which only stocks variants it creates.
+    const items = payload.product.variants.nodes.map((v) => v.inventoryItem).filter((item) => item?.tracked);
+    if (location && items.length) {
+      for (const item of items) {
+        assertNoUserErrors(`stock ${product.handle}`, (await gql(Q.inventoryActivate, { item: item.id, location: location.id, key: randomUUID() })).inventoryActivate);
+      }
+      const quantities = items.map((item) => ({ inventoryItemId: item.id, locationId: location.id, quantity: 120, changeFromQuantity: null }));
+      assertNoUserErrors(`stock ${product.handle}`, (await gql(Q.inventorySet, { input: { name: 'available', reason: 'correction', quantities }, key: randomUUID() })).inventorySetQuantities);
+    }
     updated(`product ${product.handle} (${product.variants.length} variant${product.variants.length === 1 ? '' : 's'})`);
   }
   function remember(product, found) {
