@@ -16,6 +16,7 @@
                 data-bp-module="{{ 'bp-video.js' | asset_url }}"
                 data-bp-load="visible"
               >
+                {%- assign poster_alt = block.settings.poster.alt | default: '' | escape -%}
                 {%- if block.settings.video != blank -%}
                   {{ block.settings.video | video_tag: image_size: '720x', controls: true, playsinline: true, preload: 'none', class: 'bp-video-card__video' }}
                 {%- elsif block.settings.video_url != blank -%}
@@ -32,7 +33,7 @@
                   <noscript><a href="{{ block.settings.video_url }}">{{ 'sections.videos.watch' | t }}</a></noscript>
                 {%- else -%}
                   {%- if block.settings.poster != blank -%}
-                    {{ block.settings.poster | image_url: width: 720 | image_tag: loading: 'lazy', class: 'bp-media__img', alt: block.settings.poster.alt }}
+                    {{ block.settings.poster | image_url: width: 720 | image_tag: loading: 'lazy', class: 'bp-media__img', alt: poster_alt }}
                   {%- else -%}
                     {{ 'image' | placeholder_svg_tag: 'bp-media__img' }}
                   {%- endif -%}

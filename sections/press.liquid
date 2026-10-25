@@ -18,7 +18,8 @@
             {%- for block in section.blocks -%}
               <li class="bp-press__item" {% if forloop.parentloop.index == 1 %}{{ block.shopify_attributes }}{% endif %}>
                 {%- if block.settings.logo != blank -%}
-                  {{ block.settings.logo | image_url: height: 80 | image_tag: height: 32, loading: 'lazy', alt: block.settings.name, class: 'bp-press__logo' }}
+                  {%- assign logo_alt = block.settings.name | default: block.settings.logo.alt | default: '' | escape -%}
+                  {{ block.settings.logo | image_url: height: 80 | image_tag: height: 32, loading: 'lazy', alt: logo_alt, class: 'bp-press__logo' }}
                 {%- else -%}
                   <span class="bp-press__name">{{ block.settings.name | escape }}</span>
                 {%- endif -%}

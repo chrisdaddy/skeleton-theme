@@ -24,7 +24,7 @@
   endif
 -%}
 {%- if image != blank -%}
-  {%- assign alt_text = alt | default: image.alt | escape -%}
+  {%- assign alt_text = alt | default: image.alt | default: '' | escape -%}
   {{
     image
     | image_url: width: max

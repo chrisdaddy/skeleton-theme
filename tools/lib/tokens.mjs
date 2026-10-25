@@ -41,7 +41,8 @@ export function deriveMode(mode, shared) {
   const accentText =
     mode.accent_text ||
     firstPassing((w) => liquidMix(accent, ink, w), range(100, 0, -5), [bg, surface, accentSoft], TEXT_TARGET);
-  const muted = mode.muted || firstPassing((w) => liquidMix(ink, bg, w), range(55, 100, 5), [bg, surface], TEXT_TARGET);
+  // Muted text also sits on selected tiers and plans (accent-soft), so it must pass there too.
+  const muted = mode.muted || firstPassing((w) => liquidMix(ink, bg, w), range(55, 100, 5), [bg, surface, accentSoft], TEXT_TARGET);
   const inputBorder = firstPassing((w) => liquidMix(ink, bg, w), range(30, 100, 5), [bg, surface], UI_TARGET);
   // Stars are graphics, so they need 3:1 (WCAG 1.4.11); keep the brand accent when it qualifies.
   const star = mode.star || (contrast(accent, bg) >= UI_TARGET && contrast(accent, surface) >= UI_TARGET ? accent : accentText);
@@ -55,6 +56,7 @@ export const REQUIRED_PAIRS = [
   ['text on surface', 'ink', 'surface', 4.5],
   ['muted text on background', 'muted', 'bg', 4.5],
   ['muted text on surface', 'muted', 'surface', 4.5],
+  ['muted text on selected fill', 'muted', 'accentSoft', 4.5],
   ['accent text on background', 'accentText', 'bg', 4.5],
   ['accent text on surface', 'accentText', 'surface', 4.5],
   ['accent text on selected fill', 'accentText', 'accentSoft', 4.5],

@@ -8,12 +8,13 @@
 //   the cart drawer from the header's cart link (loading bp-cart.js first if needed).
 // - Supports <button command="show-modal" commandfor="id"> where invoker commands aren't native.
 
-const loaded = new Set();
+const loading = new Map();
+const ready = new Set();
 
 export function loadModule(url) {
-  if (!url || loaded.has(url)) return Promise.resolve();
-  loaded.add(url);
-  return import(url);
+  if (!url) return Promise.resolve();
+  if (!loading.has(url)) loading.set(url, import(url).then(() => ready.add(url)));
+  return loading.get(url);
 }
 
 function schedule(el) {
@@ -24,6 +25,8 @@ function schedule(el) {
   } else if (when === 'interaction') {
     const go = () => loadModule(url);
     for (const type of ['pointerenter', 'focusin', 'touchstart']) el.addEventListener(type, go, { once: true, passive: true });
+    // A tap that beats the module waits for it, then repeats (a plain link if it fails).
+    el.addEventListener('click', (e) => ready.has(url) || (e.preventDefault(), go().finally(() => el.click())), { once: true });
   } else if (when === 'near') {
     // Well before it scrolls into view, so content it adds is there before the reader is.
     nearby.observe(el);

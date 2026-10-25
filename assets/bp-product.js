@@ -233,9 +233,12 @@ class BpProduct extends HTMLElement {
     // Added separately so a gift problem never blocks the purchase itself.
     if (giftId) {
       const parentId = Number(data.getAll('id').at(-1));
+      // A line already in the cart is a parent by its line key (parent_line_key); parent_id is a
+      // variant ID and only links to a parent added in the same request.
+      const parentKey = result?.key ?? result?.items?.find((item) => item.variant_id === parentId)?.key;
       const gift = { id: Number(giftId), quantity: 1, properties: { _bp_gift: 'tier', _bp_gift_for: String(parentId) } };
       try {
-        result = await this.post({ items: [{ ...gift, parent_id: parentId }], sections });
+        result = await this.post({ items: [{ ...gift, ...(parentKey ? { parent_line_key: parentKey } : { parent_id: parentId }) }], sections });
       } catch {
         result = await this.post({ items: [gift], sections }).catch(() => result);
       }

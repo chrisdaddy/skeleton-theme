@@ -77,8 +77,9 @@ export function buildCollection({ handle, title, description, products, query })
     {
       label: 'Price',
       type: 'price_range',
-      min_value: { param_name: 'filter.v.price.gte', value: gte || null },
-      max_value: { param_name: 'filter.v.price.lte', value: lte || null },
+      // In cents, as Shopify gives them (the URL parameters are currency units).
+      min_value: { param_name: 'filter.v.price.gte', value: gte ? Math.round(Number(gte) * 100) : null },
+      max_value: { param_name: 'filter.v.price.lte', value: lte ? Math.round(Number(lte) * 100) : null },
       range_max: Math.max(...products.map((p) => p.price)),
       values: [],
       active_values: [],

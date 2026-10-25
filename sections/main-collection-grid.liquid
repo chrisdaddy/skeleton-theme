@@ -61,15 +61,26 @@
                       <legend class="bp-facets__legend">{{ filter.label | escape }}</legend>
                       {%- case filter.type -%}
                         {%- when 'price_range' -%}
+                          {%- liquid
+                            # Shopify gives price filter values in cents; the inputs take currency units.
+                            assign price_min = ''
+                            assign price_max = ''
+                            if filter.min_value.value != blank
+                              assign price_min = filter.min_value.value | divided_by: 100.0
+                            endif
+                            if filter.max_value.value != blank
+                              assign price_max = filter.max_value.value | divided_by: 100.0
+                            endif
+                            assign range_max = filter.range_max | divided_by: 100.0 | ceil
+                          -%}
                           <div class="bp-facets__price">
                             <label class="bp-field">
                               <span class="bp-label">{{ 'collections.price_from' | t }}</span>
-                              <input class="bp-input" type="number" inputmode="decimal" min="0" step="1" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}" placeholder="0">
+                              <input class="bp-input" type="number" inputmode="decimal" min="0" step="1" name="{{ filter.min_value.param_name }}" value="{{ price_min }}" placeholder="0">
                             </label>
                             <label class="bp-field">
                               <span class="bp-label">{{ 'collections.price_to' | t }}</span>
-                              {%- assign range_max = filter.range_max | money_without_currency | remove: ',' -%}
-                              <input class="bp-input" type="number" inputmode="decimal" min="0" step="1" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}" placeholder="{{ range_max }}">
+                              <input class="bp-input" type="number" inputmode="decimal" min="0" step="1" name="{{ filter.max_value.param_name }}" value="{{ price_max }}" placeholder="{{ range_max }}">
                             </label>
                           </div>
                         {%- else -%}
@@ -123,8 +134,9 @@
                 <li><a class="bp-chip" href="{{ value.url_to_remove }}">{{ value.label | escape }} {%- render 'icon', name: 'close' -%}<span class="bp-visually-hidden">{{ 'collections.remove_filter' | t }}</span></a></li>
               {%- endfor -%}
               {%- if filter.type == 'price_range' and filter.min_value.value != blank or filter.type == 'price_range' and filter.max_value.value != blank -%}
-                {%- assign min = filter.min_value.value | default: 0 -%}
-                {%- assign max = filter.max_value.value | default: '…' -%}
+                {%- assign min = filter.min_value.value | default: 0 | money -%}
+                {%- assign max = '…' -%}
+                {%- if filter.max_value.value != blank -%}{%- assign max = filter.max_value.value | money -%}{%- endif -%}
                 <li><a class="bp-chip" href="{{ filter.url_to_remove }}">{{ min }}–{{ max }} {%- render 'icon', name: 'close' -%}<span class="bp-visually-hidden">{{ 'collections.remove_filter' | t }}</span></a></li>
               {%- endif -%}
             {%- endfor -%}

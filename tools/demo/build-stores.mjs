@@ -16,7 +16,7 @@ export function storeConfig(storeId) {
   buildTemplates(storeId, { images: 'shop' });
   for (const description of photos) {
     const filename = photoFilename(storeId, description);
-    if (!catalog.files.some((f) => f.filename === filename)) catalog.files.push({ key: filename.replace(/\.png$/, ''), filename, label: description, alt: '' });
+    if (!catalog.files.some((f) => f.filename === filename)) catalog.files.push({ key: filename.replace(/\.png$/, ''), filename, label: description, alt: description.replace(/^[^:]+:\s*/, '') });
   }
   return catalog;
 }

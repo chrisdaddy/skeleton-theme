@@ -271,7 +271,7 @@ export async function seed(config, gql, { steps = STEPS, log = console.log, rend
     const target = staged.stagedTargets[0];
     await upload(target, file.filename, bytes);
     if (found) {
-      assertNoUserErrors(`file ${file.filename}`, (await gql(Q.fileUpdate, { files: [{ id: found.id, originalSource: target.resourceUrl }] })).fileUpdate);
+      assertNoUserErrors(`file ${file.filename}`, (await gql(Q.fileUpdate, { files: [{ id: found.id, originalSource: target.resourceUrl, alt: file.alt ?? '' }] })).fileUpdate);
       updated(`file ${file.filename}`);
       continue;
     }

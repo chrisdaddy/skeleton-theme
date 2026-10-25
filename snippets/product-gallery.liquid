@@ -30,6 +30,7 @@
         {%- assign rest = product.media | reject: 'id', featured.id -%}
         {%- assign ordered = ordered | concat: rest -%}
         {%- for media in ordered -%}
+          {%- assign media_alt = media.alt | default: product.title | escape -%}
           <li class="bp-gallery__slide" id="Media-{{ id_prefix }}-{{ media.id }}" data-media-id="{{ media.id }}">
             {%- case media.media_type -%}
               {%- when 'image' -%}
@@ -43,7 +44,7 @@
                       loading: 'eager',
                       fetchpriority: 'high',
                       preload: true,
-                      alt: media.alt
+                      alt: media_alt
                   }}
                 {%- else -%}
                   {{
@@ -53,7 +54,7 @@
                       widths: '360, 540, 720, 900, 1080, 1300, 1600',
                       sizes: sizes,
                       loading: 'lazy',
-                      alt: media.alt
+                      alt: media_alt
                   }}
                 {%- endif -%}
               {%- when 'video' -%}

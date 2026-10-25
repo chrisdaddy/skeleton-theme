@@ -27,7 +27,7 @@
           <figure class="bp-review__figure">
             {%- if block.settings.image != blank -%}
               <div class="bp-media bp-ratio-landscape bp-review__media">
-                {%- assign photo_alt = block.settings.image.alt | escape -%}
+                {%- assign photo_alt = block.settings.image.alt | default: '' | escape -%}
                 {{ block.settings.image | image_url: width: 720 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 33vw, 80vw', widths: '360, 540, 720', class: 'bp-media__img', alt: photo_alt }}
               </div>
             {%- endif -%}

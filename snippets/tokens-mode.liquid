@@ -67,7 +67,8 @@
       assign muted = ink | color_mix: bg, weight
       assign c_bg = muted | color_contrast: bg
       assign c_surface = muted | color_contrast: surface
-      if c_bg >= 4.6 and c_surface >= 4.6
+      assign c_soft = muted | color_contrast: accent_soft
+      if c_bg >= 4.6 and c_surface >= 4.6 and c_soft >= 4.6
         break
       endif
     endfor

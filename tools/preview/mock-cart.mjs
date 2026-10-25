@@ -1,7 +1,7 @@
 // A Shopify-like cart for the offline preview.
 //
 // It mirrors what the theme relies on: line keys, identical lines merging, line item
-// properties, selling plans, nested lines (parent_id: removing the parent removes them),
+// properties, selling plans, nested lines (parent_line_key / parent_id: removing the parent removes them),
 // and the merchant's automatic discounts the docs ask for:
 // - Buy X Get Y gifts: a gift line is free while it qualifies (reward threshold reached, or
 //   its bundle in the cart), at full price otherwise;
@@ -27,8 +27,18 @@ export function createCart({ findVariant, rewardsFor, dealPrice }) {
         throw Object.assign(new Error('Selling plan not available'), { status: 422 });
       }
       const key = keyFor(found.variant.id, properties, plan);
-      const parent = item.parent_id ? lines.find((l) => l.id === Number(item.parent_id)) : null;
-      if (item.parent_id && !parent) throw Object.assign(new Error('Parent line not found'), { status: 422 });
+      // As Shopify: a line already in the cart is a parent by parent_line_key; parent_id is a
+      // variant ID and only reaches a parent added in the same request (found on a real store).
+      if (item.parent_id != null && typeof item.parent_id !== 'number' && !/^\d+$/.test(String(item.parent_id))) {
+        throw Object.assign(new Error('expected String to be a Integer: parent_id'), { status: 400 });
+      }
+      const parent = item.parent_line_key
+        ? lines.find((l) => l.key === String(item.parent_line_key))
+        : item.parent_id ? added.find((l) => l.id === Number(item.parent_id)) : null;
+      if ((item.parent_line_key || item.parent_id) && !parent) {
+        const message = item.parent_id && lines.some((l) => l.id === Number(item.parent_id)) ? 'Cannot reference existing parent lines by variant_id.' : 'Parent line not found';
+        throw Object.assign(new Error(message), { status: 422 });
+      }
       const existing = lines.find((l) => l.key === key);
       const quantity = Number(item.quantity || 1);
       if (existing) existing.quantity += quantity;
