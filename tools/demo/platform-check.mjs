@@ -290,6 +290,18 @@ try {
     const cart = await (await p.request.get(`${base}/cart.js`)).json();
     check('Phase 2', 'without JavaScript, the tier radio is the id that posts (the last id wins)', cart.items.some((i) => String(i.variant_id) === last.id), { wanted: last.id, got: cart.items.map((i) => i.variant_id) });
     await p.request.post(`${base}/cart/clear.js`);
+
+    // The bundle builder posts items[n][id] checkboxes: Shopify must add every checked one.
+    await p.goto(url(product), { waitUntil: 'load' });
+    const bundle = p.locator('.bp-bundle__form').first();
+    if (await bundle.count()) {
+      await bundle.locator('.bp-bundle-item__input:not([disabled])').evaluateAll((inputs) => inputs.forEach((i) => (i.checked = true)));
+      const ids = await bundle.locator('.bp-bundle-item__input:checked').evaluateAll((inputs) => inputs.map((i) => i.value));
+      await Promise.all([p.waitForNavigation({ timeout: 15000 }).catch(() => {}), bundle.locator('[data-bp-submit]').click()]);
+      const added = await (await p.request.get(`${base}/cart.js`)).json();
+      check('Phase 4', `without JavaScript, /cart/add takes the bundle's items[n][id] form post (${ids.length} products)`, ids.length > 1 && ids.every((id) => added.items.some((i) => String(i.variant_id) === id)), { wanted: ids, got: added.items.map((i) => i.variant_id) });
+      await p.request.post(`${base}/cart/clear.js`);
+    } else check('Phase 4', 'items[n][id] form posts: no bundle builder on this product page', null);
     await plain.close();
   } catch (error) {
     check('Phase 2', 'without JavaScript: checks crashed', false, error.message);
