@@ -7353,7 +7353,7 @@
      "min": 0,
      "max": 160,
      "step": 8,
-     "default": 12
+     "default": 16
     },
     {
      "id": "padding_bottom",
@@ -7362,7 +7362,7 @@
      "min": 0,
      "max": 160,
      "step": 8,
-     "default": 12
+     "default": 16
     },
     {
      "id": "hide_mobile",
