@@ -44,6 +44,16 @@ export function buildDemoTheme(storeId, out) {
   group.sections.announcement.blocks = Object.fromEntries(messages.map((text, i) => [`message-${i + 1}`, { type: 'message', settings: { text } }]));
   group.sections.announcement.block_order = messages.map((_, i) => `message-${i + 1}`);
   writeFileSync(`${out}/sections/header-group.json`, `${JSON.stringify(group, null, 2)}\n`);
+
+  // The reference's footer has no "about" copy: drop text blocks still on the theme's default
+  // ("Tell customers what your brand stands for"), which is there for merchants to replace.
+  const footer = JSON.parse(readFileSync(`${out}/sections/footer-group.json`, 'utf8'));
+  for (const section of Object.values(footer.sections)) {
+    const placeholders = Object.entries(section.blocks ?? {}).filter(([, b]) => b.type === 'text' && !b.settings?.text).map(([id]) => id);
+    for (const id of placeholders) delete section.blocks[id];
+    if (section.block_order) section.block_order = section.block_order.filter((id) => !placeholders.includes(id));
+  }
+  writeFileSync(`${out}/sections/footer-group.json`, `${JSON.stringify(footer, null, 2)}\n`);
   return { out, config };
 }
 

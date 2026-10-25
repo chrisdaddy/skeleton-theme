@@ -43,7 +43,10 @@ export function productHandle(store, title) {
 }
 
 const sectionOf = (store, type) => [...store.home, ...store.pdp].find((s) => s.type === type);
-const subscriptionPct = (store) => Number(/(\d+)%\s*with subscription/i.exec(store.product.save)?.[1] || 0) || null;
+// The store's own "N% with subscription", else the 15% the reference's product template
+// offers every store ("Subscribe & save 15%").
+export const REFERENCE_SUBSCRIPTION_PCT = 15;
+const subscriptionPct = (store) => Number(/(\d+)%\s*with subscription/i.exec(store.product.save)?.[1] || 0) || REFERENCE_SUBSCRIPTION_PCT;
 const rating = (store) => Number(/★\s*([\d.]+)/.exec(store.home[0]?.note || '')?.[1] || store.collection[0]?.[2] || 4.8);
 
 // Per-store facts the reference doesn't state (demo values, kept in step with the preview).
@@ -200,19 +203,31 @@ export function buildCatalog(demo, storeId) {
   }
 
   // ---------- Metaobjects for the hero ----------
-  const tierRefs = tiers.map((t, i) => {
+  // In size mode the tiers are the size picker, so a size the reference only shows in its
+  // picker (Ode's 10 ml travel) joins them in picker order; otherwise it couldn't be bought.
+  // The preselected tier stays the reference's second tier.
+  const tierList = tiers.map((t, i) => ({ ...t, preselected: i === 1 }));
+  if (recipe.mode === 'size') {
+    const sizes = p.variants[0].options;
+    for (const size of sizes.filter((s) => !tiers.some((t) => t.label === s))) {
+      const next = tierList.findIndex((t) => sizes.indexOf(t.label) > sizes.indexOf(size));
+      tierList.splice(next < 0 ? tierList.length : next, 0, { label: size, preselected: false });
+    }
+  }
+  const tierRefs = tierList.map((t, i) => {
     const n = i + 1;
-    const fields = { label: t.label, sublabel: t.sub ?? '', badge: t.tag ?? '', preselected: i === 1 };
+    const original = tiers.indexOf(tiers.find((x) => x.label === t.label)) + 1;
+    const fields = { label: t.label, sublabel: t.sub ?? '', badge: t.tag ?? '', preselected: t.preselected };
     if (recipe.mode === 'mix') {
       fields.quantity = leadingNumber(t.label);
       if (fields.quantity > 1) fields.discount_label = `${t.label} discount`;
-    } else if (n === recipe.setTier) {
+    } else if (original === recipe.setTier) {
       fields.variant = variantRef(setProduct, []);
     } else {
       fields.pack_value = t.label;
     }
     if (pct && recipe.mode === 'pack') fields.subscription_plan_hint = ['', '2 months', '3 months'][i] ?? '';
-    if (recipe.tierGift?.tier === n) {
+    if (recipe.tierGift?.tier === original) {
       fields.gift_variant = variantRef(tierGift, []);
       fields.gift_value_label = recipe.tierGift.label;
     }

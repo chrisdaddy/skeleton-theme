@@ -63,6 +63,9 @@ const Q = {
   stagedUploadsCreate: `mutation BpStagedUploads($input: [StagedUploadInput!]!) {
     stagedUploadsCreate(input: $input) { stagedTargets { url resourceUrl parameters { name value } } userErrors { field message } }
   }`,
+  fileUpdate: `mutation BpFileUpdate($files: [FileUpdateInput!]!) {
+    fileUpdate(files: $files) { files { id fileStatus } userErrors { field message code } }
+  }`,
   fileCreate: `mutation BpFileCreate($files: [FileCreateInput!]!) {
     fileCreate(files: $files) { files { id fileStatus } userErrors { field message code } }
   }`,
@@ -153,7 +156,7 @@ const chunk = (list, size) => Array.from({ length: Math.ceil(list.length / size)
 const richText = (text) => JSON.stringify({ type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', value: text }] }] });
 const DEFAULT_OPTION = { name: 'Title', value: 'Default Title' };
 
-export async function seed(config, gql, { steps = STEPS, log = console.log, renderImage, upload } = {}) {
+export async function seed(config, gql, { steps = STEPS, log = console.log, renderImage, upload, refreshImages = false } = {}) {
   const state = { products: {}, variants: {}, metaobjects: {}, files: {}, collections: {}, pages: {}, definitions: {}, created: [], updated: [] };
   const created = (what) => state.created.push(what);
   const updated = (what) => state.updated.push(what);
@@ -256,10 +259,10 @@ export async function seed(config, gql, { steps = STEPS, log = console.log, rend
   // ---------- files ----------
   for (const file of config.files) {
     const found = (await gql(Q.files, { query: `filename:'${file.filename}'` })).files.nodes.find((n) => !n.image?.url || n.image.url.split('?')[0].endsWith(`/${file.filename}`));
-    if (found) {
-      state.files[file.key] = found.id;
-      continue;
-    }
+    if (found) state.files[file.key] = found.id;
+    // An existing image is kept, unless --refresh-images re-renders it: replaced in place, so the
+    // file keeps its ID and everything that uses it updates.
+    if (found && !(refreshImages && run('files'))) continue;
     if (!run('files')) continue;
     if (!renderImage) throw new Error('files: no image renderer');
     const bytes = await renderImage(file);
@@ -267,6 +270,11 @@ export async function seed(config, gql, { steps = STEPS, log = console.log, rend
     assertNoUserErrors(`staged upload ${file.filename}`, staged);
     const target = staged.stagedTargets[0];
     await upload(target, file.filename, bytes);
+    if (found) {
+      assertNoUserErrors(`file ${file.filename}`, (await gql(Q.fileUpdate, { files: [{ id: found.id, originalSource: target.resourceUrl }] })).fileUpdate);
+      updated(`file ${file.filename}`);
+      continue;
+    }
     const payload = (await gql(Q.fileCreate, { files: [{ originalSource: target.resourceUrl, contentType: 'IMAGE', alt: file.alt ?? '', filename: file.filename, duplicateResolutionMode: 'REPLACE' }] })).fileCreate;
     assertNoUserErrors(`file ${file.filename}`, payload);
     state.files[file.key] = payload.files[0].id;
@@ -360,7 +368,11 @@ export async function seed(config, gql, { steps = STEPS, log = console.log, rend
   // ---------- metaobjects ----------
   for (const mo of config.metaobjects) {
     if (!run('metaobjects')) continue;
-    const fields = Object.entries(mo.fields).map(([key, value]) => ({ key, value: fieldValue(value) }));
+    // Fields the catalog leaves out are sent empty, which clears them: an upsert only touches the
+    // fields it's given, so a re-run would otherwise keep a value from an earlier catalog.
+    const definition = METAOBJECTS.find((d) => d.type === mo.type);
+    const unset = (definition?.fields ?? []).filter((f) => !(f.key in mo.fields) && !f.required).map((f) => ({ key: f.key, value: '' }));
+    const fields = [...Object.entries(mo.fields).map(([key, value]) => ({ key, value: fieldValue(value) })), ...unset];
     const payload = (await gql(Q.metaobjectUpsert, { handle: { type: mo.type, handle: mo.handle }, metaobject: { fields } })).metaobjectUpsert;
     assertNoUserErrors(`metaobject ${mo.type}/${mo.handle}`, payload);
     state.metaobjects[`${mo.type}/${mo.handle}`] = payload.metaobject.id;

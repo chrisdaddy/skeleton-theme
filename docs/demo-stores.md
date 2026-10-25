@@ -76,6 +76,7 @@ node tools/demo/theme.mjs verde --push        # push the demo theme as an unpubl
 ```
 
 - **Steps:** run a subset with `--steps=products,metafields`, or skip some with `--skip=files`.
+- **Images:** existing placeholders are kept. `--refresh-images` re-renders them and replaces them in place, so the products and sections using them update.
 - **Order:** shop, definitions, files, collections, products, metaobjects, metafields, selling plans, publish, pages, menus, discounts.
 - **Publishing the theme:** do it by hand in the admin (Online Store → Themes), after a look in the theme editor.
 

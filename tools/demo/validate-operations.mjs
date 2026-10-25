@@ -40,6 +40,8 @@ for (const store of ['verde', 'ode', 'rawform', 'omni', 'kindly', 'dreamr', 'goo
   const config = JSON.parse(readFileSync(new URL(`stores/${store}.json`, here), 'utf8'));
   const fake = fakeAdmin();
   await seed(config, fake.gql, { renderImage: fake.renderImage, upload: fake.upload, log: () => {} });
+  // And an image refresh (--refresh-images), which replaces files in place.
+  await seed(config, fake.gql, { renderImage: fake.renderImage, upload: fake.upload, log: () => {}, steps: ['files'], refreshImages: true });
   for (const call of fake.calls) {
     const doc = parse(call.query);
     if (!seen.has(call.operation)) {

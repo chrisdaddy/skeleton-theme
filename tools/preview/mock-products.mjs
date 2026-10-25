@@ -127,7 +127,8 @@ export function buildDemoProducts(demo) {
     return s ? field(s.items.map(([q, a]) => ({ question: field(q), answer: { value: `<p>${a}</p>`, type: 'rich_text_field' } }))) : undefined;
   };
   const upsell = (store) => field(simpleProduct(store.upsell.name, cents(Number(store.upsell.price.replace('$', '')))));
-  const subscriptionPct = (store) => Number(/(\d+)%\s*with subscription/.exec(store.product.save)?.[1] || 0) || null;
+  // As the demo catalog: the store's own "N% with subscription", else the reference's 15%.
+  const subscriptionPct = (store) => Number(/(\d+)%\s*with subscription/.exec(store.product.save)?.[1] || 0) || 15;
 
   // Verde: a Format option plus pack tiers, 20% subscription (from the store's own copy).
   const verde = demo.stores.verde;
@@ -227,15 +228,16 @@ export function buildDemoProducts(demo) {
     options: [{ name: odeSizes.label, values: odeSizes.options }],
     packOption: null,
     priceFor: ([size]) => odePrices[size],
-    subscriptionPct: null,
+    subscriptionPct: subscriptionPct(ode),
+    // As the demo catalog: the 10 ml travel size joins the tiers in picker order.
     tiers: () =>
-      ode.product.tiers.map((t, i) => ({
+      [ode.product.tiers[0], { label: '10 ml travel' }, ...ode.product.tiers.slice(1)].map((t, i) => ({
         label: field(t.label),
-        sublabel: field(t.sub),
+        sublabel: field(t.sub || ''),
         pack_value: field(i === 0 ? '' : t.label),
         variant: field(i === 0 ? discovery.variants[0] : null),
         badge: field(t.tag || ''),
-        preselected: field(i === 1),
+        preselected: field(i === 2),
       })),
     metafields: {
       blueprint: {

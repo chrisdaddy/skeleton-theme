@@ -174,3 +174,34 @@ test('re-running one step keeps what the others set (productSet replaces metafie
   await seed(config, fake.gql, { ...options, steps: ['shop', 'products'] });
   assert.deepEqual(Object.keys(hero().metafields).sort(), before);
 });
+
+test('--refresh-images replaces placeholders in place: same files, same IDs', async () => {
+  const fake = fakeAdmin();
+  const options = { renderImage: fake.renderImage, upload: fake.upload, log: () => {} };
+  await seed(configs.ode, fake.gql, options);
+  const before = fake.db.files.map((f) => f.id);
+  const result = await seed(configs.ode, fake.gql, { ...options, steps: ['files'], refreshImages: true });
+  assert.deepEqual(fake.db.files.map((f) => f.id), before, 'no new files');
+  assert.equal(result.created.length, 0);
+  assert.ok(fake.db.files.every((f) => f.source), 'every file got new content');
+});
+
+test('placeholder labels stay inside the area a 4:5 crop keeps', async () => {
+  const { placeholderHtml, sizeFor } = await import('../../tools/demo/images.mjs');
+  for (const filename of ['bp-ode-photo-home-hero.png', 'bp-ode-no-04.png']) {
+    const { width, height } = sizeFor({ filename });
+    const max = Number(/\.label \{ max-width: (\d+)px/.exec(placeholderHtml({ filename, label: 'x' }))[1]);
+    assert.ok(max <= Math.min(width, height * 0.8), `${filename}: label ${max}px wide`);
+  }
+});
+
+test('metaobject upserts clear the fields the catalog leaves out', async () => {
+  const fake = fakeAdmin();
+  await seed(configs.ode, fake.gql, { renderImage: fake.renderImage, upload: fake.upload, log: () => {} });
+  const calls = fake.calls.filter((c) => c.operation === 'BpMetaobjectUpsert' && c.variables.handle.type === 'blueprint_tier');
+  const travel = calls.find((c) => c.variables.metaobject.fields.some((f) => f.key === 'label' && f.value === '10 ml travel'));
+  const sent = Object.fromEntries(travel.variables.metaobject.fields.map((f) => [f.key, f.value]));
+  assert.equal(sent.sublabel, '');
+  assert.equal(sent.badge, '');
+  assert.equal(sent.pack_value, '10 ml travel');
+});

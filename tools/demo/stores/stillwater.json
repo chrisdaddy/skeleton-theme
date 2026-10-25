@@ -1063,7 +1063,36 @@
       }
     }
   ],
-  "sellingPlanGroups": [],
+  "sellingPlanGroups": [
+    {
+      "merchantCode": "bp-stillwater-subscribe",
+      "name": "Subscribe & save 15%",
+      "options": [
+        "Delivery every"
+      ],
+      "percentage": 15,
+      "plans": [
+        {
+          "name": "Delivery every month",
+          "option": "month",
+          "months": 1
+        },
+        {
+          "name": "Delivery every 2 months",
+          "option": "2 months",
+          "months": 2
+        },
+        {
+          "name": "Delivery every 3 months",
+          "option": "3 months",
+          "months": 3
+        }
+      ],
+      "products": [
+        "stillwater-the-heavyweight-tee"
+      ]
+    }
+  ],
   "collections": [
     {
       "handle": "best-sellers",

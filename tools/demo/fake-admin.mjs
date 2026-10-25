@@ -45,6 +45,14 @@ export function fakeAdmin({ shop = 'demo.myshopify.com', currencyCode = 'USD' } 
       return { files: { nodes: db.files.filter((f) => f.filename === name).map((f) => ({ id: f.id, fileStatus: 'READY', image: { url: `https://cdn.shopify.com/s/files/1/0/files/${f.filename}?v=1` } })) } };
     },
     BpStagedUploads: ({ input }) => ({ stagedUploadsCreate: ok({ stagedTargets: input.map((i) => ({ url: 'https://shopify-staged-uploads.storage.googleapis.com/', resourceUrl: `https://shopify-staged-uploads.storage.googleapis.com/tmp/${i.filename}`, parameters: [{ name: 'key', value: `tmp/${i.filename}` }] })) }) }),
+    BpFileUpdate: ({ files }) => {
+      for (const f of files) {
+        const file = db.files.find((x) => x.id === f.id);
+        if (!file) throw new Error(`fileUpdate: no file ${f.id}`);
+        file.source = f.originalSource;
+      }
+      return { fileUpdate: ok({ files: files.map((f) => ({ id: f.id, fileStatus: 'UPLOADED' })) }) };
+    },
     BpFileCreate: ({ files }) => {
       const created = files.map((f) => {
         const file = { id: gid('MediaImage'), filename: f.filename };

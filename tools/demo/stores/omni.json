@@ -576,7 +576,8 @@
         "sublabel": "One for a partner · free shipping",
         "badge": "Most popular",
         "preselected": true,
-        "pack_value": "2 canisters"
+        "pack_value": "2 canisters",
+        "subscription_plan_hint": "2 months"
       }
     },
     {
@@ -587,7 +588,8 @@
         "sublabel": "Quarter supply · free shaker set",
         "badge": "Best value",
         "preselected": false,
-        "pack_value": "3 canisters"
+        "pack_value": "3 canisters",
+        "subscription_plan_hint": "3 months"
       }
     },
     {
@@ -690,7 +692,36 @@
       }
     }
   ],
-  "sellingPlanGroups": [],
+  "sellingPlanGroups": [
+    {
+      "merchantCode": "bp-omni-subscribe",
+      "name": "Subscribe & save 15%",
+      "options": [
+        "Delivery every"
+      ],
+      "percentage": 15,
+      "plans": [
+        {
+          "name": "Delivery every month",
+          "option": "month",
+          "months": 1
+        },
+        {
+          "name": "Delivery every 2 months",
+          "option": "2 months",
+          "months": 2
+        },
+        {
+          "name": "Delivery every 3 months",
+          "option": "3 months",
+          "months": 3
+        }
+      ],
+      "products": [
+        "omni-daily-ultimate-essentials"
+      ]
+    }
+  ],
   "collections": [
     {
       "handle": "best-sellers",

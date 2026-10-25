@@ -2,6 +2,7 @@
 // Seeds a demo store from tools/demo/stores/<store>.json through the Admin GraphQL API.
 //
 //   node tools/seed-demo.mjs <store> [--dry-run] [--steps=products,metafields] [--skip=files] [--config=<file>]
+//                                   [--refresh-images]   re-render the placeholders and replace them in place
 //
 // --config seeds another catalog in the same format, e.g. the sales store (tools/sales/store.json).
 //
@@ -83,7 +84,7 @@ if (dryRun) {
 
 console.log(`${dryRun ? 'Dry run: ' : ''}seeding ${config.brand} (${storeId}) → ${dryRun ? 'in-memory store' : shop}; steps: ${steps.join(', ')}`);
 try {
-  const state = await seed(config, gql, { steps, renderImage, upload, log: console.log });
+  const state = await seed(config, gql, { steps, renderImage, upload, log: console.log, refreshImages: args.includes('--refresh-images') });
   for (const line of state.created) console.log(`  + ${line}`);
   for (const line of state.updated) console.log(`  ~ ${line}`);
   console.log(`Done: ${state.created.length} created, ${state.updated.length} updated.`);

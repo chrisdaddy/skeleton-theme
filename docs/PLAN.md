@@ -178,11 +178,12 @@ The first run against the three development stores, with the seed app's credenti
     - Unit tests cover it, and the store checklist reports the note.
     - This also covers a gift whose discount the merchant forgot to create.
   - `docs/merchant/cart-setup.md` warns about overlapping gifts.
-- **Visual comparison** (`docs/screenshots/store/`, 30 composites, reference vs store at 390 and 1440): the stores follow the reference's content and order. Differences noted:
-  - Ode has no subscription plan, so no subscribe option. The reference shows "Subscribe & save 15%", but the seed adds a plan only where the reference states a saving.
-  - Ode shows its sizes as bundle tiers, without the reference's separate size picker.
-  - The footer's "About us" column shows its default text.
-  - Placeholder images crop their label text in wide hero frames.
+- **Visual comparison** (`docs/screenshots/store/`, 30 composites, reference vs store at 390 and 1440). The stores follow the reference's content and order. The differences found have all been fixed:
+  - **Subscription for every store.** Ode had no subscription option, while the reference offers "Subscribe & save 15%". That toggle is part of the reference's shared product template (for Ode it even shows "$2 each"). The catalog now falls back to the reference's 15% when a store's own copy states no saving. Ode, and the optional stores without their own figure, get a real 15% selling plan, so prices still come from Shopify.
+  - **Ode's 10 ml travel size.** The reference shows a size picker (10 ml travel, 50 ml, 100 ml) next to tiers that leave out 10 ml. In Blueprint the tiers are the size picker, so 10 ml couldn't be bought at all. It now joins the tiers in picker order: Discovery set, 10 ml travel, 50 ml (preselected, "Most loved"), 100 ml. It has no subtitle, because the reference gives it none. Ode's templates only link to tier 1, which is unchanged.
+  - **Footer.** The reference's footer has no "about" copy. The demo build drops footer text blocks still on the theme's default ("Tell customers what your brand stands for"). The default itself stays in the theme for merchants to replace.
+  - **Placeholder labels.** Labels now stay inside the area any crop down to 4:5 keeps: the middle three-quarters of the height on landscape images. A unit test covers it.
+    - `--refresh-images` on the seed re-renders placeholders and replaces them in place with `fileUpdate`, so every product and section using them updates.
 
 #### Phase 8 delivered
 

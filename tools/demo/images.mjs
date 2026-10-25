@@ -11,8 +11,12 @@ const escape = (text) => String(text).replace(/[&<>"]/g, (c) => ({ '&': '&amp;',
 // Product shots are square; section photos are landscape.
 export const sizeFor = (file) => (/-photo-/.test(file.filename) ? { width: 1600, height: 1067 } : { width: 1200, height: 1200 });
 
+// The label stays inside the centre square of a square image and the middle half of a
+// landscape one, so it survives the crops section frames make (down to 4:5 portrait).
 export function placeholderHtml(file, preset = {}, brand = '') {
   const { width, height } = sizeFor(file);
+  const landscape = width > height;
+  const labelWidth = landscape ? Math.round(height * 0.75) : Math.round(width * 0.72);
   const bg = preset.surface ?? '#E8E8E4';
   const ink = preset.ink ?? '#1A1A1A';
   return `<!doctype html><html><head><meta charset="utf-8"><style>
@@ -20,7 +24,7 @@ export function placeholderHtml(file, preset = {}, brand = '') {
     body { width: ${width}px; height: ${height}px; display: grid; place-items: center; background: ${bg}; color: ${ink};
       font-family: 'Liberation Sans', Arial, sans-serif; position: relative; overflow: hidden; }
     .frame { position: absolute; inset: 40px; border: 2px dashed color-mix(in srgb, ${ink} 25%, transparent); border-radius: 12px; }
-    .label { max-width: 72%; text-align: center; font-size: ${Math.round(width / 26)}px; line-height: 1.3; }
+    .label { max-width: ${labelWidth}px; text-align: center; font-size: ${Math.round((landscape ? height : width) / 26)}px; line-height: 1.3; }
     .brand { position: absolute; top: 72px; left: 0; right: 0; text-align: center; font-size: ${Math.round(width / 50)}px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6; }
     .note { position: absolute; bottom: 72px; left: 0; right: 0; text-align: center; font-size: ${Math.round(width / 60)}px; opacity: 0.6; }
   </style></head><body><div class="frame"></div><div class="brand">${escape(brand)}</div><div class="label">${escape(file.label)}</div><div class="note">Placeholder · photography to come</div></body></html>`;

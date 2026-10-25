@@ -186,6 +186,9 @@
             },
             {
               "$metaobject": "blueprint_tier/ode-tier-3"
+            },
+            {
+              "$metaobject": "blueprint_tier/ode-tier-4"
             }
           ]
         },
@@ -533,6 +536,15 @@
       "type": "blueprint_tier",
       "handle": "ode-tier-2",
       "fields": {
+        "label": "10 ml travel",
+        "preselected": false,
+        "pack_value": "10 ml travel"
+      }
+    },
+    {
+      "type": "blueprint_tier",
+      "handle": "ode-tier-3",
+      "fields": {
         "label": "50 ml",
         "sublabel": "Eau de parfum · two samples",
         "badge": "Most loved",
@@ -542,7 +554,7 @@
     },
     {
       "type": "blueprint_tier",
-      "handle": "ode-tier-3",
+      "handle": "ode-tier-4",
       "fields": {
         "label": "100 ml",
         "sublabel": "Best per ml · engraving included",
@@ -622,7 +634,36 @@
       }
     }
   ],
-  "sellingPlanGroups": [],
+  "sellingPlanGroups": [
+    {
+      "merchantCode": "bp-ode-subscribe",
+      "name": "Subscribe & save 15%",
+      "options": [
+        "Delivery every"
+      ],
+      "percentage": 15,
+      "plans": [
+        {
+          "name": "Delivery every month",
+          "option": "month",
+          "months": 1
+        },
+        {
+          "name": "Delivery every 2 months",
+          "option": "2 months",
+          "months": 2
+        },
+        {
+          "name": "Delivery every 3 months",
+          "option": "3 months",
+          "months": 3
+        }
+      ],
+      "products": [
+        "ode-no-04"
+      ]
+    }
+  ],
   "collections": [
     {
       "handle": "best-sellers",
