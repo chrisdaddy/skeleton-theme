@@ -248,8 +248,13 @@ try {
     await Promise.all([page.waitForNavigation({ timeout: 15000 }).catch(() => {}), buyNow.click()]);
     await settle(page, 2000);
     // Shopify's button creates the checkout cart through the Storefront API (cartCreate).
-    const sent = posted.find((p) => p.body.includes(`ProductVariant/${wanted.id}`) || p.body.includes(`"${wanted.id}"`) || p.body.includes(`id=${wanted.id}`));
-    check('Phase 2', 'dynamic checkout: "Buy it now" sends that variant and its selling plan', sent && sent.body.includes(wanted.plan), { landed: page.url().replace(base, '').slice(0, 60), sent: (sent ?? posted.find((p) => p.url.includes('cartCreate')))?.body.slice(0, 900) ?? posted.map((p) => p.url.slice(0, 80)) });
+    const create = posted.find((p) => p.url.includes('cartCreate'));
+    let lines = [];
+    try {
+      lines = JSON.parse(create.body).variables.input.lines ?? [];
+    } catch {}
+    const line = lines.find((l) => String(l.merchandiseId).endsWith(`/${wanted.id}`));
+    check('Phase 2', 'dynamic checkout: "Buy it now" sends that variant and its selling plan', line && String(line.sellingPlanId).endsWith(`/${wanted.plan}`), { landed: page.url().replace(base, '').slice(0, 60), wanted, lines: create ? lines : posted.map((p) => p.url.slice(0, 80)) });
   } else check('Phase 2', 'dynamic checkout: no "Buy it now" button or no subscription tier', null);
 
   // ---------- Accessibility (axe, WCAG 2.2 AA) ----------
