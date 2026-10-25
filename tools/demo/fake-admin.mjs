@@ -74,6 +74,8 @@ export function fakeAdmin({ shop = 'demo.myshopify.com', currencyCode = 'USD' } 
         return { id: same?.id ?? gid('ProductVariant'), selectedOptions: options, inventoryItem: same?.inventoryItem ?? { id: gid('InventoryItem'), tracked: v.inventoryItem?.tracked ?? true } };
       });
       product.input = input;
+      // productSet replaces the product's metafield list when it's given one (as Shopify does).
+      if (input.metafields) product.metafields = Object.fromEntries(input.metafields.map((m) => [`${m.namespace}.${m.key}`, m.value]));
       return { productSet: ok({ product: view(product) }) };
     },
     BpInventoryActivate: ({ item, location }) => {
@@ -97,7 +99,13 @@ export function fakeAdmin({ shop = 'demo.myshopify.com', currencyCode = 'USD' } 
       mo.fields = metaobject.fields;
       return { metaobjectUpsert: ok({ metaobject: { id: mo.id, handle: mo.handle } }) };
     },
-    BpMetafieldsSet: ({ metafields }) => ({ metafieldsSet: ok({ metafields: metafields.map((m) => ({ id: gid('Metafield'), key: m.key })) }) }),
+    BpMetafieldsSet: ({ metafields }) => {
+      for (const m of metafields) {
+        const product = db.products.find((p) => p.id === m.ownerId);
+        if (product) (product.metafields ??= {})[`${m.namespace}.${m.key}`] = m.value;
+      }
+      return { metafieldsSet: ok({ metafields: metafields.map((m) => ({ id: gid('Metafield'), key: m.key })) }) };
+    },
     BpProductPlans: ({ id }) => ({ product: { sellingPlanGroups: { nodes: db.sellingPlanGroups.filter((g) => g.productIds.includes(id)) } } }),
     BpSellingPlanGroupCreate: ({ input, resources }) => {
       const g = { id: gid('SellingPlanGroup'), merchantCode: input.merchantCode, productIds: resources.productIds };

@@ -162,3 +162,15 @@ test('stock goes to an active location that ships and fulfills online orders', (
   assert.equal(pickLocation([closed, custom]).id, 'custom');
   assert.equal(pickLocation([closed]).id, 'closed');
 });
+
+test('re-running one step keeps what the others set (productSet replaces metafield lists)', async () => {
+  const fake = fakeAdmin();
+  const options = { renderImage: fake.renderImage, upload: fake.upload, log: () => {} };
+  const config = configs.verde;
+  await seed(config, fake.gql, options);
+  const hero = () => fake.db.products.find((p) => p.handle === config.products[0].handle);
+  const before = Object.keys(hero().metafields).sort();
+  assert.ok(before.includes('blueprint.tiers') && before.includes('blueprint.pack_option'), before.join(', '));
+  await seed(config, fake.gql, { ...options, steps: ['shop', 'products'] });
+  assert.deepEqual(Object.keys(hero().metafields).sort(), before);
+});

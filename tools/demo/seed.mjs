@@ -329,12 +329,15 @@ export async function seed(config, gql, { steps = STEPS, log = console.log, rend
         .filter(([, members]) => members.includes(product.handle))
         .map(([handle]) => state.collections[handle])
         .filter(Boolean),
-      // Plain-value metafields go with the product; references follow once their targets exist.
-      metafields: product.metafields.filter((m) => !hasRef(m.value)).map((m) => ({ namespace: m.namespace, key: m.key, type: m.type, value: fieldValue(m.value) })),
     };
     const payload = (await gql(Q.productSet, { identifier: { handle: product.handle }, input })).productSet;
     assertNoUserErrors(`product ${product.handle}`, payload);
     remember(product, payload.product);
+    // Plain-value metafields: set by key, never through productSet, which replaces the product's
+    // whole metafield list and so drops the references the metafields step adds. References
+    // follow once their targets exist.
+    const plain = product.metafields.filter((m) => !hasRef(m.value)).map((m) => ({ ownerId: payload.product.id, namespace: m.namespace, key: m.key, type: m.type, value: fieldValue(m.value) }));
+    for (let i = 0; i < plain.length; i += 25) assertNoUserErrors(`metafields ${product.handle}`, (await gql(Q.metafieldsSet, { metafields: plain.slice(i, i + 25) })).metafieldsSet);
     // Stock: set here rather than through productSet, which only stocks variants it creates.
     const items = payload.product.variants.nodes.map((v) => v.inventoryItem).filter((item) => item?.tracked);
     if (location && items.length) {
