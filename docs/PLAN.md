@@ -38,7 +38,7 @@
 - **Fonts:**
   - The Shopify font library supplies DM Sans and Instrument Serif via `font_picker`.
   - Bold, italic and bold-italic variants come from `font_modify`.
-  - Two preloads at most.
+  - No preloads: on mobile they held back the LCP image (measured 2026-10-26). Fonts swap in.
   - Metric-matched fallback faces (from Capsize metrics) stop text shifting when fonts swap in.
 - **Layouts and chrome:**
   - Layouts: `theme`, `landing` (pre-landers, with default `noindex, follow` plus a per-page `blueprint.robots` override) and `password`.
@@ -956,7 +956,7 @@ Two of these are merchant-addable and count toward the 72 picker entries: `annou
 **Gallery.** This is part of `main-product`, not a block:
 - thumbnails, plus a badge overlay from `blueprint.badge`
 - zoom loaded lazily
-- **first image only:** `fetchpriority=high`, `preload: true` and explicit `sizes` (§11)
+- **first image only:** `fetchpriority=high`, eager and explicit `sizes` (§11; `preload: true` was dropped after measuring, 2026-10-26)
 
 ---
 
@@ -1241,8 +1241,8 @@ PDP, mobile, first load, theme-owned bytes only. Rationale and the Dawn baseline
 | Theme JS, lazy | ≤ 40 KB total, chunks ≤ 12 KB, loaded on interaction or visibility | all loaded up front |
 | CSS | ≤ 30 KB compressed total (≤ 12 KB inlined critical) | ~44 KB, ~27 files |
 | Render-blocking in `<head>` | ≤ 3 | — |
-| Fonts | ≤ 2 preloads, ≤ 4 files, `font_display: swap` | — |
-| LCP image | ≤ 120 KB; `fetchpriority=high`, `preload: true`, correct `sizes` | eager only |
+| Fonts | no preloads (measured, 2026-10-26), ≤ 4 files, `font_display: swap` | — |
+| LCP image | ≤ 120 KB; `fetchpriority=high`, eager, correct `sizes`; no `preload: true` (measured, 2026-10-26) | eager only |
 | CLS from theme | ≤ 0.02 (announcement bar: fixed min-height, transform rotation; sticky ATC: fixed + transform) | — |
 | Main-thread work from theme JS | no long task > 50 ms at 4× CPU | — |
 

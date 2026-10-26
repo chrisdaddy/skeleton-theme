@@ -1,8 +1,10 @@
 {% doc %}
   Product media gallery: a swipeable track (scroll snap) with thumbnails. The first
-  media item is the LCP image: eager, high fetch priority and preloaded, with sizes
-  that match the layout. Everything else loads lazily. Works without JavaScript;
-  bp-gallery.js adds thumbnail sync and the zoom dialog.
+  media item is the LCP image: eager and high fetch priority, with sizes that match
+  the layout. It isn't preloaded: Shopify sends preload: true as a Link header without
+  the fetch priority, so the browser fetched the photo at low priority. Everything
+  else loads lazily. Works without JavaScript; bp-gallery.js adds thumbnail sync and
+  the zoom dialog.
 
   @param {product} product - The product
   @param {string} id_prefix - Prefix for element IDs (the section ID)
@@ -43,7 +45,6 @@
                       sizes: sizes,
                       loading: 'eager',
                       fetchpriority: 'high',
-                      preload: true,
                       alt: media_alt
                   }}
                 {%- else -%}

@@ -52,7 +52,7 @@ This file holds the conventions that aren't obvious from a single file. The plan
   - Initial theme JS ≤ 20 KB.
   - CSS ≤ 30 KB.
   - At most 3 render-blocking requests.
-  - The LCP image uses `fetchpriority="high"` with `preload: true` and correct `sizes`.
+  - The LCP image uses `fetchpriority="high"`, `loading: 'eager'` and correct `sizes`. No `preload: true` and no font preloads: Shopify sends them as Link headers without a fetch priority, and on mobile they held the LCP image back (median 79 → 94 on the demo PDP when removed).
   - Below-the-fold and interactive features load their JS on visibility or interaction.
 - **Whitespace.** Put whitespace between an HTML tag name and a following Liquid delimiter: `<li {% … %}`, not `<li{% … %}`.
 - **Theme Check.**

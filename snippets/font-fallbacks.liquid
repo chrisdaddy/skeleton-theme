@@ -2,15 +2,20 @@
   Metric-matched fallback faces for the preset fonts, so text doesn't shift when
   the web font arrives. Values come from Capsize font metrics (@capsizecss/metrics)
   for each font against Arial / Roboto and Times New Roman / Noto Serif.
-  Unavailable local fonts are skipped, so each platform uses the one it has.
+  Unavailable local fonts are skipped, so each platform uses the one it has. Liberation
+  Sans and Serif (Linux) share Arial's and Times New Roman's metrics. DM Sans 600 and
+  700 get Arial Bold faces, sized by measured width against DM Sans at those weights:
+  regular-weight metrics wrap bold headlines onto an extra line.
 
   @param {object} font - A font setting
 {% enddoc %}
 {%- case font.family -%}
   {%- when 'DM Sans' -%}
-    @font-face { font-family: 'DM Sans Fallback Arial'; src: local('Arial'), local('ArialMT'); ascent-override: 94.9001%; descent-override: 29.6563%; line-gap-override: 0%; size-adjust: 104.531%; }
+    @font-face { font-family: 'DM Sans Fallback Arial'; src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('LiberationSans'); font-weight: 100 550; ascent-override: 94.9001%; descent-override: 29.6563%; line-gap-override: 0%; size-adjust: 104.531%; }
+    @font-face { font-family: 'DM Sans Fallback Arial'; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('LiberationSans-Bold'); font-weight: 551 650; ascent-override: 98.8451%; descent-override: 30.8891%; line-gap-override: 0%; size-adjust: 100.3591%; }
+    @font-face { font-family: 'DM Sans Fallback Arial'; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('LiberationSans-Bold'); font-weight: 651 900; ascent-override: 97.3827%; descent-override: 30.4321%; line-gap-override: 0%; size-adjust: 101.8661%; }
     @font-face { font-family: 'DM Sans Fallback Roboto'; src: local('Roboto Regular'), local('Roboto-Regular'); ascent-override: 94.6922%; descent-override: 29.5913%; line-gap-override: 0%; size-adjust: 104.7605%; }
   {%- when 'Instrument Serif' -%}
-    @font-face { font-family: 'Instrument Serif Fallback Times'; src: local('Times New Roman'), local('TimesNewRomanPSMT'); ascent-override: 117.9435%; descent-override: 36.9318%; line-gap-override: 0%; size-adjust: 83.9385%; }
+    @font-face { font-family: 'Instrument Serif Fallback Times'; src: local('Times New Roman'), local('TimesNewRomanPSMT'), local('Liberation Serif'), local('LiberationSerif'); ascent-override: 117.9435%; descent-override: 36.9318%; line-gap-override: 0%; size-adjust: 83.9385%; }
     @font-face { font-family: 'Instrument Serif Fallback Noto'; src: local('Noto Serif Regular'), local('NotoSerif-Regular'); ascent-override: 139.6452%; descent-override: 43.7273%; line-gap-override: 0%; size-adjust: 70.894%; }
 {%- endcase -%}
