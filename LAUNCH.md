@@ -68,6 +68,20 @@ The sales store is a Shopify store that runs Blueprint itself, so it doubles as 
 6. **Set up taxes.** We are the seller of record for digital goods (PLAN §13.1). Turn on Shopify Tax and register for EU, UK and AU digital-services VAT/GST as thresholds require.
 7. **Write the policies:** a 14-day refund policy, and terms that state the licence covers one store per key.
 
+### 1.2a Sales site
+
+The sales page is a static site in `site/`, from the design in `reference/Blueprint Theme v4.dc.html`. Its Buy and Book links go to the sales store's product pages, so checkout happens on Shopify.
+
+1. **Fill in `site/config.js`:**
+   - `store`: the sales store's domain.
+   - `variants`: the four variant IDs from the seeded sales store. With an ID set, the links become one-click cart permalinks. Without one, they stay on the product page.
+   - `demoStores`: the public URLs of the demo stores, once they're off password protection. Each "Open the live store" link stays hidden until its URL is set.
+   - `ownerFigures`: each figure is marked `// owner to confirm before launch`: installs this week, client revenue, DFY slots, the community link, the support promise, the company name and email, the roadmap, and the three results. Set a figure to `null` to hide the sentence that shows it.
+   - `lighthouseMobile` and `vsDawn`: only measured figures (`docs/PLAN.md`, "Platform verification and Lighthouse").
+2. **Check it locally:** `node tools/sales/serve.mjs`, then open http://localhost:4173. `npm test` runs `tests/unit/sales-site.test.mjs`, which checks the buy links, the claims, the version badge and the landmarks.
+3. **Refresh the screenshots** after a theme change: `node tools/sales/capture.mjs`. It renders through the offline preview, never a store.
+4. **Deploy** to Cloudflare Pages: `npx wrangler pages deploy site --project-name blueprint-site`, then point the domain at it.
+
 ### 1.3 Acceptance: a test purchase
 
 Do this on the live Portal before opening sales.
