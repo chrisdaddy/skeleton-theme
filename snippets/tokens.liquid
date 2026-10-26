@@ -19,7 +19,18 @@
   endif
 
   assign body_font = settings.type_body_font
-  assign body_bold = body_font | font_modify: 'weight', 'bold'
+  # Bold is 600 where the font has it: the same file DM Sans headings already load, so bold
+  # text needs no extra font download (one file fewer measured about 4-5 Lighthouse points on
+  # the mobile product page). Text styled 700 then uses the 600 face.
+  assign body_bold = body_font | font_modify: 'weight', '600'
+  if body_bold == blank
+    assign body_bold = body_font | font_modify: 'weight', 'bold'
+  endif
+  # The heaviest weight loaded for each family, so fallback faces match what text ends up in.
+  assign body_heaviest = body_bold.weight | plus: 0
+  if heading_font.family == body_font.family and heading_font.weight > body_heaviest
+    assign body_heaviest = heading_font.weight | plus: 0
+  endif
   assign body_italic = body_font | font_modify: 'style', 'italic'
   assign body_bold_italic = body_bold | font_modify: 'style', 'italic'
 
@@ -55,9 +66,9 @@
   {{ body_italic | font_face: font_display: 'swap' }}
   {{ body_bold_italic | font_face: font_display: 'swap' }}
   {{ heading_font | font_face: font_display: 'swap' }}
-  {% render 'font-fallbacks', font: body_font %}
+  {% render 'font-fallbacks', font: body_font, heaviest: body_heaviest %}
   {%- unless heading_font.family == body_font.family %}
-    {% render 'font-fallbacks', font: heading_font %}
+    {% render 'font-fallbacks', font: heading_font, heaviest: heading_font.weight %}
   {%- endunless %}
 
   :root {

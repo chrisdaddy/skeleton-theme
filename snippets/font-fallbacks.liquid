@@ -8,12 +8,19 @@
   regular-weight metrics wrap bold headlines onto an extra line.
 
   @param {object} font - A font setting
+  @param {number} [heaviest] - The heaviest weight of this family the theme loads (default 700).
+    Below 651, text styled heavier renders in the 600 face, so its fallback uses 600's metrics.
 {% enddoc %}
 {%- case font.family -%}
   {%- when 'DM Sans' -%}
     @font-face { font-family: 'DM Sans Fallback Arial'; src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('LiberationSans'); font-weight: 100 550; ascent-override: 94.9001%; descent-override: 29.6563%; line-gap-override: 0%; size-adjust: 104.531%; }
+    {%- assign heaviest = heaviest | default: 700 | plus: 0 -%}
+    {%- if heaviest < 651 -%}
+    @font-face { font-family: 'DM Sans Fallback Arial'; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('LiberationSans-Bold'); font-weight: 551 900; ascent-override: 98.8451%; descent-override: 30.8891%; line-gap-override: 0%; size-adjust: 100.3591%; }
+    {%- else -%}
     @font-face { font-family: 'DM Sans Fallback Arial'; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('LiberationSans-Bold'); font-weight: 551 650; ascent-override: 98.8451%; descent-override: 30.8891%; line-gap-override: 0%; size-adjust: 100.3591%; }
     @font-face { font-family: 'DM Sans Fallback Arial'; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('LiberationSans-Bold'); font-weight: 651 900; ascent-override: 97.3827%; descent-override: 30.4321%; line-gap-override: 0%; size-adjust: 101.8661%; }
+    {%- endif -%}
     @font-face { font-family: 'DM Sans Fallback Roboto'; src: local('Roboto Regular'), local('Roboto-Regular'); ascent-override: 94.6922%; descent-override: 29.5913%; line-gap-override: 0%; size-adjust: 104.7605%; }
   {%- when 'Instrument Serif' -%}
     @font-face { font-family: 'Instrument Serif Fallback Times'; src: local('Times New Roman'), local('TimesNewRomanPSMT'), local('Liberation Serif'), local('LiberationSerif'); ascent-override: 117.9435%; descent-override: 36.9318%; line-gap-override: 0%; size-adjust: 83.9385%; }
