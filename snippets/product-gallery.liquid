@@ -4,7 +4,8 @@
   the layout. It isn't preloaded: Shopify sends preload: true as a Link header without
   the fetch priority, so the browser fetched the photo at low priority. Everything
   else loads lazily. Works without JavaScript; bp-gallery.js adds thumbnail sync and
-  the zoom dialog.
+  the zoom dialog. Thumbnails and the other slides decode asynchronously, and thumbnails
+  load at low priority, so they don't compete with the LCP image for the first frame.
 
   @param {product} product - The product
   @param {string} id_prefix - Prefix for element IDs (the section ID)
@@ -55,6 +56,7 @@
                       widths: '360, 540, 720, 900, 1080, 1300, 1600',
                       sizes: sizes,
                       loading: 'lazy',
+                      decoding: 'async',
                       alt: media_alt
                   }}
                 {%- endif -%}
@@ -91,7 +93,7 @@
             {{
               media.preview_image
               | image_url: width: 200
-              | image_tag: widths: '100, 200', sizes: '96px', loading: 'lazy', alt: ''
+              | image_tag: widths: '100, 200', sizes: '96px', loading: 'lazy', fetchpriority: 'low', decoding: 'async', alt: ''
             }}
           </a>
         </li>
