@@ -18,11 +18,11 @@
 | Phase | Status | Notes |
 |---|---|---|
 | 0. Setup | Done | Original foundation, new `AGENTS.md`, CI (Theme Check, unit tests, contrast) |
-| 1. Foundation | Done, pending store verification | See "Phase 1 delivered" below |
-| 2. Product page | Done offline, pending store verification | See "Phase 2 delivered" below. Quick-add sheet moved to Phase 4 (it belongs with product cards) |
-| 3. Cart drawer | Done offline, pending store verification | See "Phase 3 delivered" below |
-| 4. Content sections | Done offline, pending store verification | See "Phase 4 delivered" below. Includes the quick add moved from Phase 2 |
-| 5. Templates and pre-landers | Done offline, pending store verification | See "Phase 5 delivered" below. Includes the collection page moved from Phase 4 |
+| 1. Foundation | Done; verified on the stores except the theme editor | See "Phase 1 delivered" below |
+| 2. Product page | Done; verified on the stores (Buy it now fixed). Mobile PDP Lighthouse 78–80, under the SPEC's 90 | See "Phase 2 delivered" below. Quick-add sheet moved to Phase 4 (it belongs with product cards) |
+| 3. Cart drawer | Done; verified on the stores except Safari and VoiceOver | See "Phase 3 delivered" below |
+| 4. Content sections | Done; verified on the stores except `design_mode` | See "Phase 4 delivered" below. Includes the quick add moved from Phase 2 |
+| 5. Templates and pre-landers | Done; verified on the stores | See "Phase 5 delivered" below. Includes the collection page moved from Phase 4 |
 | 6. Demo stores | Seeded, themes pushed (unpublished) and checked on all 3 stores; comparisons in `docs/screenshots/store/` | See "Store run, 2026-10-25" below. Overlapping gifts handled in the cart |
 | 7. AI kit | Built; verified end to end on Verde with a Theme Access password for theme writes (apps can't write themes without Shopify's exemption) | See "Store run, 2026-10-25" |
 | 8. Updater + docs + launch | Built and tested offline; Portal deploy, sales store and a real test purchase wait on accounts | See "Phase 8 delivered" below. Runbook in `LAUNCH.md`. Updater uses the Theme Access password |
@@ -185,6 +185,45 @@ The first run against the three development stores, with the seed app's credenti
   - **Placeholder labels.** Labels now stay inside the area any crop down to 4:5 keeps: the middle three-quarters of the height on landscape images. A unit test covers it.
     - `--refresh-images` on the seed re-renders placeholders and replaces them in place with `fileUpdate`, so every product and section using them updates.
   - **Seed fix found along the way:** a metaobject upsert only touches the fields it's sent, so Ode's new 10 ml tier inherited the old 50 ml tier's subtitle and badge. Upserts now send the fields the catalog leaves out as empty, which clears them. A test covers it.
+
+#### Platform verification and Lighthouse, 2026-10-26
+
+The Phase 1–5 "still to verify on a store" items, checked on Verde and Ode by `tools/demo/platform-check.mjs` (new). For sections the demo pages don't use, it writes a temporary page template into the unpublished demo theme, renders it with `?view=`, and deletes it afterwards. Final runs: **Verde 30 of 30; Ode 26 of 26**, before the `items[n][id]` check was added (Ode has no tier gift). The store checklist still passes on all three stores: Verde 61/61, Ode 63/63, Rawform 60/60.
+
+- **Verified on Shopify:**
+  - Phase 1: the font handles load (DM Sans, Instrument Serif); `Shopify.actions.openCart()` opens the theme's drawer.
+  - Phase 2: blocks set `"disabled": true` stay hidden; without JS, the tier radio is the `id` that posts (the last one wins).
+  - Phase 3: `/cart/add.js` and `/cart/change.js` return `sections` for the static `cart-drawer` ID; a GET `/cart/change` with a line key and quantity 2 redirects to the cart and sets it; a tier gift is a child line of its bundle, and removing the bundle removes it.
+  - Phase 4: `closest.product` resolves in featured-product blocks; the buy-box blocks render and add to cart there; an unset countdown renders nothing; `product_recommendations_url` returns the section with `intent=complementary`; quick add's static `content_for 'block'` blocks render through the Section Rendering API; an `items[n][id]` form post, as the bundle builder sends it, adds every variant (Verde; its demo page has no bundle builder, so the check posts the same fields).
+  - Phase 5: pre-landers use the landing layout and its groups; `?section_id=` returns the filtered grid; the price and availability chips remove their filters; `?variant=&selling_plan=` preselects the tier and plan server-side.
+  - axe (WCAG 2.2 AA): no serious or critical violations on `/`, the product page, `/collections/all`, `/pages/advertorial` and `/cart`, on both stores.
+- **Bugs found and fixed:**
+  - **"Buy it now" bought the wrong thing.** Shopify's wallet script reads the *first* `id`, `quantity` and `selling_plan` among the form's elements, checked or not. That was the section's default variant, with no plan. `bp-product.js` now moves its synced inputs ahead of the others (quantity is synced too). It also adds the tier's free gift, nested under the bundle, and a mix tier's other picks, through Shopify's `shopify-additional-items[n][…]` fields ("Checkout with multiple products"). Their `properties` must be a JSON list of `{ key, value }`, since the wallet maps over it. Add to cart strips these fields. Verified on both stores: the `cartCreate` lines carry the chosen variant, its selling plan and, on Verde, the gift with its parent.
+  - **Mix pickers lost their picks.** Choosing an item rebuilt every picker. They're now rebuilt only when the tier changes.
+  - **Tier gifts weren't attached to their bundle.** A line already in the cart is a parent by `parent_line_key`; `parent_id` is a variant ID and only reaches a parent added in the same request.
+  - **The price filter read cents as dollars** ("$1000–…"). Shopify's `filter.*_value.value` are in cents.
+  - **A tap on a lazy-loaded element before its module arrived did nothing.** `bp-core.js` now waits for the module, then repeats the tap.
+  - **Images with no alt text** were missing the attribute, which `image_tag` omits for a nil alt. They now fall back to an empty alt or the product title.
+  - **Muted text on the selected-option tint** fell under 4.5:1 in four demo colour sets. The token derivation now checks that pair too, and `tools/contrast-check.mjs` requires it.
+  - The preview mocks now follow Shopify's real behaviour for parent lines and price cents, so these bugs fail offline.
+- **Still needs a person** (not checkable from this container):
+  - the theme editor: `visible_if` settings and `request.design_mode` (needs an admin login);
+  - Safari: `closedby` and focus return on dialogs (no WebKit here);
+  - VoiceOver;
+  - the review apps' live fields.
+- **Lighthouse 12.8.2** (median of 3, simulated throttling, from a cloud container through a proxy; `pb=0` previews on Verde and Ode, the live theme on Rawform; placeholder PNG photos):
+
+  | Store | Home m/d | Product m/d | Collection m/d | Perf. average | A11y |
+  |---|---|---|---|---|---|
+  | Verde | 76 / 100 | 78 / 100 | 81 / 99 | 89 | 96–100 |
+  | Ode | 76 / 100 | 70 / 100 | 67 / 99 | 85 | 96–100 |
+  | Rawform | 86 / 100 | 79 / 100 | 76 / 99 | 90 | 97–100 |
+
+  - **Theme Store floors** (performance ≥ 60, accessibility ≥ 90): met on every store.
+  - **Against Dawn and Horizon:** Verde's product page on mobile, 7 interleaved rounds on the same product and store. Blueprint scored a median of 80 (73–94); Dawn 16.0.0 77 (66–88); Horizon 78 (57–83). Accessibility: Blueprint 96, Dawn 93, Horizon 84. Dawn was installed unpublished for the run and deleted afterwards.
+  - **Where the mobile time goes:** observed in the browser, Blueprint paints its product image sooner than Dawn (1.40 s vs 1.75 s). The simulated mobile LCP is about 4 s on every theme. Total blocking time is 200–450 ms and comes mostly from Shopify's own scripts (web pixels, trekkie, perf-kit, the wallets, shop-js), which every theme loads.
+  - **The sales claims don't hold yet.** "94 mobile Lighthouse": the mobile product page's median is 78–80, and 94 came up in only 2 of 7 runs. "11 points faster than Dawn": the measured lead is 3 points, within run-to-run noise. See the claims table in §5.
+  - **Open: the SPEC target** (SPEC §10: mobile PDP ≥ 90 and ahead of Dawn) is met for "ahead of Dawn" but not for ≥ 90. Next: find why the simulated LCP waits about 1 s after the hero image arrives (element render delay), and re-measure on Shopify's benchmark data from a machine with steadier CPU than this container.
 
 #### Phase 8 delivered
 
@@ -540,7 +579,7 @@ START_HERE says "every claim on that page must be true… If a claim can't be me
 | Subscription toggle wired to selling plans, "no app" | ⚠️ The toggle is native, but **selling plans only exist through a subscription app** (Shopify Subscriptions is free) | Reword to "Wired to your selling plans. Works with Shopify Subscriptions (free), Recharge, Skio, Loop, Appstle." |
 | Cart drawer: rewards bar, protection, one upsell | ✅ Gifts and in-cart deal prices use native **automatic discounts** the merchant sets up in admin (documented). That's no app, but a setup step. | none |
 | Native advertorial, listicle and comparison pre-landers | ✅ | none |
-| "94 mobile Lighthouse out of the box" / "11 points faster than Dawn" | ⚠️ Plausible only on an app-free demo store as a median of runs. The expected lead over Dawn is +2 to +6 points (estimate, RESEARCH Part 4 §3.3) | Replace with measured numbers and the published method once Phase 2 is done. Don't print "11 points" before it's measured. |
+| "94 mobile Lighthouse out of the box" / "11 points faster than Dawn" | ❌ Not supported by the 2026-10-26 measurement (see "Platform verification and Lighthouse"): the mobile PDP median is 78–80, and the lead over Dawn 16.0.0 is 3 points on the same store and product (7 interleaved runs, within noise) | Don't print either until a remeasure supports it. Honest replacements available now: "Performance 85–90 averaged across home, product and collection (Theme Store method)", "accessibility 96–100", "ahead of Dawn and Horizon on the same demo product" with the method linked. |
 | "Faster than Dawn on the same products" | ✅ expected and measured in CI (§11) | none |
 | "Built on Dawn" (footer) / FAQ "Dawn is the base…" | ❌ false under D1, and unsafe under Dawn's license | Rewrite as "Original code, built to Shopify's Online Store 2.0 standards". |
 | "Lifetime v1 updates + updater app" / "The updater app swaps the theme files…" | ⚠️ A hosted app for all buyers is public distribution and needs App Store review | v1 ships an **updater tool** (CLI and AI-kit command, §13). Reword "app" to "tool". |

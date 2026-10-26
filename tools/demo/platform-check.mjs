@@ -301,7 +301,14 @@ try {
       const added = await (await p.request.get(`${base}/cart.js`)).json();
       check('Phase 4', `without JavaScript, /cart/add takes the bundle's items[n][id] form post (${ids.length} products)`, ids.length > 1 && ids.every((id) => added.items.some((i) => String(i.variant_id) === id)), { wanted: ids, got: added.items.map((i) => i.variant_id) });
       await p.request.post(`${base}/cart/clear.js`);
-    } else check('Phase 4', 'items[n][id] form posts: no bundle builder on this product page', null);
+    } else {
+      // No bundle builder on this page: post the same form fields it would.
+      const ids = tiers.slice(0, 2).map((t) => t.id);
+      const response = await p.request.post(`${base}/cart/add`, { form: Object.fromEntries(ids.map((id, i) => [`items[${i}][id]`, id])), maxRedirects: 0 });
+      const added = await (await p.request.get(`${base}/cart.js`)).json();
+      check('Phase 4', `/cart/add takes an items[n][id] form post (${ids.length} variants, as the bundle builder posts)`, ids.length > 1 && ids.every((id) => added.items.some((i) => String(i.variant_id) === id)), { status: response.status(), wanted: ids, got: added.items.map((i) => i.variant_id) });
+      await p.request.post(`${base}/cart/clear.js`);
+    }
     await plain.close();
   } catch (error) {
     check('Phase 2', 'without JavaScript: checks crashed', false, error.message);
