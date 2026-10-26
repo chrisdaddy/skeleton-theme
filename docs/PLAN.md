@@ -229,8 +229,12 @@ The Phase 1–5 "still to verify on a store" items, checked on Verde and Ode by 
   - **Theme Store floors** (performance ≥ 60, accessibility ≥ 90): met on every store.
   - **Against Dawn and Horizon:** Verde's live product page on mobile, 9 interleaved rounds on the same store and product. Blueprint scored a median of **89** (83–95), Dawn 16.0.0 **72** (55–90) and Horizon **55** (48–87). LCP: 2.3 s, 4.6 s and 6.0 s. Accessibility: 96, 93 and 84. Dawn was installed unpublished for the run and deleted afterwards.
   - **Sales claims:** "94 mobile Lighthouse" isn't supported as a median on the live product page: it measured 89, and 94 only in the preview A/B. "11 points faster than Dawn" is supported: 17 points in this run. The sales site prints the measured 89 and 17 from `site/config.js`.
-  - **The weakest page is the collection on mobile** (78–82). Its total blocking time of 450–550 ms is the largest of any page.
-  - **Open: the SPEC target** (SPEC §10: mobile PDP ≥ 90 and ahead of Dawn). Ahead of Dawn: met, by 17 points. ≥ 90: 89 in the interleaved run, and 84–89 in the 3-run sweep, so just short. Next: cut the collection page's blocking time, and re-measure on Shopify's benchmark data from a machine with steadier CPU than this container.
+  - **The weakest page was the collection on mobile** (78–82). Its total blocking time of 450–550 ms was the largest of any page. Fixed, 2026-10-26:
+    - **Cart-add forms on cards.** Shopify's analytics script treats every form whose action contains `/cart/add` as the product being viewed, and fires "Viewed Product Variant" for each one on load. Verde's collection page had 17 such forms (quick add), so it logged 17 false views and spent about 230 ms of blocking time on them. Every form except the product's own now posts through its button's `formaction`, which still works without JavaScript. This covers card quick add, cart gifts, protection, the cart upsell, the bundle builder and "Goes well with". `tests/unit/cart-add-forms.test.mjs` keeps it that way.
+    - **The LCP image was lazy.** It's the first card image. The grid's first row now loads eagerly, and the first mobile row with `fetchpriority="high"`.
+    - **Hover images** are hidden on touch screens, so they never download.
+    - **A/B result:** Verde's collection page on mobile, 9 interleaved runs per variant. Before: median 76 (LCP 3.8 s, TBT 438 ms). Forms fix only: 90. Both fixes: **93** (LCP 2.3 s, TBT 223 ms).
+  - **Open: the SPEC target** (SPEC §10: mobile PDP ≥ 90 and ahead of Dawn). Ahead of Dawn: met, by 17 points. ≥ 90: 89 in the interleaved run, and 84–89 in the 3-run sweep, so just short. The collection page is fixed (above). Next: re-measure on Shopify's benchmark data from a machine with steadier CPU than this container.
 
 #### Phase 8 delivered
 
