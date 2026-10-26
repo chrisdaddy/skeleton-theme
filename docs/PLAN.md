@@ -234,6 +234,7 @@ The Phase 1–5 "still to verify on a store" items, checked on Verde and Ode by 
     - **The LCP image was lazy.** It's the first card image. The grid's first row now loads eagerly, and the first mobile row with `fetchpriority="high"`.
     - **Hover images** are hidden on touch screens, so they never download.
     - **A/B result:** Verde's collection page on mobile, 9 interleaved runs per variant. Before: median 76 (LCP 3.8 s, TBT 438 ms). Forms fix only: 90. Both fixes: **93** (LCP 2.3 s, TBT 223 ms).
+    - **Still to run on the stores:** the store and platform checklists after this change. With the demo themes now live, Shopify's bot protection ("Just a moment…") challenges this container within a page or two, so run `node tools/demo/store-check.mjs verde ode rawform` from another network. Offline, all four preview checklists pass with and without JavaScript.
   - **Open: the SPEC target** (SPEC §10: mobile PDP ≥ 90 and ahead of Dawn). Ahead of Dawn: met, by 17 points. ≥ 90: 89 in the interleaved run, and 84–89 in the 3-run sweep, so just short. The collection page is fixed (above). Next: re-measure on Shopify's benchmark data from a machine with steadier CPU than this container.
 
 #### Phase 8 delivered
