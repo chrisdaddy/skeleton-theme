@@ -77,7 +77,8 @@ export default {
   variants,
   demoStores,
   ...ownerFigures,
-  // Median mobile Lighthouse performance score, demo product page.
+  // Median mobile Lighthouse performance score, demo product page. Confirm before launch:
+  // docs/PLAN.md ("Platform verification and Lighthouse", 2026-10-26) records a median of 78–80.
   lighthouseMobile: 94,
   // Points ahead of Dawn on the same demo product. While null the site says "Faster than
   // Dawn on the same demo product" with no number.

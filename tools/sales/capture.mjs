@@ -8,6 +8,7 @@
 // Writes, under site/:
 //   img/tour/<store>-<page>-d.webp   desktop (1440 wide, scaled to 1080), top crop
 //   img/tour/<store>-<page>-m.webp   phone (390 wide), top crop
+//   img/wall/<store>.webp            store wall card (top of the phone home page)
 //   img/compare-blueprint.webp       Verde's product page in Blueprint (before/after slider)
 //   img/compare-stock.webp           the same product as stock theme defaults (HTML below)
 //   tour.json                        the manifest site/tour.js reads
@@ -28,6 +29,7 @@ const root = fileURLToPath(new URL('../../', import.meta.url));
 const site = join(root, 'site');
 const tourDir = join(site, 'img', 'tour');
 mkdirSync(tourDir, { recursive: true });
+mkdirSync(join(site, 'img', 'wall'), { recursive: true });
 
 const demo = JSON.parse(readFileSync(join(root, 'data/demo-content.json'), 'utf8'));
 const only = process.argv[2];
@@ -35,6 +37,7 @@ const only = process.argv[2];
 const DESKTOP = { width: 1440, height: 900, crop: 3200, out: 1080, quality: 0.72 };
 const PHONE = { width: 390, height: 844, crop: 2600, out: 390, quality: 0.74 };
 const COMPARE = { width: 1280, height: 760, out: 1040, quality: 0.8 };
+const WALL = { width: 390, height: 560, quality: 0.7 };
 
 const PAGE_TITLES = { product: 'Product template', home: 'Home template', advertorial: 'Advertorial template', listicle: 'Listicle template', collection: 'Collection template', cart: 'Cart drawer' };
 const PAGE_PATHS = { home: '/', advertorial: '/pages/article', listicle: '/pages/reasons', collection: '/collections/all', cart: '/cart' };
@@ -61,6 +64,24 @@ async function toWebp(png, width, quality) {
       return canvas.toDataURL('image/webp', quality);
     },
     { b64: png.toString('base64'), width, quality },
+  );
+  return Buffer.from(dataUrl.split(',')[1], 'base64');
+}
+
+// The top `height` pixels of a WebP, re-encoded (store wall cards).
+async function cropWebp(webp, { width, height, quality }) {
+  const dataUrl = await encoder.evaluate(
+    async ({ b64, width, height, quality }) => {
+      const img = new Image();
+      img.src = `data:image/webp;base64,${b64}`;
+      await img.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height, 0, 0, width, height);
+      return canvas.toDataURL('image/webp', quality);
+    },
+    { b64: webp.toString('base64'), width, height, quality },
   );
   return Buffer.from(dataUrl.split(',')[1], 'base64');
 }
@@ -186,6 +207,8 @@ for (const id of demo.storeOrder) {
           .filter((s) => s.label);
       }
       console.log(`${file}  ${page[key].w}×${page[key].h}  ${page[key].kb} KB`);
+      // The store wall's card: the top of the phone home page, small enough for ten at once.
+      if (key === 'm' && pageId === 'home') write(`img/wall/${id}.webp`, await cropWebp(shot.webp, WALL));
     }
     entry.pages[pageId] = page;
   }

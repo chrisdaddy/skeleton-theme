@@ -1,12 +1,14 @@
 #!/usr/bin/env node
-// Serves the static sales site (site/) for local checks. No dependencies.
+// Serves the static sales site (site/) for local checks. No dependencies. Text files are
+// gzipped, as Cloudflare Pages compresses them in production.
 //
 //   node tools/sales/serve.mjs [port]      default 4173; port 0 picks a free one
 //
 // Also importable: `const { url, close } = await serveSite(0)`.
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { createServer } from 'node:http';
-import { extname, join, normalize, sep } from 'node:path';
+import { createGzip } from 'node:zlib';
+import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../../site/', import.meta.url));
@@ -27,7 +29,7 @@ export function serveSite(port = 4173) {
   const server = createServer((req, res) => {
     const { pathname } = new URL(req.url, 'http://localhost');
     let path = normalize(join(root, decodeURIComponent(pathname)));
-    if (!path.startsWith(root.endsWith(sep) ? root : root + sep) && path !== root.slice(0, -1)) {
+    if (!path.startsWith(root)) {
       res.writeHead(403).end('forbidden');
       return;
     }
@@ -37,10 +39,12 @@ export function serveSite(port = 4173) {
       return;
     }
     const type = TYPES[extname(path)] ?? 'application/octet-stream';
-    // Long cache for fingerprint-free assets is wrong in production; locally, revalidate everything.
-    res.writeHead(200, { 'content-type': type, 'cache-control': 'no-cache' });
+    const gzip = /text|json|svg/.test(type) && /\bgzip\b/.test(req.headers['accept-encoding'] ?? '');
+    // no-cache: edits show on the next reload.
+    res.writeHead(200, { 'content-type': type, 'cache-control': 'no-cache', vary: 'accept-encoding', ...(gzip && { 'content-encoding': 'gzip' }) });
     if (req.method === 'HEAD') return res.end();
-    createReadStream(path).pipe(res);
+    const stream = createReadStream(path);
+    (gzip ? stream.pipe(createGzip()) : stream).pipe(res);
   });
   return new Promise((resolve) =>
     server.listen(port, '127.0.0.1', () => resolve({ url: `http://127.0.0.1:${server.address().port}/`, close: () => server.close() })),
