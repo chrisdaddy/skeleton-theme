@@ -19,7 +19,7 @@
 |---|---|---|
 | 0. Setup | Done | Original foundation, new `AGENTS.md`, CI (Theme Check, unit tests, contrast) |
 | 1. Foundation | Done; verified on the stores except the theme editor | See "Phase 1 delivered" below |
-| 2. Product page | Done; verified on the stores (Buy it now fixed). Mobile PDP Lighthouse 78–80, under the SPEC's 90 | See "Phase 2 delivered" below. Quick-add sheet moved to Phase 4 (it belongs with product cards) |
+| 2. Product page | Done; verified on the stores (Buy it now fixed). Mobile PDP Lighthouse 89 median, 17 ahead of Dawn (SPEC asks ≥ 90) | See "Phase 2 delivered" below. Quick-add sheet moved to Phase 4 (it belongs with product cards) |
 | 3. Cart drawer | Done; verified on the stores except Safari and VoiceOver | See "Phase 3 delivered" below |
 | 4. Content sections | Done; verified on the stores except `design_mode` | See "Phase 4 delivered" below. Includes the quick add moved from Phase 2 |
 | 5. Templates and pre-landers | Done; verified on the stores | See "Phase 5 delivered" below. Includes the collection page moved from Phase 4 |
@@ -211,19 +211,26 @@ The Phase 1–5 "still to verify on a store" items, checked on Verde and Ode by 
   - Safari: `closedby` and focus return on dialogs (no WebKit here);
   - VoiceOver;
   - the review apps' live fields.
-- **Lighthouse 12.8.2** (median of 3, simulated throttling, from a cloud container through a proxy; `pb=0` previews on Verde and Ode, the live theme on Rawform; placeholder PNG photos):
+- **Lighthouse 12.8.2, first run** (before the fix below; median of 3, mobile / desktop): Verde 76/100, 78/100, 81/99; Ode 76/100, 70/100, 67/99; Rawform 86/100, 79/100, 76/99 for home, product, collection. Against Dawn on Verde's mobile product page: 80 vs 77.
+- **Fix: no font or hero preloads.** Shopify sends `preload: true` as a Link header without a fetch priority, so the hero was fetched at low priority, and two preloaded fonts held it back further. A/B on Verde's mobile product page, 9 interleaved runs per variant (temporary theme copies, deleted afterwards):
+  - with the preloads: median 79;
+  - no font preloads and no hero preload: **94**, with 8 of 9 runs at 93 or above;
+  - no font preloads, hero preload kept: 95, but erratic (57–96).
+
+  Shipped: no preloads. Bold DM Sans headlines then wrapped differently under the fallback font, so `font-fallbacks` gained Arial Bold faces sized for DM Sans 600 and 700, plus Liberation Sans and Serif for Linux. Load shift is back to 0.
+- **Lighthouse after the fix** (all three demo themes live, median of 3, simulated throttling, from a cloud container through a proxy; placeholder PNG photos):
 
   | Store | Home m/d | Product m/d | Collection m/d | Perf. average | A11y |
   |---|---|---|---|---|---|
-  | Verde | 76 / 100 | 78 / 100 | 81 / 99 | 89 | 96–100 |
-  | Ode | 76 / 100 | 70 / 100 | 67 / 99 | 85 | 96–100 |
-  | Rawform | 86 / 100 | 79 / 100 | 76 / 99 | 90 | 97–100 |
+  | Verde | 93 / 100 | 84 / 100 | 78 / 99 | 92 | 96–100 |
+  | Ode | 91 / 100 | 89 / 100 | 78 / 100 | 93 | 96–100 |
+  | Rawform | 89 / 100 | 87 / 100 | 82 / 99 | 93 | 97–100 |
 
   - **Theme Store floors** (performance ≥ 60, accessibility ≥ 90): met on every store.
-  - **Against Dawn and Horizon:** Verde's product page on mobile, 7 interleaved rounds on the same product and store. Blueprint scored a median of 80 (73–94); Dawn 16.0.0 77 (66–88); Horizon 78 (57–83). Accessibility: Blueprint 96, Dawn 93, Horizon 84. Dawn was installed unpublished for the run and deleted afterwards.
-  - **Where the mobile time goes:** observed in the browser, Blueprint paints its product image sooner than Dawn (1.40 s vs 1.75 s). The simulated mobile LCP is about 4 s on every theme. Total blocking time is 200–450 ms and comes mostly from Shopify's own scripts (web pixels, trekkie, perf-kit, the wallets, shop-js), which every theme loads.
-  - **The sales claims don't hold yet.** "94 mobile Lighthouse": the mobile product page's median is 78–80, and 94 came up in only 2 of 7 runs. "11 points faster than Dawn": the measured lead is 3 points, within run-to-run noise. See the claims table in §5.
-  - **Open: the SPEC target** (SPEC §10: mobile PDP ≥ 90 and ahead of Dawn) is met for "ahead of Dawn" but not for ≥ 90. Next: find why the simulated LCP waits about 1 s after the hero image arrives (element render delay), and re-measure on Shopify's benchmark data from a machine with steadier CPU than this container.
+  - **Against Dawn and Horizon:** Verde's live product page on mobile, 9 interleaved rounds on the same store and product. Blueprint scored a median of **89** (83–95), Dawn 16.0.0 **72** (55–90) and Horizon **55** (48–87). LCP: 2.3 s, 4.6 s and 6.0 s. Accessibility: 96, 93 and 84. Dawn was installed unpublished for the run and deleted afterwards.
+  - **Sales claims:** "94 mobile Lighthouse" isn't supported as a median on the live product page: it measured 89, and 94 only in the preview A/B. "11 points faster than Dawn" is supported: 17 points in this run. The sales site prints the measured 89 and 17 from `site/config.js`.
+  - **The weakest page is the collection on mobile** (78–82). Its total blocking time of 450–550 ms is the largest of any page.
+  - **Open: the SPEC target** (SPEC §10: mobile PDP ≥ 90 and ahead of Dawn). Ahead of Dawn: met, by 17 points. ≥ 90: 89 in the interleaved run, and 84–89 in the 3-run sweep, so just short. Next: cut the collection page's blocking time, and re-measure on Shopify's benchmark data from a machine with steadier CPU than this container.
 
 #### Phase 8 delivered
 
@@ -579,7 +586,7 @@ START_HERE says "every claim on that page must be true… If a claim can't be me
 | Subscription toggle wired to selling plans, "no app" | ⚠️ The toggle is native, but **selling plans only exist through a subscription app** (Shopify Subscriptions is free) | Reword to "Wired to your selling plans. Works with Shopify Subscriptions (free), Recharge, Skio, Loop, Appstle." |
 | Cart drawer: rewards bar, protection, one upsell | ✅ Gifts and in-cart deal prices use native **automatic discounts** the merchant sets up in admin (documented). That's no app, but a setup step. | none |
 | Native advertorial, listicle and comparison pre-landers | ✅ | none |
-| "94 mobile Lighthouse out of the box" / "11 points faster than Dawn" | ❌ Not supported by the 2026-10-26 measurement (see "Platform verification and Lighthouse"): the mobile PDP median is 78–80, and the lead over Dawn 16.0.0 is 3 points on the same store and product (7 interleaved runs, within noise) | Don't print either until a remeasure supports it. Honest replacements available now: "Performance 85–90 averaged across home, product and collection (Theme Store method)", "accessibility 96–100", "ahead of Dawn and Horizon on the same demo product" with the method linked. |
+| "94 mobile Lighthouse out of the box" / "11 points faster than Dawn" | After the preload fix (2026-10-26), the live mobile product page measured a median of 89, 17 points ahead of Dawn 16.0.0 (9 interleaved runs). "94" is not supported as a median; "faster than Dawn" is | The sales site prints the measured 89 and 17 (`site/config.js`). Re-measure before changing either. |
 | "Faster than Dawn on the same products" | ✅ expected and measured in CI (§11) | none |
 | "Built on Dawn" (footer) / FAQ "Dawn is the base…" | ❌ false under D1, and unsafe under Dawn's license | Rewrite as "Original code, built to Shopify's Online Store 2.0 standards". |
 | "Lifetime v1 updates + updater app" / "The updater app swaps the theme files…" | ⚠️ A hosted app for all buyers is public distribution and needs App Store review | v1 ships an **updater tool** (CLI and AI-kit command, §13). Reword "app" to "tool". |

@@ -255,9 +255,9 @@ The direct channel comes first (PLAN D2). A Theme Store listing would end direct
 - [x] Theme Check clean with `theme-check:recommended`.
 
 **To do before submitting:**
-- [x] **Lighthouse on the demo stores** (2026-10-26, `docs/PLAN.md` "Platform verification and Lighthouse"): performance averages 85–90, accessibility 96–100, across home, product and collection, mobile and desktop, median of 3. Both floors are met.
+- [x] **Lighthouse on the demo stores** (2026-10-26, `docs/PLAN.md` "Platform verification and Lighthouse"): after the preload fix, performance averages 92–93 and accessibility 96–100 across home, product and collection, mobile and desktop, median of 3. Both floors are met.
 - [ ] **Lighthouse on Shopify's benchmark data:** repeat it on a store loaded with that data before submitting.
-- [ ] **Sales copy:** remove "94 mobile Lighthouse" and "11 points faster than Dawn", which the measurement doesn't support. The mobile PDP median is 78–80, 3 points ahead of Dawn. Use the measured figures with the method linked.
+- [x] **Sales copy speed claims:** the sales site prints the measured figures (mobile PDP median 89, 17 points ahead of Dawn) from `site/config.js`, not "94" or "11".
 - [ ] **Theme Store build:**
   - remove the `product-viewers` block, which has no real data source on a demo store;
   - check whether metaobject-typed settings are accepted.

@@ -77,10 +77,10 @@ export default {
   variants,
   demoStores,
   ...ownerFigures,
-  // Median mobile Lighthouse performance score, demo product page. Confirm before launch:
-  // docs/PLAN.md ("Platform verification and Lighthouse", 2026-10-26) records a median of 78–80.
-  lighthouseMobile: 94,
-  // Points ahead of Dawn on the same demo product. While null the site says "Faster than
-  // Dawn on the same demo product" with no number.
-  vsDawn: null,
+  // Measured, not estimated (docs/PLAN.md, "Platform verification and Lighthouse"): median
+  // mobile Lighthouse performance on Verde's live product page, 9 runs interleaved with Dawn
+  // 16.0.0 on the same store and product, 2026-10-26. Re-measure before changing either.
+  lighthouseMobile: 89,
+  // Points ahead of Dawn in that run (89 vs 72). null hides the number.
+  vsDawn: 17,
 };
