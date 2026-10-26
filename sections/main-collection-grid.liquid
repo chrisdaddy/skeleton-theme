@@ -147,7 +147,20 @@
         {%- if collection.products.size > 0 -%}
           <ul class="bp-cols bp-product-grid" role="list" style="--bp-cols: {{ s.columns }}; --bp-cols-mobile: {{ s.columns_mobile }};">
             {%- for product in collection.products -%}
-              <li>{%- render 'product-card', product: product, show_rating: s.show_rating, show_badges: s.show_badges, quick_add: s.quick_add, sizes: '(min-width: 990px) 25vw, 50vw', section: section -%}</li>
+              {%- liquid
+                # Near the top of the page the first row is on screen and its first image is often
+                # the LCP: never lazy, and high priority for the cards in the first mobile row.
+                assign eager = false
+                assign priority = false
+                assign mobile_columns = s.columns_mobile | plus: 0
+                if section.index <= 2 and forloop.index <= s.columns
+                  assign eager = true
+                  if forloop.index <= mobile_columns
+                    assign priority = true
+                  endif
+                endif
+              -%}
+              <li>{%- render 'product-card', product: product, show_rating: s.show_rating, show_badges: s.show_badges, quick_add: s.quick_add, sizes: '(min-width: 990px) 25vw, 50vw', section: section, eager: eager, priority: priority -%}</li>
             {%- endfor -%}
           </ul>
           {%- render 'pagination', paginate: paginate -%}

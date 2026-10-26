@@ -90,18 +90,13 @@
       -%}
       {%- if threshold > 0 and basis >= threshold and merch_count > 0 and gift_variant.available -%}
         {%- unless gift_keys contains marker -%}
-          <form
-            action="{{ routes.cart_add_url }}"
-            method="post"
-            class="bp-cart-gift-claim"
-            data-bp-cart-add
-            data-bp-gift-claim="reward-{{ i }}"
-          >
+          {%- comment -%} formaction, not action: see snippets/product-card.liquid {%- endcomment -%}
+          <form method="post" class="bp-cart-gift-claim" data-bp-cart-add data-bp-gift-claim="reward-{{ i }}">
             <input type="hidden" name="id" value="{{ gift_variant.id }}">
             <input type="hidden" name="quantity" value="1">
             <input type="hidden" name="properties[_bp_gift]" value="reward">
             <input type="hidden" name="properties[_bp_reward]" value="{{ i }}">
-            <button type="submit" class="bp-button bp-button--secondary bp-button--small">
+            <button type="submit" formaction="{{ routes.cart_add_url }}" class="bp-button bp-button--secondary bp-button--small">
               {%- render 'icon', name: 'gift' -%}
               {{ 'cart.add_gift' | t: title: gift_product.title }}
             </button>

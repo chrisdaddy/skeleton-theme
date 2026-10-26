@@ -21,7 +21,8 @@
       data-bp-module="{{ 'bp-bundle.js' | asset_url }}"
       data-bp-load="visible"
     >
-      <form action="{{ routes.cart_add_url }}" method="post" class="bp-bundle__form">
+      {%- comment -%} formaction, not action: see snippets/product-card.liquid {%- endcomment -%}
+      <form method="post" class="bp-bundle__form">
         <fieldset class="bp-bundle__items">
           <legend class="bp-visually-hidden">{{ s.heading | strip_html | escape }}</legend>
           {%- if items.size == 0 and use_collection == false -%}
@@ -43,7 +44,7 @@
             <span class="bp-price" data-bp-after></span>
           </p>
           {%- if s.note != blank -%}<p class="bp-small bp-muted">{{ s.note | escape }}</p>{%- endif -%}
-          <button type="submit" class="bp-button bp-button--block" data-bp-submit>{{ s.button_label | escape }}</button>
+          <button type="submit" formaction="{{ routes.cart_add_url }}" class="bp-button bp-button--block" data-bp-submit>{{ s.button_label | escape }}</button>
           <p class="bp-form-message" role="alert" data-bp-error hidden></p>
         </div>
       </form>

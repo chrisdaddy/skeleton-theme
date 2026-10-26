@@ -14,14 +14,20 @@
   @param {boolean} [quick_add] - Show quick add (default false)
   @param {string} [sizes] - Image sizes attribute
   @param {object} [section] - The section (eager-loads images near the top of the page)
+  @param {boolean} [eager] - Load the image eagerly (a card in the first row on screen)
+  @param {boolean} [priority] - Eager, with high fetch priority (the card that can be the LCP)
 {% enddoc %}
 {%- liquid
   assign show_rating = show_rating | default: true
   assign show_badges = show_badges | default: true
   assign sizes = sizes | default: '(min-width: 990px) 25vw, 50vw'
   assign loading = 'lazy'
-  if section.index == 1
+  assign fetchpriority = 'auto'
+  if section.index == 1 or eager or priority
     assign loading = 'eager'
+  endif
+  if priority
+    assign fetchpriority = 'high'
   endif
   assign variant = product.selected_or_first_available_variant
   assign rating = product.metafields.reviews.rating.value
@@ -50,6 +56,7 @@
             widths: '240, 360, 480, 720',
             sizes: sizes,
             loading: loading,
+            fetchpriority: fetchpriority,
             class: 'bp-media__img',
             alt: ''
         }}
@@ -106,11 +113,19 @@
   </div>
   {%- if quick_add and product.available -%}
     {%- if simple -%}
-      <form action="{{ routes.cart_add_url }}" method="post" class="bp-card__quick" data-bp-quick-form>
+      {%- comment -%}
+        The post goes through the button's formaction, not the form's action. Shopify's
+        analytics script treats every form whose action contains /cart/add as the product
+        being viewed: it fires "Viewed Product Variant" for each one on load, which on a
+        collection page cost about 230 ms of mobile blocking time and logged a view for
+        every card. Without JavaScript the button still posts to /cart/add.
+      {%- endcomment -%}
+      <form method="post" class="bp-card__quick" data-bp-quick-form>
         <input type="hidden" name="id" value="{{ variant.id }}">
         <input type="hidden" name="quantity" value="1">
         <button
           type="submit"
+          formaction="{{ routes.cart_add_url }}"
           class="bp-button bp-button--secondary bp-button--small bp-button--block"
           data-bp-module="{{ 'bp-quick-add.js' | asset_url }}"
           data-bp-load="interaction"

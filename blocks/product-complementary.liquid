@@ -17,13 +17,15 @@
         {{- upsell.title | escape -}}
         <span class="bp-small bp-muted">{{ upsell_variant.price | money }}</span>
       </a>
-      {%- form 'product', upsell, class: 'bp-upsell__form', data-type: 'add-to-cart-form' -%}
+      {%- comment -%} formaction, not action: see snippets/product-card.liquid {%- endcomment -%}
+      <form method="post" class="bp-upsell__form">
         <input type="hidden" name="id" value="{{ upsell_variant.id }}">
-        <button type="submit" class="bp-button bp-button--secondary bp-button--small">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" formaction="{{ routes.cart_add_url }}" class="bp-button bp-button--secondary bp-button--small">
           {{- 'products.upsell.add' | t -}}
           <span class="bp-visually-hidden">{{ upsell.title | escape }}</span>
         </button>
-      {%- endform -%}
+      </form>
     </div>
   </div>
 {%- endif -%}

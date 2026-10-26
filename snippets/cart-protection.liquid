@@ -30,10 +30,11 @@
       </button>
     </form>
   {%- else -%}
-    <form action="{{ routes.cart_add_url }}" method="post" data-bp-cart-add data-bp-protection>
+    {%- comment -%} formaction, not action: see snippets/product-card.liquid {%- endcomment -%}
+    <form method="post" data-bp-cart-add data-bp-protection>
       <input type="hidden" name="id" value="{{ variant.id }}">
       <input type="hidden" name="quantity" value="1">
-      <button type="submit" class="bp-switch" role="switch" aria-checked="false" data-bp-focus="protection">
+      <button type="submit" formaction="{{ routes.cart_add_url }}" class="bp-switch" role="switch" aria-checked="false" data-bp-focus="protection">
         <span class="bp-visually-hidden">{{ 'cart.protection.label' | t: price: price }}</span>
       </button>
     </form>

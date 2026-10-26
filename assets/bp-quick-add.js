@@ -70,9 +70,12 @@ async function quickAddForm(form) {
     const json = await response.json();
     if (!response.ok) throw new Error(json.description);
     document.dispatchEvent(new CustomEvent('bp:cart:changed', { detail: { source: 'quick-add', sections: json.sections } }));
+    // It's in the cart: with no drawer to open, show the cart page (posting again would add it twice).
     const unhandled = document.dispatchEvent(new CustomEvent('bp:cart:open', { cancelable: true }));
-    if (unhandled) form.submit();
+    if (unhandled) window.location.assign(`${root()}cart`);
   } catch {
+    // The post target is the button's formaction (see product-card.liquid); submit() would ignore it.
+    form.setAttribute('action', button?.formAction || `${root()}cart/add`);
     form.submit();
   } finally {
     button?.removeAttribute('aria-busy');

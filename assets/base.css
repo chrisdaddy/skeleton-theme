@@ -501,6 +501,13 @@ h4,
   transition: opacity 0.3s ease;
 }
 
+/* No hover on touch screens: hidden, so the lazy second image never downloads. */
+@media (hover: none) {
+  .bp-card__media .bp-card__hover {
+    display: none;
+  }
+}
+
 @media (hover: hover) {
   .bp-card:hover .bp-card__hover {
     opacity: 1;

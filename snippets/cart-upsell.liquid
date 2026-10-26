@@ -54,10 +54,11 @@
           {%- endif -%}
         </span>
       </span>
-      <form action="{{ routes.cart_add_url }}" method="post" data-bp-cart-add data-bp-upsell="{{ variant.id }}">
+      {%- comment -%} formaction, not action: see snippets/product-card.liquid {%- endcomment -%}
+      <form method="post" data-bp-cart-add data-bp-upsell="{{ variant.id }}">
         <input type="hidden" name="id" value="{{ variant.id }}">
         <input type="hidden" name="quantity" value="1">
-        <button type="submit" class="bp-button bp-button--secondary bp-button--small" data-bp-focus="upsell">
+        <button type="submit" formaction="{{ routes.cart_add_url }}" class="bp-button bp-button--secondary bp-button--small" data-bp-focus="upsell">
           {{ 'cart.upsell.add' | t }}<span class="bp-visually-hidden"> {{ upsell.title | escape }}</span>
         </button>
       </form>

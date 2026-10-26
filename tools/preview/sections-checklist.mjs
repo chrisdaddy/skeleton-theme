@@ -98,9 +98,10 @@ for (const { label, path } of pages) {
   check('no JS: quiz answers are links', quiz.length > 0 && quiz.every((h) => h && h !== ''), quiz);
   const bundle = await page.evaluate(() => {
     const form = document.querySelector('.bp-bundle__form');
-    return { action: form?.getAttribute('action'), method: form?.getAttribute('method'), checked: new FormData(form).getAll('items[0][id]').length + new FormData(form).getAll('items[1][id]').length + new FormData(form).getAll('items[2][id]').length };
+    return { action: form?.getAttribute('action'), formaction: form?.querySelector('[type="submit"]')?.getAttribute('formaction'), method: form?.getAttribute('method'), checked: new FormData(form).getAll('items[0][id]').length + new FormData(form).getAll('items[1][id]').length + new FormData(form).getAll('items[2][id]').length };
   });
-  check('no JS: bundle builder is a real cart form', bundle.action === '/cart/add' && bundle.method === 'post' && bundle.checked === 3, bundle);
+  // The post goes through the button's formaction: Shopify's analytics treat forms with a /cart/add action as the viewed product.
+  check('no JS: bundle builder is a real cart form', bundle.action === null && bundle.formaction === '/cart/add' && bundle.method === 'post' && bundle.checked === 3, bundle);
   server.resetCart();
   await page.click('.bp-bundle__form [type="submit"]');
   await page.waitForLoadState('load');
@@ -224,7 +225,7 @@ for (const { label, path } of pages) {
   const { context, page } = await open('/stores/ode/sections.html');
   server.resetCart();
   const form = page.locator('[data-bp-quick-form]').first();
-  check('quick add: single-variant cards are a real form', (await form.getAttribute('action')) === '/cart/add');
+  check('quick add: single-variant cards are a real form (posting through the button\'s formaction)', (await form.getAttribute('action')) === null && (await form.locator('[type="submit"]').getAttribute('formaction')) === '/cart/add');
   await form.locator('button').hover();
   await page.waitForTimeout(300);
   await form.locator('button').click();
