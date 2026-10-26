@@ -18,6 +18,23 @@ if (process.env.HTTPS_PROXY && !process.env.NODE_USE_ENV_PROXY) {
   const result = spawnSync(process.execPath, process.argv.slice(1), { stdio: 'inherit', env: { ...process.env, NODE_USE_ENV_PROXY: '1', NODE_NO_WARNINGS: '1' } });
   process.exit(result.status ?? 1);
 }
+
+// Keeps a check run light enough not to trip Shopify's bot protection: a live storefront
+// preloads a few hundred checkout files on every page and sends analytics beacons, none of
+// which these checks look at.
+const NOISE = /\/checkouts\/internal\/preloads\.js|\/monorail\/|otlp-http-production|error-analytics|\/v1\/(logs|metrics)\b/;
+async function quiet(ctx) {
+  await ctx.route((u) => NOISE.test(u.href), (route) => route.abort());
+  return ctx;
+}
+
+// A live storefront keeps analytics and checkout preloads trickling in, so network idle can
+// take a long time or never come: wait for load, then allow a few seconds of settling at most.
+async function goto(page, target) {
+  const response = await page.goto(target, { waitUntil: 'load' });
+  await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
+  return response;
+}
 const { chromium } = await import(new URL('../preview/node_modules/playwright-core/index.mjs', import.meta.url));
 const axeSource = readFileSync(new URL('../preview/node_modules/axe-core/axe.min.js', import.meta.url), 'utf8');
 
@@ -63,6 +80,7 @@ const url = (path, params = {}) => {
 };
 async function context(javaScriptEnabled = true) {
   const ctx = await browser.newContext({ ignoreHTTPSErrors: true, javaScriptEnabled, viewport: { width: 1280, height: 900 } });
+  await quiet(ctx);
   if (storefrontPassword) {
     const page = await ctx.newPage();
     await page.goto(`${base}/password`);
@@ -86,7 +104,7 @@ try {
   // ---------- Fonts (Phase 1) ----------
   const fontResponses = [];
   page.on('response', (r) => /\/fonts\/|\.woff2?(\?|$)/.test(r.url()) && fontResponses.push(r.status()));
-  await page.goto(url('/'), { waitUntil: 'networkidle' });
+  await goto(page, url('/'));
   const fonts = await page.evaluate(async () => {
     await document.fonts.ready;
     const first = (el) => getComputedStyle(el).fontFamily.split(',')[0].replace(/["']/g, '').trim();
@@ -127,7 +145,7 @@ try {
   if (wroteTemplate) {
     // A template written seconds ago can take a moment to render: retry before judging it.
     for (let attempt = 0; attempt < 4; attempt++) {
-      await page.goto(url('/pages/about', { view: 'bp-platform-check' }), { waitUntil: 'networkidle' });
+      await goto(page, url('/pages/about', { view: 'bp-platform-check' }));
       if (await page.locator('[id$="__featured"] [data-bp-tier-input]').count()) break;
       await settle(page, 5000);
     }
@@ -162,7 +180,7 @@ try {
 
   // ---------- Quick add (Phase 4) ----------
   await clear(page);
-  await page.goto(url('/collections/all'), { waitUntil: 'networkidle' });
+  await goto(page, url('/collections/all'));
   const quick = page.locator('[data-bp-quick-add]').first();
   if (await quick.count()) {
     await quick.click();
@@ -172,7 +190,7 @@ try {
   } else check('Phase 4', 'quick add: no quick-add button on the collection page', false);
 
   // ---------- Filters (Phase 5) ----------
-  await page.goto(url('/collections/all'), { waitUntil: 'networkidle' });
+  await goto(page, url('/collections/all'));
   const grid = await page.evaluate(() => document.querySelector('[data-bp-facets-results]')?.closest('[id^="shopify-section-"]')?.id.replace('shopify-section-', ''));
   const filtered = await page.evaluate(async (id) => {
     const u = new URL(location.href);
@@ -187,18 +205,18 @@ try {
   const priceChip = filtered.chip.find((c) => /\$10/.test(c.text));
   check('Phase 5', 'filters: ?section_id= returns the grid section with the filter applied', filtered.status === 200 && filtered.section, filtered);
   check('Phase 5', 'filters: price_range shows an active chip whose url_to_remove drops the filter', priceChip && !priceChip.href.includes('price.gte'), filtered.chip);
-  await page.goto(url('/collections/all', { 'filter.v.availability': '1' }), { waitUntil: 'networkidle' });
+  await goto(page, url('/collections/all', { 'filter.v.availability': '1' }));
   const availability = await page.evaluate(() => [...document.querySelectorAll('.bp-chip')].map((a) => a.getAttribute('href')));
   check('Phase 5', 'filters: a list filter (availability) shows a chip that removes it', availability.length > 0 && availability.every((h) => !h.includes('availability=1')), availability);
 
   // ---------- Pre-lander layout (Phase 5) ----------
-  await page.goto(url('/pages/advertorial'), { waitUntil: 'networkidle' });
+  await goto(page, url('/pages/advertorial'));
   const landing = await page.evaluate(() => ({ header: Boolean(document.querySelector('header.bp-header')), mainNav: Boolean(document.querySelector('.bp-header__nav')), cartDrawer: Boolean(document.querySelector('#CartDrawer')) }));
   check('Phase 5', 'pre-landers use the landing layout: its own minimal header (no main navigation), with the cart drawer', landing.header && !landing.mainNav && landing.cartDrawer, landing);
 
   // ---------- Cart endpoints (Phase 3) ----------
   await clear(page);
-  await page.goto(url(product), { waitUntil: 'networkidle' });
+  await goto(page, url(product));
   const drawerId = await page.locator('bp-cart').first().getAttribute('data-section-id');
   const variantId = await page.locator('[data-bp-tier-input]').first().getAttribute('value');
   const added = await page.evaluate(async ({ id, sections }) => (await fetch(`${window.Shopify.routes.root}cart/add.js`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: [{ id: Number(id), quantity: 1 }], sections }) })).json(), { id: variantId, sections: drawerId });
@@ -212,7 +230,7 @@ try {
 
   // ---------- Tier gift with parent_id (Phases 2 and 3) ----------
   await clear(page);
-  await page.goto(url(product), { waitUntil: 'networkidle' });
+  await goto(page, url(product));
   const giftTier = await page.$$eval('[data-bp-tier-input]', (inputs) => inputs.find((i) => i.dataset.giftId)?.dataset.bpTierInput);
   if (giftTier) {
     await page.locator(`label:has([data-bp-tier-input="${giftTier}"])`).click();
@@ -230,7 +248,7 @@ try {
   } else check('Phase 2', 'parent_id gift lines: this store has no tier with a gift', null);
 
   // ---------- Disabled blocks (Phase 2) ----------
-  await page.goto(url(product), { waitUntil: 'networkidle' });
+  await goto(page, url(product));
   const disabled = await page.evaluate(() => ({ award: document.querySelectorAll('.bp-award').length, moneyback: document.querySelectorAll('.bp-moneyback').length }));
   check('Phase 2', 'blocks set "disabled": true in product.json stay hidden (award, money-back)', disabled.award === 0 && disabled.moneyback === 0, disabled);
 
@@ -263,7 +281,7 @@ try {
 
   // ---------- Accessibility (axe, WCAG 2.2 AA) ----------
   for (const path of ['/', product, '/collections/all', '/pages/advertorial', '/cart']) {
-    await page.goto(url(path), { waitUntil: 'networkidle' });
+    await goto(page, url(path));
     await page.addScriptTag({ content: axeSource });
     const violations = await page.evaluate(async () => (await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] } })).violations.filter((v) => ['serious', 'critical'].includes(v.impact) && !v.nodes.every((n) => /shopify-|PBarNextFrame/.test(n.target.join(' ')))).map((v) => `${v.id} (${v.nodes.length}): ${v.nodes[0].target.join(' ')}`));
     check('Accessibility', `axe ${path}: no serious or critical WCAG 2.2 AA violations`, violations.length === 0, violations);

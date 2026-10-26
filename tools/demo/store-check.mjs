@@ -27,6 +27,23 @@ if (process.env.HTTPS_PROXY && !process.env.NODE_USE_ENV_PROXY) {
   const result = spawnSync(process.execPath, process.argv.slice(1), { stdio: 'inherit', env: { ...process.env, NODE_USE_ENV_PROXY: '1', NODE_NO_WARNINGS: '1' } });
   process.exit(result.status ?? 1);
 }
+
+// Keeps a check run light enough not to trip Shopify's bot protection: a live storefront
+// preloads a few hundred checkout files on every page and sends analytics beacons, none of
+// which these checks look at.
+const NOISE = /\/checkouts\/internal\/preloads\.js|\/monorail\/|otlp-http-production|error-analytics|\/v1\/(logs|metrics)\b/;
+async function quiet(ctx) {
+  await ctx.route((u) => NOISE.test(u.href), (route) => route.abort());
+  return ctx;
+}
+
+// A live storefront keeps analytics and checkout preloads trickling in, so network idle can
+// take a long time or never come: wait for load, then allow a few seconds of settling at most.
+async function goto(page, target) {
+  const response = await page.goto(target, { waitUntil: 'load' });
+  await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
+  return response;
+}
 const { chromium } = await import(new URL('../preview/node_modules/playwright-core/index.mjs', import.meta.url));
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -70,6 +87,7 @@ for (const storeId of stores) {
 
   async function context(javaScriptEnabled = true) {
     const ctx = await browser.newContext({ ignoreHTTPSErrors: true, javaScriptEnabled });
+    await quiet(ctx);
     if (password) {
       const page = await ctx.newPage();
       await page.goto(`${base}/password`);
@@ -87,7 +105,7 @@ for (const storeId of stores) {
     page.on('console', (m) => m.type() === 'error' && errors.push(m.text().slice(0, 200)));
     page.on('pageerror', (e) => errors.push(e.message.slice(0, 200)));
     page.on('response', (r) => r.status() >= 400 && /\/cdn\/shop\/t\/|\/assets\//.test(r.url()) && errors.push(`${r.status()} ${r.url().slice(0, 160)}`));
-    const response = await page.goto(url(path, params), { waitUntil: 'networkidle' });
+    const response = await goto(page, url(path, params));
     return { page, errors, status: response.status() };
   }
   const cartJs = (page) => page.evaluate(async () => (await fetch(`${window.Shopify.routes.root}cart.js`)).json());
@@ -129,7 +147,7 @@ for (const storeId of stores) {
   for (const c of cases) {
     const label = `tier ${c.index} ${c.plan === 'sub' ? 'subscribe' : 'one-time'}`;
     await clear(page);
-    await page.goto(url(pages.product), { waitUntil: 'networkidle' });
+    await goto(page, url(pages.product));
     // The radios are visually hidden; shoppers click their labels.
     await page.locator(`label:has([data-bp-tier-input="${c.index}"])`).click();
     const planLabel = page.locator(`label:has([data-bp-plan="${c.plan}"])`);
@@ -163,7 +181,7 @@ for (const storeId of stores) {
   const subTier = tiers.find((t) => t.planId);
   if (subTier) {
     await clear(page);
-    await page.goto(url(pages.product, { variant: subTier.variant, selling_plan: subTier.planId, tier: subTier.index, plan: 'sub' }), { waitUntil: 'networkidle' });
+    await goto(page, url(pages.product, { variant: subTier.variant, selling_plan: subTier.planId, tier: subTier.index, plan: 'sub' }));
     await page.locator('[data-bp-atc]').first().click();
     await page.locator('dialog#CartDrawer[open]').waitFor({ timeout: 10000 }).catch(() => {});
     await page.waitForTimeout(1500);
